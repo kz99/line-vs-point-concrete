@@ -4,6 +4,7 @@ campaign_dir: ../research_state/campaign-300-ultra
 
 campaign:
   researcher_count: 300
+  literature_agent_enabled: true
   dimension: 2
   field_regime: prime
   fixed_prime: 147457
@@ -24,10 +25,12 @@ campaign:
   lemma_writer_poll_seconds: 30
   lemma_writer_timeout_seconds: 5400
   lemma_writer_max_attempts: 4
-  roadmap_initial_rounds: 2
+  roadmap_initial_rounds: 1
   roadmap_max_workers: 3
   roadmap_poll_seconds: 45
   roadmap_timeout_seconds: 5400
   roadmap_max_attempts: 4
+  pages_publisher_enabled: true
+  pages_poll_seconds: 60
   initial_soundness: 1.0
   recovery_divisor: 10

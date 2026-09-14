@@ -50,11 +50,12 @@ class CampaignTests(unittest.TestCase):
             campaign = ResearchCampaign(write_config(root))
             campaign.initialize()
             status = campaign.export_status()
-            self.assertEqual(status["counts"], {"queued": 11})
+            self.assertEqual(status["counts"], {"queued": 12})
             self.assertEqual(status["fixed_prime"], 147457)
             self.assertEqual(status["fixed_degree"], 87)
             self.assertEqual(status["verifier_count"], 2)
-            self.assertEqual(status["planned_agent_invocations"], 44)
+            self.assertEqual(status["literature_agent_count"], 1)
+            self.assertEqual(status["planned_agent_invocations"], 48)
 
     def test_each_submission_enqueues_two_independent_verifiers(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -75,6 +76,18 @@ class CampaignTests(unittest.TestCase):
             self.assertIn("epsilon/10", prompt)
             self.assertIn("Lower epsilon is stronger", prompt)
             self.assertIn("A lemma statement contains only", prompt)
+
+    def test_literature_agent_demands_primary_exact_constants(self):
+        with tempfile.TemporaryDirectory() as directory:
+            campaign = ResearchCampaign(write_config(Path(directory), 1))
+            prompt = campaign._research_prompt({
+                "id": "literature-sota-0001", "ordinal": 0,
+                "direction": "establish the literature baseline",
+            })
+            self.assertIn("Search primary sources", prompt)
+            self.assertIn("Kominers--Thaler--Zheng", prompt)
+            self.assertIn("claimed_soundness=null", prompt)
+            self.assertIn("p=147457,d=87", prompt)
 
     def test_rejects_parameter_drift(self):
         with tempfile.TemporaryDirectory() as directory:

@@ -312,6 +312,18 @@ class RoadmapWorkshop:
             round_number: int) -> str:
         current = self._current(definition["id"])
         board = self._message_board()
+        history_path = self.paths.campaign_dir / "leaderboards" / "soundness-history.json"
+        points = []
+        if history_path.exists():
+            try:
+                points = list(json.loads(history_path.read_text()).get("points", []))
+            except (json.JSONDecodeError, OSError, TypeError):
+                points = []
+        record = (
+            f"epsilon={min(float(point['soundness']) for point in points):.17g}"
+            if points else
+            f"no verified point yet (comparison threshold epsilon={float(self.cfg.get('initial_soundness', 1.0)):.17g})"
+        )
         return f"""You are the proof-roadmap agent for `{definition['id']}` in the bivariate
 prime-field line-versus-point campaign. Work at the level of a Lean-style proof plan: give a
 concise but complete directed acyclic chain of definitions, reductions, lemmas, obligations, and
@@ -334,6 +346,12 @@ better. Use work_state only to report activity: `open`,
 `drafting`, `candidate`, `blocked`, or `refuted`. The harness—not you—derives proof status from
 exact source hashes and two independent matching verifier accepts. Never convert confidence, a polished lemma,
 or informal discussion into verified proof progress.
+
+The authoritative leaderboard is {history_path}; its current record is {record}. Your purpose is
+not to complete a large roadmap for its own sake. Concentrate on the shortest dependency chain
+that can yield a rigorously numerical epsilon below that record, and delete or deprioritize nodes
+that do not plausibly move the leaderboard. Every proposed lemma should identify which numerical
+loss it improves and how that improvement propagates to the final epsilon.
 
 This is roadmap round {round_number}. The shared corpus snapshot SHA-256 is
 {snapshot['sha256']}. Set those exact values in the response. Preserve useful nodes from your
@@ -691,7 +709,7 @@ STABLE PROOF-EVIDENCE INDEX:
         return roadmap_payload
 
     def run(self, watch: bool = False) -> dict[str, Any]:
-        initial_rounds = max(2, int(self.cfg.get("roadmap_initial_rounds", 2)))
+        initial_rounds = max(1, int(self.cfg.get("roadmap_initial_rounds", 1)))
         while True:
             current_rounds = [int((self._current(item["id"]) or {}).get("round", 0))
                               for item in ROADMAP_DEFINITIONS]

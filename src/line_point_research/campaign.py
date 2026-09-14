@@ -216,16 +216,16 @@ AUDIT_SCHEMA = {
 
 
 DIRECTIONS = [
-    "optimize the exact constants in the bivariate KTZ incidence-pruning argument",
-    "derive a sharper exact popularity threshold for the fixed affine plane",
-    "optimize bivariate weighted interpolation at p=147457 and d=87",
-    "build a rational-arithmetic certificate for the interpolation inequalities",
-    "audit every use of Hasse derivatives at the fixed prime",
-    "sharpen the plane-curve factor and discriminant accounting",
-    "optimize Bezout and intersection-multiplicity constants",
-    "prove a fixed-parameter point-line incidence lemma",
-    "replace Markov losses by exact moment inequalities",
-    "optimize dependent-random-choice constants on accepted incidences",
+    "KTZ parameter hack 1: reproduce the bivariate KTZ proof as an exact finite optimization problem, jointly tune every popularity, pruning, interpolation, and cleanup threshold at p=147457 and d=87, and submit the best rigorously derived numerical epsilon",
+    "KTZ parameter hack 2: replace each coarse Markov, union-bound, and integer-rounding choice in KTZ by the sharp fixed-instance inequality, search the admissible rational parameter region, and submit a concrete improved epsilon with a complete loss ledger",
+    "KTZ parameter hack 3: optimize the weighted-interpolation multiplicities and monomial region in the KTZ architecture for p=147457 and d=87, using exact integer arithmetic and a reproducible certificate for every finite inequality",
+    "KTZ parameter hack 4: optimize incidence pruning, popular points, popular lines, and exceptional-direction thresholds in the KTZ architecture simultaneously rather than sequentially, with the leaderboard epsilon as the primary objective",
+    "KTZ parameter hack 5: tighten the resultant, Bezout, discriminant, separability, and exceptional-line constants in the KTZ proof at the fixed prime and propagate every marginal saving to one explicit final soundness value",
+    "new architecture 1: seek a genuinely different bivariate proof using affine-plane directions and pencils through popular points; target a discontinuous improvement over the tuned KTZ constant, not a general-dimensional theorem",
+    "new architecture 2: seek a higher-moment, energy-increment, or dependent-random-choice replacement for KTZ popularity pruning that preserves substantially more accepted incidence mass and yields an explicit fixed-instance epsilon",
+    "new architecture 3: seek an algebraic reconstruction argument that exploits d=87 and p=147457 directly, including nonrectangular interpolation regions, Hasse derivatives, or curve geometry unavailable to the generic asymptotic proof",
+    "new architecture 4: search for a direct agreement theorem across line pencils or directions that avoids the lossy list-to-one-polynomial conversion and gives a substantially smaller concrete epsilon",
+    "new architecture 5: combine compatible verified lemmas from the shared corpus into a new end-to-end soundness proof, but judge success solely by the concrete doubly-verifiable leaderboard epsilon",
     "use direction structure in the fixed affine plane",
     "derive a finite-field energy increment with explicit constants",
     "specialize bivariate Reed--Muller list recovery to d=87",
@@ -237,6 +237,17 @@ DIRECTIONS = [
     "construct a machine-checkable integer or rational certificate",
     "optimize the final epsilon-to-epsilon/10 recovery step",
 ]
+
+
+LITERATURE_DIRECTION = """Establish the campaign's rigorous state-of-the-art baseline from
+primary literature. Locate the strongest published or publicly posted theorem actually
+applicable to the uniform affine line-versus-point test on F_147457^2 with total degree 87,
+including Kominers--Thaler--Zheng and any later refinement. Record exact paper versions,
+theorem or lemma numbers, hypotheses, constants, and the exact conversion from the source's
+agreement conclusion to this campaign's epsilon/10 convention. Compare all applicable
+candidates and explain mathematical dominance. Never infer a numerical constant hidden by
+O-notation or an existence statement: if the primary theorem does not expose enough constants
+to calculate a concrete epsilon, record that obstruction and do not invent a leaderboard point."""
 
 
 SCHEMA = """
@@ -351,6 +362,7 @@ class ResearchCampaign:
                     "AND status='queued' AND attempts=0",
                     (direction, job_id),
                 )
+            self._insert_literature_agent(connection)
             if bool(self.cfg.get("genius_enabled", True)):
                 connection.execute(
                     """INSERT OR IGNORE INTO campaign_jobs
@@ -366,6 +378,36 @@ class ResearchCampaign:
                     ("global synthesis of the strongest fixed-instance soundness theorem",),
                 )
         self.export_status()
+
+    def _insert_literature_agent(self, connection: sqlite3.Connection) -> None:
+        if not bool(self.cfg.get("literature_agent_enabled", True)):
+            return
+        connection.execute(
+            """INSERT OR IGNORE INTO campaign_jobs
+            (id,role,ordinal,direction,dependency,status,max_attempts,model,reasoning_effort,created_at)
+            VALUES ('literature-sota-0001','researcher',0,?,NULL,'queued',?,?,?,?)""",
+            (LITERATURE_DIRECTION, int(self.cfg.get("max_attempts", 8)), self.provider.model,
+             self.provider.reasoning_effort, utc_timestamp()),
+        )
+        connection.execute(
+            "UPDATE campaign_jobs SET direction=? WHERE id='literature-sota-0001' "
+            "AND role='researcher' AND status='queued' AND attempts=0",
+            (LITERATURE_DIRECTION,),
+        )
+
+    def rebalance_for_leaderboard(self) -> dict[str, Any]:
+        """Add the literature seat and retarget untouched researchers at concrete epsilon."""
+        with self.connect() as connection:
+            connection.executescript(SCHEMA)
+            self._insert_literature_agent(connection)
+            for ordinal in range(1, int(self.cfg["researcher_count"]) + 1):
+                direction = DIRECTIONS[(ordinal - 1) % len(DIRECTIONS)]
+                connection.execute(
+                    "UPDATE campaign_jobs SET direction=? WHERE id=? AND role='researcher' "
+                    "AND status='queued' AND attempts=0",
+                    (direction, f"researcher-{ordinal:04d}"),
+                )
+        return self.export_status()
 
     def _ready(self, limit: int) -> list[dict[str, Any]]:
         with self.connect() as connection:
@@ -429,14 +471,42 @@ navigation aids and identify exact primary-source theorem dependencies. Distingu
 theorems from your own fixed-parameter derivation. Exact deterministic computation may certify
 finite inequalities only with reproducible code and a checkable certificate; floating-point or
 randomized evidence is not proof. Ignore every directory named
-superseded: those files are retained only as provenance and are not part of the active corpus."""
+superseded: those files are retained only as provenance and are not part of the active corpus.
+
+{self._leaderboard_instruction()}"""
+
+    def _leaderboard_instruction(self) -> str:
+        history_path = self.paths.campaign_dir / "leaderboards" / "soundness-history.json"
+        points: list[dict[str, Any]] = []
+        if history_path.exists():
+            try:
+                points = list(json.loads(history_path.read_text()).get("points", []))
+            except (json.JSONDecodeError, OSError, TypeError):
+                points = []
+        if points:
+            best = min(float(point["soundness"]) for point in points)
+            record = f"The current doubly verified leaderboard record is epsilon={best:.17g}."
+        else:
+            initial = float(self.cfg.get("initial_soundness", 1.0))
+            record = (
+                "There is no doubly verified leaderboard point yet; "
+                f"the comparison threshold is epsilon={initial:.17g}.")
+        return f"""LEADERBOARD OBJECTIVE: {record} Read the authoritative history at
+{history_path}. Every constructive choice must be evaluated by whether it can produce a smaller
+fully proved numerical epsilon for the fixed instance. Do not optimize elegance, generality,
+roadmap completeness, or exposition at the expense of that objective. Conditional work is
+useful only when it isolates the shortest concrete route to a smaller certifiable epsilon."""
 
     def _research_prompt(self, row: dict[str, Any]) -> str:
+        if row["id"] == "literature-sota-0001":
+            return self._literature_prompt(row)
         modes = ["proof-first", "bottleneck-first", "adversarial", "synthesis-first"]
         mode = modes[(int(row["ordinal"]) - 1) % len(modes)]
         return f"""You are {row['id']}, one of {self.cfg['researcher_count']} independent
 mathematical research agents improving soundness of the affine line-versus-point low-degree
-test. Your assigned direction is: {row['direction']}. Your mode is {mode}.
+test. Your assigned direction is: {row['direction']}. Your mode is {mode}. Your primary objective
+is to lower the concrete leaderboard epsilon; proof roadmaps are shared reference material, not
+your principal deliverable.
 
 {self._corpus_instruction()}
 
@@ -475,7 +545,9 @@ proof. A dedicated Lemma Writer will post-edit and may split a lemma without cha
     def _genius_prompt(self) -> str:
         return f"""You are GENIUS, the global proof-synthesis mathematician for the
 line-versus-point concrete campaign. You must inspect the complete accumulated corpus and attempt
-an integrated proof of the lowest valid soundness epsilon for the fixed instance.
+an integrated proof of the lowest valid soundness epsilon for the fixed instance. Your sole
+research objective is a new doubly verifiable leaderboard record; do not optimize roadmap
+coverage or generality for its own sake.
 
 {self._corpus_instruction()}
 
@@ -503,6 +575,39 @@ RULE: Every lemma statement must contain only its quantified objects, hypotheses
 Put all motivation, derivation, commentary, proof sketches, interpretation, history, and
 explanation in the proof. A dedicated Lemma Writer will post-edit and may split a lemma without
 changing its content.
+"""
+
+    def _literature_prompt(self, row: dict[str, Any]) -> str:
+        return f"""You are {row['id']}, the dedicated state-of-the-art literature researcher for
+the concrete line-versus-point campaign.
+
+{self._corpus_instruction()}
+
+Your assignment is: {row['direction']}
+
+Search primary sources, including Arora--Sudan, HKSS, Kominers--Thaler--Zheng, revisions of
+those works, and later papers that cite or sharpen the relevant theorem. The target is exactly
+m=2 over the prime field F_147457, total degree d=87, with a uniformly random affine line and
+then a uniformly random point on that line. Under the campaign convention, epsilon is valid
+only if acceptance at least epsilon implies agreement of the point table with one bivariate
+total-degree-at-most-87 polynomial on at least epsilon/10 of all p^2 points.
+
+For every candidate baseline, give the exact title, authors, version/date, stable URL or
+bibliographic identifier, result number, verbatim mathematical hypotheses in your own notation,
+and a careful specialization to p=147457,d=87. Track the source's recovery constant and all
+strict versus weak inequalities. Distinguish a theorem explicitly stated by the source from a
+derivation you reconstructed. Compare candidates under identical sampling and degree
+conventions. Do not treat asymptotic O-notation, an unspecified universal constant, or a
+non-effective existence proof as a concrete number. If constants are insufficient, set
+claimed_soundness=null, benchmark_improved=false, and state the smallest missing information.
+Only set result_status=proved with a numerical claimed_soundness when the complete fixed-instance
+conversion is rigorous and reproducible.
+
+Write an academic Markdown note with Abstract, Scope and Test, Search Method, Exact Source
+Results, Fixed-Parameter Specialization, State-of-the-Art Baseline, Soundness Ledger, and
+Limitations. Number derivation steps [P1], [P2], ... . A lemma statement must contain only
+quantified objects, hypotheses, and conclusion; all explanation belongs in its proof. Set
+dimension=2, field_regime=prime, fixed_prime=147457, and fixed_degree=87.
 """
 
     def _verifier_prompt(self, source_id: str, verifier_id: str) -> str:
@@ -533,6 +638,8 @@ the proof changes p, d, m, sampling, total-degree convention, or the one-polynom
 Set every fixed-parameter verification boolean true only after checking every theorem and lemma.
 Exact deterministic computation is admissible only with reproducible code and a checkable
 certificate; random or floating-point experiments cannot support accept.
+
+{self._leaderboard_instruction()}
 
 SUBMISSION MANIFEST:
 {json.dumps(response, indent=2, sort_keys=True)}
@@ -695,8 +802,11 @@ NUMBERED NOTE:
             "recovery_divisor": int(self.cfg.get("recovery_divisor", 10)),
             "initial_soundness": float(self.cfg.get("initial_soundness", 1.0)),
             "researcher_count": int(self.cfg["researcher_count"]),
+            "literature_agent_count": (
+                1 if self.cfg.get("literature_agent_enabled", True) else 0),
             "planned_agent_invocations": (
-                int(self.cfg["researcher_count"]) *
+                (int(self.cfg["researcher_count"]) +
+                 (1 if self.cfg.get("literature_agent_enabled", True) else 0)) *
                 ((3 if self.cfg.get("verifier_enabled", True) else 1) +
                  (1 if self.cfg.get("lemma_writer_enabled", True) else 0)) +
                 ((3 if self.cfg.get("genius_enabled", True) else 0) +

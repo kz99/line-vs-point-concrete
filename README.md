@@ -33,7 +33,7 @@ Lower values of \(\varepsilon\) are stronger. A claimed value is promoted to the
 
 ## Research loop
 
-The ten-agent trial and 300-agent campaign are durable, resumable SQLite queues. Each successful researcher or `GENIUS` synthesis receives two independent hostile audits. All agents are pinned to `gpt-5.6-sol` at `ultra` reasoning.
+The ten-agent trial and 300-agent campaign are durable, resumable SQLite queues. The trial also has a dedicated state-of-the-art literature researcher. The ten construction seats are front-loaded with KTZ parameter hackers and high-risk new-architecture searches whose primary objective is a lower concrete leaderboard value. Each successful researcher or `GENIUS` synthesis receives two independent hostile audits. All agents are pinned to `gpt-5.6-sol` at `ultra` reasoning.
 
 ```bash
 python -m pip install -e .
