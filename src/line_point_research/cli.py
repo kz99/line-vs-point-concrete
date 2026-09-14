@@ -3,7 +3,7 @@ from __future__ import annotations
 import argparse
 import json
 
-from .campaign import ResearchCampaign, campaign_status, launch_campaign
+from .campaign import ResearchCampaign, campaign_status, launch_campaign, launch_campaign_job
 from .lemma_book import LemmaBookEditor, launch_lemma_book
 from .publisher import PagesPublisher, launch_pages_publisher
 from .roadmaps import RoadmapWorkshop, launch_roadmap_workshop
@@ -18,6 +18,18 @@ def cmd_campaign_init(args: argparse.Namespace) -> int:
 
 def cmd_campaign_run(args: argparse.Namespace) -> int:
     print(json.dumps(ResearchCampaign(args.config).run(), indent=2, sort_keys=True))
+    return 0
+
+
+def cmd_campaign_run_job(args: argparse.Namespace) -> int:
+    print(json.dumps(
+        ResearchCampaign(args.config).run_specific_job(args.job_id), indent=2, sort_keys=True))
+    return 0
+
+
+def cmd_campaign_launch_job(args: argparse.Namespace) -> int:
+    print(json.dumps(
+        launch_campaign_job(args.config, args.job_id), indent=2, sort_keys=True))
     return 0
 
 
@@ -126,6 +138,15 @@ def build_parser() -> argparse.ArgumentParser:
     item.add_argument("config")
     item.add_argument("--watch", action="store_true")
     item.set_defaults(func=cmd_roadmap_run)
+    for name, function, help_text in (
+        ("campaign-run-job", cmd_campaign_run_job, "run one queued campaign job now"),
+        ("campaign-launch-job", cmd_campaign_launch_job,
+         "launch one queued campaign job independently"),
+    ):
+        item = subparsers.add_parser(name, help=help_text)
+        item.add_argument("config")
+        item.add_argument("job_id")
+        item.set_defaults(func=function)
     return parser
 
 

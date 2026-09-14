@@ -1135,6 +1135,36 @@ NUMBERED NOTE:
                 time.sleep(self.retry_seconds)
         return self.export_status()
 
+    def run_specific_job(self, job_id: str) -> dict[str, Any]:
+        """Run one queued job immediately without disturbing the main campaign runner."""
+        while True:
+            with self.connect() as connection:
+                stored = connection.execute(
+                    "SELECT * FROM campaign_jobs WHERE id=?", (job_id,)).fetchone()
+            if stored is None:
+                raise ValueError(f"unknown campaign job: {job_id}")
+            row = dict(stored)
+            if row["status"] != "queued":
+                return {"job_id": job_id, "status": row["status"], **self.export_status()}
+            if not self._claim(job_id):
+                continue
+            job_id, succeeded, error = self._run_job(row)
+            self._finish(job_id, succeeded, error)
+            status = self.export_status()
+            with self.connect() as connection:
+                final = connection.execute(
+                    "SELECT status,attempts,error FROM campaign_jobs WHERE id=?",
+                    (job_id,)).fetchone()
+            if final["status"] != "queued":
+                return {
+                    "job_id": job_id,
+                    "job_status": final["status"],
+                    "attempts": final["attempts"],
+                    "error": final["error"],
+                    **status,
+                }
+            time.sleep(min(self.retry_seconds, 30))
+
 
 def launch_campaign(config_path: Path | str) -> dict[str, Any]:
     _, paths = load_campaign_config(config_path)
@@ -1168,6 +1198,51 @@ def launch_campaign(config_path: Path | str) -> dict[str, Any]:
     log_handle.close()
     payload = {
         "status": "launched",
+        "pid": process.pid,
+        "config": str(Path(config_path).resolve()),
+        "log": str(log_path),
+        "started_at": utc_timestamp(),
+    }
+    pid_path.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n")
+    return payload
+
+
+def launch_campaign_job(config_path: Path | str, job_id: str) -> dict[str, Any]:
+    _, paths = load_campaign_config(config_path)
+    if not job_id or any(character not in "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_" for character in job_id):
+        raise ValueError("job_id contains unsupported characters")
+    runtime = paths.campaign_dir / "specific-jobs" / job_id
+    runtime.mkdir(parents=True, exist_ok=True)
+    pid_path = runtime / "runner.json"
+    if pid_path.exists():
+        old = json.loads(pid_path.read_text())
+        try:
+            os.kill(int(old["pid"]), 0)
+            return {"status": "already_running", **old}
+        except (OSError, KeyError, ValueError):
+            pass
+    log_path = runtime / "job.log"
+    log_handle = log_path.open("a")
+    environment = os.environ.copy()
+    source_path = str(paths.workspace / "src")
+    environment["PYTHONPATH"] = (
+        source_path + os.pathsep + environment["PYTHONPATH"]
+        if environment.get("PYTHONPATH") else source_path)
+    environment["PYTHONPYCACHEPREFIX"] = str(runtime / "python-cache")
+    process = subprocess.Popen(
+        [sys.executable, "-m", "line_point_research", "campaign-run-job",
+         str(Path(config_path).resolve()), job_id],
+        cwd=paths.workspace,
+        stdout=log_handle,
+        stderr=subprocess.STDOUT,
+        text=True,
+        start_new_session=True,
+        env=environment,
+    )
+    log_handle.close()
+    payload = {
+        "status": "launched",
+        "job_id": job_id,
         "pid": process.pid,
         "config": str(Path(config_path).resolve()),
         "log": str(log_path),
