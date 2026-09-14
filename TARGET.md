@@ -40,16 +40,27 @@ The score is \(\varepsilon\), and **smaller is better**. The claimed decimal mus
 
 ## Promotion rule
 
-A submission is graphed only if two independent verifier agents both:
+A researcher must explicitly mark an artifact as a `leaderboard_submission`. This is permitted
+only for a proved, numerical, end-to-end bivariate soundness theorem that improves the current
+record. Standalone lemmas, proof tools, obstructions, counterexamples, and conditional
+architectures are stored without verifier review.
+
+A leaderboard submission is graphed only if two independent verifier agents both:
 
 1. audit the exact same theorem SHA-256;
 2. verify \(p=147457\), \(d=87\), uniform incident-pair sampling, and total degree;
-3. accept every proof dependency and exact numerical inequality;
+3. traverse the clear load-bearing logic chain and accept every lemma, imported result, and exact
+   numerical inequality used in that chain;
 4. agree on the numeric soundness value;
 5. verify the conclusion \(\operatorname{Agr}_{87}(f)\ge\varepsilon/10\);
 6. return no required changes or fatal obstruction.
 
 The harness, not an agent, computes double-verification and graph promotion. The first doubly verified value is promoted; later values are promoted only if strictly smaller than every earlier promoted value.
+
+The auditors do not review unrelated lemmas elsewhere in the corpus. A previously proposed lemma
+is audited only when a leaderboard submission imports it into its load-bearing proof chain; the
+submission must give the exact source reference and the statement being used. Editorial work in
+the Lemma Book never blocks audit or promotion.
 
 Finite computation may be part of a proof only through deterministic, reproducible certificates whose checker and cryptographic hashes are stored in the repository. Floating-point evidence, random testing, and unverified exhaustive-search claims do not certify soundness.
 

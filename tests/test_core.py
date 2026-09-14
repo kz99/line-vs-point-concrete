@@ -76,6 +76,7 @@ class CampaignTests(unittest.TestCase):
             self.assertIn("epsilon/10", prompt)
             self.assertIn("Lower epsilon is stronger", prompt)
             self.assertIn("A lemma statement contains only", prompt)
+            self.assertIn("leaderboard_submission=true", prompt)
 
     def test_literature_agent_demands_primary_exact_constants(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -120,7 +121,8 @@ class CampaignTests(unittest.TestCase):
                 "title": "Candidate", "result_status": "proved", "dimension": 2,
                 "field_regime": "prime", "fixed_prime": 147457, "fixed_degree": 87,
                 "claim_scope": "bivariate_theorem", "claimed_soundness": 0.2,
-                "benchmark_improved": True, "theorem_statement": theorem,
+                "leaderboard_submission": True, "benchmark_improved": True,
+                "theorem_statement": theorem,
                 "proof_steps": [], "soundness_ledger": [],
             }
             submission = root / "state" / "submissions" / "researcher-0001"
@@ -130,7 +132,11 @@ class CampaignTests(unittest.TestCase):
             with campaign.connect() as connection:
                 connection.execute("UPDATE campaign_jobs SET status='succeeded',finished_at='2026-09-14T00:00:00Z' WHERE id='researcher-0001'")
             claim_hash = hashlib.sha256(theorem.encode()).hexdigest()
-            audit = {"verdict": "accept", "verified_claim_sha256": claim_hash, "verified_soundness": 0.2}
+            audit = {
+                "verdict": "accept", "verified_claim_sha256": claim_hash,
+                "verified_soundness": 0.2, "proof_chain_complete": True,
+                "proof_chain_audit": [{"reference": "P1", "verdict": "valid"}],
+            }
             first = root / "state" / "reviews" / "researcher-0001" / "verifier-a-researcher-0001"
             first.mkdir(parents=True)
             (first / "audit.json").write_text(json.dumps(audit))
@@ -142,6 +148,39 @@ class CampaignTests(unittest.TestCase):
             campaign.export_status()
             history = json.loads((root / "state" / "leaderboards" / "soundness-history.json").read_text())
             self.assertEqual([point["soundness"] for point in history["points"]], [0.2])
+
+    def test_reconcile_skips_lemma_audits_and_enqueues_leaderboard_audits(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            campaign = ResearchCampaign(write_config(root, 2))
+            campaign.initialize()
+            submissions = root / "state" / "submissions"
+            for job_id, response in (
+                ("researcher-0001", {
+                    "leaderboard_submission": False, "claim_scope": "algebraic_lemma",
+                }),
+                ("researcher-0002", {
+                    "leaderboard_submission": True, "claim_scope": "bivariate_theorem",
+                    "result_status": "proved", "benchmark_improved": True,
+                    "claimed_soundness": 0.2,
+                }),
+            ):
+                target = submissions / job_id
+                target.mkdir(parents=True)
+                (target / "response.json").write_text(json.dumps(response))
+            with campaign.connect() as connection:
+                connection.execute(
+                    "UPDATE campaign_jobs SET status='succeeded' "
+                    "WHERE id IN ('researcher-0001','researcher-0002')")
+            campaign._enqueue_verifier("researcher-0001")
+            campaign.reconcile_verifier_queue()
+            with campaign.connect() as connection:
+                rows = {row[0]: row[1] for row in connection.execute(
+                    "SELECT id,status FROM campaign_jobs WHERE role='verifier'")}
+            self.assertEqual(rows["verifier-a-researcher-0001"], "skipped")
+            self.assertEqual(rows["verifier-b-researcher-0001"], "skipped")
+            self.assertEqual(rows["verifier-a-researcher-0002"], "queued")
+            self.assertEqual(rows["verifier-b-researcher-0002"], "queued")
 
 
 class EditorialAndRoadmapTests(unittest.TestCase):

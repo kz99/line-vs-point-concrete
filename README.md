@@ -33,7 +33,7 @@ Lower values of \(\varepsilon\) are stronger. A claimed value is promoted to the
 
 ## Research loop
 
-The ten-agent trial and 300-agent campaign are durable, resumable SQLite queues. The trial also has a dedicated state-of-the-art literature researcher. The ten construction seats are front-loaded with KTZ parameter hackers and high-risk new-architecture searches whose primary objective is a lower concrete leaderboard value. Each successful researcher or `GENIUS` synthesis receives two independent hostile audits. All agents are pinned to `gpt-5.6-sol` at `ultra` reasoning.
+The ten-agent trial and 300-agent campaign are durable, resumable SQLite queues. The trial also has a dedicated state-of-the-art literature researcher. The ten construction seats are front-loaded with KTZ parameter hackers and high-risk new-architecture searches whose primary objective is a lower concrete leaderboard value. Only an explicit, proved, numerical, end-to-end leaderboard submission receives two independent audits. Those audits verify its complete load-bearing proof chain, including every lemma it uses; standalone proposed lemmas remain unaudited until imported into such a chain. All agents are pinned to `gpt-5.6-sol` at `ultra` reasoning.
 
 ```bash
 python -m pip install -e .
@@ -47,7 +47,7 @@ Initialization and status commands do not invoke agents. `campaign-launch` expli
 Results are stored under `research_state/campaign-10-ultra/`:
 
 - `submissions/`: immutable academic notes and theorem manifests;
-- `reviews/`: two independent line-by-line audits per submission;
+- `reviews/`: two independent proof-chain audits per explicit leaderboard submission;
 - `leaderboards/`: promoted, promising, and rejected concrete bounds;
 - `leaderboards/soundness-history.json`: the monotonically improving, doubly verified graph series;
 - `lemma_book/`: minimally stated, source-linked lemmas with complete proofs;

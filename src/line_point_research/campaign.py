@@ -66,7 +66,8 @@ LITERATURE_DEPENDENCY = {
 
 RESEARCH_SCHEMA = {
     "type": "object", "additionalProperties": False,
-    "required": ["title", "dimension", "field_regime", "result_status", "claim_scope", "benchmark_improved",
+    "required": ["title", "dimension", "field_regime", "result_status", "claim_scope",
+                 "leaderboard_submission", "benchmark_improved",
                  "fixed_prime", "fixed_degree", "claimed_soundness", "theorem_statement", "parameter_regime",
                  "sampling_model", "global_conclusion", "literature_dependencies",
                  "proof_steps", "soundness_ledger", "counterexample_attempts",
@@ -80,6 +81,7 @@ RESEARCH_SCHEMA = {
         "fixed_degree": {"type": "integer", "const": 87},
         "result_status": {"type": "string", "enum": ["proved", "conditional", "conjectural", "refuted"]},
         "claim_scope": {"type": "string", "enum": ["bivariate_theorem", "algebraic_lemma", "combinatorial_lemma", "obstruction", "counterexample", "proof_tool"]},
+        "leaderboard_submission": {"type": "boolean"},
         "benchmark_improved": {"type": "boolean"},
         "claimed_soundness": {"type": ["number", "null"], "exclusiveMinimum": 0, "maximum": 1},
         "theorem_statement": {"type": "string"},
@@ -101,7 +103,8 @@ RESEARCH_SCHEMA = {
 
 GENIUS_SCHEMA = {
     "type": "object", "additionalProperties": False,
-    "required": ["title", "dimension", "field_regime", "fixed_prime", "fixed_degree", "result_status", "benchmark_improved", "snapshot", "evidence_ledger", "bottleneck_map",
+    "required": ["title", "dimension", "field_regime", "fixed_prime", "fixed_degree", "result_status",
+                 "leaderboard_submission", "benchmark_improved", "snapshot", "evidence_ledger", "bottleneck_map",
                  "architectures", "selected_architecture_id", "integrated_theorem",
                  "fixed_prime", "fixed_degree", "claimed_soundness", "proof_steps", "soundness_ledger",
                  "counterexample_attempts", "research_directives", "limitations",
@@ -113,6 +116,7 @@ GENIUS_SCHEMA = {
         "fixed_prime": {"type": "integer", "const": 147457},
         "fixed_degree": {"type": "integer", "const": 87},
         "result_status": {"type": "string", "enum": ["proved", "conditional", "conjectural", "refuted"]},
+        "leaderboard_submission": {"type": "boolean"},
         "benchmark_improved": {"type": "boolean"},
         "snapshot": {
             "type": "object", "additionalProperties": False,
@@ -187,7 +191,8 @@ AUDIT_SCHEMA = {
     "required": ["verdict", "unfixable", "verified_claim_sha256", "dimension_verified",
                  "field_regime_verified", "fixed_prime_verified", "fixed_degree_verified", "scope_verified",
                  "benchmark_improved", "verified_soundness", "recovery_ratio_verified", "fatal_obstruction",
-                 "coverage_complete", "quantifier_audit", "soundness_audit",
+                 "coverage_complete", "proof_chain_complete", "proof_chain_audit",
+                 "quantifier_audit", "soundness_audit",
                  "literature_audit", "line_audit", "required_changes",
                  "counterexample_attempts", "summary"],
     "properties": {
@@ -204,6 +209,8 @@ AUDIT_SCHEMA = {
         "recovery_ratio_verified": {"type": "boolean"},
         "fatal_obstruction": {"type": ["string", "null"]},
         "coverage_complete": {"type": "boolean"},
+        "proof_chain_complete": {"type": "boolean"},
+        "proof_chain_audit": {"type": "array", "items": AUDIT_ITEM},
         "quantifier_audit": {"type": "array", "items": AUDIT_ITEM},
         "soundness_audit": {"type": "array", "items": AUDIT_ITEM},
         "literature_audit": {"type": "array", "items": AUDIT_ITEM},
@@ -426,8 +433,11 @@ class ResearchCampaign:
                 researcher_terminal = all(
                     states.get(f"researcher-{index:04d}") in {"succeeded", "failed"}
                     for index in range(1, int(self.cfg["researcher_count"]) + 1))
-                successful = [item["id"] for item in all_jobs
-                              if item["role"] == "researcher" and item["status"] == "succeeded"]
+                successful = [
+                    item["id"] for item in all_jobs
+                    if item["role"] == "researcher" and item["status"] == "succeeded" and
+                    self._is_leaderboard_submission_id(item["id"])
+                ]
                 verifier_terminal = all(
                     states.get(f"verifier-{seat}-{source_id}") in {"succeeded", "failed"}
                     for source_id in successful for seat in ("a", "b"))
@@ -461,6 +471,57 @@ class ResearchCampaign:
                      int(self.cfg.get("max_attempts", 8)), self.provider.model,
                      self.provider.reasoning_effort, utc_timestamp()),
                 )
+
+    def _submission_response(self, source_id: str) -> dict[str, Any] | None:
+        path = self.paths.campaign_dir / "submissions" / source_id / "response.json"
+        if not path.exists():
+            return None
+        try:
+            value = json.loads(path.read_text())
+        except (json.JSONDecodeError, OSError):
+            return None
+        return value if isinstance(value, dict) else None
+
+    @staticmethod
+    def _is_leaderboard_submission(response: dict[str, Any] | None) -> bool:
+        if not response:
+            return False
+        explicit = response.get("leaderboard_submission")
+        if explicit is not None:
+            return bool(explicit)
+        # Backward compatibility for submissions produced before the explicit flag existed.
+        return bool(
+            response.get("claim_scope") == "bivariate_theorem" and
+            response.get("result_status") == "proved" and
+            response.get("benchmark_improved") and
+            isinstance(response.get("claimed_soundness"), (int, float)) and
+            not isinstance(response.get("claimed_soundness"), bool)
+        )
+
+    def _is_leaderboard_submission_id(self, source_id: str) -> bool:
+        return self._is_leaderboard_submission(self._submission_response(source_id))
+
+    def reconcile_verifier_queue(self) -> dict[str, Any]:
+        """Audit only end-to-end submissions explicitly offered to the leaderboard."""
+        enqueue: list[str] = []
+        with self.connect() as connection:
+            connection.executescript(SCHEMA)
+            sources = [dict(row) for row in connection.execute(
+                "SELECT id,status FROM campaign_jobs WHERE role IN ('researcher','genius')")]
+            for source in sources:
+                source_id = str(source["id"])
+                is_submission = self._is_leaderboard_submission_id(source_id)
+                if is_submission and source["status"] == "succeeded":
+                    enqueue.append(source_id)
+                elif not is_submission:
+                    connection.execute(
+                        "UPDATE campaign_jobs SET status='skipped',error=? "
+                        "WHERE role='verifier' AND dependency=? AND status='queued'",
+                        ("source is not a leaderboard submission", source_id),
+                    )
+        for source_id in enqueue:
+            self._enqueue_verifier(source_id)
+        return self.export_status()
 
     def _corpus_instruction(self) -> str:
         return f"""The repository is {self.paths.workspace}. The durable corpus root is
@@ -533,6 +594,14 @@ when the proved claimed_soundness is below the current doubly verified record; t
 comparison threshold is 1. Set dimension=2, field_regime=prime, fixed_prime=147457, and
 fixed_degree=87 in the structured response.
 
+Set leaderboard_submission=true only for a fully proved, numerical, end-to-end bivariate
+soundness theorem that strictly improves the record. Put its complete load-bearing logic chain
+in proof_steps, including exact citations and statements for imported lemmas. Two independent
+auditors will verify that chain and its lemmas. For a standalone lemma, obstruction,
+counterexample, conditional architecture, or proof tool, set leaderboard_submission=false and
+benchmark_improved=false. It remains available to the Lemma Book and later researchers but does
+not consume verifier work until a leaderboard proof depends on it.
+
 Return a standard academic Markdown note with Abstract, Test and Notation, Prior Results,
 Theorem, Proof or Conditional Proof, Soundness Ledger, Counterexample Attempts,
 Characteristic Audit, and Limitations. Number all proof steps [P1], [P2], ... and mark each as
@@ -567,9 +636,10 @@ extension fields. Lower epsilon is stronger, and recovered point agreement must 
 epsilon/10. Set dimension=2, field_regime=prime, fixed_prime=147457, and fixed_degree=87. Do not average
 incompatible lemmas or use finite evidence as proof.
 
-Set result_status=proved and benchmark_improved=true only if every dependency is proved and the
-claimed_soundness strictly improves the current doubly verified record. Otherwise record the
-honest status and set benchmark_improved=false.
+Set leaderboard_submission=true, result_status=proved, and benchmark_improved=true only if every
+dependency is proved and the claimed_soundness strictly improves the current doubly verified
+record. Include the complete load-bearing proof chain for its two downstream audits. Otherwise
+record the honest status and set leaderboard_submission=false and benchmark_improved=false.
 
 RULE: Every lemma statement must contain only its quantified objects, hypotheses, and conclusion.
 Put all motivation, derivation, commentary, proof sketches, interpretation, history, and
@@ -599,9 +669,12 @@ strict versus weak inequalities. Distinguish a theorem explicitly stated by the 
 derivation you reconstructed. Compare candidates under identical sampling and degree
 conventions. Do not treat asymptotic O-notation, an unspecified universal constant, or a
 non-effective existence proof as a concrete number. If constants are insufficient, set
-claimed_soundness=null, benchmark_improved=false, and state the smallest missing information.
+claimed_soundness=null, leaderboard_submission=false, benchmark_improved=false, and state the
+smallest missing information.
 Only set result_status=proved with a numerical claimed_soundness when the complete fixed-instance
-conversion is rigorous and reproducible.
+conversion is rigorous and reproducible. Set leaderboard_submission=true only for that complete
+end-to-end theorem; partial literature specializations stay unaudited until a leaderboard proof
+actually depends on them.
 
 Write an academic Markdown note with Abstract, Scope and Test, Search Method, Exact Source
 Results, Fixed-Parameter Specialization, State-of-the-Art Baseline, Soundness Ledger, and
@@ -633,6 +706,13 @@ characteristic assumptions, list-to-one-polynomial recovery, and the epsilon/10 
 lemma-level issue blocks acceptance only when it creates a real gap in the submitted theorem or
 its numerical ledger; purely editorial lemma imperfections belong to the Lemma Writer and are
 not a reason to delay a sound leaderboard decision.
+
+The submission must expose one clear dependency chain from acceptance to the final global
+agreement conclusion. Set proof_chain_complete=true only if every load-bearing step appears in
+proof_steps and every dependency is available. In proof_chain_audit, include one item for every
+load-bearing proof step or imported lemma, using its exact step id or citation as reference. This
+is where downstream lemma verification occurs. Do not audit unrelated lemmas merely because they
+exist elsewhere in the corpus.
 
 Do not inspect, infer, or coordinate with the other verifier's audit. Your judgment must be
 independent. The instance is exactly m=2, p=147457, total degree d=87, uniform affine-line then
@@ -679,14 +759,25 @@ NUMBERED NOTE:
             errors.append("submission fixed_prime must be 147457")
         if response.get("fixed_degree") != 87:
             errors.append("submission fixed_degree must be 87")
-        if role in {"researcher", "genius"} and response.get("benchmark_improved"):
+        leaderboard_submission = bool(response.get("leaderboard_submission", False))
+        if role in {"researcher", "genius"} and leaderboard_submission:
+            if role == "researcher" and response.get("claim_scope") != "bivariate_theorem":
+                errors.append("leaderboard_submission requires claim_scope=bivariate_theorem")
             if response.get("result_status") != "proved":
-                errors.append("benchmark_improved requires result_status=proved")
+                errors.append("leaderboard_submission requires result_status=proved")
+            if not response.get("benchmark_improved"):
+                errors.append("leaderboard_submission requires benchmark_improved=true")
             soundness = response.get("claimed_soundness")
             if not isinstance(soundness, (int, float)) or isinstance(soundness, bool):
-                errors.append("benchmark_improved requires numeric claimed_soundness")
+                errors.append("leaderboard_submission requires numeric claimed_soundness")
             elif not 0 < float(soundness) < float(self.cfg.get("initial_soundness", 1.0)):
                 errors.append("claimed soundness must strictly improve the initial threshold")
+            if any(step.get("status") != "proved" for step in response.get("proof_steps", [])):
+                errors.append("every leaderboard proof step must be proved")
+            if any(stage.get("status") != "proved" for stage in response.get("soundness_ledger", [])):
+                errors.append("every leaderboard soundness stage must be proved")
+        elif role in {"researcher", "genius"} and response.get("benchmark_improved"):
+            errors.append("benchmark_improved requires leaderboard_submission=true")
         if role == "genius":
             snapshot = response.get("snapshot", {})
             if snapshot.get("coverage_complete") and snapshot.get("omitted_paths"):
@@ -729,6 +820,7 @@ NUMBERED NOTE:
                     response["fixed_degree_verified"] and
                     response["recovery_ratio_verified"] and
                     response["coverage_complete"] and
+                    response["proof_chain_complete"] and
                     not response["required_changes"] and
                     response["fatal_obstruction"] is None and
                     response["line_audit"] and
@@ -736,8 +828,10 @@ NUMBERED NOTE:
                     response["soundness_audit"] and
                     source_response.get("claimed_soundness") is not None and
                     response["verified_soundness"] == source_response.get("claimed_soundness") and
+                    response["proof_chain_audit"] and
                     all(item["verdict"] == "valid" for key in (
-                        "line_audit", "quantifier_audit", "soundness_audit", "literature_audit")
+                        "proof_chain_audit", "line_audit", "quantifier_audit",
+                        "soundness_audit", "literature_audit")
                         for item in response[key])
                 )
                 if response["verdict"] == "accept" and not accept_consistent:
@@ -790,7 +884,8 @@ NUMBERED NOTE:
             connection.execute(
                 "UPDATE campaign_jobs SET status=?,output_dir=?,error=?,finished_at=? WHERE id=?",
                 (status, str(output_dir), error, utc_timestamp(), job_id))
-        if succeeded and not job_id.startswith("verifier-"):
+        if (succeeded and not job_id.startswith("verifier-") and
+                self._is_leaderboard_submission_id(job_id)):
             self._enqueue_verifier(job_id)
 
     def export_status(self) -> dict[str, Any]:
@@ -810,6 +905,7 @@ NUMBERED NOTE:
             "fixed_prime": int(self.cfg.get("fixed_prime", 147457)),
             "fixed_degree": int(self.cfg.get("fixed_degree", 87)),
             "verifier_count": 2,
+            "verification_policy": "two independent audits only for leaderboard submissions",
             "recovery_divisor": int(self.cfg.get("recovery_divisor", 10)),
             "initial_soundness": float(self.cfg.get("initial_soundness", 1.0)),
             "researcher_count": int(self.cfg["researcher_count"]),
@@ -849,6 +945,11 @@ NUMBERED NOTE:
             if not response_path.exists():
                 continue
             response = json.loads(response_path.read_text())
+            for stage in response.get("soundness_ledger", []):
+                bottlenecks.append({"job_id": row["id"], **stage})
+            leaderboard_submission = self._is_leaderboard_submission(response)
+            if not leaderboard_submission:
+                continue
             audits = []
             for seat in ("a", "b"):
                 verifier_id = f"verifier-{seat}-{row['id']}"
@@ -859,12 +960,22 @@ NUMBERED NOTE:
             claim = response.get("theorem_statement") or response.get("integrated_theorem", "")
             claim_hash = hashlib.sha256(claim.encode()).hexdigest()
             claimed = response.get("claimed_soundness")
+            def chain_verified(audit: dict[str, Any]) -> bool:
+                chain = audit.get("proof_chain_audit") or audit.get("line_audit") or []
+                complete = (
+                    audit.get("proof_chain_complete") is True or
+                    ("proof_chain_complete" not in audit and
+                     audit.get("coverage_complete") is True)
+                )
+                return bool(complete and chain and
+                            all(item.get("verdict") == "valid" for item in chain))
             double_verified = (
-                len(audits) == 2 and claimed is not None and
+                leaderboard_submission and len(audits) == 2 and claimed is not None and
                 response.get("result_status") == "proved" and
                 all(audit.get("verdict") == "accept" for audit in audits) and
                 all(audit.get("verified_claim_sha256") == claim_hash for audit in audits) and
-                all(audit.get("verified_soundness") == claimed for audit in audits))
+                all(audit.get("verified_soundness") == claimed for audit in audits) and
+                all(chain_verified(audit) for audit in audits))
             if double_verified:
                 review_verdict = "double-accept"
             elif any(audit.get("verdict") == "reject" for audit in audits):
@@ -884,6 +995,7 @@ NUMBERED NOTE:
                 "fixed_prime": response.get("fixed_prime", 147457),
                 "fixed_degree": response.get("fixed_degree", 87),
                 "claimed_soundness": claimed,
+                "leaderboard_submission": leaderboard_submission,
                 "benchmark_improved": response.get("benchmark_improved", False),
                 "theorem_statement": claim,
                 "theorem_sha256": claim_hash,
@@ -898,8 +1010,6 @@ NUMBERED NOTE:
                 rejected.append(entry)
             else:
                 promising.append(entry)
-            for stage in response.get("soundness_ledger", []):
-                bottlenecks.append({"job_id": row["id"], **stage})
         verified.sort(key=lambda item: (float(item["claimed_soundness"]), item["job_id"]))
         completed = sorted(
             (entry for entry in verified),

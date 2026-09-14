@@ -45,6 +45,12 @@ def cmd_campaign_rebalance(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_campaign_reconcile_audits(args: argparse.Namespace) -> int:
+    print(json.dumps(
+        ResearchCampaign(args.config).reconcile_verifier_queue(), indent=2, sort_keys=True))
+    return 0
+
+
 def cmd_lemma_book_run(args: argparse.Namespace) -> int:
     print(json.dumps(
         LemmaBookEditor(args.config).run(watch=args.watch), indent=2, sort_keys=True))
@@ -99,6 +105,8 @@ def build_parser() -> argparse.ArgumentParser:
         ("campaign-status", cmd_campaign_status, "show durable campaign progress"),
         ("campaign-rebalance", cmd_campaign_rebalance,
          "add the literature seat and retarget untouched researchers at the leaderboard"),
+        ("campaign-reconcile-audits", cmd_campaign_reconcile_audits,
+         "audit only explicit end-to-end leaderboard submissions"),
         ("lemma-book-launch", cmd_lemma_book_launch, "launch the lemma-writing agent"),
         ("lemma-book-export", cmd_lemma_book_export, "refresh the public lemma book"),
         ("roadmap-launch", cmd_roadmap_launch, "launch three shared proof-roadmap agents"),
