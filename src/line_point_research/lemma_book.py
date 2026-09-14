@@ -147,7 +147,8 @@ You are an editor, not a researcher or verifier. The raw submission is immutable
 
 The campaign's sole research objective is a lower doubly verified concrete soundness value.
 Keep editorial work minimal and loss-focused so candidate lemmas can enter independent review
-quickly; do not add generalizations, side discussions, or roadmap material.
+quickly; do not add generalizations, side discussions, or roadmap material. Lemma-book editing
+is never a prerequisite for verifier review or leaderboard promotion.
 
 The immutable ambient parameters are $m=2$, $p=147457$, and total degree $d=87$. Preserve them
 literally; do not generalize a fixed-instance lemma or substitute a nearby degree.

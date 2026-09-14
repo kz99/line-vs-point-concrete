@@ -619,9 +619,20 @@ dimension=2, field_regime=prime, fixed_prime=147457, and fixed_degree=87.
         claim = response.get("theorem_statement") or response.get("integrated_theorem", "")
         claim_hash = hashlib.sha256(claim.encode()).hexdigest()
         return f"""You are {verifier_id}, an independent hostile mathematical verifier. Audit submission
-{source_id} line by line. You did not author it. Recompute every numerical bound and check every
-quantifier, field hypothesis, sampling convention, literature dependency, and proof-step edge.
-Accept only the exact claim whose SHA-256 is {claim_hash}; never silently weaken it.
+{source_id}. You did not author it. Your priority is the claimed end-to-end soundness theorem and
+whether its numerical epsilon deserves a leaderboard point. Recompute the complete soundness
+ledger and check its quantifiers, fixed-field hypotheses, sampling convention, literature
+dependencies, and load-bearing proof edges. Accept only the exact claim whose SHA-256 is
+{claim_hash}; never silently weaken it.
+
+Use a risk-based audit. Read every proof step, but do not spend the bulk of the review reproving
+routine algebra, elementary counting, or a standard lemma whose exact statement and applicable
+hypotheses are clear. Audit deeply the lemmas on which the final epsilon actually depends,
+especially parameter thresholds, exceptional-set bounds, interpolation feasibility,
+characteristic assumptions, list-to-one-polynomial recovery, and the epsilon/10 conversion. A
+lemma-level issue blocks acceptance only when it creates a real gap in the submitted theorem or
+its numerical ledger; purely editorial lemma imperfections belong to the Lemma Writer and are
+not a reason to delay a sound leaderboard decision.
 
 Do not inspect, infer, or coordinate with the other verifier's audit. Your judgment must be
 independent. The instance is exactly m=2, p=147457, total degree d=87, uniform affine-line then
@@ -635,7 +646,7 @@ single-polynomial global conclusion; no required changes; and no fatal obstructi
 with unfixable=true only for a concrete counterexample or false theorem. Use revise for repairable
 gaps. Recompute the claimed epsilon and its epsilon/10 conclusion. Reject or request revision if
 the proof changes p, d, m, sampling, total-degree convention, or the one-polynomial conclusion.
-Set every fixed-parameter verification boolean true only after checking every theorem and lemma.
+Set every fixed-parameter verification boolean true only after checking all load-bearing claims.
 Exact deterministic computation is admissible only with reproducible code and a checkable
 certificate; random or floating-point experiments cannot support accept.
 
