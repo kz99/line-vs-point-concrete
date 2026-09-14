@@ -2,6 +2,6 @@
 
 Durable campaign state is committed here. Runtime SQLite sidecars, process metadata, caches, and stop controls are ignored.
 
-The verified board is intentionally strict. A claim is promoted only after a verifier accepts the exact SHA-identified theorem, audits every quantifier and exponent loss, checks the cited literature dependencies, and finds no unresolved gap.
+The verified board is intentionally strict. A claim is promoted only after two independent verifiers accept the exact same SHA-identified theorem and soundness value, audit every quantifier and numerical loss, verify the fixed parameters $p=147457$ and $d=87$, and find no unresolved gap.
 
-Finite sanity checks are retained inside submissions as falsification evidence. They are never promoted independently and do not establish asymptotic soundness.
+Exact finite computation is proof only when its reproducible checker and certificate are stored here. Random or floating-point sanity checks remain falsification evidence and are never promoted independently.

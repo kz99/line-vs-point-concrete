@@ -86,7 +86,7 @@ def main() -> None:
         for path in sorted(DATA_ROOT.glob("*/campaign.sqlite3"))
     }
     payload = {
-        "schema": "line-point-research-data-manifest-v1",
+        "schema": "line-point-concrete-data-manifest-v1",
         "hash_algorithm": "sha256",
         "durable_file_count": len(files),
         "total_bytes": sum(item["bytes"] for item in files),

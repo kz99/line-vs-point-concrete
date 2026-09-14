@@ -6,34 +6,27 @@
         "queued": 11
       },
       "jobs": 11
-    },
-    "campaign-300-ultra": {
-      "integrity_check": "ok",
-      "job_statuses": {
-        "queued": 301
-      },
-      "jobs": 301
     }
   },
-  "durable_file_count": 15,
+  "durable_file_count": 11,
   "files": [
     {
-      "bytes": 547,
+      "bytes": 642,
       "path": "research_state/README.md",
       "role": "documentation",
-      "sha256": "3776b8754db483faa2c7b19430500bc460cd681b0eae8ddaaf61aa8c780cd932"
+      "sha256": "d767faba3729522ea1cbe3e107dc7c14549c0d49e80fc08ed6660c55117020a3"
     },
     {
       "bytes": 20480,
       "path": "research_state/campaign-10-ultra/campaign.sqlite3",
       "role": "campaign_queue",
-      "sha256": "586373f4a23410d83a26acfaa9261649023d7aebd3db5c7bac14e2633b55b99b"
+      "sha256": "3ad4be9eb28fa18d973299e0c2c861195ecd49b32fa0ab25f669344449718bab"
     },
     {
-      "bytes": 5021,
+      "bytes": 4947,
       "path": "research_state/campaign-10-ultra/jobs.json",
       "role": "campaign_index",
-      "sha256": "965d7e315c6157d4abbf0da11bb016ff2a66d37fb9eee3f1d67c3c8dce2a1dd8"
+      "sha256": "1b281823c42a7ca683b1c76de07b6ccd7a574717157a737847bed3ddfddd17dd"
     },
     {
       "bytes": 3,
@@ -54,61 +47,37 @@
       "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
     },
     {
+      "bytes": 124,
+      "path": "research_state/campaign-10-ultra/leaderboards/soundness-history.json",
+      "role": "leaderboard",
+      "sha256": "6604e11318e1aab9395db20defd71ec4cd74977f1a1b0e72590f79e2b5897e49"
+    },
+    {
       "bytes": 3,
       "path": "research_state/campaign-10-ultra/leaderboards/verified-results.json",
       "role": "leaderboard",
       "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
     },
     {
-      "bytes": 514,
+      "bytes": 434,
+      "path": "research_state/campaign-10-ultra/lemma_book/lemma-book.json",
+      "role": "lemma_book",
+      "sha256": "24c9ede267b2c919d47da1e7dded3f8c52313703d2b122d1b23c6f8e96d292d8"
+    },
+    {
+      "bytes": 2556,
+      "path": "research_state/campaign-10-ultra/roadmaps/proof-roadmaps.json",
+      "role": "proof_roadmap",
+      "sha256": "4e05d48ead6814ea7d48db9ce38906e38bf8d45bd173fc107a60368631a6b134"
+    },
+    {
+      "bytes": 546,
       "path": "research_state/campaign-10-ultra/status.json",
       "role": "campaign_index",
-      "sha256": "0ced80a8652182ef61eb5aabc21fd0e15491a9f5f9e16b0f07f91c46cdd2d37c"
-    },
-    {
-      "bytes": 81920,
-      "path": "research_state/campaign-300-ultra/campaign.sqlite3",
-      "role": "campaign_queue",
-      "sha256": "ca400086884a37459006b56a030fd5693faa4e6aa913e5f79a2a113bd7cee2c3"
-    },
-    {
-      "bytes": 136854,
-      "path": "research_state/campaign-300-ultra/jobs.json",
-      "role": "campaign_index",
-      "sha256": "1ced1bcabc9c95970606769d46ada1221606b75360cd5f2c638be6514ed217d1"
-    },
-    {
-      "bytes": 3,
-      "path": "research_state/campaign-300-ultra/leaderboards/bottleneck-ledger.json",
-      "role": "leaderboard",
-      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
-    },
-    {
-      "bytes": 3,
-      "path": "research_state/campaign-300-ultra/leaderboards/promising-results.json",
-      "role": "leaderboard",
-      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
-    },
-    {
-      "bytes": 3,
-      "path": "research_state/campaign-300-ultra/leaderboards/rejected-results.json",
-      "role": "leaderboard",
-      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
-    },
-    {
-      "bytes": 3,
-      "path": "research_state/campaign-300-ultra/leaderboards/verified-results.json",
-      "role": "leaderboard",
-      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
-    },
-    {
-      "bytes": 467,
-      "path": "research_state/campaign-300-ultra/status.json",
-      "role": "campaign_index",
-      "sha256": "cdd173a722f537e37d778357e51006279d772f9c5f2f0fc38e38e433a90698ca"
+      "sha256": "ff370aaac8bab2d7991b5a2ddac01ff3093c90deb4cb6c022f4979b0d0799ce7"
     }
   ],
   "hash_algorithm": "sha256",
-  "schema": "line-point-research-data-manifest-v1",
-  "total_bytes": 245827
+  "schema": "line-point-concrete-data-manifest-v1",
+  "total_bytes": 29741
 }

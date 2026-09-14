@@ -71,7 +71,7 @@ def cmd_roadmap_export(args: argparse.Namespace) -> int:
 
 
 def build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(prog="line-point-research")
+    parser = argparse.ArgumentParser(prog="line-point-concrete")
     subparsers = parser.add_subparsers(dest="command", required=True)
     commands = (
         ("campaign-init", cmd_campaign_init, "initialize the durable proof campaign"),

@@ -19,30 +19,30 @@ from .snapshot import update_dashboard_sections
 
 ROADMAP_DEFINITIONS = (
     {
-        "id": "algebraic-engine",
-        "title": "Algebraic propagation engine",
-        "focus": "weighted interpolation, factorization, ramification cleanup, and characteristic-safe propagation",
+        "id": "exact-analytic",
+        "title": "Exact analytic chain",
+        "focus": "constant-optimized pruning, interpolation, factorization, and one-polynomial recovery",
         "target": (
-            "Prove an algebraic interpolation-and-propagation lemma strong enough to preserve a "
-            "near-linear power of the accepted incidence density over $\\mathbb F_p^2$."
+            "Prove the strongest explicit soundness bound $\\varepsilon$ for "
+            "$p=147457$ and total degree $d=87$ by an exact analytic argument."
         ),
     },
     {
-        "id": "incidence-engine",
-        "title": "Incidence concentration engine",
-        "focus": "popularity pruning, structured line families, point-line concentration, and near-lossless sampling",
+        "id": "certified-computation",
+        "title": "Certified finite computation",
+        "focus": "integer programs, exhaustive finite reductions, rational arithmetic, and independently checkable certificates",
         "target": (
-            "Convert local line-versus-point agreement into a structured affine-plane incidence "
-            "configuration with only a $(d/p)^{o(1)}$ loss."
+            "Reduce fixed-instance soundness to finite exact obligations and certify them with "
+            "reproducible checkers at $p=147457$ and $d=87$."
         ),
     },
     {
         "id": "end-to-end-soundness",
         "title": "End-to-end soundness chain",
-        "focus": "a complete KTZ-style dependency chain ending in one global polynomial and exponent $1-o(1)$",
+        "focus": "a complete fixed-parameter dependency chain ending in one global polynomial",
         "target": (
-            "Prove that soundness at least $(d/p)^{1-o(1)}$ yields agreement with one "
-            "total-degree-at-most-$d$ polynomial for $100<d<p$ over $\\mathbb F_p$."
+            "Prove that acceptance at least an explicit $\\varepsilon$ yields agreement with one "
+            "total-degree-at-most-$87$ polynomial on at least $\\varepsilon/10$ of $\\mathbb F_{147457}^2$."
         ),
     },
 )
@@ -261,11 +261,18 @@ class RoadmapWorkshop:
                 json.dumps(source, sort_keys=True).encode()).hexdigest()
             claim = source.get("theorem_statement") or source.get("integrated_theorem", "")
             claim_sha = hashlib.sha256(str(claim).encode()).hexdigest()
-            audit_path = (self.paths.campaign_dir / "reviews" / source_job_id /
-                          f"verifier-{source_job_id}" / "audit.json")
-            audit = json.loads(audit_path.read_text()) if audit_path.exists() else None
-            audit_exact = bool(
-                audit and audit.get("verified_claim_sha256") == claim_sha)
+            audits = []
+            for seat in ("a", "b"):
+                audit_path = (self.paths.campaign_dir / "reviews" / source_job_id /
+                              f"verifier-{seat}-{source_job_id}" / "audit.json")
+                if audit_path.exists():
+                    audits.append(json.loads(audit_path.read_text()))
+            double_audit_exact = bool(
+                len(audits) == 2 and
+                all(audit.get("verified_claim_sha256") == claim_sha for audit in audits))
+            double_accepted = bool(
+                double_audit_exact and
+                all(audit.get("verdict") == "accept" for audit in audits))
             lemma_path = self.paths.campaign_dir / "lemma_book" / "submissions" / source_job_id / "response.json"
             lemma_parts: dict[str, list[str]] = {}
             if lemma_path.exists():
@@ -280,8 +287,9 @@ class RoadmapWorkshop:
                     "source_step_id": str(step["id"]),
                     "source_response_sha256": source_sha,
                     "source_status": step.get("status", "conditional"),
-                    "audit_verdict": audit.get("verdict") if audit else "pending",
-                    "audit_exact": audit_exact,
+                    "audit_verdicts": [audit.get("verdict", "pending") for audit in audits],
+                    "double_audit_exact": double_audit_exact,
+                    "double_accepted": double_accepted,
                     "lemma_ids": sorted(lemma_parts.get(str(step["id"]), [])),
                 }
         payload = {"sha256": digest.hexdigest(), "files": receipts, "evidence": evidence}
@@ -297,7 +305,7 @@ class RoadmapWorkshop:
         path = self.root / "message-board.json"
         if path.exists():
             return json.loads(path.read_text())
-        return {"schema": "line-point-roadmap-message-board-v1", "messages": []}
+        return {"schema": "line-point-concrete-roadmap-message-board-v1", "messages": []}
 
     def _prompt(
             self, definition: dict[str, str], snapshot: dict[str, Any],
@@ -318,11 +326,13 @@ but import any useful shared lemma. Cite it in evidence_refs by the exact stable
 (source_job_id, source_step_id, source_response_sha256) from corpus-index.json. Editorial lemma
 splits are display-only and never change this proof reference.
 
-The scope is fixed at $m=2$ over prime $\\mathbb F_p$ with integer $100<d<p$. Do not work on
-dimension bootstrapping or $d\\le100$. The target is soundness $(d/p)^{{1-o(1)}}$ with recovery of
-one global total-degree-at-most-$d$ polynomial. Use work_state only to report activity: `open`,
+The scope is fixed at $m=2$ over $\\mathbb F_{{147457}}$ with total degree $d=87$. Do not vary
+these parameters or work on dimension bootstrapping. The target is the lowest explicit soundness
+$\\varepsilon$ for which acceptance at least $\\varepsilon$ forces agreement with one global
+total-degree-at-most-$87$ polynomial on at least $\\varepsilon/10$ of all points. Lower is
+better. Use work_state only to report activity: `open`,
 `drafting`, `candidate`, `blocked`, or `refuted`. The harness—not you—derives proof status from
-exact source hashes and independent verifier audits. Never convert confidence, a polished lemma,
+exact source hashes and two independent matching verifier accepts. Never convert confidence, a polished lemma,
 or informal discussion into verified proof progress.
 
 This is roadmap round {round_number}. The shared corpus snapshot SHA-256 is
@@ -445,12 +455,12 @@ STABLE PROOF-EVIDENCE INDEX:
                 initial = "open"
             elif any(
                     item["source_status"] == "refuted" or
-                    item["audit_verdict"] == "reject"
+                    "reject" in item["audit_verdicts"]
                     for item in evidence):
                 initial = "invalid"
             elif all(
                     item["source_status"] == "proved" and
-                    item["audit_verdict"] == "accept" and item["audit_exact"]
+                    item["double_accepted"] and item["double_audit_exact"]
                     for item in evidence):
                 initial = "verified"
             else:

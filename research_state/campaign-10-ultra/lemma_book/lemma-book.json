@@ -1,0 +1,10 @@
+{
+  "edited_source_count": 0,
+  "editorial_rule": "A lemma statement contains only its quantified objects, hypotheses, and conclusion. It contains no motivation, derivation, commentary, proof sketch, interpretation, history, or explanation; put all such material in the proof.",
+  "lemma_count": 0,
+  "lemmas": [],
+  "model": "gpt-5.6-sol",
+  "reasoning_effort": "ultra",
+  "source_count": 0,
+  "updated_at": "2026-09-14T21:27:03Z"
+}

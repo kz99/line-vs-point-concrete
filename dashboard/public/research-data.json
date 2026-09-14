@@ -9,7 +9,7 @@
   "jobs": [
     {
       "attempts": 0,
-      "direction": "global bivariate prime-field proof synthesis toward exponent 1-o(1)",
+      "direction": "global synthesis of the strongest fixed-instance soundness theorem",
       "error": null,
       "finished_at": null,
       "id": "GENIUS",
@@ -21,7 +21,7 @@
     },
     {
       "attempts": 0,
-      "direction": "audit the exact bivariate prime-field cubic bottleneck in Kominers--Thaler--Zheng",
+      "direction": "optimize the exact constants in the bivariate KTZ incidence-pruning argument",
       "error": null,
       "finished_at": null,
       "id": "researcher-0001",
@@ -33,7 +33,7 @@
     },
     {
       "attempts": 0,
-      "direction": "improve the combinatorial concentration step in the affine plane over F_p",
+      "direction": "derive a sharper exact popularity threshold for the fixed affine plane",
       "error": null,
       "finished_at": null,
       "id": "researcher-0002",
@@ -45,7 +45,7 @@
     },
     {
       "attempts": 0,
-      "direction": "improve the bivariate algebraic interpolation step over F_p",
+      "direction": "optimize bivariate weighted interpolation at p=147457 and d=87",
       "error": null,
       "finished_at": null,
       "id": "researcher-0003",
@@ -57,7 +57,7 @@
     },
     {
       "attempts": 0,
-      "direction": "multiplicity-sensitive bivariate interpolation and weighted vanishing conditions",
+      "direction": "build a rational-arithmetic certificate for the interpolation inequalities",
       "error": null,
       "finished_at": null,
       "id": "researcher-0004",
@@ -69,7 +69,7 @@
     },
     {
       "attempts": 0,
-      "direction": "Hasse derivatives and inseparability in small prime characteristic",
+      "direction": "audit every use of Hasse derivatives at the fixed prime",
       "error": null,
       "finished_at": null,
       "id": "researcher-0005",
@@ -81,7 +81,7 @@
     },
     {
       "attempts": 0,
-      "direction": "bivariate factorization, discriminants, and absolutely irreducible plane curves",
+      "direction": "sharpen the plane-curve factor and discriminant accounting",
       "error": null,
       "finished_at": null,
       "id": "researcher-0006",
@@ -93,7 +93,7 @@
     },
     {
       "attempts": 0,
-      "direction": "Bezout and intersection-multiplicity accounting for curves in the affine plane",
+      "direction": "optimize Bezout and intersection-multiplicity constants",
       "error": null,
       "finished_at": null,
       "id": "researcher-0007",
@@ -105,7 +105,7 @@
     },
     {
       "attempts": 0,
-      "direction": "prime-field incidence bounds for point-line agreement configurations",
+      "direction": "prove a fixed-parameter point-line incidence lemma",
       "error": null,
       "finished_at": null,
       "id": "researcher-0008",
@@ -117,7 +117,7 @@
     },
     {
       "attempts": 0,
-      "direction": "higher moments and dependent random choice on good incidences",
+      "direction": "replace Markov losses by exact moment inequalities",
       "error": null,
       "finished_at": null,
       "id": "researcher-0009",
@@ -129,7 +129,7 @@
     },
     {
       "attempts": 0,
-      "direction": "energy increment and popularity refinements",
+      "direction": "optimize dependent-random-choice constants on accepted incidences",
       "error": null,
       "finished_at": null,
       "id": "researcher-0010",
@@ -140,25 +140,125 @@
       "status": "queued"
     }
   ],
-  "schema": "line-point-research-dashboard-v1",
+  "lemma_book": {
+    "edited_source_count": 0,
+    "editorial_rule": "A lemma statement contains only its quantified objects, hypotheses, and conclusion. It contains no motivation, derivation, commentary, proof sketch, interpretation, history, or explanation; put all such material in the proof.",
+    "lemma_count": 0,
+    "lemmas": [],
+    "model": "gpt-5.6-sol",
+    "reasoning_effort": "ultra",
+    "source_count": 0,
+    "updated_at": "2026-09-14T21:27:03Z"
+  },
+  "message_board": {
+    "messages": [],
+    "schema": "line-point-concrete-roadmap-message-board-v1"
+  },
+  "proof_roadmaps": {
+    "active_roadmaps": [],
+    "model": "gpt-5.6-sol",
+    "reasoning_effort": "ultra",
+    "roadmaps": [
+      {
+        "critical_path": [],
+        "focus": "constant-optimized pruning, interpolation, factorization, and one-polynomial recovery",
+        "goal_node_id": "",
+        "nodes": [],
+        "progress": {
+          "blocked": 0,
+          "invalid": 0,
+          "mapped": 0,
+          "open": 0,
+          "percent": 0,
+          "provisional": 0,
+          "total": 0,
+          "verified": 0
+        },
+        "roadmap_id": "exact-analytic",
+        "round": 0,
+        "summary": "The first dependency audit is queued.",
+        "target_statement": "Prove the strongest explicit soundness bound $\\varepsilon$ for $p=147457$ and total degree $d=87$ by an exact analytic argument.",
+        "title": "Exact analytic chain",
+        "updated_at": "2026-09-14T21:27:03Z"
+      },
+      {
+        "critical_path": [],
+        "focus": "integer programs, exhaustive finite reductions, rational arithmetic, and independently checkable certificates",
+        "goal_node_id": "",
+        "nodes": [],
+        "progress": {
+          "blocked": 0,
+          "invalid": 0,
+          "mapped": 0,
+          "open": 0,
+          "percent": 0,
+          "provisional": 0,
+          "total": 0,
+          "verified": 0
+        },
+        "roadmap_id": "certified-computation",
+        "round": 0,
+        "summary": "The first dependency audit is queued.",
+        "target_statement": "Reduce fixed-instance soundness to finite exact obligations and certify them with reproducible checkers at $p=147457$ and $d=87$.",
+        "title": "Certified finite computation",
+        "updated_at": "2026-09-14T21:27:03Z"
+      },
+      {
+        "critical_path": [],
+        "focus": "a complete fixed-parameter dependency chain ending in one global polynomial",
+        "goal_node_id": "",
+        "nodes": [],
+        "progress": {
+          "blocked": 0,
+          "invalid": 0,
+          "mapped": 0,
+          "open": 0,
+          "percent": 0,
+          "provisional": 0,
+          "total": 0,
+          "verified": 0
+        },
+        "roadmap_id": "end-to-end-soundness",
+        "round": 0,
+        "summary": "The first dependency audit is queued.",
+        "target_statement": "Prove that acceptance at least an explicit $\\varepsilon$ yields agreement with one total-degree-at-most-$87$ polynomial on at least $\\varepsilon/10$ of $\\mathbb F_{147457}^2$.",
+        "title": "End-to-end soundness chain",
+        "updated_at": "2026-09-14T21:27:03Z"
+      }
+    ],
+    "round": 0,
+    "schema": "line-point-proof-roadmaps-v1",
+    "status": "queued",
+    "updated_at": "2026-09-14T21:27:03Z"
+  },
+  "schema": "line-point-concrete-dashboard-v1",
+  "soundness_history": {
+    "fixed_degree": 87,
+    "fixed_prime": 147457,
+    "lower_is_better": true,
+    "points": [],
+    "verification_threshold": 2
+  },
   "status": {
-    "benchmark_exponent": "1/3",
-    "campaign_dir": "/Users/kaizheng/.codex/worktrees/1f44/SSE-auto/Line-vs-Point/research_state/campaign-10-ultra",
+    "campaign_dir": "/Users/kaizheng/.codex/worktrees/1f44/SSE-auto/Line-vs-Point-concrete/research_state/campaign-10-ultra",
     "counts": {
       "queued": 11
     },
-    "degree_lower_bound_exclusive": 100,
     "dimension": 2,
     "field_regime": "prime",
+    "fixed_degree": 87,
+    "fixed_prime": 147457,
+    "initial_soundness": 1.0,
     "model": "gpt-5.6-sol",
-    "planned_agent_invocations": 22,
+    "planned_agent_invocations": 44,
     "reasoning_effort": "ultra",
+    "recovery_divisor": 10,
     "researcher_count": 10,
     "roles": {
       "genius": 1,
       "researcher": 10
     },
-    "target_exponent": "1-o(1)",
-    "updated_at": "2026-09-14T06:47:54Z"
+    "updated_at": "2026-09-14T21:27:03Z",
+    "verifier_count": 2
   }
 }

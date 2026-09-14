@@ -1,79 +1,61 @@
-# Line-vs-Point Autoresearch
+# Line-vs-Point Concrete Autoresearch
 
-This repository is a durable proof-author, adversary, verifier, and synthesis loop for improving the soundness threshold of the affine line-versus-point low-degree test in the affine plane over a prime field.
-
-The degree regime is fixed throughout at integer \(100<d<p\). In particular, \(d=0\) and all other bounded-degree edge cases are outside the campaign scope. The current primary benchmark is Kominers--Thaler--Zheng's cubic threshold: local agreement
+This repository is a proof-first autonomous research laboratory for one fixed affine line-versus-point test:
 
 \[
-\varepsilon \ge C(d/p)^{1/3}
+\mathbb F_{147457}^{2},\qquad d=87.
 \]
 
-forces agreement \(\Omega(\varepsilon)\) with one bivariate total-degree-\(d\) polynomial over \(\mathbb F_p\). The long-term target is a theorem at threshold \((d/p)^{1-o(1)}\). The research problem is fixed throughout at \(m=2\) and prime \(p\); the standard lift from the bivariate theorem to general dimension is downstream and is not a campaign objective.
+For a point table \(f:\mathbb F_p^2\to\mathbb F_p\) and line table \((P_L)_L\), where each \(P_L\) has degree at most \(87\), define
 
-This project deliberately does **not** rank finite experiments as mathematical progress. Small-field computation may falsify a lemma, expose a characteristic-dependent failure, or test an exponent ledger. Only an asymptotic theorem with a complete academic note and an independent line-by-line audit can enter the verified leaderboard.
+\[
+\operatorname{Pass}(f,(P_L)_L)=
+\Pr_{L,\,x\in L}[P_L(x)=f(x)],
+\]
 
-## Quick start
+using the uniform distribution on affine lines followed by a uniform point of the line.
 
-The initialized 10-researcher test campaign is the recommended first run. Launching it also starts the dedicated Lemma Writer and three synchronized Proof Roadmap agents:
+## Verified soundness
 
-```bash
-line-point-research campaign-status configs/campaign-10-ultra.yaml
-line-point-research campaign-launch configs/campaign-10-ultra.yaml
-```
+A number \(\varepsilon\in(0,1]\) is a **verified LvP soundness** when there is a rigorous proof that every table with
 
-Initialization and status inspection do not invoke agents. `campaign-launch` is the explicit start command. The test campaign plans 10 proof researchers, up to 10 corresponding verifiers, one `GENIUS` synthesis, one synthesis verifier, one Lemma Writer pass for every successful research or synthesis submission, and three continuing roadmap agents. Every role is hard-locked to `gpt-5.6-sol` at its highest supported reasoning level, `ultra`; campaign loading fails if the reasoning level is lowered.
+\[
+\operatorname{Pass}(f,(P_L)_L)\ge\varepsilon
+\]
 
-The separate 300-researcher production campaign remains available:
+admits a bivariate polynomial \(Q\in\mathbb F_p[X,Y]\) of total degree at most \(87\) satisfying
+
+\[
+\Pr_{x\in\mathbb F_p^2}[Q(x)=f(x)]\ge\varepsilon/10.
+\]
+
+Lower values of \(\varepsilon\) are stronger. A claimed value is promoted to the public progress graph only after two independently prompted verifier agents accept the exact same SHA-identified theorem and numeric threshold. Disagreement, revision requests, and conditional results remain visible but are not graphed.
+
+## Research loop
+
+The ten-agent trial and 300-agent campaign are durable, resumable SQLite queues. Each successful researcher or `GENIUS` synthesis receives two independent hostile audits. All agents are pinned to `gpt-5.6-sol` at `ultra` reasoning.
 
 ```bash
 python -m pip install -e .
-python -m unittest discover -s tests -v
-line-point-research campaign-init configs/campaign-300-ultra.yaml
-line-point-research campaign-status configs/campaign-300-ultra.yaml
-line-point-research campaign-launch configs/campaign-300-ultra.yaml
+line-point-concrete campaign-init configs/campaign-10-ultra.yaml
+line-point-concrete campaign-status configs/campaign-10-ultra.yaml
+line-point-concrete campaign-launch configs/campaign-10-ultra.yaml
 ```
 
-The production campaign queues 300 independent proof researchers, one verifier per successful submission, a global `GENIUS` synthesis job, and a verifier for the synthesis. Four workers run concurrently. Every job is durable and resumable through SQLite. The two campaign directories are independent, so testing cannot consume or alter the production queue.
+Initialization and status commands do not invoke agents. `campaign-launch` explicitly starts the researchers, two-verifier pipeline, Lemma Writer, and three synchronized Proof Roadmap agents.
 
-Results live under `research_state/campaign-10-ultra/` for the test or `research_state/campaign-300-ultra/` for production:
+Results are stored under `research_state/campaign-10-ultra/`:
 
-- `submissions/`: academic notes and structured theorem manifests;
-- `reviews/`: hostile line-by-line proof audits;
-- `agent_logs/`: exact prompts, schemas, responses, and stderr;
-- `leaderboards/`: promising, verified, and rejected claims plus a bottleneck ledger;
-- `lemma_book/`: immutable, hash-linked editorial versions of every structured lemma;
-- `roadmaps/`: three round-synchronized dependency DAGs, stable evidence links, agent traces, and an immutable informal message board;
-- `campaign.sqlite3`: the durable job queue.
+- `submissions/`: immutable academic notes and theorem manifests;
+- `reviews/`: two independent line-by-line audits per submission;
+- `leaderboards/`: promoted, promising, and rejected concrete bounds;
+- `leaderboards/soundness-history.json`: the monotonically improving, doubly verified graph series;
+- `lemma_book/`: minimally stated, source-linked lemmas with complete proofs;
+- `roadmaps/`: three shared dependency DAGs and an informal agent message board;
+- `agent_logs/`: prompts, schemas, model responses, and errors.
 
-## Research dashboard
+The public GitHub Pages dashboard mirrors the record/progress/leaderboard organization of better.codes, with separate Lemma Book, Proof Roadmaps, and Message Board tabs.
 
-The dashboard in `dashboard/` is a live reading interface for the active campaign. Its separate Research, Lemma Book, Proof Roadmaps, and Message Board tabs refresh every ten seconds. The roadmap view gives a Lean-style dependency chain and audit-derived progress for three parallel proof architectures. All three agents see the same frozen corpus and peer roadmaps each round, while their prompt gives a slight preference to their assigned route. Message-board posts are deliberately informal and never count as proof. Every exporter atomically updates its own section of `dashboard/public/research-data.json`.
+After a run updates the public snapshot, publish the static dashboard with `scripts/publish_pages.sh`.
 
-The initial roadmap workshop runs at least two synchronized rounds so every route can react to the other two. After that it watches the shared research, audit, and Lemma Book corpus and starts another parallel round whenever the corpus changes. A roadmap node is marked verified only when its exact source response and proof step have a matching accepted verifier audit and every dependency is closed.
-
-The public snapshot is deployed by GitHub Pages at <https://kz99.github.io/line-point-research-observatory/>. Only the read-only dashboard is public; the research repository and its full corpus remain private. The public snapshot is refreshed from `dashboard/public/research-data.json` when the dashboard is published.
-
-```bash
-cd dashboard
-pnpm dev
-```
-
-Open the printed local URL while a campaign is running. The interface is read-only and cannot launch, stop, or mutate a campaign.
-
-Read [TARGET.md](TARGET.md) before interpreting any claimed exponent, and [references/LITERATURE.md](references/LITERATURE.md) before launching agents.
-
-## Safety and proof policy
-
-An exponent is not a theorem merely because algebraic manipulations produce it. Every submission must identify:
-
-1. the precise line and point sampling distribution;
-2. that the field is the prime field \(\mathbb F_p\) and \(100<d<p\);
-3. the domains and dependencies of \(d,p,\varepsilon\), with \(m=2\) fixed;
-4. the exact global conclusion and its agreement loss;
-5. every use of interpolation, factorization, list decoding, plurality, and conversion to one global polynomial;
-6. all small-characteristic and inseparability cases;
-7. a multiplicative exponent ledger from hypothesis to conclusion.
-
-The verifier must reject a false theorem or construction, request revision for a repairable gap, and accept only the exact SHA-identified claim it audited.
-
-Arguments about \(m\ne2\), extension fields, or dimension bootstrapping are out of scope for scoring. General-dimensional bootstrapping is standard once the bivariate theorem is available; it is mentioned only to identify the downstream consequence.
+Read [TARGET.md](TARGET.md) for the exact rules.

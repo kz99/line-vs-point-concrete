@@ -3,9 +3,9 @@ requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "line-point-autoresearch"
+name = "line-point-concrete-autoresearch"
 version = "0.1.0"
-description = "Durable mathematical autoresearch for line-versus-point test soundness"
+description = "Double-verified concrete soundness research for the line-versus-point test"
 requires-python = ">=3.9"
 dependencies = ["PyYAML>=6"]
 
@@ -13,7 +13,7 @@ dependencies = ["PyYAML>=6"]
 test = ["pytest>=7"]
 
 [project.scripts]
-line-point-research = "line_point_research.cli:main"
+line-point-concrete = "line_point_research.cli:main"
 
 [tool.setuptools]
 package-dir = {"" = "src"}

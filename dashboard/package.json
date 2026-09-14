@@ -1,5 +1,5 @@
 {
-  "name": "sites-project",
+  "name": "line-vs-point-concrete-observatory",
   "version": "0.1.0",
   "private": true,
   "engines": {
@@ -7,9 +7,10 @@
   },
   "scripts": {
     "dev": "vinext dev",
+    "validate:data": "node scripts/validate-soundness-data.mjs public/research-data.json",
     "validate:math": "node scripts/validate-lemma-book.mjs public/research-data.json && node scripts/validate-roadmap-math.mjs public/research-data.json",
-    "build": "pnpm validate:math && vinext build",
-    "build:pages": "pnpm validate:math && GITHUB_PAGES=true vinext build && node scripts/fix-github-pages-assets.mjs",
+    "build": "pnpm validate:data && pnpm validate:math && vinext build",
+    "build:pages": "pnpm validate:data && pnpm validate:math && GITHUB_PAGES=true vinext build && node scripts/fix-github-pages-assets.mjs",
     "start": "wrangler dev --config dist/server/wrangler.json",
     "lint": "oxlint",
     "format": "oxfmt"

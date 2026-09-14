@@ -145,6 +145,9 @@ class LemmaBookEditor:
 Post-edit every structured proof step in submission {source_id} into a clear lemma-book entry.
 You are an editor, not a researcher or verifier. The raw submission is immutable.
 
+The immutable ambient parameters are $m=2$, $p=147457$, and total degree $d=87$. Preserve them
+literally; do not generalize a fixed-instance lemma or substitute a nearby degree.
+
 RULE: {LEMMA_STATEMENT_RULE}
 
 Preserve the exact mathematical content, hypotheses, status, and dependency closure of every
@@ -238,7 +241,7 @@ SOURCE SUBMISSION:
             (out_dir / "response.json").write_text(
                 json.dumps(response, indent=2, sort_keys=True) + "\n")
             (out_dir / "manifest.json").write_text(json.dumps({
-                "schema": "line-point-lemma-book-entry-v1",
+                "schema": "line-point-concrete-lemma-book-entry-v1",
                 "source_job_id": source_id,
                 "source_response_sha256": source_hash,
                 "editorial_rule": LEMMA_STATEMENT_RULE,

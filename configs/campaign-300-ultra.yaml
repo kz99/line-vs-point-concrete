@@ -6,8 +6,10 @@ campaign:
   researcher_count: 300
   dimension: 2
   field_regime: prime
-  degree_lower_bound_exclusive: 100
+  fixed_prime: 147457
+  fixed_degree: 87
   verifier_enabled: true
+  verifier_count: 2
   lemma_writer_enabled: true
   roadmap_agents_enabled: true
   genius_enabled: true
@@ -27,5 +29,5 @@ campaign:
   roadmap_poll_seconds: 45
   roadmap_timeout_seconds: 5400
   roadmap_max_attempts: 4
-  benchmark_exponent: "1/3"
-  target_exponent: "1-o(1)"
+  initial_soundness: 1.0
+  recovery_divisor: 10

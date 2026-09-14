@@ -1,0 +1,77 @@
+{
+  "active_roadmaps": [],
+  "model": "gpt-5.6-sol",
+  "reasoning_effort": "ultra",
+  "roadmaps": [
+    {
+      "critical_path": [],
+      "focus": "constant-optimized pruning, interpolation, factorization, and one-polynomial recovery",
+      "goal_node_id": "",
+      "nodes": [],
+      "progress": {
+        "blocked": 0,
+        "invalid": 0,
+        "mapped": 0,
+        "open": 0,
+        "percent": 0,
+        "provisional": 0,
+        "total": 0,
+        "verified": 0
+      },
+      "roadmap_id": "exact-analytic",
+      "round": 0,
+      "summary": "The first dependency audit is queued.",
+      "target_statement": "Prove the strongest explicit soundness bound $\\varepsilon$ for $p=147457$ and total degree $d=87$ by an exact analytic argument.",
+      "title": "Exact analytic chain",
+      "updated_at": "2026-09-14T21:27:03Z"
+    },
+    {
+      "critical_path": [],
+      "focus": "integer programs, exhaustive finite reductions, rational arithmetic, and independently checkable certificates",
+      "goal_node_id": "",
+      "nodes": [],
+      "progress": {
+        "blocked": 0,
+        "invalid": 0,
+        "mapped": 0,
+        "open": 0,
+        "percent": 0,
+        "provisional": 0,
+        "total": 0,
+        "verified": 0
+      },
+      "roadmap_id": "certified-computation",
+      "round": 0,
+      "summary": "The first dependency audit is queued.",
+      "target_statement": "Reduce fixed-instance soundness to finite exact obligations and certify them with reproducible checkers at $p=147457$ and $d=87$.",
+      "title": "Certified finite computation",
+      "updated_at": "2026-09-14T21:27:03Z"
+    },
+    {
+      "critical_path": [],
+      "focus": "a complete fixed-parameter dependency chain ending in one global polynomial",
+      "goal_node_id": "",
+      "nodes": [],
+      "progress": {
+        "blocked": 0,
+        "invalid": 0,
+        "mapped": 0,
+        "open": 0,
+        "percent": 0,
+        "provisional": 0,
+        "total": 0,
+        "verified": 0
+      },
+      "roadmap_id": "end-to-end-soundness",
+      "round": 0,
+      "summary": "The first dependency audit is queued.",
+      "target_statement": "Prove that acceptance at least an explicit $\\varepsilon$ yields agreement with one total-degree-at-most-$87$ polynomial on at least $\\varepsilon/10$ of $\\mathbb F_{147457}^2$.",
+      "title": "End-to-end soundness chain",
+      "updated_at": "2026-09-14T21:27:03Z"
+    }
+  ],
+  "round": 0,
+  "schema": "line-point-proof-roadmaps-v1",
+  "status": "queued",
+  "updated_at": "2026-09-14T21:27:03Z"
+}

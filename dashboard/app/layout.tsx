@@ -14,9 +14,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Line–Point Research Ledger',
+  title: 'Line–Point Concrete',
   description:
-    'A public proof ledger for bivariate prime-field line-versus-point soundness research.',
+    'A doubly verified soundness record for the line-vs-point test over F_147457^2 at degree 87.',
 };
 
 export default function RootLayout({

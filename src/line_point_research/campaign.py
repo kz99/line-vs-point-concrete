@@ -17,7 +17,6 @@ from typing import Any
 import yaml
 
 from .agents import AgentError, CommandAgentProvider
-from .exponents import is_stronger_fixed_exponent
 from .snapshot import update_dashboard_sections
 
 
@@ -38,13 +37,13 @@ PROOF_STEP = {
 }
 
 
-EXPONENT_STAGE = {
+SOUNDNESS_STAGE = {
     "type": "object", "additionalProperties": False,
-    "required": ["stage", "input_scale", "output_scale", "loss", "justification", "status"],
+    "required": ["stage", "input_bound", "output_bound", "loss", "justification", "status"],
     "properties": {
         "stage": {"type": "string"},
-        "input_scale": {"type": "string"},
-        "output_scale": {"type": "string"},
+        "input_bound": {"type": "string"},
+        "output_bound": {"type": "string"},
         "loss": {"type": "string"},
         "justification": {"type": "string"},
         "status": {"type": "string", "enum": ["proved", "conditional", "conjectural", "refuted"]},
@@ -68,26 +67,28 @@ LITERATURE_DEPENDENCY = {
 RESEARCH_SCHEMA = {
     "type": "object", "additionalProperties": False,
     "required": ["title", "dimension", "field_regime", "result_status", "claim_scope", "benchmark_improved",
-                 "claimed_exponent", "theorem_statement", "parameter_regime",
+                 "fixed_prime", "fixed_degree", "claimed_soundness", "theorem_statement", "parameter_regime",
                  "sampling_model", "global_conclusion", "literature_dependencies",
-                 "proof_steps", "exponent_ledger", "counterexample_attempts",
+                 "proof_steps", "soundness_ledger", "counterexample_attempts",
                  "characteristic_audit", "finite_sanity_checks", "obstructions",
                  "next_tasks", "note_markdown"],
     "properties": {
         "title": {"type": "string"},
         "dimension": {"type": "integer", "const": 2},
         "field_regime": {"type": "string", "enum": ["prime"]},
+        "fixed_prime": {"type": "integer", "const": 147457},
+        "fixed_degree": {"type": "integer", "const": 87},
         "result_status": {"type": "string", "enum": ["proved", "conditional", "conjectural", "refuted"]},
         "claim_scope": {"type": "string", "enum": ["bivariate_theorem", "algebraic_lemma", "combinatorial_lemma", "obstruction", "counterexample", "proof_tool"]},
         "benchmark_improved": {"type": "boolean"},
-        "claimed_exponent": {"type": ["string", "null"]},
+        "claimed_soundness": {"type": ["number", "null"], "exclusiveMinimum": 0, "maximum": 1},
         "theorem_statement": {"type": "string"},
         "parameter_regime": {"type": "string"},
         "sampling_model": {"type": "string"},
         "global_conclusion": {"type": "string"},
         "literature_dependencies": {"type": "array", "items": LITERATURE_DEPENDENCY},
         "proof_steps": {"type": "array", "items": PROOF_STEP},
-        "exponent_ledger": {"type": "array", "items": EXPONENT_STAGE},
+        "soundness_ledger": {"type": "array", "items": SOUNDNESS_STAGE},
         "counterexample_attempts": {"type": "array", "items": {"type": "string"}},
         "characteristic_audit": {"type": "array", "items": {"type": "string"}},
         "finite_sanity_checks": {"type": "array", "items": {"type": "string"}},
@@ -100,15 +101,19 @@ RESEARCH_SCHEMA = {
 
 GENIUS_SCHEMA = {
     "type": "object", "additionalProperties": False,
-    "required": ["title", "dimension", "field_regime", "snapshot", "evidence_ledger", "bottleneck_map",
+    "required": ["title", "dimension", "field_regime", "fixed_prime", "fixed_degree", "result_status", "benchmark_improved", "snapshot", "evidence_ledger", "bottleneck_map",
                  "architectures", "selected_architecture_id", "integrated_theorem",
-                 "claimed_exponent", "proof_steps", "exponent_ledger",
+                 "fixed_prime", "fixed_degree", "claimed_soundness", "proof_steps", "soundness_ledger",
                  "counterexample_attempts", "research_directives", "limitations",
                  "abstain_reason", "note_markdown"],
     "properties": {
         "title": {"type": "string"},
         "dimension": {"type": "integer", "const": 2},
         "field_regime": {"type": "string", "enum": ["prime"]},
+        "fixed_prime": {"type": "integer", "const": 147457},
+        "fixed_degree": {"type": "integer", "const": 87},
+        "result_status": {"type": "string", "enum": ["proved", "conditional", "conjectural", "refuted"]},
+        "benchmark_improved": {"type": "boolean"},
         "snapshot": {
             "type": "object", "additionalProperties": False,
             "required": ["data_manifest_sha256", "durable_file_count", "examined_paths",
@@ -133,16 +138,16 @@ GENIUS_SCHEMA = {
                 },
             },
         },
-        "bottleneck_map": {"type": "array", "items": EXPONENT_STAGE},
+        "bottleneck_map": {"type": "array", "items": SOUNDNESS_STAGE},
         "architectures": {
             "type": "array", "items": {
                 "type": "object", "additionalProperties": False,
-                "required": ["id", "name", "claimed_exponent", "core_idea", "proved_components",
+                "required": ["id", "name", "claimed_soundness", "core_idea", "proved_components",
                              "missing_obligations", "known_attacks", "priority"],
                 "properties": {
                     "id": {"type": "string"},
                     "name": {"type": "string"},
-                    "claimed_exponent": {"type": ["string", "null"]},
+                    "claimed_soundness": {"type": ["number", "null"], "exclusiveMinimum": 0, "maximum": 1},
                     "core_idea": {"type": "string"},
                     "proved_components": {"type": "array", "items": {"type": "string"}},
                     "missing_obligations": {"type": "array", "items": {"type": "string"}},
@@ -153,9 +158,9 @@ GENIUS_SCHEMA = {
         },
         "selected_architecture_id": {"type": ["string", "null"]},
         "integrated_theorem": {"type": "string"},
-        "claimed_exponent": {"type": ["string", "null"]},
+        "claimed_soundness": {"type": ["number", "null"], "exclusiveMinimum": 0, "maximum": 1},
         "proof_steps": {"type": "array", "items": PROOF_STEP},
-        "exponent_ledger": {"type": "array", "items": EXPONENT_STAGE},
+        "soundness_ledger": {"type": "array", "items": SOUNDNESS_STAGE},
         "counterexample_attempts": {"type": "array", "items": {"type": "string"}},
         "research_directives": {"type": "array", "items": {"type": "string"}},
         "limitations": {"type": "array", "items": {"type": "string"}},
@@ -180,9 +185,9 @@ AUDIT_ITEM = {
 AUDIT_SCHEMA = {
     "type": "object", "additionalProperties": False,
     "required": ["verdict", "unfixable", "verified_claim_sha256", "dimension_verified",
-                 "field_regime_verified", "scope_verified",
-                 "benchmark_improved", "verified_exponent", "fatal_obstruction",
-                 "coverage_complete", "quantifier_audit", "exponent_audit",
+                 "field_regime_verified", "fixed_prime_verified", "fixed_degree_verified", "scope_verified",
+                 "benchmark_improved", "verified_soundness", "recovery_ratio_verified", "fatal_obstruction",
+                 "coverage_complete", "quantifier_audit", "soundness_audit",
                  "literature_audit", "line_audit", "required_changes",
                  "counterexample_attempts", "summary"],
     "properties": {
@@ -191,13 +196,16 @@ AUDIT_SCHEMA = {
         "verified_claim_sha256": {"type": ["string", "null"]},
         "dimension_verified": {"type": "boolean"},
         "field_regime_verified": {"type": "boolean"},
+        "fixed_prime_verified": {"type": "boolean"},
+        "fixed_degree_verified": {"type": "boolean"},
         "scope_verified": {"type": "string", "enum": ["none", "bivariate_theorem", "algebraic_lemma", "combinatorial_lemma", "obstruction", "counterexample", "proof_tool"]},
         "benchmark_improved": {"type": "boolean"},
-        "verified_exponent": {"type": ["string", "null"]},
+        "verified_soundness": {"type": ["number", "null"], "exclusiveMinimum": 0, "maximum": 1},
+        "recovery_ratio_verified": {"type": "boolean"},
         "fatal_obstruction": {"type": ["string", "null"]},
         "coverage_complete": {"type": "boolean"},
         "quantifier_audit": {"type": "array", "items": AUDIT_ITEM},
-        "exponent_audit": {"type": "array", "items": AUDIT_ITEM},
+        "soundness_audit": {"type": "array", "items": AUDIT_ITEM},
         "literature_audit": {"type": "array", "items": AUDIT_ITEM},
         "line_audit": {"type": "array", "items": AUDIT_ITEM},
         "required_changes": {"type": "array", "items": {"type": "string"}},
@@ -208,36 +216,26 @@ AUDIT_SCHEMA = {
 
 
 DIRECTIONS = [
-    "audit the exact bivariate prime-field cubic bottleneck in Kominers--Thaler--Zheng",
-    "improve the combinatorial concentration step in the affine plane over F_p",
-    "improve the bivariate algebraic interpolation step over F_p",
-    "multiplicity-sensitive bivariate interpolation and weighted vanishing conditions",
-    "Hasse derivatives and inseparability in small prime characteristic",
-    "bivariate factorization, discriminants, and absolutely irreducible plane curves",
-    "Bezout and intersection-multiplicity accounting for curves in the affine plane",
-    "prime-field incidence bounds for point-line agreement configurations",
-    "higher moments and dependent random choice on good incidences",
-    "energy increment and popularity refinements",
-    "additive-combinatorial structure of good directions in F_p^2",
-    "sum-product and prime-field incidence phenomena in the affine plane",
-    "bivariate Reed--Muller list recovery and list-decoding reductions",
-    "local correction and plurality decoding without exponent loss",
-    "agreement theorems and direct-product testing analogies",
-    "direct affine-plane geometry avoiding lossy intermediate lemmas",
-    "structured pencils of good lines through popular points",
-    "direction-by-direction consistency and gluing inside F_p^2",
-    "polynomial-method incidence bounds specialized to F_p^2",
-    "prime-characteristic obstructions when p is small relative to d and epsilon",
-    "low-prime-characteristic counterexamples to derivative arguments",
-    "construct bivariate prime-field lower-bound examples near the d/p threshold",
-    "information-theoretic barriers and sharpness constructions",
-    "line-versus-line insights that rigorously preserve the bivariate line-versus-point test",
-    "plane-curve rigidity and polynomial identity mechanisms",
-    "second-moment versus third-moment losses in the bivariate proof",
-    "prime-field character sums or Weil bounds for structured exceptional sets",
-    "extract every bivariate prime-field exponent from Arora--Sudan",
-    "extract and optimize the bivariate prime-field HKSS exponent ledger",
-    "unified bivariate prime-field proof architecture targeting exponent 1-o(1)",
+    "optimize the exact constants in the bivariate KTZ incidence-pruning argument",
+    "derive a sharper exact popularity threshold for the fixed affine plane",
+    "optimize bivariate weighted interpolation at p=147457 and d=87",
+    "build a rational-arithmetic certificate for the interpolation inequalities",
+    "audit every use of Hasse derivatives at the fixed prime",
+    "sharpen the plane-curve factor and discriminant accounting",
+    "optimize Bezout and intersection-multiplicity constants",
+    "prove a fixed-parameter point-line incidence lemma",
+    "replace Markov losses by exact moment inequalities",
+    "optimize dependent-random-choice constants on accepted incidences",
+    "use direction structure in the fixed affine plane",
+    "derive a finite-field energy increment with explicit constants",
+    "specialize bivariate Reed--Muller list recovery to d=87",
+    "convert a polynomial list into one polynomial with explicit agreement",
+    "search for adversarial line and point tables that limit the theorem",
+    "derive a direct affine-plane proof avoiding lossy generic lemmas",
+    "exploit pencils of accepted lines through popular points",
+    "prove direction-by-direction consistency with exact counts",
+    "construct a machine-checkable integer or rational certificate",
+    "optimize the final epsilon-to-epsilon/10 recovery step",
 ]
 
 
@@ -280,8 +278,14 @@ def load_campaign_config(path: Path | str) -> tuple[dict[str, Any], CampaignPath
         raise ValueError("campaign.dimension must be exactly 2")
     if str(campaign.get("field_regime", "prime")) != "prime":
         raise ValueError("campaign.field_regime must be prime")
-    if int(campaign.get("degree_lower_bound_exclusive", 100)) != 100:
-        raise ValueError("campaign.degree_lower_bound_exclusive must be 100")
+    if int(campaign.get("fixed_prime", 0)) != 147457:
+        raise ValueError("campaign.fixed_prime must be 147457")
+    if int(campaign.get("fixed_degree", 0)) != 87:
+        raise ValueError("campaign.fixed_degree must be 87")
+    if int(campaign.get("verifier_count", 0)) != 2:
+        raise ValueError("campaign.verifier_count must be exactly 2")
+    if int(campaign.get("recovery_divisor", 0)) != 10:
+        raise ValueError("campaign.recovery_divisor must be 10")
     base = config_path.parent
 
     def resolve(value: str) -> Path:
@@ -352,14 +356,14 @@ class ResearchCampaign:
                     """INSERT OR IGNORE INTO campaign_jobs
                     (id,role,ordinal,direction,dependency,status,max_attempts,model,reasoning_effort,created_at)
                     VALUES ('GENIUS','genius',NULL,?,'__swarm_reviews__','queued',?,?,?,?)""",
-                    ("global proof synthesis toward exponent 1-o(1)",
+                    ("global synthesis of the strongest fixed-instance soundness theorem",
                      int(self.cfg.get("max_attempts", 8)), self.provider.model,
                      self.provider.reasoning_effort, utc_timestamp()),
                 )
                 connection.execute(
                     "UPDATE campaign_jobs SET direction=? WHERE id='GENIUS' AND role='genius' "
                     "AND status='queued' AND attempts=0",
-                    ("global bivariate prime-field proof synthesis toward exponent 1-o(1)",),
+                    ("global synthesis of the strongest fixed-instance soundness theorem",),
                 )
         self.export_status()
 
@@ -383,8 +387,8 @@ class ResearchCampaign:
                 successful = [item["id"] for item in all_jobs
                               if item["role"] == "researcher" and item["status"] == "succeeded"]
                 verifier_terminal = all(
-                    states.get(f"verifier-{source_id}") in {"succeeded", "failed"}
-                    for source_id in successful)
+                    states.get(f"verifier-{seat}-{source_id}") in {"succeeded", "failed"}
+                    for source_id in successful for seat in ("a", "b"))
                 if researcher_terminal and verifier_terminal:
                     ready.append(row)
             elif states.get(dependency) == "succeeded":
@@ -404,16 +408,17 @@ class ResearchCampaign:
     def _enqueue_verifier(self, source_id: str) -> None:
         if not bool(self.cfg.get("verifier_enabled", True)):
             return
-        verifier_id = f"verifier-{source_id}"
         with self.lock, self.connect() as connection:
-            connection.execute(
-                """INSERT OR IGNORE INTO campaign_jobs
-                (id,role,ordinal,direction,dependency,status,max_attempts,model,reasoning_effort,created_at)
-                VALUES (?, 'verifier', NULL, ?, ?, 'queued', ?, ?, ?, ?)""",
-                (verifier_id, f"independent proof and exponent audit of {source_id}", source_id,
-                 int(self.cfg.get("max_attempts", 8)), self.provider.model,
-                 self.provider.reasoning_effort, utc_timestamp()),
-            )
+            for seat in ("a", "b"):
+                verifier_id = f"verifier-{seat}-{source_id}"
+                connection.execute(
+                    """INSERT OR IGNORE INTO campaign_jobs
+                    (id,role,ordinal,direction,dependency,status,max_attempts,model,reasoning_effort,created_at)
+                    VALUES (?, 'verifier', NULL, ?, ?, 'queued', ?, ?, ?, ?)""",
+                    (verifier_id, f"independent verifier {seat.upper()} audit of {source_id}", source_id,
+                     int(self.cfg.get("max_attempts", 8)), self.provider.model,
+                     self.provider.reasoning_effort, utc_timestamp()),
+                )
 
     def _corpus_instruction(self) -> str:
         return f"""The repository is {self.paths.workspace}. The durable corpus root is
@@ -421,8 +426,9 @@ class ResearchCampaign:
 references/bibliography.json, research_state/DATA_MANIFEST.json, all prior submissions,
 leaderboards, and verifier audits. You have a read-only shell. Treat literature summaries as
 navigation aids and identify exact primary-source theorem dependencies. Distinguish quoted
-theorems from your own exponent reconstruction. Finite-field computation is useful for
-falsification but cannot prove an asymptotic soundness theorem. Ignore every directory named
+theorems from your own fixed-parameter derivation. Exact deterministic computation may certify
+finite inequalities only with reproducible code and a checkable certificate; floating-point or
+randomized evidence is not proof. Ignore every directory named
 superseded: those files are retained only as provenance and are not part of the active corpus."""
 
     def _research_prompt(self, row: dict[str, Any]) -> str:
@@ -434,29 +440,31 @@ test. Your assigned direction is: {row['direction']}. Your mode is {mode}.
 
 {self._corpus_instruction()}
 
-The problem is fixed at m=2 over the prime field F_p, with integer degree 100 < d < p. Degrees
-d <= 100, including d=0, are outside the campaign scope. Do not analyze them, repair the theorem
-there, or present them as obstructions. The benchmark is the
-bivariate specialization of the Kominers--Thaler--Zheng threshold C(d/p)^(1/3), with global
-agreement Omega(local agreement). The long-term target is (d/p)^(1-o(1)). Since d/p<1, a
-larger exponent is stronger. Do genuine mathematical work: isolate one bottleneck, attempt a
-new lemma or counterexample, and write a fully quantified result.
+The instance is immutable: m=2, p=147457, and total degree d=87. The verifier samples a uniformly
+random affine line in F_p^2 and then a uniformly random point on it. A number epsilon in (0,1]
+is a verified soundness bound if every line table and point table accepted with probability at
+least epsilon admits a total-degree-at-most-87 bivariate polynomial agreeing with the point
+table on at least epsilon/10 of all p^2 points. Lower epsilon is stronger. Do genuine
+mathematical work: isolate one bottleneck, optimize exact constants, attempt a new lemma or
+counterexample, and write a fully quantified fixed-instance result.
 
 Do not work on m>2, dimension bootstrapping, extension fields, or descent: the standard
 general-dimensional lift is a routine downstream corollary and earns no campaign credit. Do not
-silently change uniform affine-line sampling, replace total degree by individual degree, assume
-fixed d, or return only a large list of candidate global polynomials.
+silently change uniform affine-line sampling, replace total degree by individual degree, vary the
+fixed parameters, or return only a large list of candidate global polynomials.
 
-Every exponent manipulation must appear in the exponent ledger. State p,d, local agreement
-epsilon, all auxiliary parameters, and the final global agreement, with m=2 fixed. Audit division
+Every numerical loss must appear in the soundness ledger. State p=147457, d=87, acceptance
+epsilon, all auxiliary parameters, and the final epsilon/10 agreement. Use exact rational or
+integer arithmetic whenever possible. Audit division
 by derivatives, discriminants, irreducibility, interpolation multiplicities, and every
-union/Markov/Cauchy--Schwarz loss. Test adversarial tables, inseparability, concentrated good
-directions, d near p, and the lower boundary d=101. A rigorous obstruction or
-correction to the bivariate target is valuable. If the benchmark is not improved, set
-benchmark_improved=false. Set dimension=2 and field_regime=prime in the structured response.
+union/Markov/Cauchy--Schwarz loss. Test adversarial tables, inseparability, and concentrated good
+directions. A rigorous obstruction or correction is valuable. Set benchmark_improved=true only
+when the proved claimed_soundness is below the current doubly verified record; the initial
+comparison threshold is 1. Set dimension=2, field_regime=prime, fixed_prime=147457, and
+fixed_degree=87 in the structured response.
 
 Return a standard academic Markdown note with Abstract, Test and Notation, Prior Results,
-Theorem, Proof or Conditional Proof, Exponent Ledger, Counterexample Attempts,
+Theorem, Proof or Conditional Proof, Soundness Ledger, Counterexample Attempts,
 Characteristic Audit, and Limitations. Number all proof steps [P1], [P2], ... and mark each as
 proved, conditional, conjectural, or refuted. RULE: A lemma statement contains only its
 quantified objects, hypotheses, and conclusion. It contains no motivation, derivation,
@@ -466,28 +474,30 @@ proof. A dedicated Lemma Writer will post-edit and may split a lemma without cha
 
     def _genius_prompt(self) -> str:
         return f"""You are GENIUS, the global proof-synthesis mathematician for the
-line-versus-point campaign. You must inspect the complete accumulated corpus and attempt an
-integrated bivariate prime-field route from the cubic threshold toward exponent 1-o(1).
+line-versus-point concrete campaign. You must inspect the complete accumulated corpus and attempt
+an integrated proof of the lowest valid soundness epsilon for the fixed instance.
 
 {self._corpus_instruction()}
 
 Inspect every submission and audit under {self.paths.campaign_dir}. Produce a coverage receipt
 and abstain from a global theorem if material data are omitted. Reconstruct a single normalized
-exponent ledger for the m=2 prime-field portions of Arora--Sudan, HKSS, KTZ, and every new
-architecture. Identify whether each loss is algebraic, incidence-combinatorial, probabilistic,
-or list-decoding.
-
-The scored degree regime is integer 100 < d < p. Ignore d <= 100 completely, including d=0;
-endpoint behavior there is neither a counterexample nor a research contribution for this campaign.
+soundness ledger for the m=2 prime-field portions of Arora--Sudan, HKSS, KTZ, and every new
+architecture, specialized all the way to p=147457 and d=87. Identify whether each loss is
+algebraic, incidence-combinatorial, probabilistic, list-decoding, or numerical.
 
 Propose at most three compatible proof architectures. For the selected architecture, state one
 exact theorem with all quantifiers and write every dependency as a numbered proof step. A claimed
-exponent improvement requires every stage to be proved; otherwise publish the strongest honest
+soundness improvement requires every stage to be proved; otherwise publish the strongest honest
 conditional theorem and its minimal missing obligations. Red-team small prime characteristic,
-inseparability, d near p, adversarial line tables, and conversion from a list to one global
-polynomial. Work only with m=2 over F_p; do not spend effort on the routine lift to higher
-dimension or on extension fields. Set dimension=2 and field_regime=prime. Do not average
+inseparability, adversarial line tables, and conversion from a list to one global polynomial.
+Work only with m=2 over F_147457 at total degree 87; do not spend effort on higher dimension or
+extension fields. Lower epsilon is stronger, and recovered point agreement must be at least
+epsilon/10. Set dimension=2, field_regime=prime, fixed_prime=147457, and fixed_degree=87. Do not average
 incompatible lemmas or use finite evidence as proof.
+
+Set result_status=proved and benchmark_improved=true only if every dependency is proved and the
+claimed_soundness strictly improves the current doubly verified record. Otherwise record the
+honest status and set benchmark_improved=false.
 
 RULE: Every lemma statement must contain only its quantified objects, hypotheses, and conclusion.
 Put all motivation, derivation, commentary, proof sketches, interpretation, history, and
@@ -495,7 +505,7 @@ explanation in the proof. A dedicated Lemma Writer will post-edit and may split 
 changing its content.
 """
 
-    def _verifier_prompt(self, source_id: str) -> str:
+    def _verifier_prompt(self, source_id: str, verifier_id: str) -> str:
         source_dir = self.paths.campaign_dir / "submissions" / source_id
         response = json.loads((source_dir / "response.json").read_text())
         note = (source_dir / "note.md").read_text()
@@ -503,25 +513,26 @@ changing its content.
             f"{index:04d}: {line}" for index, line in enumerate(note.splitlines(), 1))
         claim = response.get("theorem_statement") or response.get("integrated_theorem", "")
         claim_hash = hashlib.sha256(claim.encode()).hexdigest()
-        return f"""You are an independent hostile mathematical verifier. Audit submission
-{source_id} line by line. You did not author it. Recompute every exponent and check every
+        return f"""You are {verifier_id}, an independent hostile mathematical verifier. Audit submission
+{source_id} line by line. You did not author it. Recompute every numerical bound and check every
 quantifier, field hypothesis, sampling convention, literature dependency, and proof-step edge.
 Accept only the exact claim whose SHA-256 is {claim_hash}; never silently weaken it.
 
-The campaign theorem is restricted to integer 100 < d < p. Do not raise, investigate, or score
-edge cases with d <= 100, including d=0. Verify that the submitted claim covers 100 < d < p;
-behavior outside that regime is irrelevant to the verdict.
+Do not inspect, infer, or coordinate with the other verifier's audit. Your judgment must be
+independent. The instance is exactly m=2, p=147457, total degree d=87, uniform affine-line then
+uniform point sampling. The submitted epsilon is valid only if acceptance at least epsilon forces
+agreement with one total-degree-at-most-87 bivariate polynomial on at least epsilon/10 of p^2
+points. Lower epsilon is stronger.
 
-An accept requires complete coverage; a correct exponent ledger; valid handling of every prime
-characteristic in the claimed parameter regime; a proved conversion to the stated
+An accept requires complete coverage; a correct exact soundness ledger; valid arithmetic at the
+fixed prime; a proved conversion to the stated
 single-polynomial global conclusion; no required changes; and no fatal obstruction. Use reject
 with unfixable=true only for a concrete counterexample or false theorem. Use revise for repairable
-gaps. Explicitly compare the claimed exponent with 1/3, remembering that d/p<1. Reject or request
-revision if the mathematical advance
-depends on m other than 2, a non-prime field, or dimension bootstrapping: those are outside this
-campaign. Set dimension_verified and field_regime_verified true only after checking those exact
-restrictions in every theorem and lemma. Run finite sanity checks only to find errors, never to
-certify asymptotic quantifiers.
+gaps. Recompute the claimed epsilon and its epsilon/10 conclusion. Reject or request revision if
+the proof changes p, d, m, sampling, total-degree convention, or the one-polynomial conclusion.
+Set every fixed-parameter verification boolean true only after checking every theorem and lemma.
+Exact deterministic computation is admissible only with reproducible code and a checkable
+certificate; random or floating-point experiments cannot support accept.
 
 SUBMISSION MANIFEST:
 {json.dumps(response, indent=2, sort_keys=True)}
@@ -535,30 +546,29 @@ NUMBERED NOTE:
         errors: list[str] = []
         if len(note) < 1200:
             errors.append("academic note is shorter than 1200 characters")
-        for heading in ("Abstract", "Theorem", "Exponent Ledger", "Limitations"):
+        for heading in ("Abstract", "Theorem", "Soundness Ledger", "Limitations"):
             if heading.lower() not in note.lower():
                 errors.append(f"missing {heading} section")
         if not response.get("proof_steps"):
             errors.append("no structured proof steps")
-        if not response.get("exponent_ledger"):
-            errors.append("no structured exponent ledger")
+        if not response.get("soundness_ledger"):
+            errors.append("no structured soundness ledger")
         if response.get("dimension") != 2:
             errors.append("submission dimension must be exactly 2")
         if response.get("field_regime") != "prime":
             errors.append("submission field_regime must be prime")
-        if role == "researcher" and response.get("benchmark_improved"):
+        if response.get("fixed_prime") != 147457:
+            errors.append("submission fixed_prime must be 147457")
+        if response.get("fixed_degree") != 87:
+            errors.append("submission fixed_degree must be 87")
+        if role in {"researcher", "genius"} and response.get("benchmark_improved"):
             if response.get("result_status") != "proved":
                 errors.append("benchmark_improved requires result_status=proved")
-            if not response.get("claimed_exponent"):
-                errors.append("benchmark_improved requires a claimed exponent")
-            elif response.get("claimed_exponent") not in {"1-o(1)", "1−o(1)"}:
-                try:
-                    if not is_stronger_fixed_exponent(
-                            response["claimed_exponent"],
-                            str(self.cfg.get("benchmark_exponent", "1/3"))):
-                        errors.append("claimed exponent does not improve the configured benchmark")
-                except (ValueError, ZeroDivisionError):
-                    errors.append("claimed exponent is not a recognized rational or 1-o(1)")
+            soundness = response.get("claimed_soundness")
+            if not isinstance(soundness, (int, float)) or isinstance(soundness, bool):
+                errors.append("benchmark_improved requires numeric claimed_soundness")
+            elif not 0 < float(soundness) < float(self.cfg.get("initial_soundness", 1.0)):
+                errors.append("claimed soundness must strictly improve the initial threshold")
         if role == "genius":
             snapshot = response.get("snapshot", {})
             if snapshot.get("coverage_complete") and snapshot.get("omitted_paths"):
@@ -575,16 +585,16 @@ NUMBERED NOTE:
             if role == "researcher":
                 response, metadata = self.provider.run(
                     job_id, self._research_prompt(row), RESEARCH_SCHEMA)
-                schema = "line-point-research-submission-v1"
+                schema = "line-point-concrete-submission-v1"
             elif role == "genius":
                 response, metadata = self.provider.run(
                     "GENIUS", self._genius_prompt(), GENIUS_SCHEMA)
-                schema = "line-point-genius-synthesis-v1"
+                schema = "line-point-concrete-genius-synthesis-v1"
             else:
                 source_id = str(row["dependency"])
                 response, metadata = self.provider.run(
-                    job_id, self._verifier_prompt(source_id), AUDIT_SCHEMA)
-                schema = "line-point-proof-audit-v1"
+                    job_id, self._verifier_prompt(source_id, job_id), AUDIT_SCHEMA)
+                schema = "line-point-concrete-proof-audit-v1"
 
             if role == "verifier":
                 source_id = str(row["dependency"])
@@ -597,14 +607,19 @@ NUMBERED NOTE:
                     response["verified_claim_sha256"] == expected and
                     response["dimension_verified"] and
                     response["field_regime_verified"] and
+                    response["fixed_prime_verified"] and
+                    response["fixed_degree_verified"] and
+                    response["recovery_ratio_verified"] and
                     response["coverage_complete"] and
                     not response["required_changes"] and
                     response["fatal_obstruction"] is None and
                     response["line_audit"] and
                     response["quantifier_audit"] and
-                    response["exponent_audit"] and
+                    response["soundness_audit"] and
+                    source_response.get("claimed_soundness") is not None and
+                    response["verified_soundness"] == source_response.get("claimed_soundness") and
                     all(item["verdict"] == "valid" for key in (
-                        "line_audit", "quantifier_audit", "exponent_audit", "literature_audit")
+                        "line_audit", "quantifier_audit", "soundness_audit", "literature_audit")
                         for item in response[key])
                 )
                 if response["verdict"] == "accept" and not accept_consistent:
@@ -674,16 +689,17 @@ NUMBERED NOTE:
             "reasoning_effort": self.provider.reasoning_effort,
             "dimension": int(self.cfg.get("dimension", 2)),
             "field_regime": str(self.cfg.get("field_regime", "prime")),
-            "degree_lower_bound_exclusive": int(
-                self.cfg.get("degree_lower_bound_exclusive", 100)),
-            "benchmark_exponent": str(self.cfg.get("benchmark_exponent", "1/3")),
-            "target_exponent": str(self.cfg.get("target_exponent", "1-o(1)")),
+            "fixed_prime": int(self.cfg.get("fixed_prime", 147457)),
+            "fixed_degree": int(self.cfg.get("fixed_degree", 87)),
+            "verifier_count": 2,
+            "recovery_divisor": int(self.cfg.get("recovery_divisor", 10)),
+            "initial_soundness": float(self.cfg.get("initial_soundness", 1.0)),
             "researcher_count": int(self.cfg["researcher_count"]),
             "planned_agent_invocations": (
                 int(self.cfg["researcher_count"]) *
-                ((2 if self.cfg.get("verifier_enabled", True) else 1) +
+                ((3 if self.cfg.get("verifier_enabled", True) else 1) +
                  (1 if self.cfg.get("lemma_writer_enabled", True) else 0)) +
-                ((2 if self.cfg.get("genius_enabled", True) else 0) +
+                ((3 if self.cfg.get("genius_enabled", True) else 0) +
                  (1 if self.cfg.get("genius_enabled", True) and
                   self.cfg.get("lemma_writer_enabled", True) else 0))),
             "counts": counts,
@@ -712,9 +728,30 @@ NUMBERED NOTE:
             if not response_path.exists():
                 continue
             response = json.loads(response_path.read_text())
-            audit_path = (self.paths.campaign_dir / "reviews" / row["id"] /
-                          f"verifier-{row['id']}" / "audit.json")
-            audit = json.loads(audit_path.read_text()) if audit_path.exists() else None
+            audits = []
+            for seat in ("a", "b"):
+                verifier_id = f"verifier-{seat}-{row['id']}"
+                audit_path = (self.paths.campaign_dir / "reviews" / row["id"] /
+                              verifier_id / "audit.json")
+                if audit_path.exists():
+                    audits.append({"verifier_id": verifier_id, **json.loads(audit_path.read_text())})
+            claim = response.get("theorem_statement") or response.get("integrated_theorem", "")
+            claim_hash = hashlib.sha256(claim.encode()).hexdigest()
+            claimed = response.get("claimed_soundness")
+            double_verified = (
+                len(audits) == 2 and claimed is not None and
+                response.get("result_status") == "proved" and
+                all(audit.get("verdict") == "accept" for audit in audits) and
+                all(audit.get("verified_claim_sha256") == claim_hash for audit in audits) and
+                all(audit.get("verified_soundness") == claimed for audit in audits))
+            if double_verified:
+                review_verdict = "double-accept"
+            elif any(audit.get("verdict") == "reject" for audit in audits):
+                review_verdict = "rejected"
+            elif audits:
+                review_verdict = f"awaiting ({sum(a.get('verdict') == 'accept' for a in audits)}/2 accepts)"
+            else:
+                review_verdict = "awaiting (0/2 accepts)"
             entry = {
                 "job_id": row["id"],
                 "role": row["role"],
@@ -723,21 +760,50 @@ NUMBERED NOTE:
                 "dimension": response.get("dimension", 2),
                 "field_regime": response.get("field_regime", "prime"),
                 "claim_scope": response.get("claim_scope", "bivariate_theorem"),
-                "claimed_exponent": response.get("claimed_exponent"),
+                "fixed_prime": response.get("fixed_prime", 147457),
+                "fixed_degree": response.get("fixed_degree", 87),
+                "claimed_soundness": claimed,
                 "benchmark_improved": response.get("benchmark_improved", False),
-                "theorem_statement": response.get("theorem_statement") or response.get("integrated_theorem"),
+                "theorem_statement": claim,
+                "theorem_sha256": claim_hash,
                 "note_path": str(response_path.parent / "note.md"),
-                "review_verdict": audit.get("verdict") if audit else "pending",
-                "verified_exponent": audit.get("verified_exponent") if audit else None,
+                "review_verdict": review_verdict,
+                "double_verified": double_verified,
+                "audits": audits,
             }
-            if audit and audit.get("verdict") == "accept":
+            if double_verified:
                 verified.append(entry)
-            elif audit and audit.get("verdict") == "reject":
+            elif review_verdict == "rejected":
                 rejected.append(entry)
             else:
                 promising.append(entry)
-            for stage in response.get("exponent_ledger", []):
+            for stage in response.get("soundness_ledger", []):
                 bottlenecks.append({"job_id": row["id"], **stage})
+        verified.sort(key=lambda item: (float(item["claimed_soundness"]), item["job_id"]))
+        completed = sorted(
+            (entry for entry in verified),
+            key=lambda item: next((row.get("finished_at") or "" for row in rows
+                                   if row["id"] == item["job_id"]), ""))
+        history: list[dict[str, Any]] = []
+        best = float(self.cfg.get("initial_soundness", 1.0))
+        for entry in completed:
+            epsilon = float(entry["claimed_soundness"])
+            if epsilon >= best:
+                continue
+            previous = best
+            best = epsilon
+            finished_at = next((row.get("finished_at") for row in rows
+                                if row["id"] == entry["job_id"]), None)
+            history.append({
+                "job_id": entry["job_id"],
+                "title": entry["title"],
+                "soundness": epsilon,
+                "previous_best": previous,
+                "gain": previous - epsilon,
+                "verified_at": finished_at,
+                "verifier_ids": [audit["verifier_id"] for audit in entry["audits"]],
+                "theorem_sha256": entry["theorem_sha256"],
+            })
         for name, data in (
             ("promising-results", promising),
             ("verified-results", verified),
@@ -746,6 +812,14 @@ NUMBERED NOTE:
         ):
             (board_dir / f"{name}.json").write_text(
                 json.dumps(data, indent=2, sort_keys=True) + "\n")
+        (board_dir / "soundness-history.json").write_text(
+            json.dumps({
+                "fixed_prime": 147457,
+                "fixed_degree": 87,
+                "lower_is_better": True,
+                "verification_threshold": 2,
+                "points": history,
+            }, indent=2, sort_keys=True) + "\n")
 
     def _export_dashboard_snapshot(
             self, status: dict[str, Any], rows: list[dict[str, Any]]) -> None:
@@ -765,19 +839,15 @@ NUMBERED NOTE:
             response_path = submission_dir / "response.json"
             note_path = submission_dir / "note.md"
             response = json.loads(response_path.read_text()) if response_path.exists() else {}
-            audit_path = (self.paths.campaign_dir / "reviews" / job_id /
-                          f"verifier-{job_id}" / "audit.json")
-            audit = json.loads(audit_path.read_text()) if audit_path.exists() else None
             return {
                 **entry,
                 "parameter_regime": response.get("parameter_regime", ""),
                 "sampling_model": response.get("sampling_model", ""),
                 "global_conclusion": response.get("global_conclusion", ""),
                 "proof_steps": response.get("proof_steps", []),
-                "exponent_ledger": response.get("exponent_ledger", []),
+                "soundness_ledger": response.get("soundness_ledger", []),
                 "limitations": response.get("limitations", response.get("obstructions", [])),
                 "note_markdown": note_path.read_text() if note_path.exists() else "",
-                "audit": audit,
             }
 
         candidate_groups = {
@@ -798,11 +868,13 @@ NUMBERED NOTE:
             "error": row["error"],
         } for row in rows]
         snapshot = {
-            "schema": "line-point-research-dashboard-v1",
+            "schema": "line-point-concrete-dashboard-v1",
             "campaign": self.paths.campaign_dir.name,
             "status": status,
             "candidates": candidate_groups,
             "bottlenecks": load_board("bottleneck-ledger"),
+            "soundness_history": json.loads(
+                (board_dir / "soundness-history.json").read_text()),
             "jobs": dashboard_jobs,
         }
         update_dashboard_sections(self.paths.workspace, snapshot, replace_base=True)

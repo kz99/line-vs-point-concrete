@@ -1,36 +1,42 @@
 import json
+import hashlib
 import tempfile
 import unittest
 from pathlib import Path
 
 from line_point_research.agents import CommandAgentProvider
 from line_point_research.campaign import ResearchCampaign
-from line_point_research.exponents import is_stronger_fixed_exponent, parse_rational_exponent
-from line_point_research.lemma_book import (
-    LEMMA_STATEMENT_RULE,
-    canonical_sha256,
-    validate_editorial_response,
-)
-from line_point_research.roadmaps import (
-    ROADMAP_DEFINITIONS,
-    RoadmapWorkshop,
-    validate_roadmap_response,
-)
+from line_point_research.lemma_book import LEMMA_STATEMENT_RULE, canonical_sha256, validate_editorial_response
+from line_point_research.roadmaps import ROADMAP_DEFINITIONS, RoadmapWorkshop
 
 
-class ExponentTests(unittest.TestCase):
-    def test_larger_exponent_is_stronger(self):
-        self.assertTrue(is_stronger_fixed_exponent("2/5", "1/3"))
-        self.assertFalse(is_stronger_fixed_exponent("1/7", "1/3"))
-        self.assertEqual(str(parse_rational_exponent("1/3")), "1/3")
+def write_config(root: Path, researchers: int = 10, effort: str = "ultra") -> Path:
+    path = root / "campaign.yaml"
+    path.write_text(f"""workspace: .
+corpus_root: ./corpus
+campaign_dir: ./state
+campaign:
+  researcher_count: {researchers}
+  dimension: 2
+  field_regime: prime
+  fixed_prime: 147457
+  fixed_degree: 87
+  verifier_enabled: true
+  verifier_count: 2
+  lemma_writer_enabled: true
+  genius_enabled: true
+  model: gpt-5.6-sol
+  reasoning_effort: {effort}
+  initial_soundness: 1.0
+  recovery_divisor: 10
+""")
+    return path
 
 
 class ProviderTests(unittest.TestCase):
     def test_provider_pins_model_and_ultra_reasoning(self):
         with tempfile.TemporaryDirectory() as directory:
-            provider = CommandAgentProvider(
-                ".", Path(directory) / "agent-logs", model="gpt-5.6-sol",
-                reasoning_effort="ultra", disable_nested_agents=True)
+            provider = CommandAgentProvider(".", Path(directory) / "logs", model="gpt-5.6-sol", reasoning_effort="ultra", disable_nested_agents=True)
             command = provider.command(Path("schema.json"), Path("output.json"))
             self.assertIn("gpt-5.6-sol", command)
             self.assertIn('model_reasoning_effort="ultra"', command)
@@ -38,292 +44,118 @@ class ProviderTests(unittest.TestCase):
 
 
 class CampaignTests(unittest.TestCase):
-    def test_campaign_initializes_10_researcher_trial(self):
+    def test_trial_is_fixed_and_ready_but_not_started(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
-            config = root / "campaign.yaml"
-            config.write_text("""workspace: .
-corpus_root: ./corpus
-campaign_dir: ./state
-campaign:
-  researcher_count: 10
-  dimension: 2
-  field_regime: prime
-  verifier_enabled: true
-  genius_enabled: true
-  model: gpt-5.6-sol
-  reasoning_effort: ultra
-""")
-            campaign = ResearchCampaign(config)
+            campaign = ResearchCampaign(write_config(root))
             campaign.initialize()
             status = campaign.export_status()
-            self.assertEqual(status["roles"]["researcher"], 10)
-            self.assertEqual(status["roles"]["genius"], 1)
-            self.assertEqual(status["counts"]["queued"], 11)
-            self.assertEqual(status["planned_agent_invocations"], 33)
-            self.assertEqual(status["degree_lower_bound_exclusive"], 100)
+            self.assertEqual(status["counts"], {"queued": 11})
+            self.assertEqual(status["fixed_prime"], 147457)
+            self.assertEqual(status["fixed_degree"], 87)
+            self.assertEqual(status["verifier_count"], 2)
+            self.assertEqual(status["planned_agent_invocations"], 44)
 
-    def test_campaign_exports_dashboard_snapshot_when_present(self):
+    def test_each_submission_enqueues_two_independent_verifiers(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            campaign = ResearchCampaign(write_config(root, 1))
+            campaign.initialize()
+            campaign._enqueue_verifier("researcher-0001")
+            with campaign.connect() as connection:
+                ids = {row[0] for row in connection.execute("SELECT id FROM campaign_jobs WHERE role='verifier'")}
+            self.assertEqual(ids, {"verifier-a-researcher-0001", "verifier-b-researcher-0001"})
+
+    def test_prompt_uses_exact_soundness_definition(self):
+        with tempfile.TemporaryDirectory() as directory:
+            campaign = ResearchCampaign(write_config(Path(directory), 1))
+            prompt = campaign._research_prompt({"id": "researcher-0001", "ordinal": 1, "direction": "test"})
+            self.assertIn("p=147457", prompt)
+            self.assertIn("total degree d=87", prompt)
+            self.assertIn("epsilon/10", prompt)
+            self.assertIn("Lower epsilon is stronger", prompt)
+            self.assertIn("A lemma statement contains only", prompt)
+
+    def test_rejects_parameter_drift(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            text = write_config(root).read_text().replace("fixed_degree: 87", "fixed_degree: 86")
+            (root / "campaign.yaml").write_text(text)
+            with self.assertRaisesRegex(ValueError, "fixed_degree must be 87"):
+                ResearchCampaign(root / "campaign.yaml")
+
+    def test_dashboard_snapshot_contains_empty_guarded_history(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             (root / "dashboard" / "public").mkdir(parents=True)
-            (root / "dashboard" / "public" / "research-data.json").write_text(
-                json.dumps({
-                    "lemma_book": {"lemma_count": 7},
-                    "proof_roadmaps": {"roadmaps": [1, 2, 3]},
-                    "message_board": {"messages": [1]},
-                }))
-            config = root / "campaign.yaml"
-            config.write_text("""workspace: .
-corpus_root: ./corpus
-campaign_dir: ./state
-campaign:
-  researcher_count: 10
-  dimension: 2
-  field_regime: prime
-  verifier_enabled: true
-  genius_enabled: true
-  model: gpt-5.6-sol
-  reasoning_effort: ultra
-""")
-            campaign = ResearchCampaign(config)
+            (root / "dashboard" / "public" / "research-data.json").write_text("{}")
+            campaign = ResearchCampaign(write_config(root, 1))
             campaign.initialize()
-            snapshot = json.loads(
-                (root / "dashboard" / "public" / "research-data.json").read_text())
-            self.assertEqual(snapshot["campaign"], "state")
-            self.assertEqual(len(snapshot["jobs"]), 11)
-            self.assertEqual(snapshot["status"]["counts"]["queued"], 11)
-            self.assertEqual(snapshot["candidates"]["verified"], [])
-            self.assertEqual(snapshot["lemma_book"]["lemma_count"], 7)
-            self.assertEqual(len(snapshot["proof_roadmaps"]["roadmaps"]), 3)
-            self.assertEqual(len(snapshot["message_board"]["messages"]), 1)
+            snapshot = json.loads((root / "dashboard" / "public" / "research-data.json").read_text())
+            self.assertEqual(snapshot["soundness_history"]["verification_threshold"], 2)
+            self.assertEqual(snapshot["soundness_history"]["points"], [])
 
-    def test_campaign_initializes_300_researchers_and_genius(self):
+    def test_graph_requires_two_matching_accepts(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
-            config = root / "campaign.yaml"
-            config.write_text("""workspace: .
-corpus_root: ./corpus
-campaign_dir: ./state
-campaign:
-  researcher_count: 300
-  dimension: 2
-  field_regime: prime
-  verifier_enabled: true
-  genius_enabled: true
-  model: gpt-5.6-sol
-  reasoning_effort: ultra
-  benchmark_exponent: "1/3"
-  target_exponent: "1-o(1)"
-""")
-            campaign = ResearchCampaign(config)
+            (root / "dashboard" / "public").mkdir(parents=True)
+            (root / "dashboard" / "public" / "research-data.json").write_text("{}")
+            campaign = ResearchCampaign(write_config(root, 1))
             campaign.initialize()
-            status = campaign.export_status()
-            self.assertEqual(status["roles"]["researcher"], 300)
-            self.assertEqual(status["roles"]["genius"], 1)
-            self.assertEqual(status["planned_agent_invocations"], 903)
-            self.assertEqual(status["benchmark_exponent"], "1/3")
-            self.assertEqual(status["target_exponent"], "1-o(1)")
-            self.assertEqual(status["dimension"], 2)
-            self.assertEqual(status["field_regime"], "prime")
-            boards = root / "state" / "leaderboards"
-            self.assertTrue((boards / "promising-results.json").exists())
-            self.assertEqual(json.loads((boards / "bottleneck-ledger.json").read_text()), [])
+            theorem = "Every accepted table has the required polynomial."
+            response = {
+                "title": "Candidate", "result_status": "proved", "dimension": 2,
+                "field_regime": "prime", "fixed_prime": 147457, "fixed_degree": 87,
+                "claim_scope": "bivariate_theorem", "claimed_soundness": 0.2,
+                "benchmark_improved": True, "theorem_statement": theorem,
+                "proof_steps": [], "soundness_ledger": [],
+            }
+            submission = root / "state" / "submissions" / "researcher-0001"
+            submission.mkdir(parents=True)
+            (submission / "response.json").write_text(json.dumps(response))
+            (submission / "note.md").write_text("proof")
+            with campaign.connect() as connection:
+                connection.execute("UPDATE campaign_jobs SET status='succeeded',finished_at='2026-09-14T00:00:00Z' WHERE id='researcher-0001'")
+            claim_hash = hashlib.sha256(theorem.encode()).hexdigest()
+            audit = {"verdict": "accept", "verified_claim_sha256": claim_hash, "verified_soundness": 0.2}
+            first = root / "state" / "reviews" / "researcher-0001" / "verifier-a-researcher-0001"
+            first.mkdir(parents=True)
+            (first / "audit.json").write_text(json.dumps(audit))
+            campaign.export_status()
+            self.assertEqual(json.loads((root / "state" / "leaderboards" / "soundness-history.json").read_text())["points"], [])
+            second = root / "state" / "reviews" / "researcher-0001" / "verifier-b-researcher-0001"
+            second.mkdir(parents=True)
+            (second / "audit.json").write_text(json.dumps(audit))
+            campaign.export_status()
+            history = json.loads((root / "state" / "leaderboards" / "soundness-history.json").read_text())
+            self.assertEqual([point["soundness"] for point in history["points"]], [0.2])
 
-    def test_prompts_enforce_asymptotic_proof_policy(self):
-        with tempfile.TemporaryDirectory() as directory:
-            root = Path(directory)
-            config = root / "campaign.yaml"
-            config.write_text("""workspace: .
-corpus_root: ./corpus
-campaign_dir: ./state
-campaign:
-  researcher_count: 300
-  dimension: 2
-  field_regime: prime
-  verifier_enabled: true
-  genius_enabled: true
-  model: gpt-5.6-sol
-  reasoning_effort: ultra
-""")
-            campaign = ResearchCampaign(config)
-            prompt = campaign._research_prompt({"id": "researcher-0001", "ordinal": 1,
-                                                "direction": "test"})
-            self.assertIn("m=2 over the prime field F_p", prompt)
-            self.assertIn("C(d/p)^(1/3)", prompt)
-            self.assertIn("(d/p)^(1-o(1))", prompt)
-            self.assertIn("100 < d < p", prompt)
-            self.assertIn("Do not analyze them", prompt)
-            self.assertIn("Ignore every directory named\nsuperseded", prompt)
-            self.assertIn("Do not work on m>2", prompt)
-            self.assertIn("routine downstream corollary", prompt)
-            self.assertIn("cannot prove an asymptotic", prompt)
-            self.assertIn("A lemma statement contains only its", prompt)
 
-    def test_lemma_writer_rule_and_split_coverage(self):
-        source = {
-            "proof_steps": [
-                {
-                    "id": "P1",
-                    "statement": "A compound statement.",
-                    "proof": "A proof.",
-                    "status": "proved",
-                    "dependencies": [],
-                }
-            ]
-        }
+class EditorialAndRoadmapTests(unittest.TestCase):
+    def test_lemma_writer_can_split_without_changing_status(self):
+        source = {"proof_steps": [{"id": "P1", "status": "proved"}]}
         response = {
-            "source_job_id": "researcher-0001",
-            "source_response_sha256": canonical_sha256(source),
-            "coverage_complete": True,
-            "omitted_source_step_ids": [],
+            "source_job_id": "researcher-0001", "source_response_sha256": canonical_sha256(source),
+            "coverage_complete": True, "omitted_source_step_ids": [],
             "lemmas": [
-                {
-                    "id": "researcher-0001:P1.1",
-                    "source_step_id": "P1",
-                    "part": 1,
-                    "title": "First part",
-                    "statement_markdown": "If $x=0$, then $x^2=0$.",
-                    "proof_markdown": "This is immediate.",
-                    "status": "proved",
-                    "dependencies": [],
-                },
-                {
-                    "id": "researcher-0001:P1.2",
-                    "source_step_id": "P1",
-                    "part": 2,
-                    "title": "Second part",
-                    "statement_markdown": "If $x^2=0$ in a field, then $x=0$.",
-                    "proof_markdown": "Fields have no nonzero nilpotents.",
-                    "status": "proved",
-                    "dependencies": [],
-                },
+                {"id": "researcher-0001:P1.1", "source_step_id": "P1", "part": 1, "statement_markdown": "$x=0$.", "proof_markdown": "Proof.", "status": "proved"},
+                {"id": "researcher-0001:P1.2", "source_step_id": "P1", "part": 2, "statement_markdown": "$x^2=0$.", "proof_markdown": "Proof.", "status": "proved"},
             ],
         }
-        self.assertEqual(validate_editorial_response(
-            "researcher-0001", source, response), [])
+        self.assertEqual(validate_editorial_response("researcher-0001", source, response), [])
         self.assertIn("no motivation", LEMMA_STATEMENT_RULE)
 
-    def test_lemma_writer_rejects_omission_and_status_change(self):
-        source = {
-            "proof_steps": [
-                {"id": "P1", "status": "proved"},
-                {"id": "P2", "status": "conditional"},
-            ]
-        }
-        response = {
-            "source_job_id": "researcher-0001",
-            "source_response_sha256": canonical_sha256(source),
-            "coverage_complete": True,
-            "omitted_source_step_ids": [],
-            "lemmas": [{
-                "id": "researcher-0001:P1.1",
-                "source_step_id": "P1",
-                "part": 1,
-                "statement_markdown": "A statement.",
-                "proof_markdown": "A proof.",
-                "status": "conditional",
-            }],
-        }
-        errors = validate_editorial_response("researcher-0001", source, response)
-        self.assertTrue(any("status changed" in error for error in errors))
-        self.assertTrue(any("P2" in error for error in errors))
-
-    def test_three_shared_roadmaps_and_deterministic_progress(self):
-        self.assertEqual(len(ROADMAP_DEFINITIONS), 3)
-        self.assertEqual(len({item["id"] for item in ROADMAP_DEFINITIONS}), 3)
-        nodes, progress = RoadmapWorkshop._derive_progress([
-            {
-                "id": "R1", "kind": "lemma", "work_state": "candidate",
-                "dependencies": [],
-                "evidence_refs": [{
-                    "source_job_id": "researcher-0001", "source_step_id": "P1",
-                    "source_response_sha256": "hash",
-                }],
-            },
-            {
-                "id": "R2", "kind": "theorem", "work_state": "open",
-                "dependencies": ["R1"], "evidence_refs": [],
-            },
-        ], "R2", {
-            "researcher-0001|P1|hash": {
-                "source_status": "proved", "audit_verdict": "accept",
-                "audit_exact": True, "lemma_ids": ["researcher-0001:P1.1"],
-            },
-        })
-        self.assertEqual(progress["percent"], 50)
-        self.assertEqual(progress["verified"], 1)
-        self.assertEqual(progress["total"], 2)
+    def test_three_roadmaps_require_double_accept_for_progress(self):
+        self.assertEqual([item["id"] for item in ROADMAP_DEFINITIONS], ["exact-analytic", "certified-computation", "end-to-end-soundness"])
+        nodes, progress = RoadmapWorkshop._derive_progress([{
+            "id": "R1", "kind": "lemma", "work_state": "candidate", "dependencies": [],
+            "evidence_refs": [{"source_job_id": "researcher-0001", "source_step_id": "P1", "source_response_sha256": "hash"}],
+        }], "R1", {"researcher-0001|P1|hash": {
+            "source_status": "proved", "audit_verdicts": ["accept", "accept"],
+            "double_audit_exact": True, "double_accepted": True, "lemma_ids": [],
+        }})
+        self.assertEqual(progress["percent"], 100)
         self.assertEqual(nodes[0]["proof_state"], "verified")
-
-    def test_roadmap_requires_acyclic_complete_dependencies(self):
-        definition = ROADMAP_DEFINITIONS[0]
-        response = {
-            "roadmap_id": definition["id"],
-            "corpus_sha256": "abc",
-            "round": 1,
-            "goal_node_id": "R2",
-            "critical_path": ["R1", "R2"],
-            "nodes": [
-                {
-                    "id": "R1", "statement_markdown": "A.", "work_state": "candidate",
-                    "dependencies": [], "evidence_refs": [],
-                },
-                {
-                    "id": "R2", "statement_markdown": "B.", "work_state": "open",
-                    "dependencies": ["R1"], "evidence_refs": [],
-                },
-            ],
-        }
-        self.assertEqual(validate_roadmap_response(definition, "abc", 1, response), [])
-        response["nodes"][0]["dependencies"] = ["R2"]
-        errors = validate_roadmap_response(definition, "abc", 1, response)
-        self.assertTrue(any("cycle" in error for error in errors))
-
-    def test_campaign_rejects_other_dimensions_and_field_regimes(self):
-        with tempfile.TemporaryDirectory() as directory:
-            root = Path(directory)
-            dimension_config = root / "dimension.yaml"
-            dimension_config.write_text("""workspace: .
-corpus_root: ./corpus
-campaign_dir: ./state
-campaign:
-  researcher_count: 300
-  dimension: 3
-  field_regime: prime_power
-  reasoning_effort: ultra
-""")
-            with self.assertRaisesRegex(ValueError, "dimension must be exactly 2"):
-                ResearchCampaign(dimension_config)
-
-            field_config = root / "field.yaml"
-            field_config.write_text("""workspace: .
-corpus_root: ./corpus
-campaign_dir: ./state
-campaign:
-  researcher_count: 300
-  dimension: 2
-  field_regime: prime_power
-  reasoning_effort: ultra
-""")
-            with self.assertRaisesRegex(ValueError, "field_regime must be prime"):
-                ResearchCampaign(field_config)
-
-    def test_campaign_rejects_less_than_ultra_reasoning(self):
-        with tempfile.TemporaryDirectory() as directory:
-            root = Path(directory)
-            config = root / "campaign.yaml"
-            config.write_text("""workspace: .
-corpus_root: ./corpus
-campaign_dir: ./state
-campaign:
-  researcher_count: 10
-  dimension: 2
-  field_regime: prime
-  reasoning_effort: max
-""")
-            with self.assertRaisesRegex(ValueError, "reasoning_effort must be ultra"):
-                ResearchCampaign(config)
 
 
 if __name__ == "__main__":

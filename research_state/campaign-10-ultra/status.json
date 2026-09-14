@@ -1,20 +1,22 @@
 {
-  "benchmark_exponent": "1/3",
-  "campaign_dir": "/Users/kaizheng/.codex/worktrees/1f44/SSE-auto/Line-vs-Point/research_state/campaign-10-ultra",
+  "campaign_dir": "/Users/kaizheng/.codex/worktrees/1f44/SSE-auto/Line-vs-Point-concrete/research_state/campaign-10-ultra",
   "counts": {
     "queued": 11
   },
-  "degree_lower_bound_exclusive": 100,
   "dimension": 2,
   "field_regime": "prime",
+  "fixed_degree": 87,
+  "fixed_prime": 147457,
+  "initial_soundness": 1.0,
   "model": "gpt-5.6-sol",
-  "planned_agent_invocations": 22,
+  "planned_agent_invocations": 44,
   "reasoning_effort": "ultra",
+  "recovery_divisor": 10,
   "researcher_count": 10,
   "roles": {
     "genius": 1,
     "researcher": 10
   },
-  "target_exponent": "1-o(1)",
-  "updated_at": "2026-09-14T06:47:54Z"
+  "updated_at": "2026-09-14T21:27:03Z",
+  "verifier_count": 2
 }
