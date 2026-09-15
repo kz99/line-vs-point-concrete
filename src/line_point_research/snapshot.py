@@ -32,6 +32,17 @@ def update_dashboard_sections(
             }
             current = {**updates, **preserved}
         else:
+            # A newly initialized campaign can briefly emit an empty auxiliary
+            # section while the lemma/roadmap workers are still loading. Never
+            # let that transient snapshot erase a populated public section.
+            for key in ("lemma_book", "proof_roadmaps", "message_board"):
+                incoming = updates.get(key)
+                existing = current.get(key)
+                if isinstance(incoming, dict) and isinstance(existing, dict):
+                    incoming_items = incoming.get("lemmas") if key == "lemma_book" else incoming.get("roadmaps") if key == "proof_roadmaps" else incoming.get("messages")
+                    existing_items = existing.get("lemmas") if key == "lemma_book" else existing.get("roadmaps") if key == "proof_roadmaps" else existing.get("messages")
+                    if isinstance(incoming_items, list) and isinstance(existing_items, list) and not incoming_items and existing_items:
+                        updates = {**updates, key: existing}
             current.update(updates)
         with tempfile.NamedTemporaryFile(
                 "w", dir=dashboard_public, prefix="research-data.", suffix=".tmp",
