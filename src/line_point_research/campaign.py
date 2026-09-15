@@ -252,6 +252,43 @@ COHORT_PREFIXES = (
     "COHORT C (10 agents): search genuinely new bivariate structures, while targeting a strict leaderboard improvement.",
 )
 
+# One coordinated 30-seat proof team. Each tuple is
+# (phase, mission, upstream researcher ordinals). Later seats are released only
+# after their named upstreams finish, and every seat reads the complete shared
+# corpus before working.
+COORDINATED_TEAM = (
+    ("foundation", "Maintain the exact current-record ledger and identify the three numerically dominant losses.", ()),
+    ("foundation", "Normalize the complete bivariate KTZ chain into modular fixed-parameter inequalities.", ()),
+    ("foundation", "Develop sharp affine-plane incidence, direction, and pencil estimates for the fixed instance.", ()),
+    ("foundation", "Develop fixed-field algebraic reconstruction, interpolation, and separability tools.", ()),
+    ("foundation", "Extract the strongest applicable bivariate list-decoding and list-to-one recovery statements.", ()),
+    ("foundation", "Build adversarial tables and counterexamples that constrain every proposed architecture.", ()),
+    ("module", "Optimize KTZ pruning and popularity thresholds using the exact ledger.", (1, 2)),
+    ("module", "Optimize weighted interpolation multiplicities and monomial regions.", (2, 4)),
+    ("module", "Tighten resultant, discriminant, derivative, and exceptional-line accounting.", (2, 4)),
+    ("module", "Turn affine pencils and direction structure into a quantitative reconstruction module.", (3, 6)),
+    ("module", "Build an explicit energy or dependent-random-choice replacement for popularity pruning.", (3, 6)),
+    ("module", "Build an explicit list-to-one polynomial recovery module with epsilon/10 output.", (5, 6)),
+    ("integration", "Assemble the best KTZ modules into one complete candidate and expose its remaining loss.", (7, 8, 9)),
+    ("integration", "Assemble the pencil, energy, and algebraic modules into a geometric candidate.", (4, 10, 11)),
+    ("integration", "Assemble the energy and decoding modules into a decoding-based candidate.", (5, 11, 12)),
+    ("certification", "Create exact integer certificates for the pruning and interpolation parameter region.", (7, 8)),
+    ("certification", "Create exact certificates for algebraic cleanup and exceptional-set bounds.", (8, 9)),
+    ("red-team", "Compare and attack all three integrated candidates; isolate only repairable fatal gaps.", (13, 14, 15)),
+    ("repair", "Repair and sharpen the integrated KTZ candidate using the red-team report and certificates.", (13, 16, 18)),
+    ("repair", "Repair and sharpen the geometric candidate using the red-team report and certificates.", (14, 17, 18)),
+    ("repair", "Repair and sharpen the decoding candidate using the red-team report and certificates.", (15, 16, 18)),
+    ("hybrid", "Combine the strongest compatible KTZ and pencil modules into a new candidate.", (13, 14, 18)),
+    ("hybrid", "Combine the strongest compatible energy and decoding modules into a new candidate.", (14, 15, 18)),
+    ("optimization", "Jointly optimize every surviving integer parameter across the certified modules.", (16, 17, 18)),
+    ("candidate", "Close the best repaired KTZ or KTZ-pencil proof into a leaderboard submission.", (19, 22, 24)),
+    ("candidate", "Close the best repaired geometric or energy-decoding proof into a leaderboard submission.", (20, 23, 24)),
+    ("candidate", "Close the best repaired decoding proof into a leaderboard submission.", (21, 23, 24)),
+    ("final-red-team", "Audit the three candidate proofs against adversarial tables and identify the strongest survivor.", (25, 26, 27)),
+    ("consolidation", "Consolidate the strongest survivor into a minimal complete proof with an exact loss ledger.", (25, 26, 27, 28)),
+    ("submission", "Produce the team's strongest fully proved leaderboard submission, or precisely record the final obstruction.", (28, 29)),
+)
+
 
 LITERATURE_DIRECTION = """Establish the campaign's rigorous state-of-the-art baseline from
 primary literature. Locate the strongest published or publicly posted theorem actually
@@ -405,24 +442,31 @@ class ResearchCampaign:
                     "UPDATE campaign_jobs SET status='queued',error='recovered stale running lease' WHERE status='running'")
             for ordinal in range(1, int(self.cfg["researcher_count"]) + 1):
                 job_id = f"researcher-{ordinal:04d}"
-                cohort = COHORT_PREFIXES[(ordinal - 1) // 10] if ordinal <= 30 else COHORT_PREFIXES[(ordinal - 1) % 3]
-                direction = f"{cohort} {DIRECTIONS[(ordinal - 1) % len(DIRECTIONS)]}"
+                if int(self.cfg["researcher_count"]) == 30 and ordinal <= len(COORDINATED_TEAM):
+                    phase, mission, upstream_ordinals = COORDINATED_TEAM[ordinal - 1]
+                    direction = f"ONE TEAM / {phase.upper()}: {mission}"
+                    dependency = (json.dumps([
+                        f"researcher-{item:04d}" for item in upstream_ordinals])
+                        if upstream_ordinals else None)
+                else:
+                    direction = DIRECTIONS[(ordinal - 1) % len(DIRECTIONS)]
+                    dependency = None
                 connection.execute(
                     """INSERT OR IGNORE INTO campaign_jobs
                     (id,role,ordinal,direction,dependency,status,max_attempts,model,reasoning_effort,created_at)
                     VALUES (?,?,?,?,?,'queued',?,?,?,?)""",
-                    (job_id, "researcher", ordinal, direction, None,
+                    (job_id, "researcher", ordinal, direction, dependency,
                      int(self.cfg.get("max_attempts", 8)), self.provider.model,
                      self._researcher_effort(ordinal), utc_timestamp()),
                 )
                 connection.execute(
-                    "UPDATE campaign_jobs SET direction=? WHERE id=? AND role='researcher' "
-                    "AND status='queued' AND attempts=0",
-                    (direction, job_id),
+                    "UPDATE campaign_jobs SET direction=?,dependency=? WHERE id=? AND role='researcher' "
+                    "AND status='queued'",
+                    (direction, dependency, job_id),
                 )
                 connection.execute(
                     "UPDATE campaign_jobs SET reasoning_effort=? WHERE id=? AND role='researcher' "
-                    "AND status='queued' AND attempts=0",
+                    "AND status='queued'",
                     (self._researcher_effort(ordinal), job_id),
                 )
             self._insert_literature_agent(connection)
@@ -487,6 +531,15 @@ class ResearchCampaign:
             dependency = row["dependency"]
             if dependency is None:
                 ready.append(row)
+            elif dependency.startswith("["):
+                try:
+                    upstreams = json.loads(dependency)
+                except json.JSONDecodeError:
+                    upstreams = []
+                if (isinstance(upstreams, list) and upstreams and
+                        all(states.get(str(item)) in {"succeeded", "failed"}
+                            for item in upstreams)):
+                    ready.append(row)
             elif dependency == "__swarm_reviews__":
                 researcher_terminal = all(
                     states.get(f"researcher-{index:04d}") in {"succeeded", "failed"}
@@ -621,11 +674,31 @@ useful only when it isolates the shortest concrete route to a smaller certifiabl
             return self._literature_prompt(row)
         modes = ["proof-first", "bottleneck-first", "adversarial", "synthesis-first"]
         mode = modes[(int(row["ordinal"]) - 1) % len(modes)]
-        return f"""You are {row['id']}, one of {self.cfg['researcher_count']} independent
-mathematical research agents improving soundness of the affine line-versus-point low-degree
+        upstreams: list[str] = []
+        dependency = row.get("dependency")
+        if isinstance(dependency, str) and dependency.startswith("["):
+            try:
+                upstreams = [str(item) for item in json.loads(dependency)]
+            except json.JSONDecodeError:
+                upstreams = []
+        coordination = (
+            "You are a foundation seat. Produce reusable exact statements, explicit parameters, "
+            "and a concise Team Handoff section naming the downstream modules that should use them."
+            if not upstreams else
+            f"Your named upstream seats are {', '.join(upstreams)}. Read their complete submissions, "
+            "proof steps, ledgers, and audits before beginning. Reuse their strongest valid pieces, "
+            "repair rather than duplicate their gaps, and end with a Team Handoff section giving exact "
+            "lemma IDs, parameter values, obstructions, and recommended downstream actions."
+        )
+        return f"""You are {row['id']}, one of {self.cfg['researcher_count']} coordinated
+mathematical research seats improving soundness of the affine line-versus-point low-degree
 test. Your assigned direction is: {row['direction']}. Your mode is {mode}. Your primary objective
 is to lower the concrete agreement-count score ceil(epsilon*p^2); proof roadmaps are shared reference material, not
 your principal deliverable.
+
+You belong to one coordinated 30-agent proof team, not an independent cohort. {coordination}
+All successful upstream work is shared through the repository. Consult the message board for
+cross-branch warnings and useful imports; do not redo a calculation already certified upstream.
 
 {self._corpus_instruction()}
 

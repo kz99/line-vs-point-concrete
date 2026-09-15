@@ -68,6 +68,29 @@ class CampaignTests(unittest.TestCase):
                 ids = {row[0] for row in connection.execute("SELECT id FROM campaign_jobs WHERE role='verifier'")}
             self.assertEqual(ids, {"verifier-a-researcher-0001"})
 
+    def test_thirty_researchers_form_one_dependency_graph(self):
+        with tempfile.TemporaryDirectory() as directory:
+            campaign = ResearchCampaign(write_config(Path(directory), 30))
+            campaign.initialize()
+            with campaign.connect() as connection:
+                jobs = {row["id"]: dict(row) for row in connection.execute(
+                    "SELECT * FROM campaign_jobs WHERE role='researcher'")}
+            self.assertEqual(len(jobs), 31)  # 30 team seats plus the literature seat
+            self.assertIsNone(jobs["researcher-0001"]["dependency"])
+            self.assertEqual(
+                json.loads(jobs["researcher-0007"]["dependency"]),
+                ["researcher-0001", "researcher-0002"],
+            )
+            self.assertEqual(
+                json.loads(jobs["researcher-0030"]["dependency"]),
+                ["researcher-0028", "researcher-0029"],
+            )
+            self.assertEqual(
+                [row["id"] for row in campaign._ready(30)],
+                ["literature-sota-0001"] +
+                [f"researcher-{index:04d}" for index in range(1, 7)],
+            )
+
     def test_prompt_uses_exact_soundness_definition(self):
         with tempfile.TemporaryDirectory() as directory:
             campaign = ResearchCampaign(write_config(Path(directory), 1))
