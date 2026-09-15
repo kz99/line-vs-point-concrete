@@ -1,0 +1,39 @@
+{
+  "agent": {
+    "command": [
+      "codex",
+      "exec",
+      "--model",
+      "gpt-5.6-sol",
+      "--config",
+      "model_reasoning_effort=\"ultra\"",
+      "--disable",
+      "multi_agent",
+      "--ephemeral",
+      "--sandbox",
+      "read-only",
+      "--cd",
+      "/Users/kaizheng/.codex/worktrees/1f44/SSE-auto/Line-vs-Point-concrete",
+      "--output-schema",
+      "/Users/kaizheng/.codex/worktrees/1f44/SSE-auto/Line-vs-Point-concrete/research_state/campaign-30-leaderboard/agent_logs/20260915T084626Z-4edbbdea92-9ac3568fc5/schema.json",
+      "--output-last-message",
+      "/Users/kaizheng/.codex/worktrees/1f44/SSE-auto/Line-vs-Point-concrete/research_state/campaign-30-leaderboard/agent_logs/20260915T084626Z-4edbbdea92-9ac3568fc5/response.json"
+    ],
+    "invocation_id": "20260915T084626Z-4edbbdea92-9ac3568fc5",
+    "model": "gpt-5.6-sol",
+    "nested_agents_disabled": true,
+    "reasoning_effort": "ultra",
+    "response_path": "/Users/kaizheng/.codex/worktrees/1f44/SSE-auto/Line-vs-Point-concrete/research_state/campaign-30-leaderboard/agent_logs/20260915T084626Z-4edbbdea92-9ac3568fc5/response.json",
+    "role": "researcher-0001"
+  },
+  "job_id": "researcher-0001",
+  "model": "gpt-5.6-sol",
+  "reasoning_effort": "ultra",
+  "response_sha256": "0b9cfcddd9d1cbb61b87ed7d080ab5d41e80cc5bcfdd69486de653bd58ca802f",
+  "schema": "line-point-concrete-submission-v1",
+  "static_check": {
+    "errors": [],
+    "note_sha256": "b0acdd175cfc2468bc190711f16257c2122e02af7dee07b60c6867d70ae71bf0",
+    "passed": true
+  }
+}

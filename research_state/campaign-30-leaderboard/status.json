@@ -1,0 +1,30 @@
+{
+  "campaign_dir": "/Users/kaizheng/.codex/worktrees/1f44/SSE-auto/Line-vs-Point-concrete/research_state/campaign-30-leaderboard",
+  "counts": {
+    "cancelled": 27,
+    "succeeded": 7
+  },
+  "dimension": 2,
+  "field_regime": "prime",
+  "fixed_degree": 87,
+  "fixed_prime": 147457,
+  "initial_soundness": 0.359229046020947,
+  "literature_agent_count": 0,
+  "minimum_recovery_agreement_count": 25657518,
+  "minimum_recovery_fraction": "174/147457",
+  "minimum_soundness": "957/1474570",
+  "model": "gpt-5.6-sol",
+  "planned_agent_invocations": 60,
+  "reasoning_effort": "ultra",
+  "recovery_divisor": 10,
+  "researcher_count": 30,
+  "roles": {
+    "genius": 1,
+    "researcher": 31,
+    "verifier": 2
+  },
+  "updated_at": "2026-09-15T09:38:08Z",
+  "verification_policy": "one independent high-reasoning audit for leaderboard submissions",
+  "verifier_count": 1,
+  "verifier_reasoning_effort": "xhigh"
+}

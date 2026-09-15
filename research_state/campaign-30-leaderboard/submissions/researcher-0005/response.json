@@ -1,0 +1,277 @@
+{
+  "benchmark_improved": false,
+  "characteristic_audit": [
+    "The argument stays over the prime field F_147457. The upstream Pocklington certificate uses 147456=2^14\u00b73^2 and the required base-10 modular and gcd checks.",
+    "All polynomial bounds use total degree at most 87. The only root-counting facts are Schwartz\u2013Zippel in two variables and the at-most-87 roots of a nonzero univariate restriction; 87<147457.",
+    "No derivative, discriminant, resultant, irreducibility, squarefreeness, interpolation multiplicity, factorial, or field-extension argument is used.",
+    "The overwrite and color-table arguments use exact probabilistic existence proofs with integer inequalities; randomized experiments and floating-point estimates are not evidence.",
+    "The exact affine-line variance calculation includes all p+1 directions and remains valid for agreement concentrated in a few directions."
+  ],
+  "claim_scope": "obstruction",
+  "claimed_soundness": null,
+  "counterexample_attempts": [
+    "A common degree-87 factor produces 1693 distinct degree-at-most-87 polynomials, each agreeing with one table on exactly 2dp=25,657,518 points. Thus a small-list claim at the mandatory 2d/p floor is false.",
+    "At K_86=ceil(p^2/86)=252,832,173, the same construction gives 90 candidates; hence the proposed below-Johnson upper bound 90, if true, is sharp.",
+    "At the comparison recovery count 781,092,078, the construction still gives 28 candidates, while the exact Johnson upper bound is 50.",
+    "An 86-color random table with majority-constant line labels has acceptance at least 1715/147457 but, by an exact Hoeffding union bound, can have no degree-87 polynomial agreeing on 652,800,421 points. This refutes the weak theorem required by the natural 3%-agreement Johnson splice.",
+    "For beta>1/(p+1), a table accepted only in one affine direction has no beta-good points but has positive accepted-incidence mass. Thus good-point list coverage alone does not bound every unexplained accepted incidence; a separate low-good loss is necessary."
+  ],
+  "dimension": 2,
+  "field_regime": "prime",
+  "finite_sanity_checks": [
+    "p^2=21,743,566,849; the number of affine lines is p(p+1)=21,743,714,306; the number of incidences is p^2(p+1)=3,206,262,880,419,842.",
+    "dp=12,828,759 and 2dp=25,657,518.",
+    "For K_3=ceil(0.03p^2)=652,307,006, the Johnson numerator minus 94 times its denominator is 127,761,602,101,311,073>0, while the corresponding 95-margin is -18,799,849,069,162,572<0.",
+    "For K=781,092,078, the Johnson bound is 50: its 50-margin is 146,692,063,903,727,181>0 and its 51-margin is -184,469,791,504,420,512<0.",
+    "For K_86=252,832,173, K_86^2-dp^3=-215,018,871,202,308,462<0, so Johnson is inapplicable.",
+    "The overwrite certificate has s=493,416=7\u00b718\u00b73916, 9s-30p=17,034>0, and 10^7-2\u00b79^7=434,062>0.",
+    "The common-factor divisions give quotients/remainders 1693/11,649,103 at 2dp, 90/130,430,830 at K_86, and 28/219,365,158 at 781,092,078.",
+    "The color-table Hoeffding exponent has exact margin 2p^2\u00b779^2-18\u00b73916\u00b74300^2=270,099,878,289,218>0.",
+    "The comparison threshold has score 7,810,920,777. The conditional candidate epsilon=7,810,920,776/p^2 has score 7,810,920,776 and recovery count ceil(epsilon p^2/10)=781,092,078.",
+    "The exact Fraction-based certificate printed in the note completed successfully."
+  ],
+  "fixed_degree": 87,
+  "fixed_prime": 147457,
+  "global_conclusion": "Exact Johnson, overwrite, list-cover, and affine list-to-one lemmas are proved. They isolate a sharp below-Johnson interface: a list of at most 90 candidates above ceil(p^2/86), covering all but b of the b-good points, would give a one-count score improvement. The size 90 is attained by an explicit table, so it cannot be lowered. No proof of that list-cover interface is supplied, and the natural attempt to obtain it from the available 3%-agreement Johnson list is refuted by an 86-color table. This is therefore a proved foundation obstruction and proof tool, not a soundness theorem.",
+  "guaranteed_recovery_agreement_count": null,
+  "guaranteed_recovery_fraction": null,
+  "leaderboard_submission": false,
+  "literature_dependencies": [
+    {
+      "hypotheses": "Prime field F, |F|>d, arbitrary dimension n, fixed natural d,s; list radius 1-d/|F|-1/|F|^s.",
+      "paper": "Abhishek Bhowmick and Shachar Lovett, Bias vs structure of polynomials in large fields, and applications in effective algebraic geometry and coding theory",
+      "result_id": "Theorem 1.6",
+      "used_for": "Strongest located below-Johnson Reed\u2013Muller radius statement. Its exponent c(d,s) is unnamed, so it supplies no fixed list bound such as 90.",
+      "version": "ECCC TR15-096, 5 June 2015"
+    },
+    {
+      "hypotheses": "Arbitrary finite field F_q, dimension m, degree d, weak/list/high-agreement low-degree-test formulations.",
+      "paper": "Prahladh Harsha, Mrinal Kumar, Ramprasad Saptharishi, and Madhu Sudan, An Improved Line-Point Low-Degree Test",
+      "result_id": "Definition B.2; Lemma B.4; Claim B.5; Lemma B.6",
+      "used_for": "Primary-source comparison and correction audit only. No Appendix-B conclusion is imported into the proved chain.",
+      "version": "arXiv:2311.12752v1, 21 November 2023"
+    },
+    {
+      "hypotheses": "Weighted relation B, a simple root, more than D incident root lines for seeding, and connected accepted simple-root transitions for propagation.",
+      "paper": "Scott Duke Kominers, Justin Thaler, and Kai Zhe Zheng, Improved Soundness for the Line-versus-Point Test",
+      "result_id": "Lemmas 2.5, 2.7, 6.1, and 6.3",
+      "used_for": "Strongest list-free, no-loss recovery baseline. When its hypotheses are available, downstream work should use the active fixed-parameter extraction instead of list-to-one conversion.",
+      "version": "ECCC TR26-147, revision 1, 16 August 2026"
+    },
+    {
+      "hypotheses": "Independent random variables taking values in intervals of length one.",
+      "paper": "Wassily Hoeffding, Probability Inequalities for Sums of Bounded Random Variables",
+      "result_id": "Theorem 2, equation (2.6)",
+      "used_for": "Exact probabilistic existence of the 86-color obstruction.",
+      "version": "Journal of the American Statistical Association 58(301), 1963"
+    }
+  ],
+  "next_tasks": [
+    "Below-Johnson list-decoding module: prove or refute |L_f|<=90 for L_f={Q: |{f=Q}|>=252,832,173}. The common-factor construction proves that 90 is the best possible upper bound.",
+    "List-cover module: prove directly that the K_86-list leaves at most b of the b-good points unexplained, where b=85607619234595001849/785685323451646829200.",
+    "Weak-recovery alternative: prove acceptance at least b^2 forces 253,325,588 agreements; together with the overwrite lemma and the sharp list bound, this implies the required list coverage.",
+    "Exact-analytic/simple-root modules: when the active researcher-0004 hypotheses are available, use its D=17642, 17643-seed, lossless propagation theorem instead of paying list losses.",
+    "Verifier module: do not import HKSS v1 Lemmas B.4 or B.6 verbatim into a numerical proof; use the independently proved statements here or repair the displayed hypotheses and low-good accounting."
+  ],
+  "note_markdown": "# Abstract\n\nFor p=147457 and total degree d=87, I prove exact bivariate Johnson, overwrite, list-cover, and list-to-one statements. The exact Johnson bound gives at most 94 candidates at 3% agreement and at most 50 candidates at the comparison recovery count, but it stops at agreement 0.024289967\u2026 and therefore does not reach the useful below-Johnson regime. A common-factor construction gives 1693 candidates at the mandatory 2d/p floor, 90 candidates at ceil(p\u00b2/86), and 28 candidates at the comparison recovery count.\n\nThe affine list-to-one lemma retains every loss: a line-deviation term, an exact Cantelli/affine-design term, the rd/p nonstandard-line collision term, the unexplained-good-point mass, and a separate beta loss for accepted incidences at low-good points. At an exact below-Johnson interface with list size 90, it would turn acceptance\n\nE\u2081 = 7,810,920,776 / 21,743,566,849 = 0.359229046009037\u2026\n\ninto one polynomial agreeing on at least E\u2081/10, hence 781,092,078 points. Its score is 7,810,920,776, one below the comparison score. The needed size-and-coverage interface remains unproved. Moreover, an exact 86-color counterexample refutes the natural attempt to derive that interface from the available 3%-agreement Johnson list. Thus this note supplies a proved foundation obstruction and exact reusable conversion, not a leaderboard theorem.\n\n# Test and Notation\n\nLet F=F_147457, p=147457, d=87, and N=p\u00b2=21,743,566,849. There are p(p+1)=21,743,714,306 affine lines and N(p+1)=3,206,262,880,419,842 incidences. The verifier chooses a uniform geometric affine line L and then a uniform x in L. Since the incidence graph is biregular, this is equivalently a uniform point followed by a uniform one of its p+1 incident lines.\n\nThe point table is f:F\u00b2\u2192F. Every affine line L has an arbitrary supplied univariate label P_L of degree at most 87. Write\n\n- rho = Pr[P_L(x)=f(x)];\n- g(x)=Pr_{L containing x}[P_L(x)=f(x)];\n- x is beta-good when g(x)>=beta;\n- A_Q={x:f(x)=Q(x)} and a_Q=|A_Q|/N;\n- c=dp=12,828,759.\n\nThe admissibility floor is 957/1474570. For the one-score candidate\n\nE\u2081=7,810,920,776/N,\n\ngamma=E\u2081/10=3,905,460,388/108,717,834,245=0.0359229046009037\u2026 .\n\nHere gamma>174/p, since the difference is 3,777,172,798/108,717,834,245. Therefore the amended recovery contract is max(174/p,E\u2081/10)=E\u2081/10, and its absolute count is ceil(gamma N)=781,092,078.\n\n# Prior Results\n\nThe strongest located Reed\u2013Muller list-radius statement relevant here is Bhowmick\u2013Lovett Theorem 1.6: over a prime field with |F|>d, agreement at least d/|F|+1/|F|^s has list size at most |F|^{c(d,s)}. At s=1 this already reaches 88/p, below the campaign floor, but c(87,1) is unnamed and gives no numerical list bound usable in an rd/p ledger. See [Bhowmick\u2013Lovett, Theorem 1.6](https://eccc.weizmann.ac.il/report/2015/096/download).\n\nHKSS define the appropriate good-point list-cover property in Definition B.2. Their v1 Appendix B contains two numerical proof defects discussed in [P8]: the printed hypotheses of Lemma B.4 do not imply the inequalities used in its proof, and Lemma B.6 neither accounts for low-good unexplained incidences nor adds its displayed case losses correctly. Consequently those lemmas are navigation aids, not load-bearing numerical imports here. See [HKSS v1, Appendix B](https://arxiv.org/pdf/2311.12752v1).\n\nKTZ Lemmas 6.1 and 6.3 give the stronger list-free alternative: a simple seed with more than D root lines determines one global polynomial, which then propagates with no loss through connected simple-root transitions. See [KTZ revision 1](https://eccc.weizmann.ac.il/report/2026/147/revision/1/download). The active [campaign-30 researcher-0004 extraction](/Users/kaizheng/.codex/worktrees/1f44/SSE-auto/Line-vs-Point-concrete/research_state/campaign-30-leaderboard/submissions/researcher-0004/response.json) specializes this to D=17642 and 17643 seed lines. Downstream modules possessing those hypotheses should use that no-loss route.\n\nThe active campaign-30 history still has no verified point. The supplied comparison epsilon 0.35922904602094702 has agreement-count score 7,810,920,777. The score-one roadmaps on the message board predate the amended max(174/p,epsilon/10) contract and are not used.\n\n# Theorem\n\n**Lemma 1 (exact bivariate Johnson bound).** Let 1<=K<=N satisfy K\u00b2>cN. For every f:F\u00b2\u2192F, the number R_K(f) of distinct total-degree-at-most-87 polynomials Q satisfying |A_Q|>=K obeys\n\nR_K(f) <= floor( N(K-c)/(K\u00b2-cN) ).\n\n**Lemma 2 (common-factor lower lists).** Let c<K<=N and let 1<=r<p satisfy r(K-c)<=N-c. There are f:F\u00b2\u2192F and r distinct total-degree-at-most-87 polynomials Q_1,\u2026,Q_r such that |A_{Q_i}|=K for every i and |A_{Q_i} intersect A_{Q_j}|=c for every i\u2260j.\n\n**Lemma 3 (fixed overwrite lemma).** For every f:F\u00b2\u2192F and T subset F\u00b2, there is g:F\u00b2\u2192F equal to f outside T such that every total-degree-at-most-87 polynomial Q agrees with g at fewer than s=493,416 points of T.\n\n**Lemma 4 (weak recovery to list coverage).** Let sigma,beta,u be nonnegative reals with beta\u00b7u>=sigma, and let H,K be integers with H>=K+493,415. Suppose every point/line table of acceptance at least sigma has a total-degree-at-most-87 polynomial agreeing with its point table on at least H points. Then, for every f and line table, the set L_K(f)={Q:|A_Q|>=K} leaves at most uN beta-good points x with f(x) not in {Q(x):Q in L_K(f)}.\n\n**Lemma 5 (exact affine list-to-one conversion).** Let 0<gamma<1/2, beta,u>=0, t>0, and let Q_1,\u2026,Q_r be distinct total-degree-at-most-87 polynomials. Suppose at most uN beta-good points are unexplained by this list. If\n\nrho >= gamma+t + r\u00b7gamma(1-gamma)/(gamma(1-gamma)+(p+1)t\u00b2) + 87r/p + beta+u,\n\nthen some Q_i satisfies a_{Q_i}>=gamma.\n\n**Conditional fixed-instance theorem.** Define\n\nK_86=ceil(N/86)=252,832,173,\n\nt=7/200,\n\nlambda=280,765,415,738,023/2,664,116,737,257,800,\n\nb=85,607,619,234,595,001,849/785,685,323,451,646,829,200.\n\nFor every f and line table, suppose L_{K_86}(f) has at most 90 members and leaves at most bN b-good points unexplained. If rho>=E\u2081, then one total-degree-at-most-87 polynomial agrees with f on at least gamma N and hence on at least 781,092,078 points.\n\n# Proof or Conditional Proof\n\n[P1] **Proved.** For distinct Q_i,Q_j, the nonzero polynomial Q_i-Q_j has total degree at most 87, so it has at most dp=c zeros in F\u00b2. Let n_x be the number of list members agreeing with f at x and I=sum_x n_x. Then\n\nsum_x binom(n_x,2) <= binom(r,2)c,\n\nwhile Cauchy\u2013Schwarz gives\n\nsum_x binom(n_x,2) >= (I\u00b2/N-I)/2.\n\nPut alpha=K/N and delta=c/N. The proposed bound B=(alpha-delta)/(alpha\u00b2-delta) satisfies B>=1/(2alpha). If r>B, then I>=r alpha N>N/2, so z\u00b2/N-z is increasing throughout the relevant interval. Substitution of I>=r alpha N gives\n\nr alpha\u00b2-alpha <= (r-1)delta,\n\nhence r<=B, a contradiction. This proves Lemma 1.\n\nAt K_3=ceil(3N/100)=652,307,006, the bound is 94. At K=781,092,078, it is 50. The smallest integer K for which the denominator is positive is 528,150,527, corresponding to agreement 0.0242899672656\u2026 . At K_86, K_86\u00b2-cN=-215,018,871,202,308,462, so Johnson supplies no bound.\n\n[P2] **Proved.** Choose 87 distinct a-values and put H(X)=product_a(X-a). Its zero set Z consists of 87 parallel affine lines and has |Z|=c. Choose distinct constants zeta_1,\u2026,zeta_r and disjoint sets T_i subset F\u00b2\\Z of size K-c. Define Q_i=zeta_i H. Set f=0 on Z, f=Q_i on T_i, and at each remaining point choose a field value outside {Q_1(x),\u2026,Q_r(x)}. This last choice is possible because r<p and H(x)\u22600 makes those r values distinct. Thus A_{Q_i}=Z union T_i, proving Lemma 2.\n\nThe construction gives:\n\n- r=1693 at K=2c, with unused complement 11,649,103 points;\n- r=90 at K=K_86, with unused complement 130,430,830 points;\n- r=28 at K=781,092,078, with unused complement 219,365,158 points.\n\n[P3] **Proved.** There are exactly p^3916 formal bivariate polynomials of total degree at most 87. Randomly and independently replace f(x) by a uniform field value for x in T. For a fixed Q, the probability of at least s matches on T is at most binom(N,s)p^{-s}. Hence the probability that some Q has s matches is at most\n\np^3916 binom(N,s)p^{-s} < p^3916(3p/s)^s.\n\nHere e<3 was used in the standard bound binom(N,s)<=(eN/s)^s. The remaining comparison is an integer certificate:\n\n- 9s-30p=17,034>0, so s/(3p)>10/9;\n- s=493,416=7\u00b718\u00b73916;\n- 10^7-2\u00b79^7=434,062>0, so (10/9)^7>2;\n- p<2^18.\n\nTherefore (10/9)^s>2^{18\u00b73916}>p^3916, and the union probability is strictly below one. A deterministic g with the asserted property exists.\n\n[P4] **Proved.** Let T be the union of A_Q over Q in L_K(f), and choose g from Lemma 3. If Q is outside the list, it has at most K-1 agreements with f outside T and at most s-1 agreements with g inside T. If Q is in the list, it has zero agreements with g=f outside T and at most s-1 inside T. Thus every Q agrees with g on at most K+s-2<=H-1 points.\n\nIf more than uN beta-good points of f were outside T, those points retain their values under the overwrite and contribute more than beta u>=sigma to the acceptance of (g,P). The hypothesized weak recovery theorem would then produce H agreements, a contradiction. This proves Lemma 4.\n\n[P5] **Proved.** For a fixed set S of density a, let Y=|S intersect L| for a uniform affine line. Every point is on p+1 lines and every ordered pair of distinct points determines one line, so\n\nE[Y]=a p,\n\nE[Y(Y-1)]=|S|(|S|-1)/(p(p+1)),\n\nVar(Y/p)=a(1-a)/(p+1).\n\nAssume every candidate has a_i<gamma. Call L abnormal if |A_{Q_i} intersect L|/p>=gamma+t for some i. Cantelli's inequality and a_i(1-a_i)<gamma(1-gamma) give\n\nPr[L abnormal] < r gamma(1-gamma)/(gamma(1-gamma)+(p+1)t\u00b2).\n\nA standard normal line contributes less than gamma+t acceptance. On a nonstandard line, P_L-Q_i restricted to L is a nonzero univariate polynomial of degree at most 87, so the fraction of points coinciding with at least one candidate is at most 87r/p. Good unexplained points contribute at most u. Points that are not beta-good contribute less than beta, including all low-good unexplained incidences. These four cases cover every accepted incidence and yield the strict upper bound contradicting the displayed premise of Lemma 5.\n\n[P6] **Conditional.** Assume the two L_{K_86} hypotheses in the conditional theorem. Under the contrary assumption that no candidate reaches gamma, use gamma<9/250 and hence gamma(1-gamma)<2169/62500. With r=90 and t=7/200, the abnormal-line loss is at most\n\nB=1,561,680/90,335,377=0.0172875793721\u2026,\n\nand the nonstandard coincidence loss is\n\n7830/147457=0.0531002258285\u2026 .\n\nThus\n\nlambda=7/200+B+7830/147457\n      =280,765,415,738,023/2,664,116,737,257,800\n      =0.105387805200690\u2026 .\n\nThe definition of b gives the exact closing identity\n\nE\u2081 = gamma + lambda + 2b.\n\nLemma 5 therefore gives rho<E\u2081, contradicting rho>=E\u2081. Hence one candidate reaches gamma. Since gamma N=781,092,077.6, it agrees on at least 781,092,078 points. The score of E\u2081 is 7,810,920,776, exactly one below the comparison score.\n\nLemma 3 shows how the coverage hypothesis could be obtained: it would suffice to prove the sharp size bound |L_{K_86}(f)|<=90 and the weak theorem\n\nacceptance >= b\u00b2 = 7,328,664,471,015,400,130,221,789,954,532,313,418,801 / 617,301,427,487,318,898,967,840,521,526,413,972,640,000\n\nimplies at least\n\nK_86+493,415=253,325,588\n\nagreements. This output fraction is 0.0116505994513\u2026, below b\u00b2=0.0118721003139\u2026, so the interface is not ruled out by the basic color construction.\n\n[P7] **Proved obstruction.** The natural explicit-Johnson splice instead takes K_3=652,307,006 and r=94. Its exact list-to-one balance has\n\nlambda_94=516,242,693,665,555/4,757,315,129,572,852,\n\nb_94=753,377,354,251,711,533,937/7,014,994,170,614,240,373,640,\n\nsigma_94=b_94\u00b2<29/2500.\n\nLemma 4 would require the weak conclusion H_3=K_3+493,415=652,800,421.\n\nChoose 86 distinct field values and sample f(x) independently and uniformly from them. Every line has a majority value occurring at least ceil(p/86)=1715 times; labeling that line by the corresponding constant gives acceptance at least 1715/p>29/2500>sigma_94.\n\nFor any fixed Q, its agreement indicators are independent Bernoulli variables with mean at most 1/86. Since H_3/N>3/100 and 3/100-1/86=79/4300, Hoeffding's inequality gives failure probability below exp(-2N(79/4300)\u00b2). Union bounding over p^3916 polynomials is still below one because\n\n2N\u00b779\u00b2-18\u00b73916\u00b74300\u00b2=270,099,878,289,218>0,\n\np<2^18, and ln 2<1. Thus some such table has no degree-87 polynomial with H_3 agreements. The required weak theorem is false, so the explicit 3%-Johnson splice cannot close.\n\n[P8] **Refuted imported inferences.** HKSS v1 Lemma B.4 prints the hypothesis\n\nh(beta_0'^2) >= max(e/(2 sqrt(q)), 2(d+1)/q, sqrt(d/q)),\n\nbut its proof sets eta=h/2 and invokes eta>=e/sqrt(q), eta>=4(d+1)/q, and eta>=2sqrt(d/q). The printed inequalities do not imply those uses. The same proof would be safe under the stronger sufficient condition\n\nh(beta_0'^2) >= max(2e/sqrt(q), 8(d+1)/q, 4sqrt(d/q)).\n\nIn Lemma B.6, Definition B.2 controls unexplained beta-good points only. Accepted incidences at points below the goodness threshold cost an additional beta term. Independently, the four displayed case bounds in the source are eta_1+beta, beta, beta, and beta, which do not sum to eta_1+3beta. These observations refute those proof inferences, not the possibility that the source theorem has another repair. Lemma 5 is the independently proved replacement used here.\n\n[P9] **Proved finite certificate.** The following exact checker verifies every large integer and rational used above.\n\n```python\nfrom fractions import Fraction as F\np,d=147457,87\nN=p*p; c=d*p; dim=(d+1)*(d+2)//2\nceilf=lambda x:(x.numerator+x.denominator-1)//x.denominator\nassert (N,p*(p+1),N*(p+1),c,2*c)==(\n  21743566849,21743714306,3206262880419842,12828759,25657518)\nK3=ceilf(F(3,100)*N)\nnum=N*(K3-c); den=K3*K3-c*N\nassert (K3,num-94*den,num-95*den)==(\n  652307006,127761602101311073,-18799849069162572)\ns=493416\nassert dim==3916 and 9*s-30*p==17034\nassert s==7*18*dim and 10**7-2*9**7==434062\nE=F(7810920776,N); gamma=E/10\nassert ceilf(E*N)==7810920776 and ceilf(gamma*N)==781092078\nassert gamma>F(174,p)\nK86=ceilf(F(1,86)*N)\nassert K86==252832173 and divmod(N-c,K86-c)==(90,130430830)\ncp=F(2169,62500); t=F(7,200); r=90\nB=r*cp/(cp+F(p+1)*t*t)\nlam=t+B+F(r*d,p)\nassert B==F(1561680,90335377)\nassert lam==F(280765415738023,2664116737257800)\nS=E-gamma-lam; b=S/2; sigma=b*b\nassert b==F(85607619234595001849,785685323451646829200)\nassert sigma>F(K86+s-1,N)\nT=F(35922904602094702,10**17)\nassert ceilf(T*N)==7810920777\nKrec=ceilf(T*N/10)\nassert Krec==781092078\nassert divmod(N-c,Krec-c)==(28,219365158)\nassert divmod(N-c,c)==(1693,11649103)\nr=94; t=F(1,28)\nB94=r*cp/(cp+F(p+1)*t*t)\nlam94=t+B94+F(r*d,p)\nb94=(E-gamma-lam94)/2; sig94=b94*b94\nassert B94==F(19980828,1152228187)\nassert sig94<F(29,2500)<F(1715,p)\nassert 100*(K3+s-1)-3*N==49341553\nassert 2*N*79**2-18*dim*4300**2==270099878289218\n```\n\n# Soundness Ledger\n\n| Stage | Exact loss or threshold | Status |\n|---|---:|---|\n| Candidate acceptance | E\u2081=7,810,920,776/N | conditional target |\n| Admissibility | E\u2081-957/(10p)=77,968,091,411/(10p\u00b2)>0 | proved |\n| Recovery contract | max(174/p,E\u2081/10)=E\u2081/10 | proved |\n| Recovery count | ceil(E\u2081N/10)=781,092,078 | proved |\n| Below-Johnson candidate threshold | K_86=252,832,173 | proved definition |\n| Candidate-list size | at most 90 | conditional; sharp lower construction has 90 |\n| Goodness threshold | beta=b=0.108959168103722\u2026 | conditional interface |\n| Unexplained-good density | u=b | conditional interface |\n| Standard-line deviation | t=7/200 | proved loss |\n| Abnormal lines | 1,561,680/90,335,377 | proved by exact variance and Cantelli |\n| Nonstandard coincidences | 7830/147457 | proved by univariate root counting |\n| Low-good plus unexplained-good | beta+u=2b | proved once coverage holds |\n| Total structural loss | lambda=280,765,415,738,023/2,664,116,737,257,800 | proved |\n| Closing identity | gamma+lambda+2b=E\u2081 | proved |\n| Overwrite cap | s=493,416 points | proved |\n| Weak bridge output | H=253,325,588 points | conditional |\n| Weak bridge trigger | b\u00b2=0.0118721003138551\u2026 | conditional |\n| Comparison score | 7,810,920,777 | proved |\n| Candidate score | 7,810,920,776 | conditional one-count improvement |\n| Derivative/discriminant/interpolation loss | zero; not used | proved |\n\n# Counterexample Attempts\n\nThe common-factor construction succeeds against small universal lists. At the mandatory recovery floor it gives 1693 candidates. At the proposed K_86 interface it gives exactly 90 exhibited candidates, making 90 the smallest possible universal upper bound. At the comparison recovery count it gives 28 candidates, leaving a genuine gap to the exact Johnson upper bound 50.\n\nThe 86-color construction succeeds against the natural weak theorem needed by the 3%-Johnson splice. Its line labels are constants, so it respects total degree 87 without interpolation or separability assumptions. It does not refute the line-versus-point theorem at the campaign recovery floor; it only proves that this particular weak-to-list parameter choice is impossible.\n\nA one-direction table also shows why unexplained low-good incidences cannot be discarded. This attacks the inference used in HKSS v1 B.6, not the repaired list-to-one lemma.\n\n# Characteristic Audit\n\nThe field remains F_147457 throughout. The upstream exact certificate has p-1=2^14\u00b73\u00b2 and verifies Pocklington's modular and gcd conditions. The list arguments need only p>87 and at least 86 distinct field values.\n\nSchwartz\u2013Zippel and univariate root counting are characteristic-free. No ordinary or Hasse derivative is taken. No discriminant, resultant, leading coefficient, irreducible factor, or interpolation multiplicity is divided by. Inseparability examples such as Z^p-X therefore do not affect these lemmas. The polynomial code dimension is exactly binom(89,2)=3916 because the convention is total degree, not individual degree.\n\nThe affine variance identity averages all p(p+1) lines and follows from the exact two-design property: every ordered pair of distinct points lies on one affine line. Concentration in a few directions is fully charged to the abnormal-line term.\n\n# Limitations\n\nThe sharp below-Johnson statement |L_{K_86}(f)|<=90 is not proved. Bhowmick\u2013Lovett gives only p^{c(87,s)} with an unnamed exponent and cannot discharge it. The associated good-point coverage statement is also unproved. Consequently E\u2081 is not a claimed soundness value, and this note is not a leaderboard submission.\n\nThe color-table obstruction refutes only the stated 3%-Johnson weak bridge. It does not rule out a stronger bivariate structural list theorem near 1/86, a direct list-cover proof, or the existing list-free simple-root route.\n\nThe HKSS audit identifies failures in the printed v1 derivations. It does not claim that their high-agreement theorem is false after suitable repairs.\n\n# Team Handoff\n\n- **Below-Johnson list-decoding module:** attack the exact statement |L_{252,832,173}(f)|<=90. Return a counterexample if 91 candidates are possible; 90 is already attained.\n- **List-cover module:** target beta=u=85,607,619,234,595,001,849 / 785,685,323,451,646,829,200. This single coverage interface plus the size bound activates [P6].\n- **Weak-recovery module:** an alternative sufficient interface is acceptance at least b\u00b2 implying 253,325,588 agreements. Lemma 3 then supplies coverage.\n- **End-to-end soundness module:** import [P5] with r=90 and t=7/200. The exact closing identity yields score 7,810,920,776 and 781,092,078 recovered points.\n- **Simple-root reconstruction modules (ea-r1-08/ea-r1-09 successors):** if the active D=17642 simple-component hypotheses are available, use the researcher-0004 lossless recovery instead of this list conversion.\n- **Auditors:** reject verbatim numerical uses of HKSS v1 B.4/B.6 unless the constant mismatch and low-good loss are repaired explicitly.",
+  "obstructions": [
+    "The exact Johnson denominator is negative at K_86=ceil(p^2/86); generic Johnson decoding cannot reach the proposed sharp interface.",
+    "A universal list at the mandatory 2d/p floor can have at least 1693 members.",
+    "A universal list at K_86 can have at least 90 members, so any useful exact upper bound must be at least 90.",
+    "Bhowmick\u2013Lovett Theorem 1.6 has an unnamed exponent c(87,s), which cannot be entered in a fixed numerical loss ledger.",
+    "The natural r=94, 3%-agreement weak-to-list splice requires a weak theorem that is false by the 86-color construction.",
+    "HKSS v1 Lemma B.4 has a factor-four mismatch between its printed hypotheses and the inequalities used in its proof.",
+    "HKSS v1 Lemma B.6 omits low-good unexplained incidences and does not arithmetically sum its displayed losses to the claimed constant.",
+    "The sharp size-and-coverage statement LD90 remains unproved, so the one-score candidate is conditional."
+  ],
+  "parameter_regime": "Fixed bivariate instance F_147457^2 with total degree d=87. Candidate trigger E1=7,810,920,776/21,743,566,849; recovery gamma=E1/10; candidate list threshold K86=252,832,173; proposed list size r=90; beta=u=85,607,619,234,595,001,849/785,685,323,451,646,829,200; deviation t=7/200; overwrite cap s=493,416.",
+  "proof_steps": [
+    {
+      "dependencies": [],
+      "id": "P1",
+      "proof": "Distinct total-degree-at-most-87 polynomials coincide on at most dp points. Cauchy\u2013Schwarz applied to agreement-set multiplicities gives r alpha^2-alpha <= (r-1)delta once r exceeds 1/(2alpha); the proposed bound itself exceeds that threshold. Rearrangement yields r<=N(K-dp)/(K^2-dpN).",
+      "statement": "For every f:F_147457^2\u2192F_147457 and every integer K with K^2>87\u00b7147457\u00b7147457^2, the number of distinct total-degree-at-most-87 polynomials agreeing with f on at least K points is at most floor(147457^2(K-87\u00b7147457)/(K^2-87\u00b7147457\u00b7147457^2)).",
+      "status": "proved"
+    },
+    {
+      "dependencies": [],
+      "id": "P2",
+      "proof": "Take H as a product of 87 parallel affine-line factors, use distinct scalar multiples of H, and allocate disjoint petals outside H=0. Values on the unused complement avoid all candidate values.",
+      "statement": "For integers K and r with 87\u00b7147457<K<=147457^2, 1<=r<147457, and r(K-87\u00b7147457)<=147457^2-87\u00b7147457, there are a point table and r distinct total-degree-at-most-87 polynomials each agreeing on exactly K points and pairwise agreeing on exactly 87\u00b7147457 points.",
+      "status": "proved"
+    },
+    {
+      "dependencies": [],
+      "id": "P3",
+      "proof": "Randomly overwrite T. Union bound over p^3916 polynomials and s-subsets. The integer inequalities 9s>30p, s=7\u00b718\u00b73916, (10/9)^7>2, and p<2^18 make the union probability strictly below one.",
+      "statement": "For every f:F_147457^2\u2192F_147457 and T\u2286F_147457^2, there is g equal to f outside T such that every total-degree-at-most-87 polynomial agrees with g on fewer than 493416 points of T.",
+      "status": "proved"
+    },
+    {
+      "dependencies": [
+        "P3"
+      ],
+      "id": "P4",
+      "proof": "Overwrite the union of the list agreement sets. Every polynomial then has at most K+s-2 agreements. More than u density of unexplained beta-good points would make the overwritten pair pass with probability greater than beta u and contradict the assumed weak recovery statement.",
+      "statement": "If beta\u00b7u>=sigma, H>=K+493415, and acceptance at least sigma always yields H point agreements, then the list of all degree-at-most-87 polynomials with at least K agreements leaves at most u density of beta-good points unexplained.",
+      "status": "proved"
+    },
+    {
+      "dependencies": [],
+      "id": "P5",
+      "proof": "The affine two-design gives Var(|S\u2229L|/p)=a(1-a)/(p+1). Cantelli bounds abnormal lines. Standard normal lines cost gamma+t, nonstandard explained incidences cost 87r/p, unexplained beta-good points cost u, and all accepted low-good incidences cost beta.",
+      "statement": "For 0<gamma<1/2, beta,u>=0, t>0, and a list of r degree-at-most-87 polynomials covering all but u density of beta-good points, acceptance at least gamma+t+r gamma(1-gamma)/(gamma(1-gamma)+(147458)t^2)+87r/147457+beta+u implies that one list member has agreement at least gamma.",
+      "status": "proved"
+    },
+    {
+      "dependencies": [
+        "P5"
+      ],
+      "id": "P6",
+      "proof": "Use r=90, t=7/200, gamma=E1/10, beta=u=b, and gamma(1-gamma)<2169/62500. The abnormal and coincidence losses combine with t to lambda, and gamma+lambda+2b=E1 exactly.",
+      "statement": "If the K86-list has size at most 90 and leaves at most b density of b-good points unexplained, then acceptance at least 7810920776/21743566849 yields one total-degree-at-most-87 polynomial agreeing on at least 781092078 points.",
+      "status": "conditional"
+    },
+    {
+      "dependencies": [
+        "P1",
+        "P3",
+        "P4",
+        "P5"
+      ],
+      "id": "P7",
+      "proof": "The r=94 Johnson splice would require a weak theorem at sigma94 yielding H3=652800421 agreements. A random 86-color point table with majority-constant line labels has larger acceptance, while Hoeffding plus a union bound over p^3916 polynomials gives positive probability that no polynomial reaches H3.",
+      "statement": "Every point/line table of acceptance at least sigma94 has a total-degree-at-most-87 polynomial agreeing on at least 652800421 points.",
+      "status": "refuted"
+    },
+    {
+      "dependencies": [],
+      "id": "P8",
+      "proof": "HKSS v1 B.4 sets eta=h/2 but uses thresholds four times those implied by its printed hypotheses. HKSS v1 B.6 bounds only unexplained good points and separately displays four losses that do not total its claimed three-beta loss.",
+      "statement": "The printed hypotheses and displayed case bounds in HKSS v1 Lemmas B.4 and B.6 imply the numerical conclusions through the written proofs.",
+      "status": "refuted"
+    },
+    {
+      "dependencies": [
+        "P1",
+        "P2",
+        "P3",
+        "P5"
+      ],
+      "id": "P9",
+      "proof": "The exact Fraction checker in the note verifies all counts, margins, rational identities, floor/ceiling conversions, and counterexample exponents.",
+      "statement": "All fixed-instance numerical identities and strict inequalities used in P1\u2013P8 hold.",
+      "status": "proved"
+    }
+  ],
+  "result_status": "proved",
+  "sampling_model": "A uniformly random geometric affine line among p(p+1) lines, followed by a uniformly random one of its p points; equivalently, a uniform incidence in the biregular affine point-line graph.",
+  "soundness_ledger": [
+    {
+      "input_bound": "p=147457, d=87",
+      "justification": "Exact affine-plane enumeration.",
+      "loss": "none",
+      "output_bound": "N=21,743,566,849 points and 3,206,262,880,419,842 incidences",
+      "stage": "normalization",
+      "status": "proved"
+    },
+    {
+      "input_bound": "E1=7,810,920,776/N",
+      "justification": "E1 exceeds 957/(10p) by 77,968,091,411/(10p^2).",
+      "loss": "none",
+      "output_bound": "admissible candidate trigger",
+      "stage": "admissibility",
+      "status": "proved"
+    },
+    {
+      "input_bound": "E1",
+      "justification": "E1/10>174/p and E1N/10=781,092,077.6.",
+      "loss": "factor 1/10 required by contract",
+      "output_bound": "gamma=E1/10 and 781,092,078 points",
+      "stage": "recovery target",
+      "status": "proved"
+    },
+    {
+      "input_bound": "K86=252,832,173",
+      "justification": "Common-factor construction attains 90; no upper bound is proved.",
+      "loss": "candidate list size r=90",
+      "output_bound": "|L_K86(f)|<=90",
+      "stage": "below-Johnson list size",
+      "status": "conditional"
+    },
+    {
+      "input_bound": "beta=b",
+      "justification": "Required interface for P5.",
+      "loss": "u=b unexplained-good density",
+      "output_bound": "beta+u=2b",
+      "stage": "good-point list coverage",
+      "status": "conditional"
+    },
+    {
+      "input_bound": "r=90, gamma<9/250, t=7/200",
+      "justification": "Exact affine variance and Cantelli.",
+      "loss": "1,561,680/90,335,377",
+      "output_bound": "abnormal-line mass bound",
+      "stage": "line concentration",
+      "status": "proved"
+    },
+    {
+      "input_bound": "r=90, d=87",
+      "justification": "Each nonstandard difference has at most 87 roots.",
+      "loss": "7830/147457",
+      "output_bound": "nonstandard explained-incidence bound",
+      "stage": "coincidences",
+      "status": "proved"
+    },
+    {
+      "input_bound": "t, abnormal, coincidence",
+      "justification": "Exact addition.",
+      "loss": "lambda=280,765,415,738,023/2,664,116,737,257,800",
+      "output_bound": "total structural list-to-one loss",
+      "stage": "list-to-one aggregation",
+      "status": "proved"
+    },
+    {
+      "input_bound": "gamma+lambda+2b",
+      "justification": "Exact rational identity.",
+      "loss": "all losses shown above",
+      "output_bound": "E1",
+      "stage": "conditional closure",
+      "status": "conditional"
+    },
+    {
+      "input_bound": "all p^3916 global polynomials",
+      "justification": "Exact union-bound certificate.",
+      "loss": "493,416 overwrite points",
+      "output_bound": "deterministic overwritten table with fewer than 493,416 random matches per polynomial",
+      "stage": "overwrite",
+      "status": "proved"
+    },
+    {
+      "input_bound": "acceptance at least b^2",
+      "justification": "P4 with K86 and s=493,416.",
+      "loss": "493,415-point bridge",
+      "output_bound": "weak recovery of 253,325,588 points implies the needed coverage",
+      "stage": "weak-to-list alternative",
+      "status": "conditional"
+    },
+    {
+      "input_bound": "K3=652,307,006, r=94",
+      "justification": "86-color table and exact Hoeffding union bound.",
+      "loss": "required weak output 652,800,421 is impossible at sigma94",
+      "output_bound": "natural explicit-Johnson splice blocked",
+      "stage": "counterexample obstruction",
+      "status": "refuted"
+    },
+    {
+      "input_bound": "comparison threshold 0.35922904602094702",
+      "justification": "Exact ceiling arithmetic.",
+      "loss": "one score count",
+      "output_bound": "comparison score 7,810,920,777 versus conditional score 7,810,920,776",
+      "stage": "leaderboard comparison",
+      "status": "conditional"
+    }
+  ],
+  "theorem_statement": "At p=147457 and total degree d=87, the exact Johnson list bound, the 493416-point overwrite lemma, the weak-to-list coverage reduction, the affine list-to-one inequality, and the common-factor list lower bound stated in the note are valid. A list-cover statement with threshold K86=252832173, list size 90, and beta=u=85607619234595001849/785685323451646829200 would imply soundness at epsilon=7810920776/21743566849 with 781092078 recovered points; that list-cover statement is unproved and list size 90 is attained. The weak theorem required by the corresponding 3%-agreement Johnson splice is false.",
+  "title": "Exact bivariate list bounds and the sharp below-Johnson bottleneck at (147457,87)"
+}

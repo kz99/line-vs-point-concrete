@@ -1,0 +1,730 @@
+{
+  "edited_source_count": 5,
+  "editorial_rule": "A lemma statement contains only its quantified objects, hypotheses, and conclusion. It contains no motivation, derivation, commentary, proof sketch, interpretation, history, or explanation; put all such material in the proof.",
+  "lemma_count": 51,
+  "lemmas": [
+    {
+      "dependencies": [],
+      "editorial_status": "polished",
+      "id": "researcher-0001:[P1].1",
+      "part": 1,
+      "proof_markdown": "The complete factorization is $p-1=2^{14}\\cdot 3^2$. The Pocklington residues for base $10$ certify that $p=147457$ is prime. Standard affine-plane counting gives\n\n$$M=p^2=21743566849,\\qquad \\Lambda=p(p+1)=21743714306,$$\n\nand\n\n$$N=p^2(p+1)=3206262880419842.$$",
+      "source_job_id": "researcher-0001",
+      "source_step_id": "[P1]",
+      "statement_markdown": "In the fixed instance $m=2$, $p=147457$, and total degree $d=87$, the integer $p$ is prime, the field $\\mathbb{F}_{147457}$ exists, and the affine plane $\\mathbb{F}_{147457}^{2}$ has $M=21743566849$ points, $\\Lambda=21743714306$ affine lines, and $N=3206262880419842$ point-line incidences.",
+      "status": "proved",
+      "title": "Prime-field normalization"
+    },
+    {
+      "dependencies": [
+        "research_state/campaign-30-leaderboard/submissions/researcher-0002/note.md, steps P2\u2013P10"
+      ],
+      "editorial_status": "polished",
+      "id": "researcher-0001:[P2].1",
+      "part": 1,
+      "proof_markdown": "Identity extension, exceptional-line deletion, derivative deletion, and $C_4$ peeling combine to give the fixed charge $C^*=769296828797543$. Three-direction averaging contributes $\\kappa(1-\\rho)$, giving the asserted complete-deletion inequality. Solving that inequality gives\n\n$$\\rho\\le R^*=\\frac{1244293905093223}{3681259956715522}.$$\n\nThus $\\rho>R^*$ leaves a retained component. For\n\n$$\\bar\\varepsilon=\\frac{7349491214}{21743566849},$$\n\nthe exact component polynomial satisfies $F(\\bar\\varepsilon/10)>0$. The imported KTZ interfaces give one polynomial of total degree at most $87$ on every retained component, whose point density is greater than\n\n$$\\frac{\\bar\\varepsilon}{10}=\\frac{3674745607}{108717834245}.$$",
+      "source_job_id": "researcher-0001",
+      "source_step_id": "[P2]",
+      "statement_markdown": "In the fixed instance $m=2$, $p=147457$, and total degree $d=87$, let $f:\\mathbb{F}_{147457}^{2}\\to\\mathbb{F}_{147457}$ be a point table, let $(P_L)_L$ be an affine-line table satisfying $\\deg(P_L)\\le 87$ for every affine line $L$, and let $\\rho$ be its accepted-incidence density. Set $D=15129$, $s=5195$, $N=3206262880419842$, $C^*=769296828797543$, and $\\kappa=1610629120/10871857153$. If complete deletion leaves no retained core, then\n\n$$\\rho\\le \\frac{C^*}{N}+\\kappa(1-\\rho).$$\n\nIf\n\n$$\\rho>\\frac{1244293905093223}{3681259956715522},$$\n\nthen there exists $Q\\in\\mathbb{F}_{147457}[X,Y]$ of total degree at most $87$ that agrees with $f$ on a fraction greater than $3674745607/108717834245$ of $\\mathbb{F}_{147457}^{2}$.",
+      "status": "proved",
+      "title": "Core-survival frontier"
+    },
+    {
+      "dependencies": [
+        "[P2]",
+        "KTZ Lemma 2.7",
+        "KTZ Lemma 6.1"
+      ],
+      "editorial_status": "polished",
+      "id": "researcher-0001:[P3].1",
+      "part": 1,
+      "proof_markdown": "Let\n\n$$\\varepsilon^*=\\frac{3380076168821833}{10^{16}},\\qquad R^*=\\frac{1244293905093223}{3681259956715522},\\qquad k^*=1083741275308516.$$\n\nExact cross multiplication gives\n\n$$\\frac{k^*-1}{N}<\\varepsilon^*<R^*<\\frac{k^*}{N}$$\n\nand $\\lceil N\\varepsilon^*\\rceil=k^*$. Every realized acceptance probability lies on the $1/N$ incidence lattice. Hence $\\rho\\ge\\varepsilon^*$ implies\n\n$$\\rho\\ge\\frac{k^*}{N}>R^*,$$\n\nso [P2] supplies the asserted polynomial and agreement fraction. Moreover,\n\n$$\\left\\lceil M\\varepsilon^*\\right\\rceil=7349491214,\\qquad \\left\\lceil \\frac{M\\varepsilon^*}{10}\\right\\rceil=734949122,$$\n\nwhile\n\n$$\\varepsilon^*-\\frac{957}{10p}=\\frac{497458891625961028681}{1474570000000000000000}>0$$\n\nand\n\n$$\\frac{\\varepsilon^*}{10}-\\frac{174}{p}=\\frac{481015891625961028681}{14745700000000000000000}>0.$$\n\nThese exact ceilings and positive margins give the stated score, admissibility, recovery maximum, and point count.",
+      "source_job_id": "researcher-0001",
+      "source_step_id": "[P3]",
+      "statement_markdown": "In the fixed instance $m=2$, $p=147457$, and total degree $d=87$, for every point table $f:\\mathbb{F}_{147457}^{2}\\to\\mathbb{F}_{147457}$ and every affine-line table satisfying $\\deg(P_L)\\le 87$ for every affine line $L$, acceptance probability at least\n\n$$\\frac{3380076168821833}{10^{16}}$$\n\nimplies the existence of $Q\\in\\mathbb{F}_{147457}[X,Y]$ of total degree at most $87$ that agrees with $f$ on a fraction greater than $3674745607/108717834245$ of all points and on at least $734949122$ points.",
+      "status": "proved",
+      "title": "Lattice-normalized recovery"
+    },
+    {
+      "dependencies": [
+        "[P2]"
+      ],
+      "editorial_status": "polished",
+      "id": "researcher-0001:[P4].1",
+      "part": 1,
+      "proof_markdown": "For a fixed charge $C$ and direction coefficient $\\lambda$, define\n\n$$S(C,\\lambda)=\\left\\lfloor M\\frac{C/N+\\lambda}{1+\\lambda}\\right\\rfloor+1.$$\n\nSubstituting all unchanged terms from [P2] and deleting each specified grouped term separately gives, by exact integer division, the three asserted scores. Direct cross multiplication also gives the raw normalized-magnitude ordering\n\n$$\\frac{20236}{147457}>\\frac{15129}{147458}>\\frac{23183517373213491200}{236392952779034320897}.$$",
+      "source_job_id": "researcher-0001",
+      "source_step_id": "[P4]",
+      "statement_markdown": "In the fixed instance $m=2$, $p=147457$, and total degree $d=87$, retain every other interface from [P2] and remove exactly one grouped loss. Removing, respectively, the regular-line joint charge, the direction-energy term, or the point-peeling charge gives strict-frontier scores $4750572447$, $5217057256$, and $5406479978$.",
+      "status": "proved",
+      "title": "Grouped-loss sensitivity"
+    },
+    {
+      "dependencies": [],
+      "editorial_status": "polished",
+      "id": "researcher-0001:[P5].1",
+      "part": 1,
+      "proof_markdown": "For a point of accepted degree $a$, the selector miss probability is\n\n$$H'_a=\\frac{(h-a)(h-a-1)}{h(h-1)}\\left(1-\\frac{a(p-58)}{p(h-2)}\\right).$$\n\nAfter cancellation,\n\n$$\\frac{aH'_a}{h-a}=\\frac{G(a)}{p^2(p^2-1)},$$\n\nwhere\n\n$$G(a)=a(p-a)\\bigl[p(p-1)-(p-58)a\\bigr].$$\n\nThe consecutive difference of $G$ has the sign of\n\n$$442197a^2-86956425273a+3206175914999808.$$\n\nThis quadratic is positive at $a=49161$ and negative at $a=49162$ and $a=p-1$. Its upward-opening shape therefore gives the unique maximum of $G$ at $a=49162$, yielding the asserted value of $\\kappa'$. If the $58$ omissions are distributed among several selected directions, nonnegative degree-two and degree-three elementary-symmetric terms are added to the miss probability. Concentrating all omissions in one direction removes those terms.",
+      "source_job_id": "researcher-0001",
+      "source_step_id": "[P5]",
+      "statement_markdown": "In the fixed instance $m=2$, $p=147457$, and total degree $d=87$, set $D'=15128$ and $h=p+1=147458$. Consider the selector consisting of two complete directions and $p-58$ uniformly chosen lines of a third distinct direction. For every integer $a$ satisfying $0\\le a\\le h$, let $H'_a$ be the probability that a point of accepted degree $a$ receives no selected accepted line. Then\n\n$$aH'_a\\le\\kappa'(h-a),\\qquad \\kappa'=\\frac{1945970716835469935}{13132852758199672832},$$\n\nwith equality only at $a=49162$.",
+      "status": "proved",
+      "title": "Partial-direction envelope"
+    },
+    {
+      "dependencies": [
+        "[P5]",
+        "KTZ Lemma 2.5",
+        "KTZ Lemma 2.7",
+        "KTZ Lemma 6.1"
+      ],
+      "editorial_status": "polished",
+      "id": "researcher-0001:[P6].1",
+      "part": 1,
+      "proof_markdown": "The weighted interpolation surplus is $5787$. Exact primitive-cleanup and $C_4$ calculations give\n\n$$E_{D'}=2615260,\\qquad K'_4=156503312,\\qquad C'=769253300377990.$$\n\nSolving the resulting frontier gives\n\n$$R'=\\frac{5096832235183716975}{15078823475035142767}.$$\n\nIts first strict integer score is\n\n$$\\left\\lfloor MR'\\right\\rfloor+1=7349599431.$$\n\nFor $\\tau'=7349599431/(10M)$, the exact component endpoint is\n\n$$\\frac{10408671413351925899}{715277796518802048170142600}>0.$$\n\nThe component and KTZ reconstruction interfaces therefore apply, and the associated recovery count is $734959944$.",
+      "source_job_id": "researcher-0001",
+      "source_step_id": "[P6]",
+      "statement_markdown": "In the fixed instance $m=2$, $p=147457$, and total degree $d=87$, take $D'=15128$, $s=5195$, and the selector from [P5], with the existing weighted-interpolation, primitive-cleanup, $C_4$-peeling, component-mass, and reconstruction interfaces. The strict-frontier score is $7349599431$, and the recovery count is $734959944$.",
+      "status": "proved",
+      "title": "Partial-direction score"
+    },
+    {
+      "dependencies": [
+        "[P2]",
+        "[P6]"
+      ],
+      "editorial_status": "polished",
+      "id": "researcher-0001:[P7].1",
+      "part": 1,
+      "proof_markdown": "Substituting $s=5194$ into the exact fixed-charge and component formulas at $D=15129$ gives survival score $7349362799$ and component endpoint\n\n$$-\\frac{4708014974534477}{4207794559466810911966600}<0.$$\n\nThe largest canonical score passing the same endpoint certificate is $7349277107$, and reconciling that boundary with survival requires at least $14507831994$ additional incidence credits. Substituting $D'=15128$ and $s=5194$ gives survival score $7349471019$ and component endpoint\n\n$$-\\frac{1917047659123556921}{715277796518802048170142600}<0.$$",
+      "source_job_id": "researcher-0001",
+      "source_step_id": "[P7]",
+      "statement_markdown": "In the fixed instance $m=2$, $p=147457$, and total degree $d=87$, at $D=15129$ and $s=5194$ the survival score is $7349362799$ and the current component endpoint is negative. At $D'=15128$ and $s=5194$, the survival score is $7349471019$ and the current component endpoint is negative.",
+      "status": "proved",
+      "title": "Adjacent peeling barrier"
+    },
+    {
+      "dependencies": [],
+      "editorial_status": "polished",
+      "id": "researcher-0001:[P8].1",
+      "part": 1,
+      "proof_markdown": "The polynomial $g$ has degree $15042$. The factors $Z$ and $Z+g(X)$ are squarefree and coprime, so $B$ is squarefree. The largest weighted term is $Zg(X)$, of weight $87+15042=15129$, and hence $B$ has $(1,1,87)$-weighted degree $15129$. Since\n\n$$B_Z=2Z+g(X),$$\n\none has $B_Z=g(X)$ on $Z=0$. The polynomial $g$ vanishes at exactly $15042$ values of $X$. Allowing all $p$ values of $Y$ gives $15042p$ derivative-zero points, each incident with $h=p+1$ affine lines. Thus the number of derivative-zero incidences is\n\n$$15042ph=15042\\Lambda=327068950590852.$$",
+      "source_job_id": "researcher-0001",
+      "source_step_id": "[P8]",
+      "statement_markdown": "Over $\\mathbb{F}_{147457}$ in the fixed instance $m=2$ and total degree $d=87$, let\n\n$$g(X)=\\prod_{a=0}^{15041}(X-a),\\qquad B(X,Y,Z)=Z\\bigl(Z+g(X)\\bigr).$$\n\nThen $B$ is squarefree, has $(1,1,87)$-weighted degree $15129$, and its branch $Z=0$ has exactly $327068950590852$ derivative-zero incidences.",
+      "status": "proved",
+      "title": "Derivative-incidence example"
+    },
+    {
+      "dependencies": [
+        "research_state/campaign-30-leaderboard/leaderboards/soundness-history.json",
+        "research_state/campaign-30-leaderboard/reviews/researcher-0002/verifier-a-researcher-0002/audit.json",
+        "research_state/campaign-30-leaderboard/reviews/researcher-0003/verifier-a-researcher-0003/audit.json"
+      ],
+      "editorial_status": "polished",
+      "id": "researcher-0001:[P9].1",
+      "part": 1,
+      "proof_markdown": "Direct inspection at the stated snapshot finds one verifier ID on the promoted theorem. The review tree contains one accepting audit for researcher-0002 and one accepting audit for researcher-0003, and the two theorem hashes are distinct. Neither exact digest therefore has two independent accepting audits.",
+      "source_job_id": "researcher-0001",
+      "source_step_id": "[P9]",
+      "statement_markdown": "At the 2026-09-15T09:14:37Z snapshot, no theorem of score $7349491214$ in the active corpus has two independent accepting audits on one exact theorem SHA-256 digest.",
+      "status": "proved",
+      "title": "Audit multiplicity"
+    },
+    {
+      "dependencies": [],
+      "editorial_status": "polished",
+      "id": "researcher-0002:[P1].1",
+      "part": 1,
+      "proof_markdown": "The complete factorization is $147457-1=2^{14}\\cdot 3^2$. Modulo $147457$,\n\n$$10^{147456}\\equiv 1\\pmod{147457},\\qquad 10^{73728}\\equiv -1\\pmod{147457},\\qquad 10^{49152}\\equiv 78348\\pmod{147457},$$\n\nand\n\n$$\\gcd(10^{73728}-1,147457)=1,\\qquad \\gcd(10^{49152}-1,147457)=1.$$\n\nPocklington's criterion therefore proves that $147457$ is prime. Standard affine-plane counting gives\n\n$$M=147457^2=21743566849,$$\n\n$$\\Lambda=147457(147457+1)=21743714306,$$\n\nand\n\n$$N=147457^2(147457+1)=3206262880419842.$$",
+      "source_job_id": "researcher-0002",
+      "source_step_id": "[P1]",
+      "statement_markdown": "For $p=147457$, the integer $p$ is prime, and the affine plane $\\mathbb{F}_{147457}^{2}$ has $21743566849$ points, $21743714306$ affine lines, and $3206262880419842$ incident point-line pairs.",
+      "status": "proved",
+      "title": "Field and incidence counts"
+    },
+    {
+      "dependencies": [
+        "[P1]"
+      ],
+      "editorial_status": "polished",
+      "id": "researcher-0002:[P2].1",
+      "part": 1,
+      "proof_markdown": "Put $h=147458$ and $M=21743566849$, so $N=Mh$. At a point of accepted degree $a$, a uniformly random set of $3$ directions misses every accepted line through that point with probability\n\n$$H_a=\\frac{\\binom{h-a}{3}}{\\binom{h}{3}}.$$\n\nFor $1\\leq a\\leq h-3$, the factor controlling $aH_a/(h-a)$ is\n\n$$g_a=\\frac{a}{3}\\binom{h-a-1}{2}.$$\n\nIts consecutive ratio is\n\n$$\\frac{g_{a+1}}{g_a}=\\frac{(a+1)(h-a-3)}{a(h-a-1)},$$\n\nwhich is at least $1$ exactly when $h-3-3a\\geq 0$. Hence the maximum occurs at $a=49152$, and substitution gives\n\n$$\\kappa=\\frac{1610629120}{10871857153}.$$\n\nIncluding the endpoint values,\n\n$$aH_a\\leq \\kappa(h-a)\\qquad\\text{for every }0\\leq a\\leq h.$$\n\nIf $a_x$ is the accepted degree of $x$, averaging over the direction choices gives\n\n$$\\mathbb{E}_R\\!\\left[\\frac{U_R}{N}\\right]=\\frac{1}{Mh}\\sum_x a_xH_{a_x}\\leq\\frac{\\kappa}{Mh}\\sum_x(h-a_x)=\\kappa(1-\\rho).$$\n\nTherefore some union $R$ of $3$ distinct direction classes satisfies the claimed inequality, with no Markov or union-bound loss.",
+      "source_job_id": "researcher-0002",
+      "source_step_id": "[P2]",
+      "statement_markdown": "Let $E$ be an accepted-incidence graph of density $\\rho=|E|/N$ in $\\mathbb{F}_{147457}^{2}$, where $N=3206262880419842$. Then there exist $3$ distinct directions whose union $R$ satisfies\n\n$$\\frac{U_R}{N}\\leq \\frac{1610629120}{10871857153}(1-\\rho),$$\n\nwhere $U_R$ is the number of accepted incidences at points whose accepted pencil contains no line in $R$.",
+      "status": "proved",
+      "title": "Three-direction coverage"
+    },
+    {
+      "dependencies": [
+        "[P1]",
+        "Kominers\u2013Thaler\u2013Zheng Lemma 2.5"
+      ],
+      "editorial_status": "polished",
+      "id": "researcher-0002:[P3].1",
+      "part": 1,
+      "proof_markdown": "Set $D=15129$. The number of monomials $X^iY^jZ^z$ satisfying $i+j+87z\\leq D$ is\n\n$$V_D=\\sum_{z=0}^{173}\\binom{D-87z+2}{2}=6693082347.$$\n\nEach selected line graph imposes at most $D+1=15130$ homogeneous coefficient constraints. The $3$ direction classes contain\n\n$$3\\cdot147457=442371$$\n\nlines, so they impose at most\n\n$$442371\\cdot15130=6693073230<V_D$$\n\nconstraints. Linear algebra therefore supplies a nonzero polynomial $A$ of the required weighted degree satisfying every selected formal line identity.\n\nA nonzero $Z$-independent interpolant would have total degree at most $15129$ and vanish formally on $442371>15129$ distinct affine lines, contradicting Kominers\u2013Thaler\u2013Zheng Lemma $2.5$. Thus $A$ depends on $Z$. Since\n\n$$\\deg_Z(A)\\leq 173<147457,$$\n\nordinary differentiation gives $A_Z\\not\\equiv0$.\n\nChoose an eligible $A$ of minimum weighted degree. Suppose an irreducible factor $F$ occurs with multiplicity $e\\geq2$, and write $A=F^eG$ with $F\\nmid G$. On each selected line, the substituted identity lies in the integral domain $\\mathbb{F}_{147457}[t]$; hence replacing $F^eG$ by $F^{e-1}G$ preserves that identity.\n\nIf $\\deg_Z(F)=0$, then\n\n$$A_Z=F^eG_Z,$$\n\nso $(F^{e-1}G)_Z=F^{e-1}G_Z$ remains nonzero. If $\\deg_Z(F)>0$, then $e\\leq173<147457$, $F_Z\\not\\equiv0$, and irreducibility gives $F\\nmid F_Z$. Modulo $F$, the derivative of $F^{e-1}G$ contains the nonzero term\n\n$$(e-1)F_ZG.$$\n\nThus the reduced interpolant again has nonzero $Z$-derivative, contradicting minimality. Therefore $A$ is squarefree.",
+      "source_job_id": "researcher-0002",
+      "source_step_id": "[P3]",
+      "statement_markdown": "Let $R$ be the union of $3$ distinct direction classes in $\\mathbb{F}_{147457}^{2}$, and let every affine line $L$ carry a polynomial $P_L$ of degree at most $87$. Then there exists a nonzero squarefree polynomial\n\n$$A\\in\\mathbb{F}_{147457}[X,Y,Z]$$\n\nof $(1,1,87)$-weighted degree at most $15129$, with $A_Z\\not\\equiv0$, such that\n\n$$A(L(t),P_L(t))\\equiv0$$\n\nfor every $L\\in R$.",
+      "status": "proved",
+      "title": "Weighted interpolant"
+    },
+    {
+      "dependencies": [
+        "[P3]"
+      ],
+      "editorial_status": "polished",
+      "id": "researcher-0002:[P4].1",
+      "part": 1,
+      "proof_markdown": "Consider an added line $L$ and a covered accepted point $x$ on it. A selected accepted line through $x$ gives $A(x,f(x))=0$, while acceptance on $L$ gives $P_L(x)=f(x)$. Hence $x$ is a root of $A(L(t),P_L(t))$.\n\nThe substituted polynomial has degree at most $15129$. Since an added line contains more than $15129$ distinct covered accepted points, its restriction is identically zero. Lines in $R$ are already $A$-identity lines.\n\nEvery accepted incidence outside $T$ is either incident to an uncovered point, and hence counted by $U_R$, or is a covered accepted incidence on an omitted line. Each omitted line has at most $15129$ incidences of the latter kind. Since there are $\\Lambda-|T|$ omitted lines,\n\n$$|E|\\leq |E_T|+U_R+15129(\\Lambda-|T|).$$",
+      "source_job_id": "researcher-0002",
+      "source_step_id": "[P4]",
+      "statement_markdown": "Let $f:\\mathbb{F}_{147457}^{2}\\to\\mathbb{F}_{147457}$ be a point table, let every affine line $L$ carry a polynomial $P_L$ of degree at most $87$, and let $E$ be their accepted-incidence graph. Let $R$ and $A$ satisfy the conclusion of the weighted-interpolant lemma. Call a point $x$ covered if its accepted pencil contains a line of $R$. Let $T$ consist of $R$ together with every line $L\\notin R$ containing more than $15129$ covered points $x$ for which $(x,L)\\in E$, and let $E_T$ be the accepted incidences on $T$. Then every $L\\in T$ satisfies\n\n$$A(L(t),P_L(t))\\equiv0,$$\n\nand\n\n$$|E|\\leq |E_T|+U_R+15129(\\Lambda-|T|),$$\n\nwhere $\\Lambda=21743714306$.",
+      "status": "proved",
+      "title": "Identity-line extension"
+    },
+    {
+      "dependencies": [
+        "[P3]",
+        "[P4]"
+      ],
+      "editorial_status": "polished",
+      "id": "researcher-0002:[P5].1",
+      "part": 1,
+      "proof_markdown": "Write\n\n$$h_0=\\deg(H),\\qquad W=\\operatorname{wdeg}(B),\\qquad \\nu=\\deg_Z(B).$$\n\nThen\n\n$$h_0+W\\leq15129,\\qquad 1\\leq\\nu\\leq173<147457.$$\n\nThe polynomial $B$ is squarefree. Primitivity excludes $Z$-independent irreducible factors. Every positive-$Z$-degree irreducible factor has nonzero $Z$-derivative because its $Z$-degree is below $147457$. Consequently,\n\n$$\\gcd(B,B_Z)=1.$$\n\nFor $\\nu\\geq2$, the nominal projective $Z$-discriminant $\\Delta_B(X,Y)$ is nonzero and has $(X,Y)$-degree at most\n\n$$(\\nu-1)(2W-87\\nu).$$\n\nIf a noncontent identity line also satisfies $B_Z(L(t),P_L(t))\\equiv0$, the homogenized specialization has the repeated finite projective root $[P_L(t):1]$. Thus $\\Delta_B$ vanishes formally on that line. This argument does not invert the specialized leading coefficient and remains valid when that coefficient collapses.\n\nThe number of content and derivative-degenerate identity lines is therefore at most\n\n$$h_0+(\\nu-1)(2W-87\\nu)\\leq h_0+(\\nu-1)\\bigl(2(15129-h_0)-87\\nu\\bigr).$$\n\nFor $\\nu\\geq2$, this expression is maximized at $h_0=0$ and $\\nu=173$, where it equals\n\n$$172(30258-15051)=2615604.$$\n\nIf $\\nu=1$, write $B=b_1(X,Y)Z+b_0(X,Y)$. A noncontent derivative-degenerate identity line would divide both $b_1$ and $b_0$, contradicting primitivity; the content-line count is smaller than $2615604$.\n\nOn every remaining identity line, $B_Z(L(t),P_L(t))$ is a nonzero polynomial of degree at most\n\n$$15129-87=15042,$$\n\nand hence has at most $15042$ roots.",
+      "source_job_id": "researcher-0002",
+      "source_step_id": "[P5]",
+      "statement_markdown": "Let $A\\in\\mathbb{F}_{147457}[X,Y,Z]$ be a nonzero squarefree interpolant of $(1,1,87)$-weighted degree at most $15129$, with $A_Z\\not\\equiv0$, and write $A=HB$, where $H\\in\\mathbb{F}_{147457}[X,Y]$ is the coefficient content in $Z$ and $B$ is primitive in $Z$. For a degree-at-most-$87$ line label $P_L$, call $L$ an $A$-identity line if\n\n$$A(L(t),P_L(t))\\equiv0,$$\n\ncall it a content line if $H(L(t))\\equiv0$, and call it derivative-degenerate if $B_Z(L(t),P_L(t))\\equiv0$. At most $2615604$ $A$-identity lines are content or derivative-degenerate. Every other $A$-identity line contains at most $15042$ points satisfying\n\n$$B_Z(L(t),P_L(t))=0.$$",
+      "status": "proved",
+      "title": "Primitive relation cleanup"
+    },
+    {
+      "dependencies": [],
+      "editorial_status": "polished",
+      "id": "researcher-0002:[P6].1",
+      "part": 1,
+      "proof_markdown": "Let the right-side degrees be $r_1,\\ldots,r_{15129}$. Since two left vertices have at most one common neighbor, $C_4$-freeness gives\n\n$$\\sum_{i=1}^{15129}\\binom{r_i}{2}\\leq\\binom{5194}{2}=13486221.$$\n\nAt\n\n$$Z=646374=42\\cdot15129+10956$$\n\nedges, discrete convexity minimizes the left side at\n\n$$15129\\binom{42}{2}+10956\\cdot42=13486221.$$\n\nWith one additional edge, the minimum becomes\n\n$$15129\\binom{42}{2}+10957\\cdot42=13486263>13486221,$$\n\nwhich is impossible. Therefore $Z\\leq646374$.",
+      "source_job_id": "researcher-0002",
+      "source_step_id": "[P6]",
+      "statement_markdown": "Every bipartite graph with part sizes $5194$ and $15129$ and containing no cycle of length $4$ has at most $646374$ edges.",
+      "status": "proved",
+      "title": "Fixed bipartite corner"
+    },
+    {
+      "dependencies": [
+        "[P6]"
+      ],
+      "editorial_status": "polished",
+      "id": "researcher-0002:[P7].1",
+      "part": 1,
+      "proof_markdown": "Put\n\n$$D=15129,\\qquad k=5194,\\qquad Z=646374,$$\n\nand\n\n$$K_4=2Dk-Z=156513678.$$\n\nFirst consider part sizes $m\\geq k$ and $n\\geq D$. Induct on $m+n$. At the boundary $m=k$, apply the fixed-corner bound to any $D$ right vertices and charge at most $k$ edges to every remaining right vertex:\n\n$$|E_G|\\leq Z+k(n-D)=Dm+kn-K_4.$$\n\nThe boundary $n=D$ is symmetric. In the interior, delete the first vertex in the emptying order, apply induction to the remaining graph, and charge at most $D$ or $k$ edges according to the side of the deleted vertex.\n\nFor the required point-side size $M=21743566849$, this proves the result whenever $n\\geq D$. If $n<D$, the complete-bipartite bound gives $|E_G|\\leq Mn$. The difference between the claimed upper bound and $Mn$ is\n\n$$(D-n)M+kn-K_4.$$\n\nIt is minimized at $n=D-1$ and equals\n\n$$M+k(D-1)-K_4=21665628003>0.$$\n\nThus the stated bound holds for every $n\\geq0$.",
+      "source_job_id": "researcher-0002",
+      "source_step_id": "[P7]",
+      "statement_markdown": "Let $n\\geq0$ be an integer. Let $G=(X,Y,E_G)$ be a bipartite graph containing no cycle of length $4$, with\n\n$$|X|=21743566849\\qquad\\text{and}\\qquad |Y|=n.$$\n\nSuppose $G$ admits an emptying order in which an $X$-vertex is deleted only when its current degree is at most $15129$, and a $Y$-vertex is deleted only when its current degree is at most $5194$. Then\n\n$$|E_G|\\leq15129\\cdot21743566849+5194n-156513678.$$",
+      "status": "proved",
+      "title": "Peeling credit"
+    },
+    {
+      "dependencies": [
+        "[P2]",
+        "[P4]",
+        "[P5]",
+        "[P7]"
+      ],
+      "editorial_status": "polished",
+      "id": "researcher-0002:[P8].1",
+      "part": 1,
+      "proof_markdown": "Put\n\n$$p=147457,\\quad M=21743566849,\\quad \\Lambda=21743714306,\\quad N=3206262880419842,$$\n\n$$D=15129,\\quad q_{\\mathrm{der}}=15042,\\quad s=5195,\\quad k=5194,$$\n\n$$E_D=2615604,\\quad K_4=156513678.$$\n\nLet $t=|T|$ and let $e\\leq E_D$ be the number of exceptional lines in $T$. Suppose the cleanup and peeling process empties the graph. Exceptional lines account for at most $pe$ accepted incidences, and derivative cleanup accounts for at most $q_{\\mathrm{der}}(t-e)$ incidences. The affine point-line incidence graph contains no cycle of length $4$, so the credited peeling bound gives\n\n$$|E_T|\\leq pe+q_{\\mathrm{der}}(t-e)+DM+k(t-e)-K_4.$$\n\nCombining this with the identity-extension inequality yields\n\n$$|E|\\leq U_R+D\\Lambda+DM+(s-88)t+(p-q_{\\mathrm{der}}-s+1)e-K_4.$$\n\nBoth variable coefficients are positive:\n\n$$s-88=5107,\n\\qquad p-q_{\\mathrm{der}}-s+1=127221.$$\n\nUsing $t\\leq\\Lambda$ and $e\\leq E_D$ therefore gives\n\n$$|E|\\leq U_R+C^*,$$\n\nwhere\n\n$$C^*=(q_{\\mathrm{der}}+s-1)\\Lambda+DM+(p-q_{\\mathrm{der}}-s+1)E_D-K_4$$\n\nand\n\n$$C^*=440005802696216+328958422858521+332759756484-156513678=769296828797543.$$\n\nLet\n\n$$\\epsilon=\\frac{7349491214}{21743566849},\\qquad \\kappa=\\frac{1610629120}{10871857153}.$$\n\nThe three-direction coverage bound implies that complete deletion at acceptance at least $\\epsilon$ would force\n\n$$\\epsilon\\leq\\frac{C^*}{N}+\\kappa(1-\\epsilon).$$\n\nHowever,\n\n$$\\frac{C^*}{N}+\\kappa(1-\\epsilon)=\\frac{9400308072378016503}{27810935621062861282},$$\n\nwhile\n\n$$\\epsilon-\\frac{C^*}{N}-\\kappa(1-\\epsilon)=\\frac{1249813349}{27810935621062861282}>0.$$\n\nThis contradiction proves that the core is nonempty. Peeling leaves point degrees at least $15130$ and line degrees at least $5195$. All retained lines are noncontent, nondegenerate identity lines, so they carry formal $B$-identities, and derivative cleanup ensures $B_Z(x,f(x))\\neq0$ on every retained edge.",
+      "source_job_id": "researcher-0002",
+      "source_step_id": "[P8]",
+      "statement_markdown": "Let $f:\\mathbb{F}_{147457}^{2}\\to\\mathbb{F}_{147457}$ be a point table and let every affine line carry a polynomial of degree at most $87$. Suppose their acceptance probability is at least\n\n$$\\frac{7349491214}{21743566849}.$$\n\nThen there exist a three-direction union $R$, an interpolant $A=HB$, and an identity-line set $T$ satisfying the preceding coverage, interpolation, identity-extension, and primitive-relation lemmas such that the following process leaves a nonempty graph: delete all accepted incidences on content or derivative-degenerate lines, delete every remaining incidence $(x,L)$ satisfying $B_Z(x,f(x))=0$, and repeatedly delete point vertices of current degree at most $15129$ and line vertices of current degree at most $5194$. Every remaining point has degree at least $15130$, every remaining line has degree at least $5195$ and satisfies\n\n$$B(L(t),P_L(t))\\equiv0,$$\n\nand every remaining incidence $(x,L)$ satisfies\n\n$$B_Z(x,f(x))\\neq0.$$",
+      "status": "proved",
+      "title": "Simple-root core"
+    },
+    {
+      "dependencies": [
+        "[P1]"
+      ],
+      "editorial_status": "polished",
+      "id": "researcher-0002:[P9].1",
+      "part": 1,
+      "proof_markdown": "Let $\\mathcal{I}$ be the point-by-line incidence matrix of the affine plane. It satisfies\n\n$$\\mathcal{I}\\mathcal{I}^{\\mathsf T}=pI_M+J_M,$$\n\nwhere $p=147457$ and $M=21743566849$. Center the point and line indicator vectors as\n\n$$\\widetilde{\\mathbf{1}}_X=\\mathbf{1}_X-a\\mathbf{1},\\qquad \\widetilde{\\mathbf{1}}_S=\\mathbf{1}_S-b\\mathbf{1}.$$\n\nThen\n\n$$I(X,S)-abN=\\widetilde{\\mathbf{1}}_X^{\\mathsf T}\\mathcal{I}\\widetilde{\\mathbf{1}}_S.$$\n\nBecause $\\widetilde{\\mathbf{1}}_X$ is orthogonal to the all-ones vector, Cauchy\u2013Schwarz and the matrix identity give\n\n$$|I(X,S)-abN|\\leq\\sqrt{p\\,Ma(1-a)\\,\\Lambda b(1-b)}.$$\n\nUsing $\\Lambda=p(p+1)$, $N=M(p+1)$, and $p+1=147458$, division by $N$ yields\n\n$$\\frac{I(X,S)}{N}\\leq ab+\\sqrt{\\frac{a(1-a)b(1-b)}{147458}}.$$",
+      "source_job_id": "researcher-0002",
+      "source_step_id": "[P9]",
+      "statement_markdown": "Let $X$ be a set of points and $S$ a set of affine lines in $\\mathbb{F}_{147457}^{2}$. Define\n\n$$a=\\frac{|X|}{21743566849},\\qquad b=\\frac{|S|}{21743714306},$$\n\nand let $I(X,S)$ be the number of incidences between $X$ and $S$. Then, for $N=3206262880419842$,\n\n$$\\frac{I(X,S)}{N}\\leq ab+\\sqrt{\\frac{a(1-a)b(1-b)}{147458}}.$$",
+      "status": "proved",
+      "title": "Affine incidence mixing"
+    },
+    {
+      "dependencies": [
+        "[P8]",
+        "[P9]"
+      ],
+      "editorial_status": "polished",
+      "id": "researcher-0002:[P10].1",
+      "part": 1,
+      "proof_markdown": "Let $a$ and $b$ be the point and line densities of a connected core component. Put\n\n$$\\alpha=\\frac{15130}{147458}=\\frac{445}{4337},\\qquad \\beta=\\frac{5195}{147457},$$\n\n$$c=\\frac{\\alpha}{\\beta}=\\frac{13123673}{4506143},\\qquad \\gamma^2=\\frac{1}{c\\cdot147458}=\\frac{1039}{446204882}.$$\n\nThe minimum degrees imply that the component edge density is at least $\\alpha a$ and at least $\\beta b$. If $b\\leq ca$, the affine-mixing upper bound is maximized over this range at $b=ca$ whenever $ca<1/2$. If $b\\geq ca$, divide the mixing bound by $b$ and use the monotonicity of $(1-b)/b$. Both cases give the necessary inequality\n\n$$\\beta\\leq a+\\gamma\\sqrt{(1-a)(1-ca)}.$$\n\nSet\n\n$$\\tau=\\frac{3674745607}{108717834245}$$\n\nand\n\n$$F(a)=(\\beta-a)^2-\\gamma^2(1-a)(1-ca).$$\n\nExact arithmetic gives\n\n$$\\beta-\\tau=\\frac{155449968}{108717834245}>0,$$\n\n$$\\frac12-c\\tau=\\frac{2668206923709}{6644623283510}>0,$$\n\n$$F(\\tau)=\\frac{498727149435244}{30939665878432433176225}>0,$$\n\nand\n\n$$F'(\\tau)=-\\frac{13793284387}{4837976433085}<0.$$\n\nMoreover,\n\n$$F''=2\\left(1-\\frac{1}{147458}\\right)>0.$$\n\nThus $F'$ is negative throughout $[0,\\tau]$, and consequently $F(a)\\geq F(\\tau)>0$ whenever $a\\leq\\tau$. On that interval, $\\beta-a>0$ and $ca<1/2$, so the necessary component inequality would give $F(a)\\leq0$ after squaring. This contradiction shows that $a>\\tau$.",
+      "source_job_id": "researcher-0002",
+      "source_step_id": "[P10]",
+      "statement_markdown": "Every connected component of the simple-root core contains more than\n\n$$\\frac{3674745607}{108717834245}\\cdot21743566849$$\n\npoint vertices.",
+      "status": "proved",
+      "title": "Component mass"
+    },
+    {
+      "dependencies": [
+        "[P8]",
+        "[P10]",
+        "Kominers\u2013Thaler\u2013Zheng Lemma 2.7",
+        "Kominers\u2013Thaler\u2013Zheng Lemma 6.1"
+      ],
+      "editorial_status": "polished",
+      "id": "researcher-0002:[P11].1",
+      "part": 1,
+      "proof_markdown": "Choose a point $b$ in a retained component. It lies on at least $15130=15129+1$ retained lines. Their degree-at-most-$87$ labels are formal roots of $B$, all take the value $f(b)$ at $b$, and satisfy\n\n$$B_Z(b,f(b))\\neq0.$$\n\nKominers\u2013Thaler\u2013Zheng Lemma $6.1$ supplies a polynomial\n\n$$Q\\in\\mathbb{F}_{147457}[X,Y]$$\n\nof total degree at most $87$ such that\n\n$$B(X,Y,Q)\\equiv0$$\n\nand such that $Q$ agrees with every retained label in the seed pencil through $b$.\n\nAt each reached accepted point, $Q$ and every adjacent retained line label have the same simple initial value and are degree-at-most-$87$ roots of the same restricted equation. The one-variable specialization of Kominers\u2013Thaler\u2013Zheng Lemma $2.7$ makes these restrictions identical. Connectivity propagates the same polynomial $Q$ through the component, so $Q(x)=f(x)$ at every point vertex of that component.",
+      "source_job_id": "researcher-0002",
+      "source_step_id": "[P11]",
+      "statement_markdown": "Let $C$ be any connected component of the simple-root core. Then there exists a polynomial\n\n$$Q\\in\\mathbb{F}_{147457}[X,Y]$$\n\nof total degree at most $87$ such that\n\n$$Q(x)=f(x)$$\n\nfor every point vertex $x$ of $C$.",
+      "status": "proved",
+      "title": "Polynomial recovery"
+    },
+    {
+      "dependencies": [
+        "[P1]",
+        "[P8]",
+        "[P10]",
+        "[P11]"
+      ],
+      "editorial_status": "polished",
+      "id": "researcher-0002:[P12].1",
+      "part": 1,
+      "proof_markdown": "The nonempty core has a connected component of point density strictly greater than\n\n$$\\tau=\\frac{3674745607}{108717834245}.$$\n\nThe polynomial supplied for that component agrees with the point table throughout the component. Since\n\n$$\\tau\\cdot21743566849=\\frac{7349491214}{10}=734949121.4,$$\n\nits integer agreement count is at least $734949122$.\n\nFor\n\n$$\\epsilon=\\frac{7349491214}{21743566849},$$\n\nexact subtraction gives\n\n$$\\epsilon-\\frac{957}{10\\cdot147457}=\\frac{73353795791}{217435668490}>0$$\n\nand\n\n$$\\frac{\\epsilon}{10}-\\frac{174}{147457}=\\frac{3546458017}{108717834245}>0.$$\n\nTherefore\n\n$$\\max\\left\\{\\frac{174}{147457},\\frac{3674745607}{108717834245}\\right\\}=\\frac{3674745607}{108717834245}.$$\n\nFinally,\n\n$$\\left\\lceil\\epsilon\\cdot147457^2\\right\\rceil=7349491214,$$\n\nand the difference from the comparison score is\n\n$$7810920777-7349491214=461429563.$$",
+      "source_job_id": "researcher-0002",
+      "source_step_id": "[P12]",
+      "statement_markdown": "Let $f:\\mathbb{F}_{147457}^{2}\\to\\mathbb{F}_{147457}$ be a point table, and let every affine line carry a polynomial of degree at most $87$. If uniform affine-line-then-point sampling accepts with probability at least\n\n$$\\frac{7349491214}{21743566849},$$\n\nthen there exists a polynomial $Q\\in\\mathbb{F}_{147457}[X,Y]$ of total degree at most $87$ satisfying\n\n$$\\frac{|\\{x\\in\\mathbb{F}_{147457}^{2}:Q(x)=f(x)\\}|}{21743566849}\\geq\\max\\left\\{\\frac{174}{147457},\\frac{3674745607}{108717834245}\\right\\},$$\n\nand\n\n$$|\\{x\\in\\mathbb{F}_{147457}^{2}:Q(x)=f(x)\\}|\\geq734949122.$$",
+      "status": "proved",
+      "title": "Recovery contract"
+    },
+    {
+      "dependencies": [],
+      "editorial_status": "polished",
+      "id": "researcher-0003:P1.1",
+      "part": 1,
+      "proof_markdown": "The affine-plane formulas give $M=p^2=21743566849$, $\\Lambda=p(p+1)=21743714306$, and $N=M(p+1)=3206262880419842$. For primality,\n\n$$p-1=2^{14}3^2.$$\n\nDirect modular exponentiation gives\n\n$$10^{p-1}\\equiv1\\pmod p,\\qquad 10^{(p-1)/2}\\equiv p-1\\pmod p,$$\n\nand\n\n$$10^{(p-1)/3}\\equiv78348\\pmod p.$$\n\nMoreover,\n\n$$\\gcd(p-2,p)=\\gcd(78347,p)=1.$$\n\nPocklington's criterion therefore certifies that $p=147457$ is prime.",
+      "source_job_id": "researcher-0003",
+      "source_step_id": "P1",
+      "statement_markdown": "For $m=2$, $p=147457$, and total degree $d=87$, the integer $p$ is prime, and the affine plane $\\mathbb F_p^2$ has $21743566849$ points, $21743714306$ affine lines, and $3206262880419842$ point-line incidences.",
+      "status": "proved",
+      "title": "Field and Incidence Arithmetic"
+    },
+    {
+      "dependencies": [
+        "researcher-0003:P1.1"
+      ],
+      "editorial_status": "polished",
+      "id": "researcher-0003:P2.1",
+      "part": 1,
+      "proof_markdown": "Put $h=p+1=147458$. If a point has accepted degree $a$, three uniformly selected distinct directions miss its accepted pencil with probability\n\n$$H_a=\\frac{\\binom{h-a}{3}}{\\binom{h}{3}}.$$\n\nFor $0<a<h-2$,\n\n$$\\frac{aH_a}{h-a}=\\frac{a(h-a-1)(h-a-2)}{h(h-1)(h-2)}.$$\n\nThe ratio of consecutive positive numerators is\n\n$$\\frac{(a+1)(h-a-3)}{a(h-a-1)},$$\n\nwhich is at least $1$ exactly when $h-3-3a\\ge0$. Hence the unique maximum occurs at $j=49152$. With\n\n$$K=\\frac{j\\binom{h-j}{3}}{(h-j)\\binom{h}{3}}=\\frac{1610629120}{10871857153},$$\n\none has $aH_a\\le K(h-a)$ for every integer $0\\le a\\le h$. If $a_x$ denotes the accepted degree of $x$, then $\\sum_xa_x=\\rho Mh$, and therefore\n\n$$\\frac{\\mathbb E_R[U_R]}{N}\\le\\frac{K\\sum_x(h-a_x)}{Mh}=K(1-\\rho).$$\n\nAt least one three-direction set realizes this averaged bound.",
+      "source_job_id": "researcher-0003",
+      "source_step_id": "P2",
+      "statement_markdown": "For $m=2$, $p=147457$, and total degree $d=87$, let $G$ be an accepted incidence graph on $\\mathbb F_p^2$ with density $\\rho=|E(G)|/N$. For a union $R$ of complete direction classes, let $U_R$ count the accepted incidences based at points whose accepted pencil contains no line of $R$. Then there are three distinct directions whose union $R$ consists of $3p=442371$ lines and satisfies\n\n$$\\frac{U_R}{N}\\le\\frac{1610629120}{10871857153}(1-\\rho).$$",
+      "status": "proved",
+      "title": "Pencil Coverage"
+    },
+    {
+      "dependencies": [
+        "researcher-0003:P1.1",
+        "researcher-0003:P2.1"
+      ],
+      "editorial_status": "polished",
+      "id": "researcher-0003:P3.1",
+      "part": 1,
+      "proof_markdown": "Give $X,Y,Z$ weights $(1,1,87)$ and put $D=15129$. The number of monomials of weighted degree at most $D$ is\n\n$$V_D=\\sum_{z=0}^{173}\\binom{D-87z+2}{2}=6693082347.$$\n\nEach selected formal line identity imposes at most $D+1=15130$ coefficient equations, whereas\n\n$$442371\\cdot15130=6693073230<V_D.$$\n\nRank-nullity therefore gives a nonzero interpolant $A$. A $Z$-independent interpolant would be a bivariate polynomial of degree at most $D$ divisible by the distinct equations of $442371>D$ affine lines, which is impossible. Thus $A$ depends on $Z$. Since $\\deg_Z(A)\\le173<p$, ordinary differentiation gives $A_Z\\not\\equiv0$.\n\nChoose a nonzero interpolant of minimum weighted degree. If an irreducible factor $F$ occurred twice, write $A=F^2G$. Specialization to a selected line takes place in the integral domain $\\mathbb F_p[t]$. Since the specialization of $F^2G$ is zero, either the specialization of $F$ or that of $G$ is zero, and in either case the quotient $FG$ still specializes to zero. This would give a nonzero interpolant of lower weighted degree, a contradiction. Hence $A$ is squarefree.",
+      "source_job_id": "researcher-0003",
+      "source_step_id": "P3",
+      "statement_markdown": "For $m=2$, $p=147457$, and total degree $d=87$, every assignment of a polynomial $P_L$ of degree at most $87$ to each of the $442371$ affine lines in three complete directions admits a nonzero squarefree polynomial $A\\in\\mathbb F_p[X,Y,Z]$ of weighted degree at most $15129$ for weights $(1,1,87)$ such that\n\n$$A(L(t),P_L(t))\\equiv0$$\n\nfor every selected line $L$, and $A_Z\\not\\equiv0$.",
+      "status": "proved",
+      "title": "Weighted Interpolation"
+    },
+    {
+      "dependencies": [
+        "researcher-0003:P2.1",
+        "researcher-0003:P3.1"
+      ],
+      "editorial_status": "polished",
+      "id": "researcher-0003:P4.1",
+      "part": 1,
+      "proof_markdown": "Call an accepted point covered when its accepted pencil meets $R$. Let $T$ consist of $R$ and every other line having more than $D=15129$ covered accepted points. At a covered accepted point $x$ on a line $L$, choose an accepted selected line $L'$ through $x$. The formal identity on $L'$ and acceptance of both incidences give\n\n$$A(x,P_L(x))=A(x,f(x))=A(x,P_{L'}(x))=0.$$\n\nThe restriction $A(L(t),P_L(t))$ has degree at most $D$. More than $D$ distinct roots therefore force it to vanish formally, so every line in $T$ is an $A$-identity line.\n\nEvery line outside $T$ has at most $D$ covered accepted incidences. All accepted incidences based at uncovered points are counted by $U_R$. Consequently,\n\n$$|E|\\le |E_T|+U_R+D(\\Lambda-|T|).$$",
+      "source_job_id": "researcher-0003",
+      "source_step_id": "P4",
+      "statement_markdown": "For $m=2$, $p=147457$, and total degree $d=87$, let $G$ be an accepted incidence graph, let $R$ be a selected family of three complete directions, and let $A$ be a formal interpolant on every line of $R$. Let $U_R$ count accepted incidences based at points whose accepted pencil contains no line of $R$. Then there is a set $T$ of $A$-identity lines containing $R$ such that, if $E_T$ denotes the accepted incidences carried by lines in $T$, then\n\n$$|E(G)|\\le |E_T|+U_R+15129(\\Lambda-|T|).$$",
+      "status": "proved",
+      "title": "Identity-Line Extension"
+    },
+    {
+      "dependencies": [
+        "researcher-0003:P3.1",
+        "researcher-0003:P4.1"
+      ],
+      "editorial_status": "polished",
+      "id": "researcher-0003:P5.1",
+      "part": 1,
+      "proof_markdown": "Write $A=CB$, where $C\\in\\mathbb F_p[X,Y]$ is the coefficient content in $Z$ and $B$ is primitive in $Z$. Put\n\n$$c_0=\\deg C,\\qquad W=\\operatorname{wdeg}(B),\\qquad \\nu=\\deg_Z(B).$$\n\nWeighted leading forms do not cancel, so\n\n$$c_0+W=\\operatorname{wdeg}(A)\\le D.$$\n\nThe polynomial $B$ is squarefree and $1\\le\\nu\\le173<p$. Primitivity excludes $Z$-independent irreducible factors. Every irreducible factor therefore has nonzero $Z$-derivative, and squarefreeness gives\n\n$$\\gcd(B,B_Z)=1.$$\n\nFor $\\nu\\ge2$, the nominal-degree discriminant is nonzero. Its monomials have degree $2\\nu-2$ in the coefficients and coefficient-index weight $\\nu(\\nu-1)$, so its $(X,Y)$-degree is at most\n\n$$(\\nu-1)(2W-87\\nu).$$\n\nIf a noncontent identity line also makes $B_Z(L(t),P_L(t))$ vanish formally, the homogenized nominal-degree binary form has a singular finite root. Euler's identity is valid because $\\nu<p$, so the specialized nominal discriminant vanishes; no leading coefficient is inverted. The number of content or derivative-degenerate identity lines is therefore at most\n\n$$c_0+(\\nu-1)(2W-87\\nu)\\le(\\nu-1)(2D-87\\nu).$$\n\nThe last expression increases through $\\nu=173$, since its consecutive difference is $2(D-87\\nu)>0$ for $\\nu\\le172$. Its maximum is\n\n$$172(2\\cdot15129-87\\cdot173)=2615604.$$\n\nFor $\\nu=1$, the defining equation of a derivative-degenerate noncontent identity line would divide both coefficients of the primitive linear polynomial, which is impossible. The content-line count is at most $D-87<2615604$.\n\nOn every remaining identity line, $B_Z(L(t),P_L(t))$ is a nonzero polynomial of degree at most\n\n$$q=D-87=15042,$$\n\nand hence has at most $15042$ roots.",
+      "source_job_id": "researcher-0003",
+      "source_step_id": "P5",
+      "statement_markdown": "For $m=2$, $p=147457$, and total degree $d=87$, let $A$ be a nonzero squarefree formal interpolant of $(1,1,87)$-weighted degree at most $15129$, let $T$ be a set of $A$-identity lines, and write $A=CB$, where $C\\in\\mathbb F_p[X,Y]$ is the coefficient content in $Z$ and $B$ is primitive in $Z$. At most $2615604$ lines $L\\in T$ satisfy either $C(L(t))\\equiv0$ or $B_Z(L(t),P_L(t))\\equiv0$. For every other $L\\in T$, the restriction $B_Z(L(t),P_L(t))$ is nonzero, has degree at most $15042$, and has at most $15042$ zeros.",
+      "status": "proved",
+      "title": "Primitive Derivative Cleanup"
+    },
+    {
+      "dependencies": [],
+      "editorial_status": "polished",
+      "id": "researcher-0003:P6.1",
+      "part": 1,
+      "proof_markdown": "Let $r_1,\\ldots,r_{15129}$ be the line-side degrees. Since the graph is $C_4$-free, each pair of point vertices has at most one common neighbor. Hence\n\n$$\\sum_{i=1}^{15129}\\binom{r_i}{2}\\le\\binom{5194}{2}=13486221.$$\n\nFor a fixed edge total, discrete convexity minimizes the left-hand side when the degrees differ by at most one. The exact division\n\n$$646374=42\\cdot15129+10956$$\n\ngives\n\n$$15129\\binom{42}{2}+10956\\cdot42=13486221.$$\n\nAdding one edge raises the convex lower bound by $42$, beyond the available pair budget. The edge total is therefore at most $646374$.",
+      "source_job_id": "researcher-0003",
+      "source_step_id": "P6",
+      "statement_markdown": "For the fixed ambient parameters $m=2$, $p=147457$, and total degree $d=87$, every $C_4$-free bipartite graph with vertex-class sizes $5194$ and $15129$ has at most $646374$ edges.",
+      "status": "proved",
+      "title": "Residual Incidence Corner"
+    },
+    {
+      "dependencies": [
+        "researcher-0003:P6.1"
+      ],
+      "editorial_status": "polished",
+      "id": "researcher-0003:P7.1",
+      "part": 1,
+      "proof_markdown": "Put $D=15129$, $b=5194$, $M=21743566849$, and $Z_*=646374$. First suppose $n\\ge D$. Follow a permitted emptying order until either only $b$ point vertices or only $D$ line vertices remain. If the point side reaches $b$ first, every remaining line vertex has degree at most $b$, so permitted line deletions reduce that side to $D$ vertices. The symmetric argument applies if the line side reaches $D$ first. Isolated vertices may be added to the residual when necessary.\n\nEdges deleted before the residual cost at most\n\n$$D(M-b)+b(n-D).$$\n\nThe residual incidence-corner bound gives at most $Z_*$ further edges. Thus\n\n$$|E(H)|\\le D(M-b)+b(n-D)+Z_*=DM+bn-\\kappa,$$\n\nwhere\n\n$$\\kappa=2Db-Z_*=156513678.$$\n\nIf $n<D$, the trivial estimate $|E(H)|\\le Mn$ suffices. The slack in the asserted bound is minimized at $n=D-1=15128$, where it equals\n\n$$M+b(D-1)-\\kappa=21665628003>0.$$\n\nHence the bound holds for every integer $n\\ge0$.",
+      "source_job_id": "researcher-0003",
+      "source_step_id": "P7",
+      "statement_markdown": "For the fixed ambient parameters $m=2$, $p=147457$, and total degree $d=87$, let $H$ be a $C_4$-free bipartite graph with $M=21743566849$ point-side vertices and $n\\ge0$ line-side vertices. Suppose $H$ can be emptied by repeatedly deleting a point vertex of current degree at most $15129$ or a line vertex of current degree at most $5194$. Then\n\n$$|E(H)|\\le15129M+5194n-156513678.$$",
+      "status": "proved",
+      "title": "Empty-Core Credit"
+    },
+    {
+      "dependencies": [
+        "researcher-0003:P2.1",
+        "researcher-0003:P4.1",
+        "researcher-0003:P5.1",
+        "researcher-0003:P7.1"
+      ],
+      "editorial_status": "polished",
+      "id": "researcher-0003:P8.1",
+      "part": 1,
+      "proof_markdown": "Put\n\n$$D=15129,\\quad q=15042,\\quad s=5195,\\quad b=s-1=5194,$$\n\n$$M=21743566849,\\quad \\Lambda=21743714306,\\quad N=3206262880419842,$$\n\nand $E_D=2615604$. Let $t=|T|$, and let $e\\le E_D$ be the number of exceptional identity lines. Delete every accepted edge on those $e$ lines, at a cost of at most $pe$, and delete the at most $q$ derivative-zero edges on each remaining identity line. The resulting affine-incidence subgraph is $C_4$-free, so the empty-core bound applies with $n=t-e$.\n\nIf the $(15130,5195)$-core were empty, the identity-transfer, cleanup, and peeling bounds would give\n\n$$|E|\\le U_R+D(\\Lambda-t)+pe+q(t-e)+DM+b(t-e)-\\kappa.$$\n\nAfter collection, the coefficients of $t$ and $e$ are respectively\n\n$$q+b-D=s-88=5107>0$$\n\nand\n\n$$p-q-b=p-q-s+1=127221>0.$$\n\nUsing $t\\le\\Lambda$ and $e\\le E_D$ therefore yields\n\n$$|E|\\le U_R+C_*,$$\n\nwhere\n\n$$C_*=(q+s-1)\\Lambda+DM+(p-q-s+1)E_D-\\kappa$$\n\n$$=440005802696216+328958422858521+332759756484-156513678$$\n\n$$=769296828797543.$$\n\nThe three-direction coverage bound, with $K=1610629120/10871857153$, then implies under complete deletion that\n\n$$\\rho\\le R_0:=\\frac{C_*/N+K}{1+K}=\\frac{1244293905093223}{3681259956715522}.$$\n\nExact cross multiplication gives\n\n$$\\frac{7349491213}{M}\\le R_0<\\frac{7349491214}{M}.$$\n\nAt\n\n$$\\varepsilon=\\frac{7349491214}{M},$$\n\nthe margin in the unrearranged survival inequality is\n\n$$\\varepsilon-\\frac{C_*}{N}-K(1-\\varepsilon)=\\frac{1249813349}{27810935621062861282}>0.$$\n\nComplete deletion is therefore impossible at density at least $\\varepsilon$. The surviving core has the asserted minimum degrees; its lines are regular primitive identity lines, and the derivative-zero incidences were deleted.",
+      "source_job_id": "researcher-0003",
+      "source_step_id": "P8",
+      "statement_markdown": "For $m=2$, $p=147457$, and total degree $d=87$, every accepted incidence graph arising from a point table $f\\colon\\mathbb F_p^2\\to\\mathbb F_p$ and degree-at-most-$87$ line labels, with density\n\n$$\\rho\\ge\\frac{7349491214}{21743566849},$$\n\ncontains a nonempty retained core and a primitive interpolant $B$ such that every point vertex has degree at least $15130$, every line vertex has degree at least $5195$, every retained line label is a formal $B$-identity, and\n\n$$B_Z(x,f(x))\\ne0$$\n\non every retained edge.",
+      "status": "proved",
+      "title": "Core Survival"
+    },
+    {
+      "dependencies": [
+        "researcher-0003:P8.1"
+      ],
+      "editorial_status": "polished",
+      "id": "researcher-0003:P9.1",
+      "part": 1,
+      "proof_markdown": "Let $X$ and $S$ be the point and line vertex sets of a connected core component. Put $a=|X|/M$, let $\\ell=|S|/\\Lambda$, and write $m_L=|X\\cap L|$. Ordered-pair counting gives\n\n$$\\sum_Lm_L=h|X|,\\qquad \\sum_Lm_L^2=|X|^2+p|X|.$$\n\nConsequently,\n\n$$\\sum_L(m_L-ap)^2=p^3a(1-a).$$\n\nCentering the indicator of $S$ and applying Cauchy-Schwarz yields\n\n$$\\frac{I(X,S)}{N}\\le a\\ell+\\sqrt{\\frac{a(1-a)\\ell(1-\\ell)}{h}}.$$\n\nDefine\n\n$$\\alpha=\\frac{15130}{147458}=\\frac{445}{4337},\\qquad \\beta=\\frac{5195}{147457},$$\n\n$$c=\\frac{\\alpha}{\\beta}=\\frac{13123673}{4506143},\\qquad \\gamma^2=\\frac{1}{ch}=\\frac{1039}{446204882}.$$\n\nThe minimum point and line degrees imply that the retained-edge density is at least $\\alpha a$ and at least $\\beta\\ell$. Put\n\n$$\\tau=\\frac{\\varepsilon}{10}=\\frac{3674745607}{108717834245}.$$\n\nThe exact sign checks\n\n$$\\beta-\\tau=\\frac{155449968}{108717834245}>0$$\n\nand\n\n$$\\frac12-c\\tau=\\frac{2668206923709}{6644623283510}>0$$\n\nshow that, if $a\\le\\tau$, then $\\beta-a>0$ and $ca<1/2$. Splitting according to $\\ell\\le ca$ or $\\ell\\ge ca$ in the incidence upper bound gives the necessary condition\n\n$$\\beta\\le a+\\gamma\\sqrt{(1-a)(1-ca)}.$$\n\nDefine\n\n$$F(a)=(\\beta-a)^2-\\gamma^2(1-a)(1-ca).$$\n\nThe necessary condition would imply $F(a)\\le0$. However,\n\n$$F(\\tau)=\\frac{498727149435244}{30939665878432433176225}>0,$$\n\n$$F'(\\tau)=-\\frac{13793284387}{4837976433085}<0,$$\n\nand\n\n$$F''=2\\left(1-\\frac1h\\right)>0.$$\n\nThus $F'$ is negative throughout $[0,\\tau]$, and $F(a)\\ge F(\\tau)>0$ there, a contradiction. Hence $a>\\tau$ for every component. Finally,\n\n$$\\tau M=734949121.4,$$\n\nso the integral point count of every component is at least $734949122$.",
+      "source_job_id": "researcher-0003",
+      "source_step_id": "P9",
+      "statement_markdown": "For $m=2$, $p=147457$, and total degree $d=87$, let $\\mathcal C$ be a retained core of an accepted incidence graph satisfying the density hypothesis\n\n$$\\rho\\ge\\varepsilon=\\frac{7349491214}{21743566849},$$\n\nwith point degree at least $15130$ and line degree at least $5195$. For every connected component of $\\mathcal C$ with point vertex set $X$,\n\n$$\\frac{|X|}{21743566849}>\\frac{\\varepsilon}{10}=\\frac{3674745607}{108717834245},$$\n\nand $|X|\\ge734949122$.",
+      "status": "proved",
+      "title": "Component Mass"
+    },
+    {
+      "dependencies": [
+        "researcher-0003:P3.1",
+        "researcher-0003:P5.1",
+        "researcher-0003:P8.1",
+        "researcher-0003:P9.1"
+      ],
+      "editorial_status": "polished",
+      "id": "researcher-0003:P10.1",
+      "part": 1,
+      "proof_markdown": "Choose a point $x_0$ in a retained component and translate it to the origin. Put\n\n$$a_0=f(x_0),\\qquad c_1=B_Z(0,0,a_0)\\ne0.$$\n\nConstruct homogeneous polynomials $Q_1,\\ldots,Q_{87}$ recursively. If\n\n$$a_0+Q_1+\\cdots+Q_{n-1}$$\n\nsolves $B=0$ modulo $(X,Y)^n$, then adding a homogeneous polynomial $Q_n$ changes the degree-$n$ residual by $c_1Q_n$. Division by the retained nonzero scalar $c_1$ uniquely cancels that residual. Set\n\n$$Q=a_0+Q_1+\\cdots+Q_{87}.$$\n\nAt least $D+1=15130$ retained line labels pass through $x_0$. Each is a formal root of $B$ with the same simple constant value $a_0$. The one-variable version of the recursion shows that its coefficients through degree $87$ equal those of the restriction of $Q$ to the line. Both polynomials have degree at most $87$, so they are identical.\n\nThe polynomial $B(X,Y,Q(X,Y))$ has total degree at most the weighted degree $D=15129$. It vanishes formally on the $D+1$ distinct seed lines. Their distinct linear equations divide it, so a polynomial of degree at most $D$ with these $D+1$ line factors must vanish identically:\n\n$$B(X,Y,Q(X,Y))\\equiv0.$$\n\nAt an accepted simple intersection of a recovered line with a new retained line, the restriction of $Q$ and the new line label are formal roots with the same constant value. The same simple-root recursion makes them identical. Connectivity propagates the fixed polynomial $Q$ throughout the component, and acceptance gives $Q(x)=f(x)$ at every component point.",
+      "source_job_id": "researcher-0003",
+      "source_step_id": "P10",
+      "statement_markdown": "For $m=2$, $p=147457$, and total degree $d=87$, let $H$ be a connected component of a retained accepted-incidence core with at least $734949122$ point vertices, formal primitive identities for $B$, and $B_Z(x,f(x))\\ne0$ on every retained edge. Then there exists a polynomial\n\n$$Q\\in\\mathbb F_{147457}[X,Y]$$\n\nof total degree at most $87$ such that $Q(x)=f(x)$ for every point vertex $x$ of $H$.",
+      "status": "proved",
+      "title": "Polynomial Reconstruction"
+    },
+    {
+      "dependencies": [
+        "researcher-0003:P1.1",
+        "researcher-0003:P8.1",
+        "researcher-0003:P9.1",
+        "researcher-0003:P10.1"
+      ],
+      "editorial_status": "polished",
+      "id": "researcher-0003:P11.1",
+      "part": 1,
+      "proof_markdown": "The admissibility-floor difference is\n\n$$\\varepsilon-\\frac{957}{1474570}=\\frac{73353795791}{217435668490}>0.$$\n\nThe recovery-fraction difference is\n\n$$\\frac{\\varepsilon}{10}-\\frac{174}{147457}=\\frac{3546458017}{108717834245}>0.$$\n\nHence\n\n$$\\max\\left\\{\\frac{2d}{p},\\frac{\\varepsilon}{10}\\right\\}=\\frac{\\varepsilon}{10}=\\frac{3674745607}{108717834245}.$$\n\nThe component-mass and reconstruction lemmas provide one polynomial agreeing with $f$ on at least $734949122$ points, and\n\n$$\\frac{734949122}{21743566849}>\\frac{\\varepsilon}{10}.$$\n\nMoreover,\n\n$$\\left\\lceil\\varepsilon p^2\\right\\rceil=7349491214.$$\n\nThe supplied comparison decimal $0.35922904602094702$ has score $7810920777$, so the improvement in absolute score is\n\n$$7810920777-7349491214=461429563.$$",
+      "source_job_id": "researcher-0003",
+      "source_step_id": "P11",
+      "statement_markdown": "Let $m=2$, $p=147457$, total degree $d=87$, and\n\n$$\\varepsilon=\\frac{7349491214}{21743566849}.$$\n\nUnder uniform affine-line sampling followed by a uniform point on the selected line, for every function $f\\colon\\mathbb F_p^2\\to\\mathbb F_p$ and every assignment of a degree-at-most-$87$ polynomial to each affine line, if\n\n$$\\operatorname{Pass}(f,P)\\ge\\varepsilon,$$\n\nthen there exists $Q\\in\\mathbb F_p[X,Y]$ of total degree at most $87$ such that\n\n$$\\Pr_{x\\in\\mathbb F_p^2}[Q(x)=f(x)]>\\frac{\\varepsilon}{10}$$\n\nand consequently\n\n$$\\Pr_{x\\in\\mathbb F_p^2}[Q(x)=f(x)]\\ge\\max\\left\\{\\frac{174}{147457},\\frac{\\varepsilon}{10}\\right\\}=\\frac{\\varepsilon}{10}.$$\n\nThe polynomial $Q$ agrees with $f$ on at least $734949122$ points, and the absolute score is $7349491214$.",
+      "status": "proved",
+      "title": "Soundness Contract"
+    },
+    {
+      "dependencies": [],
+      "editorial_status": "polished",
+      "id": "researcher-0004:P1.1",
+      "part": 1,
+      "proof_markdown": "Since $17642=87\\cdot 202+68$, the weighted monomial count is\n\n$$V=\\sum_{k=0}^{202}\\binom{17642-87k+2}{2}.$$\n\nWith $j=202-k$, one has $\\sum_{j=0}^{202}j=20503$ and $\\sum_{j=0}^{202}j^2=2767905$. Therefore\n\n$$V=\\frac{7569\\cdot2767905+12093\\cdot20503+4830\\cdot203}{2}=10599598107.$$\n\nAfter substituting an affine parametrization $L(t)$ and a label $P_L$ with $\\deg(P_L)\\le 87$, each supported monomial produces a polynomial in $t$ of degree at most $17642$. Thus each formal identity contributes at most $17643$ homogeneous coefficient equations. Their total number is at most\n\n$$600782\\cdot17643=10599596826.$$\n\nConsequently the kernel dimension is at least\n\n$$10599598107-10599596826=1281.$$",
+      "source_job_id": "researcher-0004",
+      "source_step_id": "P1",
+      "statement_markdown": "Let $\\mathbb F=\\mathbb F_{147457}$ and $m=2$. Give $X$ and $Y$ weight $1$ and $Z$ weight $87$, and set $D=17642$ and $r=600782$. The $\\mathbb F$-vector space spanned by the monomials $X^iY^jZ^k$ satisfying $i+j+87k\\le 17642$ has dimension $10599598107$. For any $r$ labeled affine lines in $\\mathbb F^2$ whose labels have degree at most $87$, the corresponding formal line identities impose at most $10599596826$ homogeneous linear constraints; hence their kernel has dimension at least $1281$.",
+      "status": "proved",
+      "title": "Interpolation dimension"
+    },
+    {
+      "dependencies": [
+        "researcher-0004:P1.1"
+      ],
+      "editorial_status": "polished",
+      "id": "researcher-0004:P2.1",
+      "part": 1,
+      "proof_markdown": "The interpolation-dimension lemma and rank-nullity give a nonzero element of the kernel. Any kernel element independent of $Z$ has ordinary degree at most $17642$ and vanishes identically on every selected affine line. The defining affine-linear polynomial of each line therefore divides it. Since the $600782$ lines are distinct and $600782>17642$, such a nonzero polynomial cannot exist. Thus every nonzero kernel element depends on $Z$.\n\nThe weighted-degree bound gives\n\n$$\\deg_Z(A)\\le \\left\\lfloor\\frac{17642}{87}\\right\\rfloor=202<147457.$$\n\nAll positive exponents of $Z$ are therefore nonzero in $\\mathbb F_{147457}$, so $Z$-dependence implies $A_Z\\ne0$.\n\nChoose a nonzero kernel element $A$ of minimum weighted degree. If $A=G^eH$ for an irreducible $G$ and $e\\ge2$, then on each selected line graph\n\n$$G(L(t),P_L(t))^eH(L(t),P_L(t))=0$$\n\nin the domain $\\mathbb F[t]$. For that line, either $G(L(t),P_L(t))=0$ or $H(L(t),P_L(t))=0$, so $A/G$ also vanishes identically on every selected graph. Its weighted degree is strictly smaller, contradicting the choice of $A$. Hence $A$ is squarefree. All vanishings used here are coefficient identities in $\\mathbb F[t]$.",
+      "source_job_id": "researcher-0004",
+      "source_step_id": "P2",
+      "statement_markdown": "Let $\\mathbb F=\\mathbb F_{147457}$ and $m=2$, with weights $1,1,87$ on $X,Y,Z$. For every set $\\mathcal R$ of $600782$ distinct affine lines in $\\mathbb F^2$, with an affine parametrization $L(t)$ and a label $P_L\\in\\mathbb F[t]$ satisfying $\\deg(P_L)\\le87$ for each $L\\in\\mathcal R$, there exists a nonzero squarefree polynomial $A\\in\\mathbb F[X,Y,Z]$ such that\n\n$$\\operatorname{wdeg}(A)\\le17642,\\qquad \\deg_Z(A)\\le202,\\qquad A_Z\\ne0,$$\n\nand\n\n$$A(L(t),P_L(t))=0$$\n\nin $\\mathbb F[t]$ for every $L\\in\\mathcal R$.",
+      "status": "proved",
+      "title": "Squarefree interpolation"
+    },
+    {
+      "dependencies": [
+        "researcher-0004:P2.1"
+      ],
+      "editorial_status": "polished",
+      "id": "researcher-0004:P3.1",
+      "part": 1,
+      "proof_markdown": "Weighted degree is additive under multiplication, and the weighted degree of $C\\in\\mathbb F[X,Y]$ is its ordinary degree. Hence\n\n$$\\deg(C)+\\operatorname{wdeg}(B)=\\operatorname{wdeg}(A)\\le17642.$$\n\nSince $A$ is squarefree, $B$ is squarefree. Since $A_Z\\ne0$, the primitive factor $B$ depends on $Z$, giving $1\\le\\deg_Z(B)\\le202$.\n\nPrimitivity excludes any irreducible factor of $B$ lying in $\\mathbb F[X,Y]$. Every irreducible factor $G$ of $B$ therefore has positive $Z$-degree at most $202<147457$, so $G_Z\\ne0$. Because $B$ is squarefree, reduction of the product rule for $B_Z$ modulo $G$ shows that $G$ does not divide $B_Z$. This holds for every irreducible factor of $B$, and therefore\n\n$$\\gcd(B,B_Z)=1.$$\n\nEvery surviving monomial loses weight exactly $87$ when differentiated with respect to $Z$. Consequently\n\n$$\\operatorname{wdeg}(B_Z)\\le\\operatorname{wdeg}(B)-87\\le17642-87=17555.$$",
+      "source_job_id": "researcher-0004",
+      "source_step_id": "P3",
+      "statement_markdown": "Let $A$ be an interpolant supplied by the preceding lemma, and write $A=CB$, where $C\\in\\mathbb F_{147457}[X,Y]$ is the coefficient content of $A$ as a polynomial in $Z$ and $B\\in\\mathbb F_{147457}[X,Y,Z]$ is primitive in $Z$. Then $B$ is squarefree,\n\n$$1\\le\\deg_Z(B)\\le202,\\qquad \\gcd(B,B_Z)=1,$$\n\nand\n\n$$\\deg(C)+\\operatorname{wdeg}(B)=\\operatorname{wdeg}(A),\\qquad \\operatorname{wdeg}(B_Z)\\le17555.$$",
+      "status": "proved",
+      "title": "Primitive separability"
+    },
+    {
+      "dependencies": [
+        "researcher-0004:P3.1"
+      ],
+      "editorial_status": "polished",
+      "id": "researcher-0004:P4.1",
+      "part": 1,
+      "proof_markdown": "Translate $b$ to the origin and retain the notation $B$ for the translated polynomial. Translation does not increase weighted degree. Put $\\mathfrak m=(X,Y)$ and\n\n$$c=B_Z(0,0,a)\\ne0.$$\n\nStarting with the constant $a$, construct homogeneous polynomials $h_n$ of degree $n$ for $1\\le n\\le87$. Suppose $a+h_1+\\cdots+h_{n-1}$ solves $B=0$ modulo $\\mathfrak m^n$, and let $R_n$ be the homogeneous degree-$n$ part of its residual. Adding a homogeneous polynomial $h_n$ changes that part by exactly $ch_n$. The unique choice\n\n$$h_n=-c^{-1}R_n$$\n\ntherefore gives a solution modulo $\\mathfrak m^{n+1}$. This recursion divides only by $c$ and uses no factorials.\n\nSet\n\n$$Q=a+h_1+\\cdots+h_{87}.$$\n\nOn a seed line $L_i(t)=tv_i$, the univariate form of the same recursion shows that $Q(L_i(t))$ and $P_i(t)$ have identical coefficients through degree $87$. Both have degree at most $87$, so\n\n$$Q(L_i(t))=P_i(t).$$\n\nNow set $R(X,Y)=B(X,Y,Q(X,Y))$. Substitution of a polynomial of total degree at most $87$ into a monomial of weight at most $17642$ gives total degree at most $17642$, so $\\deg(R)\\le17642$. The polynomial $R$ vanishes identically on the $17643$ distinct seed lines. Their distinct affine-linear defining polynomials divide $R$, which is impossible for a nonzero polynomial of degree at most $17642$. Thus $R=0$. Translating back yields the asserted polynomial $Q$.",
+      "source_job_id": "researcher-0004",
+      "source_step_id": "P4",
+      "statement_markdown": "Let $\\mathbb F=\\mathbb F_{147457}$ and $m=2$, with weights $1,1,87$ on $X,Y,Z$. Let $B\\in\\mathbb F[X,Y,Z]$ satisfy $\\operatorname{wdeg}(B)\\le17642$. Let $b\\in\\mathbb F^2$ and $a\\in\\mathbb F$, and let $L_1,\\ldots,L_{17643}$ be distinct affine lines through $b$, parametrized by $L_i(t)=b+tv_i$. Suppose that each $L_i$ carries a polynomial $P_i\\in\\mathbb F[t]$ with $\\deg(P_i)\\le87$ such that\n\n$$B(L_i(t),P_i(t))=0,\\qquad P_i(0)=a,$$\n\nand suppose that $B_Z(b,a)\\ne0$. Then there exists $Q\\in\\mathbb F[X,Y]$ with $\\deg(Q)\\le87$ such that\n\n$$B(X,Y,Q(X,Y))=0$$\n\nand $Q(L_i(t))=P_i(t)$ for every $1\\le i\\le17643$.",
+      "status": "proved",
+      "title": "Seed globalization"
+    },
+    {
+      "dependencies": [
+        "researcher-0004:P4.1"
+      ],
+      "editorial_status": "polished",
+      "id": "researcher-0004:P5.1",
+      "part": 1,
+      "proof_markdown": "Suppose first that $Q|_L=P_L$ and that $L$ is joined to $M$ at $x$. Acceptance gives\n\n$$Q(x)=P_L(x)=f(x)=P_M(x).$$\n\nParametrize $M$ with parameter $0$ at $x$. Both $Q|_M$ and $P_M$ are exact roots of $B(M(t),Z)$ with constant term $f(x)$. Since $B_Z(x,f(x))\\ne0$, the one-variable recursion used in the seed-globalization lemma gives a unique formal root with that constant term. Hence $Q|_M=P_M$.\n\nInduction along paths gives $Q|_L=P_L$ for every line in the connected component containing the seed lines. If $(x,L)$ is any accepted incidence with $L$ recovered, then\n\n$$Q(x)=P_L(x)=f(x).$$\n\nThis final implication does not require $B_Z(x,f(x))\\ne0$; simplicity is used only at intersections across which the propagation passes.",
+      "source_job_id": "researcher-0004",
+      "source_step_id": "P5",
+      "statement_markdown": "In the setting of the seed-globalization lemma, let $f:\\mathbb F_{147457}^2\\to\\mathbb F_{147457}$ satisfy $f(b)=a$. Let $\\mathcal T$ be a set of affine lines containing the seed lines, where every $L\\in\\mathcal T$ carries a polynomial $P_L$ of degree at most $87$ satisfying\n\n$$B(L(t),P_L(t))=0$$\n\nin $\\mathbb F_{147457}[t]$. Call an incidence $(x,L)$ accepted when $P_L(x)=f(x)$. Define a graph on $\\mathcal T$ by joining distinct intersecting lines $L$ and $M$ at $x=L\\cap M$ when $(x,L)$ and $(x,M)$ are accepted and $B_Z(x,f(x))\\ne0$. Then the polynomial $Q$ supplied by the seed-globalization lemma satisfies $Q|_L=P_L$ for every line $L$ in the connected component containing the seed lines, and $Q(x)=f(x)$ at every accepted incidence $(x,L)$ with $L$ in that component.",
+      "status": "proved",
+      "title": "Line-component propagation"
+    },
+    {
+      "dependencies": [
+        "researcher-0004:P4.1",
+        "researcher-0004:P5.1"
+      ],
+      "editorial_status": "polished",
+      "id": "researcher-0004:P6.1",
+      "part": 1,
+      "proof_markdown": "Choose a point vertex $b$ of $K$. Its degree supplies $17643$ distinct incident lines. Their accepted labels have the common value $f(b)$ at $b$, and $B_Z(b,f(b))\\ne0$. The seed-globalization lemma therefore gives a polynomial $Q$ of total degree at most $87$ agreeing with those seed labels and satisfying $B(X,Y,Q)=0$.\n\nA bipartite path between two line vertices of $K$ yields a path in the line-transition graph: every intervening point is incident to both adjacent lines, both incidences are accepted, and the common root is simple there. Connectedness of $K$ and line-component propagation therefore give $Q|_L=P_L$ for every line vertex. Every point vertex has an incident recovered line, so acceptance gives $Q(x)=f(x)$ at every point vertex. No incidence or agreement loss occurs.\n\nFor the recorded candidate arithmetic, $p^2=21743566849$ and\n\n$$0.35922904602094702\\,p^2=7810920776+\\frac{25895898365733998}{10^{17}},$$\n\nso the configured score is $7810920777$. For\n\n$$\\varepsilon_*=\\frac{7810919590}{21743566849},$$\n\none has $\\varepsilon_*p^2=7810919590$ and\n\n$$\\frac{\\varepsilon_*}{10}=\\frac{781091959}{21743566849}.$$\n\nThe candidate score is therefore smaller by $1187$. This arithmetic records compatibility with the zero-loss algebraic conclusion but does not establish the candidate's other dependencies.",
+      "source_job_id": "researcher-0004",
+      "source_step_id": "P6",
+      "statement_markdown": "Let $\\mathbb F=\\mathbb F_{147457}$ and $m=2$. Let $B\\in\\mathbb F[X,Y,Z]$ have weights $1,1,87$ and satisfy $\\operatorname{wdeg}(B)\\le17642$, and let $f:\\mathbb F^2\\to\\mathbb F$. Let $K$ be a nonempty connected point-line incidence graph whose line vertices carry polynomials $P_L$ of degree at most $87$. Suppose that every point vertex has degree at least $17643$, every incidence $(x,L)$ is accepted in the sense that $P_L(x)=f(x)$, every line label satisfies\n\n$$B(L(t),P_L(t))=0$$\n\nin $\\mathbb F[t]$, and $B_Z(x,f(x))\\ne0$ at every point vertex. Then there exists $Q\\in\\mathbb F[X,Y]$ with $\\deg(Q)\\le87$ such that\n\n$$B(X,Y,Q(X,Y))=0,$$\n\n$Q|_L=P_L$ for every line vertex, and $Q(x)=f(x)$ for every point vertex of $K$.",
+      "status": "proved",
+      "title": "Connected-core reconstruction"
+    },
+    {
+      "dependencies": [],
+      "editorial_status": "polished",
+      "id": "researcher-0004:P7.1",
+      "part": 1,
+      "proof_markdown": "There are $p+1=147458$ directions through the origin in $\\mathbb F_{147457}^2$, so choose $17642$ distinct homogeneous linear forms $\\ell_1,\\ldots,\\ell_{17642}$. Put\n\n$$H=\\prod_{i=1}^{17642}\\ell_i,\\qquad B=Z-H.$$\n\nThen $\\operatorname{wdeg}(B)=17642$ and $B_Z=1$. On the line $L_i$ defined by $\\ell_i=0$, the zero label satisfies $B(L_i(t),0)=0$. All labels take the common value $0$ at the origin, where the root is simple.\n\nIf a global polynomial $Q$ satisfied $B(X,Y,Q(X,Y))=0$, then $Q=H$. But $\\deg(H)=17642>87$, so no global polynomial of total degree at most $87$ exists.",
+      "source_job_id": "researcher-0004",
+      "source_step_id": "P7",
+      "statement_markdown": "Over $\\mathbb F_{147457}$ with $m=2$ and weights $1,1,87$, there exist $17642$ distinct affine lines through one point, degree-$0$ labels with one common simple root, and a polynomial $B\\in\\mathbb F_{147457}[X,Y,Z]$ of weighted degree $17642$ satisfying all corresponding formal line identities, such that no polynomial $Q\\in\\mathbb F_{147457}[X,Y]$ of total degree at most $87$ satisfies $B(X,Y,Q(X,Y))=0$.",
+      "status": "proved",
+      "title": "Seed-count example"
+    },
+    {
+      "dependencies": [],
+      "editorial_status": "polished",
+      "id": "researcher-0004:P8.1",
+      "part": 1,
+      "proof_markdown": "For every nonzero square $s=r^2$ in $\\mathbb F_{147457}$, the line $L_s(t)=(t,st)$ carries the degree-$1$ root $P_s(t)=rt$, since\n\n$$P_s(t)^2-t(st)=0.$$\n\nThe two coordinate axes carry the zero root. There are\n\n$$\\frac{147457-1}{2}+2=73730$$\n\nsuch distinct lines. All pass through the origin and all labels take the value $0$ there, while $B_Z=2Z$ gives $B_Z(0,0,0)=0$.\n\nIf a polynomial $Q$ satisfied $B(X,Y,Q(X,Y))=0$, then $Q^2=XY$. In the unique factorization domain $\\mathbb F_{147457}[X,Y]$, every irreducible exponent in a square is even, whereas $X$ and $Y$ each have exponent $1$ in $XY$. Hence no such $Q$ exists. Thus a singular common value can support many compatible root lines without globalization.",
+      "source_job_id": "researcher-0004",
+      "source_step_id": "P8",
+      "statement_markdown": "Let $\\mathbb F=\\mathbb F_{147457}$ and $B=Z^2-XY$. There exist $73730$ distinct affine lines through the origin, each carrying a label of degree at most $1\\le87$, such that every label is a formal root of $B$ and takes the common value $0$ at the origin, while\n\n$$B_Z(0,0,0)=0.$$\n\nThere is no polynomial $Q\\in\\mathbb F[X,Y]$ satisfying $B(X,Y,Q(X,Y))=0$.",
+      "status": "proved",
+      "title": "Singular-root example"
+    },
+    {
+      "dependencies": [],
+      "editorial_status": "polished",
+      "id": "researcher-0004:P8.2",
+      "part": 2,
+      "proof_markdown": "In characteristic $147457$,\n\n$$B_Z=147457Z^{147456}=0.$$\n\nOn the other hand, $B_X=-1$. If an irreducible factor occurred in $B$ with multiplicity at least $2$, it would divide every formal partial derivative of $B$, contradicting $B_X=-1$. Hence $B$ is squarefree. Its $Z$-degree is exactly $147457$, so it is excluded by the strict bound $\\deg_Z(B)<147457$.",
+      "source_job_id": "researcher-0004",
+      "source_step_id": "P8",
+      "statement_markdown": "Over $\\mathbb F_{147457}$, the polynomial\n\n$$B=Z^{147457}-X$$\n\nis squarefree and satisfies $B_Z=0$, with $\\deg_Z(B)=147457$.",
+      "status": "proved",
+      "title": "Inseparable-degree example"
+    },
+    {
+      "dependencies": [],
+      "editorial_status": "polished",
+      "id": "researcher-0004:P8.3",
+      "part": 3,
+      "proof_markdown": "The factors $X$ and $Z-Y$ are distinct irreducibles, so $A=X(Z-Y)$ is squarefree, and direct differentiation gives $A_Z=X$. As a polynomial in $Z$, its coefficients are $X$ and $-XY$, whose content is $X$. On the line parametrized by $(0,t)$,\n\n$$A(0,t,P(t))=0$$\n\nfor every label $P(t)$. Dividing by the coefficient content gives the primitive quotient $B=Z-Y$, which retains the label constraint.",
+      "source_job_id": "researcher-0004",
+      "source_step_id": "P8",
+      "statement_markdown": "Over $\\mathbb F_{147457}$, let\n\n$$A=X(Z-Y).$$\n\nThen $A$ is squarefree, $A_Z=X$, and its coefficient content as a polynomial in $Z$ is $X$. For the affine line $X=0$, one has\n\n$$A(0,t,P(t))=0$$\n\nfor every $P\\in\\mathbb F_{147457}[t]$, while the primitive coefficient-content quotient is $B=Z-Y$.",
+      "status": "proved",
+      "title": "Coefficient-content example"
+    },
+    {
+      "dependencies": [],
+      "editorial_status": "polished",
+      "id": "researcher-0005:P1.1",
+      "part": 1,
+      "proof_markdown": "Put $p=147457$, $d=87$, $N=p^2$, and $c=dp=12828759$. Let $Q_1,\\ldots,Q_r$ be the polynomials counted by $R_K(f)$. For $i\\ne j$, the nonzero polynomial $Q_i-Q_j$ has total degree at most $87$, so it has at most $c$ zeros in $\\mathbb F^2$.\n\nFor each $x\\in\\mathbb F^2$, let $n_x$ count the list members agreeing with $f$ at $x$, and put $I=\\sum_x n_x$. Pair counting and Cauchy--Schwarz give\n\n$$\\sum_x\\binom{n_x}{2}\\le\\binom r2c$$\n\nand\n\n$$\\sum_x\\binom{n_x}{2}\\ge\\frac12\\left(\\frac{I^2}{N}-I\\right).$$\n\nSet\n\n$$\\alpha=\\frac KN,\\qquad \\delta=\\frac cN,\\qquad B=\\frac{\\alpha-\\delta}{\\alpha^2-\\delta}.$$\n\nThe proposed bound satisfies $B\\ge 1/(2\\alpha)$. If $r>B$, then $I\\ge r\\alpha N>N/2$. Since $z^2/N-z$ is increasing on the relevant interval, substituting $I\\ge r\\alpha N$ into the preceding inequalities yields\n\n$$r\\alpha^2-\\alpha\\le(r-1)\\delta.$$\n\nHence $r\\le B$, a contradiction. Therefore\n\n$$r\\le\\left\\lfloor\\frac{N(K-c)}{K^2-cN}\\right\\rfloor.$$\n\nFor $K_3=\\lceil3N/100\\rceil=652307006$, the exact margins are\n\n$$N(K_3-c)-94(K_3^2-cN)=127761602101311073>0$$\n\nand\n\n$$N(K_3-c)-95(K_3^2-cN)=-18799849069162572<0,$$\n\nso the bound is $94$. At $K=781092078$, the corresponding margins for $50$ and $51$ are respectively\n\n$$146692063903727181>0$$\n\nand\n\n$$-184469791504420512<0,$$\n\nso the bound is $50$. The smallest integer $K$ for which $K^2-cN>0$ is $528150527$. For $K_{86}=\\lceil N/86\\rceil=252832173$,\n\n$$K_{86}^2-cN=-215018871202308462,$$\n\nso the hypothesis does not hold there.",
+      "source_job_id": "researcher-0005",
+      "source_step_id": "P1",
+      "statement_markdown": "Let $m=2$ and $\\mathbb F=\\mathbb F_{147457}$. For every function $f:\\mathbb F^m\\to\\mathbb F$ and every integer $K$ satisfying\n\n$$K^2>87\\cdot147457\\cdot147457^2,$$\n\nthe number $R_K(f)$ of distinct polynomials $Q\\in\\mathbb F[X,Y]$ of total degree at most $87$ satisfying\n\n$$\\left|\\{x\\in\\mathbb F^m:Q(x)=f(x)\\}\\right|\\ge K$$\n\nobeys\n\n$$R_K(f)\\le\\left\\lfloor\\frac{147457^2(K-87\\cdot147457)}{K^2-87\\cdot147457\\cdot147457^2}\\right\\rfloor.$$",
+      "status": "proved",
+      "title": "Bivariate Johnson bound"
+    },
+    {
+      "dependencies": [],
+      "editorial_status": "polished",
+      "id": "researcher-0005:P2.1",
+      "part": 1,
+      "proof_markdown": "Put $p=147457$, $N=p^2$, and $c=87p$. Choose $87$ distinct elements of $\\mathbb F$ and let $H(X)$ be the product of the corresponding factors $X-a$. Its zero set $Z$ is the union of $87$ parallel affine lines, so $|Z|=c$.\n\nChoose distinct scalars $\\zeta_1,\\ldots,\\zeta_r\\in\\mathbb F$ and pairwise disjoint sets\n\n$$T_1,\\ldots,T_r\\subseteq\\mathbb F^2\\setminus Z,\n\\qquad |T_i|=K-c.$$\n\nTheir existence follows from $r(K-c)\\le N-c$. Define $Q_i=\\zeta_iH$, set $f=0$ on $Z$, and set $f=Q_i$ on $T_i$. At every remaining point $x$, the values $Q_1(x),\\ldots,Q_r(x)$ are distinct because $H(x)\\ne0$. Since $r<p$, choose $f(x)$ outside this set. It follows that\n\n$$\\{x:f(x)=Q_i(x)\\}=Z\\cup T_i$$\n\nand, for $i\\ne j$,\n\n$$\\{x:f(x)=Q_i(x)=Q_j(x)\\}=Z.$$\n\nThe recorded instances have\n\n$$\\bigl(K,r,N-c-r(K-c)\\bigr)=\\bigl(2c,1693,11649103\\bigr),$$\n\n$$\\bigl(K,r,N-c-r(K-c)\\bigr)=\\bigl(252832173,90,130430830\\bigr),$$\n\nand\n\n$$\\bigl(K,r,N-c-r(K-c)\\bigr)=\\bigl(781092078,28,219365158\\bigr).$$",
+      "source_job_id": "researcher-0005",
+      "source_step_id": "P2",
+      "statement_markdown": "Let $m=2$ and $\\mathbb F=\\mathbb F_{147457}$. For integers $K$ and $r$ satisfying\n\n$$87\\cdot147457<K\\le147457^2,$$\n\n$$1\\le r<147457,$$\n\nand\n\n$$r(K-87\\cdot147457)\\le147457^2-87\\cdot147457,$$\n\nthere exist a function $f:\\mathbb F^m\\to\\mathbb F$ and distinct polynomials $Q_1,\\ldots,Q_r\\in\\mathbb F[X,Y]$ of total degree at most $87$ such that\n\n$$\\left|\\{x\\in\\mathbb F^m:f(x)=Q_i(x)\\}\\right|=K$$\n\nfor every $i$, and\n\n$$\\left|\\{x\\in\\mathbb F^m:f(x)=Q_i(x)=Q_j(x)\\}\\right|=87\\cdot147457$$\n\nfor every $i\\ne j$.",
+      "status": "proved",
+      "title": "Common-factor lower lists"
+    },
+    {
+      "dependencies": [],
+      "editorial_status": "polished",
+      "id": "researcher-0005:P3.1",
+      "part": 1,
+      "proof_markdown": "Put $p=147457$, $N=p^2$, and $s=493416$. The number of formal bivariate polynomials of total degree at most $87$ is\n\n$$p^{\\binom{89}{2}}=p^{3916}.$$\n\nSet $g=f$ outside $T$ and choose the values $g(x)$ independently and uniformly from $\\mathbb F$ for $x\\in T$. For a fixed polynomial $Q$,\n\n$$\\Pr\\!\\left[\\left|\\{x\\in T:g(x)=Q(x)\\}\\right|\\ge s\\right]\\le\\binom Ns p^{-s}.$$\n\nA union bound over all polynomials, followed by $\\binom Ns\\le(eN/s)^s$ and $e<3$, bounds the probability of any failure by\n\n$$p^{3916}\\binom Ns p^{-s}<p^{3916}\\left(\\frac{3p}{s}\\right)^s.$$\n\nThe exact integer comparisons\n\n$$9s-30p=17034>0,$$\n\n$$s=7\\cdot18\\cdot3916,$$\n\n$$10^7-2\\cdot9^7=434062>0,$$\n\nand\n\n$$p<2^{18}$$\n\nimply\n\n$$\\left(\\frac{s}{3p}\\right)^s>\n\\left(\\frac{10}{9}\\right)^s>\n2^{18\\cdot3916}>p^{3916}.$$\n\nThus the union probability is strictly below $1$, and a deterministic choice of $g$ with the required property exists.",
+      "source_job_id": "researcher-0005",
+      "source_step_id": "P3",
+      "statement_markdown": "Let $m=2$ and $\\mathbb F=\\mathbb F_{147457}$. For every function $f:\\mathbb F^m\\to\\mathbb F$ and every subset $T\\subseteq\\mathbb F^m$, there exists a function $g:\\mathbb F^m\\to\\mathbb F$ such that $g(x)=f(x)$ for every $x\\notin T$ and, for every polynomial $Q\\in\\mathbb F[X,Y]$ of total degree at most $87$,\n\n$$\\left|\\{x\\in T:g(x)=Q(x)\\}\\right|<493416.$$",
+      "status": "proved",
+      "title": "Fixed overwrite"
+    },
+    {
+      "dependencies": [
+        "researcher-0005:P3.1"
+      ],
+      "editorial_status": "polished",
+      "id": "researcher-0005:P4.1",
+      "part": 1,
+      "proof_markdown": "For each polynomial $Q$, put\n\n$$A_Q=\\{x\\in\\mathbb F^2:f(x)=Q(x)\\},$$\n\nand let\n\n$$T=\\bigcup_{Q\\in\\mathcal L_K(f)}A_Q.$$\n\nApply the fixed-overwrite lemma to obtain $\\widetilde f$ equal to $f$ outside $T$ such that every total-degree-at-most-$87$ polynomial agrees with $\\widetilde f$ on at most $s-1$ points of $T$, where $s=493416$.\n\nIf $Q\\notin\\mathcal L_K(f)$, it has at most $K-1$ agreements with $f$ outside $T$ and at most $s-1$ agreements with $\\widetilde f$ inside $T$. If $Q\\in\\mathcal L_K(f)$, it has no agreements with $\\widetilde f=f$ outside $T$ and at most $s-1$ inside $T$. Thus every $Q$ agrees with $\\widetilde f$ on at most\n\n$$K+s-2\\le H-1$$\n\npoints.\n\nEvery unexplained point lies outside $T$, where $\\widetilde f=f$. If more than $uN$ such points were $\\beta$-good, their retained accepted incidences would give the overwritten table acceptance greater than $\\beta u\\ge\\sigma$. The weak-recovery hypothesis would then produce a polynomial with at least $H$ agreements with $\\widetilde f$, contradicting the preceding cap.",
+      "source_job_id": "researcher-0005",
+      "source_step_id": "P4",
+      "statement_markdown": "Let $m=2$, $\\mathbb F=\\mathbb F_{147457}$, and $N=147457^2$. Let $\\sigma,\\beta,u\\ge0$ and $H,K\\in\\mathbb Z$ satisfy\n\n$$\\beta u\\ge\\sigma$$\n\nand\n\n$$H\\ge K+493415.$$\n\nSuppose that, for every point table $h:\\mathbb F^m\\to\\mathbb F$ and every assignment $(R_L)_L$ of univariate labels of degree at most $87$ to the affine lines, acceptance at least $\\sigma$ implies the existence of a polynomial $Q\\in\\mathbb F[X,Y]$ of total degree at most $87$ such that\n\n$$\\left|\\{x\\in\\mathbb F^m:h(x)=Q(x)\\}\\right|\\ge H.$$\n\nFor every point table $f:\\mathbb F^m\\to\\mathbb F$ and every degree-at-most-$87$ line table $(P_L)_L$, define\n\n$$\\mathcal L_K(f)=\\left\\{Q\\in\\mathbb F[X,Y]:\\deg_{\\mathrm{tot}}(Q)\\le87,\\ \\left|\\{x:f(x)=Q(x)\\}\\right|\\ge K\\right\\}$$\n\nand\n\n$$g_{f,P}(x)=\\Pr_{L\\ni x}[P_L(x)=f(x)],$$\n\nwhere $L$ is uniform among the $147458$ affine lines through $x$. Then\n\n$$\\left|\\left\\{x:g_{f,P}(x)\\ge\\beta,\\ f(x)\\ne Q(x)\\text{ for every }Q\\in\\mathcal L_K(f)\\right\\}\\right|\\le uN.$$",
+      "status": "proved",
+      "title": "Weak recovery coverage"
+    },
+    {
+      "dependencies": [],
+      "editorial_status": "polished",
+      "id": "researcher-0005:P5.1",
+      "part": 1,
+      "proof_markdown": "For a point set $S\\subseteq\\mathbb F^2$ of density $a$, let $Y=|S\\cap L|$ for a uniformly random affine line $L$. Every point lies on $p+1$ lines, and every ordered pair of distinct points determines one line. Hence\n\n$$\\mathbb E[Y]=ap$$\n\nand\n\n$$\\mathbb E[Y(Y-1)]=\\frac{|S|(|S|-1)}{p(p+1)}.$$\n\nConsequently,\n\n$$\\operatorname{Var}(Y/p)=\\frac{a(1-a)}{p+1}.$$\n\nAssume that every candidate has agreement density $a_i<\\gamma$. Call $L$ abnormal if $|A_i\\cap L|/p\\ge\\gamma+t$ for some $i$. Since $a_i(1-a_i)<\\gamma(1-\\gamma)$, Cantelli's inequality and a union bound give\n\n$$\\Pr[L\\text{ is abnormal}]<\\frac{r\\gamma(1-\\gamma)}{\\gamma(1-\\gamma)+(p+1)t^2}.$$\n\nCall $L$ standard if $P_L$ equals $Q_i$ restricted to $L$ for some $i$. A normal standard line contributes less than $\\gamma+t$ acceptance. On a nonstandard line, every restriction $P_L-Q_i|_L$ is a nonzero univariate polynomial of degree at most $87$, so the accepted points explained by the list occupy at most $87r/p$ of the line. Unexplained $\\beta$-good points contribute at most $u$ to the incidence density, while all accepted incidences at points that are not $\\beta$-good contribute less than $\\beta$.\n\nThese cases cover every accepted incidence and yield\n\n$$\\rho<\\gamma+t+\\frac{r\\gamma(1-\\gamma)}{\\gamma(1-\\gamma)+147458t^2}+\\frac{87r}{147457}+\\beta+u,$$\n\ncontradicting the hypothesis.",
+      "source_job_id": "researcher-0005",
+      "source_step_id": "P5",
+      "statement_markdown": "Let $m=2$, $\\mathbb F=\\mathbb F_{147457}$, $p=147457$, and $N=p^2$. Let $0<\\gamma<1/2$, $\\beta,u\\ge0$, $t>0$, and let $r$ be a positive integer. Let $f:\\mathbb F^m\\to\\mathbb F$ be a point table, let every affine line $L$ carry a univariate label $P_L$ of degree at most $87$, and let $Q_1,\\ldots,Q_r\\in\\mathbb F[X,Y]$ be distinct polynomials of total degree at most $87$. Define\n\n$$A_i=\\{x\\in\\mathbb F^m:f(x)=Q_i(x)\\},\\qquad a_i=\\frac{|A_i|}{N},$$\n\n$$g(x)=\\Pr_{L\\ni x}[P_L(x)=f(x)],$$\n\nwhere $L$ is uniform among the $147458$ lines through $x$, and\n\n$$\\rho=\\Pr_{L,x\\in L}[P_L(x)=f(x)],$$\n\nwhere $L$ is a uniform affine line and $x$ is uniform on $L$. Suppose\n\n$$\\left|\\left\\{x:g(x)\\ge\\beta,\\ x\\notin\\bigcup_{i=1}^rA_i\\right\\}\\right|\\le uN.$$\n\nIf\n\n$$\\rho\\ge\\gamma+t+\\frac{r\\gamma(1-\\gamma)}{\\gamma(1-\\gamma)+147458t^2}+\\frac{87r}{147457}+\\beta+u,$$\n\nthen\n\n$$\\max_{1\\le i\\le r}a_i\\ge\\gamma.$$",
+      "status": "proved",
+      "title": "Affine list-to-one conversion"
+    },
+    {
+      "dependencies": [
+        "researcher-0005:P5.1"
+      ],
+      "editorial_status": "polished",
+      "id": "researcher-0005:P6.1",
+      "part": 1,
+      "proof_markdown": "Put\n\n$$E_1=\\frac{7810920776}{21743566849},\\qquad \\gamma=\\frac{E_1}{10}=\\frac{3905460388}{108717834245},\\qquad t=\\frac7{200}.$$\n\nEnumerate the list as $Q_1,\\ldots,Q_r$, where $r\\le90$. Since\n\n$$\\gamma<\\frac9{250}<\\frac12,$$\n\none has\n\n$$\\gamma(1-\\gamma)<\\frac{2169}{62500}.$$\n\nThe abnormal-line term in the affine list-to-one lemma is therefore at most\n\n$$B=\\frac{90\\cdot\\frac{2169}{62500}}{\\frac{2169}{62500}+147458\\left(\\frac7{200}\\right)^2}=\\frac{1561680}{90335377},$$\n\nand the nonstandard-line coincidence term is at most\n\n$$\\frac{87\\cdot90}{147457}=\\frac{7830}{147457}.$$\n\nThus\n\n$$\\lambda=\\frac7{200}+B+\\frac{7830}{147457}=\\frac{280765415738023}{2664116737257800}.$$\n\nThe definition of $b$ gives the exact identity\n\n$$E_1=\\gamma+\\lambda+2b.$$\n\nIf no list member had agreement density at least $\\gamma$, the affine list-to-one lemma, with $\\beta=u=b$, would give\n\n$$\\rho<\\gamma+\\lambda+2b=E_1,$$\n\ncontrary to the acceptance hypothesis. Hence some candidate has at least $\\gamma N$ agreements. Since\n\n$$\\gamma N=\\frac{3905460388}{5}=781092077+\\frac35,$$\n\nits integral agreement count is at least $781092078$.",
+      "source_job_id": "researcher-0005",
+      "source_step_id": "P6",
+      "statement_markdown": "Let $m=2$, $\\mathbb F=\\mathbb F_{147457}$, $N=147457^2=21743566849$, $K_{86}=252832173$, and\n\n$$b=\\frac{85607619234595001849}{785685323451646829200}.$$\n\nFor every point table $f:\\mathbb F^m\\to\\mathbb F$, define\n\n$$\\mathcal L_{K_{86}}(f)=\\left\\{Q\\in\\mathbb F[X,Y]:\\deg_{\\mathrm{tot}}(Q)\\le87,\\ \\left|\\{x:f(x)=Q(x)\\}\\right|\\ge K_{86}\\right\\}.$$\n\nSuppose that $|\\mathcal L_{K_{86}}(f)|\\le90$ and that, for a degree-at-most-$87$ line table $(P_L)_L$, at most $bN$ points $x$ satisfy both\n\n$$\\Pr_{L\\ni x}[P_L(x)=f(x)]\\ge b$$\n\nand\n\n$$f(x)\\ne Q(x)\\quad\\text{for every }Q\\in\\mathcal L_{K_{86}}(f).$$\n\nIf\n\n$$\\Pr_{L,x\\in L}[P_L(x)=f(x)]\\ge\\frac{7810920776}{21743566849},$$\n\nwhere $L$ is a uniform affine line and $x$ is uniform on $L$, then there exists a polynomial $Q\\in\\mathbb F[X,Y]$ of total degree at most $87$ satisfying\n\n$$\\left|\\{x\\in\\mathbb F^m:f(x)=Q(x)\\}\\right|\\ge781092078.$$",
+      "status": "conditional",
+      "title": "Conditional fixed-instance recovery"
+    },
+    {
+      "dependencies": [
+        "researcher-0005:P1.1",
+        "researcher-0005:P3.1",
+        "researcher-0005:P4.1",
+        "researcher-0005:P5.1"
+      ],
+      "editorial_status": "polished",
+      "id": "researcher-0005:P7.1",
+      "part": 1,
+      "proof_markdown": "The $3\\%$ threshold is\n\n$$K_3=\\left\\lceil\\frac{3N}{100}\\right\\rceil=652307006.$$\n\nThe Johnson entry gives list size at most $94$. With $r=94$ and $t=1/28$, the affine list-to-one parameters are\n\n$$B_{94}=\\frac{19980828}{1152228187},$$\n\n$$\\lambda_{94}=\\frac{516242693665555}{4757315129572852},$$\n\nand\n\n$$b_{94}=\\frac{753377354251711533937}{7014994170614240373640}.$$\n\nThe overwrite and weak-recovery reduction would require\n\n$$H_3=K_3+493415=652800421$$\n\nagreements at trigger $\\sigma_{94}=b_{94}^2$, where\n\n$$\\sigma_{94}<\\frac{29}{2500}.$$\n\nChoose $86$ distinct values in $\\mathbb F$ and sample each value $f(x)$ independently and uniformly from them. Every affine line has a most frequent value occurring at least\n\n$$\\left\\lceil\\frac{147457}{86}\\right\\rceil=1715$$\n\ntimes. Label each line by the corresponding constant polynomial. The resulting acceptance is at least\n\n$$\\frac{1715}{147457}>\\frac{29}{2500}>\\sigma_{94}.$$\n\nFor any fixed total-degree-at-most-$87$ polynomial $Q$, the agreement indicators are independent Bernoulli variables with mean at most $1/86$. Since\n\n$$\\frac{H_3}{N}>\\frac3{100}$$\n\nand\n\n$$\\frac3{100}-\\frac1{86}=\\frac{79}{4300},$$\n\nHoeffding's inequality gives\n\n$$\\Pr\\!\\left[\\left|\\{x:f(x)=Q(x)\\}\\right|\\ge H_3\\right]<\\exp\\!\\left(-2N\\left(\\frac{79}{4300}\\right)^2\\right).$$\n\nThere are $p^{3916}$ formal polynomials of total degree at most $87$. The inequalities $p<2^{18}$ and $\\ln 2<1$, together with\n\n$$2N\\cdot79^2-18\\cdot3916\\cdot4300^2=270099878289218>0,$$\n\nshow that the union bound over all these polynomials is strictly below $1$. Hence some such table has acceptance greater than $\\sigma_{94}$ but no total-degree-at-most-$87$ polynomial with $H_3$ agreements. This table refutes the stated implication.",
+      "source_job_id": "researcher-0005",
+      "source_step_id": "P7",
+      "statement_markdown": "Let $m=2$, $\\mathbb F=\\mathbb F_{147457}$, and\n\n$$\\sigma_{94}=\\left(\\frac{753377354251711533937}{7014994170614240373640}\\right)^2.$$\n\nFor every point table $f:\\mathbb F^m\\to\\mathbb F$ and every assignment $(P_L)_L$ of univariate labels of degree at most $87$ to the affine lines, if\n\n$$\\Pr_{L,x\\in L}[P_L(x)=f(x)]\\ge\\sigma_{94},$$\n\nwhere $L$ is a uniform affine line and $x$ is uniform on $L$, then there exists a polynomial $Q\\in\\mathbb F[X,Y]$ of total degree at most $87$ such that\n\n$$\\left|\\{x\\in\\mathbb F^m:f(x)=Q(x)\\}\\right|\\ge652800421.$$",
+      "status": "refuted",
+      "title": "Color-table obstruction"
+    },
+    {
+      "dependencies": [],
+      "editorial_status": "polished",
+      "id": "researcher-0005:P8.1",
+      "part": 1,
+      "proof_markdown": "In HKSS v1 Lemma $B.4$, the printed hypothesis is\n\n$$h(\\beta_0'^2)\\ge\\max\\left(\\frac{e}{2\\sqrt q},\\frac{2(d+1)}q,\\sqrt{\\frac dq}\\right).$$\n\nThe proof sets\n\n$$\\eta=\\frac12h(\\beta_0'^2)$$\n\nbut then invokes\n\n$$\\eta\\ge\\frac e{\\sqrt q},\\qquad \\eta\\ge\\frac{4(d+1)}q,\\qquad \\eta\\ge2\\sqrt{\\frac dq}.$$\n\nThese inequalities are four times the bounds supplied by the printed hypothesis. The written uses would be justified by the stronger sufficient condition\n\n$$h(\\beta_0'^2)\\ge\\max\\left(\\frac{2e}{\\sqrt q},\\frac{8(d+1)}q,4\\sqrt{\\frac dq}\\right).$$\n\nIn HKSS v1 Lemma $B.6$, the cited list-cover property controls only unexplained $\\beta$-good points. Accepted incidences at points below the goodness threshold require an additional loss of $\\beta$. Independently, the four displayed case losses are\n\n$$\\eta_1+\\beta,\\qquad \\beta,\\qquad \\beta,\\qquad \\beta,$$\n\nwhose sum is $\\eta_1+4\\beta$, not the claimed $\\eta_1+3\\beta$. Thus neither written numerical inference follows from the printed hypotheses and displayed case bounds. This refutes those inferences, not the possibility of a separate repair.",
+      "source_job_id": "researcher-0005",
+      "source_step_id": "P8",
+      "statement_markdown": "The printed hypotheses and displayed case bounds in HKSS v1 Lemmas $B.4$ and $B.6$ imply the numerical conclusions through the written proofs.",
+      "status": "refuted",
+      "title": "Imported-inference audit"
+    },
+    {
+      "dependencies": [
+        "researcher-0005:P1.1",
+        "researcher-0005:P2.1",
+        "researcher-0005:P3.1",
+        "researcher-0005:P5.1"
+      ],
+      "editorial_status": "polished",
+      "id": "researcher-0005:P9.1",
+      "part": 1,
+      "proof_markdown": "The checker uses exact rational arithmetic. Put\n\n$$p=147457,\\qquad d=87,\\qquad N=p^2,\\qquad c=dp,$$\n\n$$D=\\frac{(d+1)(d+2)}2=3916,\\qquad s=493416.$$\n\nIt verifies\n\n$$\\bigl(N,p(p+1),N(p+1),c,2c\\bigr)=\\bigl(21743566849,21743714306,3206262880419842,12828759,25657518\\bigr).$$\n\nFor $K_3=652307006$, the successive Johnson margins are\n\n$$127761602101311073>0$$\n\nand\n\n$$-18799849069162572<0.$$\n\nFor $K=781092078$, the corresponding margins are\n\n$$146692063903727181>0$$\n\nand\n\n$$-184469791504420512<0.$$\n\nThe overwrite certificate verifies\n\n$$9s-30p=17034>0,$$\n\n$$s=7\\cdot18\\cdot D,$$\n\nand\n\n$$10^7-2\\cdot9^7=434062>0.$$\n\nWith\n\n$$E_1=\\frac{7810920776}{N},\\qquad \\gamma=\\frac{E_1}{10},$$\n\nit verifies\n\n$$\\left\\lceil E_1N\\right\\rceil=7810920776,\n\\qquad \\left\\lceil\\gamma N\\right\\rceil=781092078,$$\n\nand\n\n$$\\gamma-\\frac{174}{p}=\\frac{3777172798}{108717834245}>0.$$\n\nFor $K_{86}=\\lceil N/86\\rceil=252832173$,\n\n$$K_{86}^2-cN=-215018871202308462$$\n\nand\n\n$$N-c=90(K_{86}-c)+130430830.$$\n\nFor $t=7/200$ and $r=90$, exact reduction gives\n\n$$B=\\frac{1561680}{90335377}$$\n\nand\n\n$$\\lambda=\\frac{280765415738023}{2664116737257800}.$$\n\nIt also gives\n\n$$b=\\frac{85607619234595001849}{785685323451646829200}$$\n\nand\n\n$$b^2>\\frac{K_{86}+s-1}{N}.$$\n\nFor\n\n$$T=\\frac{35922904602094702}{10^{17}},$$\n\nthe exact ceiling calculations are\n\n$$\\lceil TN\\rceil=7810920777$$\n\nand\n\n$$\\left\\lceil\\frac{TN}{10}\\right\\rceil=781092078.$$\n\nThe common-factor divisions are\n\n$$N-c=28(781092078-c)+219365158$$\n\nand\n\n$$N-c=1693c+11649103.$$\n\nFor $r=94$ and $t=1/28$, the checker obtains\n\n$$B_{94}=\\frac{19980828}{1152228187},$$\n\n$$\\lambda_{94}=\\frac{516242693665555}{4757315129572852},$$\n\n$$b_{94}=\\frac{753377354251711533937}{7014994170614240373640},$$\n\nand\n\n$$b_{94}^2<\\frac{29}{2500}<\\frac{1715}{p}.$$\n\nFinally,\n\n$$100(K_3+s-1)-3N=49341553$$\n\nand\n\n$$2N\\cdot79^2-18\\cdot D\\cdot4300^2=270099878289218>0.$$\n\nAll equalities and inequalities are checked after exact integer reduction, so no floating-point estimate enters the certificate.",
+      "source_job_id": "researcher-0005",
+      "source_step_id": "P9",
+      "statement_markdown": "For $m=2$, $p=147457$, and total degree $d=87$, all fixed-instance numerical identities and strict inequalities used in source steps P1--P8 hold.",
+      "status": "proved",
+      "title": "Finite arithmetic certificate"
+    }
+  ],
+  "model": "gpt-5.6-sol",
+  "reasoning_effort": "ultra",
+  "source_count": 5,
+  "updated_at": "2026-09-15T09:29:25Z"
+}

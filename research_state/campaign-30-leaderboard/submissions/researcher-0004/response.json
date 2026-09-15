@@ -1,0 +1,215 @@
+{
+  "benchmark_improved": false,
+  "characteristic_audit": [
+    "The fixed prime is p=147457; the historical base-10 Pocklington certificate has p-1=2^14\u00b73^2, 10^(p-1)=1, 10^((p-1)/2)=-1, and 10^((p-1)/3)=78348 modulo p, with the required gcds equal to 1.",
+    "D=17642<p and D+1=17643\u2264p+1=147458, so the required distinct seed directions exist.",
+    "Every interpolating monomial has Z-exponent at most floor(17642/87)=202<p. Thus Z-dependence implies a nonzero ordinary Z-derivative.",
+    "After coefficient-content removal, primitivity excludes irreducible factors in F_p[X,Y]. Squarefreeness and deg_Z<p then imply gcd(B,B_Z)=1.",
+    "Formal simple-root lifting divides only by B_Z(b,a)\u22600. It uses no factorials, Hasse derivatives, discriminants, irreducibility assumptions, or field extensions.",
+    "Line identities are coefficient identities in F_p[t], not merely equality as functions on p points.",
+    "No leading coefficient, resultant, or discriminant is divided by in the proved package. Nominal-discriminant exceptional-line accounting remains a separate downstream obligation.",
+    "Squarefreeness alone is insufficient in characteristic p: Z^p-X is squarefree but has zero Z-derivative."
+  ],
+  "claim_scope": "algebraic_lemma",
+  "claimed_soundness": null,
+  "counterexample_attempts": [
+    "D=17642 simple seed lines are insufficient: for distinct pencil forms ell_i, B=Z-product_i ell_i has B_Z=1 and zero line roots on all D lines, but its only global polynomial root has degree D>87.",
+    "The simple-root hypothesis is necessary: B=Z^2-XY has degree-one roots on 73730 lines through the origin but no polynomial root, while B_Z vanishes at the common value.",
+    "The bound deg_Z<p is necessary for deriving Z-separability from squarefreeness: Z^p-X is squarefree and has B_Z=0.",
+    "Coefficient content must be removed: A=X(Z-Y) vanishes on the line X=0 independently of its line label.",
+    "Direction concentration is harmless for the lemma: all seed directions lie in one pencil. No direction-spreading assumption is used."
+  ],
+  "dimension": 2,
+  "field_regime": "prime",
+  "finite_sanity_checks": [
+    "17642=87\u00b7202+68 and floor(17642/87)=202.",
+    "The weighted monomial count is (7569\u00b72767905+12093\u00b720503+4830\u00b7203)/2=10599598107.",
+    "600782\u00b717643=10599596826, leaving an exact interpolation surplus of 1281.",
+    "147457^2=21743566849 and p^2(p+1)=3206262880419842.",
+    "For the configured decimal epsilon_0=0.35922904602094702, epsilon_0 p^2=7810920776+25895898365733998/10^17, so its score is 7810920777.",
+    "For epsilon_*=7810919590/21743566849, the score is exactly 7810919590, which is 1187 smaller; epsilon_*/10=781091959/21743566849.",
+    "The aligned accepted-incidence threshold for epsilon_* is 7810919590\u00b7147458=1151782580902220."
+  ],
+  "fixed_degree": 87,
+  "fixed_prime": 147457,
+  "global_conclusion": "A lossless fixed-field interpolation, primitive-separability, seed-lifting, and connected-line propagation package is proved. It independently discharges the algebraic content of campaign-30 nodes ea-r1-02, ea-r1-08, and ea-r1-09, and strengthens propagation by requiring simplicity only at line-transition points while recovering singular accepted leaf points. It does not prove the remaining analytic chain or any soundness value.",
+  "leaderboard_submission": false,
+  "literature_dependencies": [
+    {
+      "hypotheses": "A weighted-degree-D interpolation space has more dimensions than the line-identity constraints; the chosen monomial support has nonzero Z-derivative; more than D formal line identities exclude Z-independence.",
+      "paper": "Kominers\u2013Thaler\u2013Zheng, Improved Soundness for the Line\u2013versus\u2013Point Test",
+      "result_id": "Lemmas 2.3, 2.5, and 4.2",
+      "used_for": "Primary-source comparison only. Proof steps P1\u2013P2 independently derive the fixed-parameter coefficientwise version.",
+      "version": "ECCC TR26-147, revision 1, 16 August 2026"
+    },
+    {
+      "hypotheses": "B(0,0,a)=0 and B_Z(0,0,a)\u22600.",
+      "paper": "Kominers\u2013Thaler\u2013Zheng, Improved Soundness for the Line\u2013versus\u2013Point Test",
+      "result_id": "Lemma 2.7",
+      "used_for": "Primary-source comparison only. P4 supplies an independent degree-by-degree formal implicit-function proof.",
+      "version": "ECCC TR26-147, revision 1, 16 August 2026"
+    },
+    {
+      "hypotheses": "B has weighted degree at most D; more than D distinct lines through one point carry degree-at-most-d exact roots with a common simple value.",
+      "paper": "Kominers\u2013Thaler\u2013Zheng, Improved Soundness for the Line\u2013versus\u2013Point Test",
+      "result_id": "Lemma 6.1",
+      "used_for": "Exact prior counterpart of P4; not imported into the proof.",
+      "version": "ECCC TR26-147, revision 1, 16 August 2026"
+    },
+    {
+      "hypotheses": "A connected retained incidence component has the common B-identities, enough seed lines, accepted edges, and pointwise simple roots.",
+      "paper": "Kominers\u2013Thaler\u2013Zheng, Improved Soundness for the Line\u2013versus\u2013Point Test",
+      "result_id": "Lemma 6.3",
+      "used_for": "Prior counterpart of component propagation. P5 proves the stronger simple-transition formulation independently.",
+      "version": "ECCC TR26-147, revision 1, 16 August 2026"
+    },
+    {
+      "hypotheses": "Formal Newton lifting at a simple root; the published Lemma 3.1 has additional squarefreeness and large-direction-set hypotheses.",
+      "paper": "Harsha\u2013Kumar\u2013Saptharishi\u2013Sudan, An Improved Line-Point Low-Degree Test",
+      "result_id": "Lemma 2.10 and proof of Lemma 3.1",
+      "used_for": "Historical provenance only; the present fixed D+1 statement is not quoted as a verbatim application of HKSS Lemma 3.1.",
+      "version": "arXiv:2311.12752v1, 21 November 2023"
+    }
+  ],
+  "next_tasks": [
+    "Use P1\u2013P2 in researcher-0008 and node ea-r1-02; retain the exact 1281-dimensional surplus.",
+    "Use P3 in researchers-0009 and -0017, but separately prove the nominal-discriminant exceptional-line cap 3559710; P3 alone does not supply it.",
+    "Use the simple-transition graph of P5 in researchers-0014, -0020, and -0024 to test whether singular leaf incidences can be retained and counted after reconstruction.",
+    "Use P4\u2013P5 as a self-contained replacement for KTZ Lemmas 2.5, 2.7, 6.1, and 6.3 in ea-r1-08, ea-r1-09, and eventual candidate proofs.",
+    "Complete the open energy, identity-transfer, C4-credit, survival, discriminant, and component-mass nodes before asserting epsilon_*=7810919590/21743566849.",
+    "Resolve the campaign specification pathology: unconditional constant recovery gives score one, so the literal leaderboard does not measure high-acceptance analytic progress."
+  ],
+  "note_markdown": "# Fixed-field interpolation and simple-transition reconstruction at p=147457\n\n## Abstract\n\nFor `F=F_147457`, line-label degree `d=87`, weighted degree `D=17642`, and `r=600782` selected affine lines, I prove a self-contained algebraic package. Exact coefficient counting yields a nonzero squarefree interpolant with `A_Z\u22600` and surplus `1281`. Removing its coefficient content produces a primitive polynomial `B` with `gcd(B,B_Z)=1` and derivative weighted degree at most `17555`.\n\nI then independently prove the `D+1=17643` simple-root seed-lifting interface and a stronger propagation statement. Lines are connected only through accepted intersections at which the common root is simple. One seed star recovers a single total-degree-at-most-87 global root on its entire connected line component. Every accepted point on a recovered line is an agreement point, even when that point is singular and is not used for propagation.\n\nThe package introduces no probabilistic or agreement loss. It supplies the algebraic interfaces needed by the unproved candidate `epsilon_*=7810919590/21743566849`, whose score is `7810919590`, or `1187` below the configured comparison count. It is not an end-to-end soundness proof.\n\n## Test and Notation\n\nThe verifier chooses a uniformly random affine line in `F^2` and then a uniformly random point on it. Thus there are\n\n- `p^2=21743566849` points;\n- `p(p+1)=21743714306` affine lines;\n- `p^2(p+1)=3206262880419842` incident pairs.\n\nFor a monomial `X^i Y^j Z^k`, set\n\n`wdeg(X^i Y^j Z^k)=i+j+87k`.\n\nThe proved algebraic parameters are\n\n| parameter | value |\n|---|---:|\n| field size `p` | `147457` |\n| line and recovered degree `d` | `87` |\n| weighted degree `D` | `17642` |\n| selected lines `r` | `600782` |\n| maximum `Z`-degree | `202` |\n| seed size `D+1` | `17643` |\n| derivative weighted-degree cap `D-d` | `17555` |\n\nThe surrounding candidate additionally uses `j=51837`, final line degree `s=5495`, exceptional-line cap `3559710`, and C4 credit `193111783`; none of those four quantities is used to prove the lemmas below.\n\nThe configured comparison is `epsilon_0=0.35922904602094702`, with score `7810920777`. The candidate integration target is\n\n`epsilon_*=7810919590/21743566849`,\n\nwith required agreement\n\n`epsilon_*/10=781091959/21743566849`.\n\nA strict component-density conclusion above this value would contain at least `781091960` points.\n\n## Prior Results\n\nThe active campaign-30 corpus index and Lemma Book are empty, and its soundness history contains no promoted point. The older campaign-10 chain at `359229046020947/10^15` was double-audited and was consulted to avoid repeating its certified arithmetic. In particular, its values `D=17642`, `r=600782`, monomial count `10599598107`, and surplus `1281` are reused rather than presented as a new optimization.\n\nThe exact primary counterparts are [KTZ revision 1](https://eccc.weizmann.ac.il/report/2026/147/revision/1/download): Lemmas 2.3 and 4.2 for minimum-weight squarefree interpolation, Lemma 2.5 for formal line vanishing, Lemma 2.7 for Newton lifting, Lemma 6.1 for seed reconstruction, and Lemma 6.3 for component propagation. The Newton statement originates in [HKSS v1](https://arxiv.org/html/2311.12752v1), Lemma 2.10. HKSS Lemma 3.1 has materially different large-set hypotheses and is not quoted as the present seed lemma.\n\nAll results below are proved directly. No numerical constant from KTZ Theorem 1.1 is imported; that theorem has unspecified absolute constants and its displayed bivariate recovery is `epsilon/8000`, not the required `epsilon/10`.\n\nThe message board also identifies a specification-level obstruction: every point table agrees with a constant on at least `1/p` of the plane. Consequently every positive `epsilon\u226410/p` is formally sound and score `1` is attainable. The present package concerns the nontrivial analytic route, not that leaderboard shortcut.\n\n## Theorem\n\n**Lemma 1 (fixed interpolation).** Let `R` be any set of `600782` distinct affine lines in `F^2`, with an affine parametrization `L(t)` and a polynomial `P_L\u2208F[t]` of degree at most `87` for every `L\u2208R`. There exists a nonzero squarefree `A\u2208F[X,Y,Z]` such that `wdeg(A)\u226417642`, `deg_Z(A)\u2264202`, `A_Z\u22600`, and `A(L(t),P_L(t))=0` in `F[t]` for every `L\u2208R`.\n\n**Lemma 2 (primitive separability).** Let `A\u2208F[X,Y,Z]` be nonzero and squarefree, with `A_Z\u22600`, `wdeg(A)\u226417642`, and `deg_Z(A)\u2264202`. Write `A=CB`, where `C\u2208F[X,Y]` is the coefficient content in `Z` and `B\u2208F[X,Y,Z]` is primitive in `Z`. Then `1\u2264deg_Z(B)\u2264202`, `B` is squarefree, `gcd(B,B_Z)=1`, `deg(C)+wdeg(B)=wdeg(A)`, and `wdeg(B_Z)\u2264wdeg(B)-87\u226417555`.\n\n**Lemma 3 (seeded simple-transition reconstruction).** Let `B\u2208F[X,Y,Z]` have `(1,1,87)`-weighted degree at most `17642`. Let `T` be a set of affine lines, each carrying a polynomial `P_L` of degree at most `87` satisfying `B(L(t),P_L(t))=0` in `F[t]`. Let `f:F^2\u2192F`, and let `E` consist of incidences `(x,L)` satisfying `P_L(x)=f(x)`. Define a graph on `T` by joining distinct lines `L,M` when their intersection `x` satisfies `(x,L),(x,M)\u2208E` and `B_Z(x,f(x))\u22600`. If a point `b` is incident in `E` to `17643` distinct lines and `B_Z(b,f(b))\u22600`, then there is a polynomial `Q\u2208F[X,Y]` of total degree at most `87` satisfying `B(X,Y,Q(X,Y))=0`. Moreover, on the connected line component containing those seed lines, `Q|_L=P_L` for every line `L`, and `Q(x)=f(x)` at every accepted point incident to any such line.\n\n**Corollary 4 (fixed core).** Let `K` be a nonempty connected point-line incidence subgraph whose point degrees are at least `17643`. Suppose every edge is accepted, every line label is a formal root of one polynomial `B` of weighted degree at most `17642`, and `B_Z(x,f(x))\u22600` at every point vertex. Then one polynomial `Q\u2208F[X,Y]` of total degree at most `87` agrees with every line label and with `f` at every point vertex of `K`.\n\n## Proof\n\n### [P1] Exact interpolation dimension \u2014 proved\n\nSince `17642=87\u00b7202+68`, the number of monomials of weighted degree at most `17642` is\n\n`V=sum_{z=0}^{202} binom(17642-87z+2,2)`.\n\nPutting `j=202-z`, using `sum j=20503` and `sum j^2=2767905`, gives\n\n`V=(7569\u00b72767905+12093\u00b720503+4830\u00b7203)/2=10599598107`.\n\nOn any labeled line, substitution has degree at most `D`, so a formal identity imposes at most `D+1=17643` homogeneous linear equations. The total is\n\n`600782\u00b717643=10599596826`,\n\nleaving surplus `1281`.\n\n### [P2] Squarefree formal interpolant \u2014 proved\n\nRank-nullity supplies a nonzero kernel element `A`. If it were independent of `Z`, its restriction would vanish formally on all `600782>D` distinct lines. The defining affine-linear form of every line would then divide `A`, contradicting `deg(A)\u2264D`. Thus every nonzero kernel element depends on `Z`.\n\nWeighted degree gives `deg_Z(A)\u2264202<p`. Differentiation in `Z` is therefore injective on the positive-`Z` part, so `A_Z\u22600`.\n\nChoose a nonzero kernel element of minimum weighted degree. If `A=F^eG` with `e\u22652` and `F` irreducible, then on each selected line graph the product specializes to zero in the domain `F[t]`. Hence either the specialization of `F` or that of `G` is zero, and `A/F=F^(e-1)G` still vanishes identically on every graph. Its weighted degree is smaller, a contradiction. Thus `A` is squarefree. This proves Lemma 1 using coefficient identities directly; no pointwise-to-formal conversion is needed.\n\n### [P3] Primitive `Z`-separability \u2014 proved\n\nWrite `A=CB` as in Lemma 2. Weighted leading forms do not cancel in the domain `F[X,Y,Z]`, so\n\n`deg(C)+wdeg(B)=wdeg(A)\u226417642`.\n\nBecause `A` is squarefree, so is `B`. Primitivity implies that no irreducible factor of `B` lies in `F[X,Y]`; such a factor would divide every `Z`-coefficient. Every irreducible factor therefore has positive `Z`-degree at most `202<p`, and consequently has nonzero ordinary `Z`-derivative.\n\nReducing the product rule for `B_Z` modulo any irreducible factor of the squarefree `B` shows that factor does not divide `B_Z`. Hence `gcd(B,B_Z)=1`. Finally, differentiation lowers weighted degree by exactly `87` on each surviving monomial, giving\n\n`wdeg(B_Z)\u2264wdeg(B)-87\u226417642-87=17555`.\n\nNo discriminant or specialized leading coefficient is used.\n\n### [P4] Formal lifting and seed globalization \u2014 proved\n\nTranslate a seed point `b` to the origin and put `a=f(b)`. Translation does not increase weighted degree. Let `m=(X,Y)` and `c=B_Z(0,0,a)\u22600`.\n\nConstruct homogeneous polynomials `h_n` recursively. Suppose `a+h_1+...+h_(n-1)` solves `B=0` modulo `m^n`. If `R_n` is the homogeneous degree-`n` part of the residual, adding a homogeneous `h_n` changes that part by exactly `c h_n`. Taking `h_n=-c^(-1)R_n` gives the unique solution modulo `m^(n+1)`. This uses only division by `c`, never by `n!`.\n\nLet `Q=a+h_1+...+h_87`. Reparametrize each seed line as `b+tv`; the submitted polynomial changes by an affine substitution in `t`, preserving degree at most `87`. The univariate version of the same recursion shows that `Q(b+tv)` and the seed label have identical coefficients through degree `87`. Both have degree at most `87`, so they are equal.\n\nNow set `R(X,Y)=B(X,Y,Q(X,Y))`. Every monomial of `B` gives total degree at most its `(1,1,87)` weight after substitution, hence `deg(R)\u226417642`. The polynomial `R` vanishes formally on `17643>D` distinct seed lines. Their distinct affine-linear equations divide `R`, so `R=0`. This proves the seed portion of Lemma 3.\n\n### [P5] Propagation through simple transitions \u2014 proved\n\nSuppose `Q|_L=P_L` and `L` is joined to `M` at `x`. Then\n\n`Q(x)=P_L(x)=f(x)=P_M(x)`.\n\nBoth `Q|_M` and `P_M` are exact roots of `B(M(t),Z)` through this common value. Since `B_Z(x,f(x))\u22600`, the one-variable recursion from [P4] has a unique formal root with that constant term. Therefore `Q|_M=P_M`.\n\nInduction along paths proves equality on the whole connected line component. Once a line is recovered, every accepted point `x` on it satisfies `Q(x)=P_L(x)=f(x)`, irrespective of whether `B_Z(x,f(x))` vanishes there. Thus singular points may be retained as agreement leaves; simplicity is needed only where the proof crosses from one line to another.\n\nFor Corollary 4, choose any point as the seed. Its degree supplies `17643` lines. Connectedness of the bipartite core and simplicity at its point vertices make the corresponding line-transition graph connected. Lemma 3 applies.\n\n### [P6] Exact score relevance \u2014 proved\n\nFor the configured decimal,\n\n`epsilon_0 p^2=7810920776+25895898365733998/10^17`,\n\nso its score is `7810920777`. For\n\n`epsilon_*=7810919590/21743566849`,\n\none has `epsilon_*p^2=7810919590` and\n\n`epsilon_*/10=781091959/21743566849`.\n\nThus the candidate score is smaller by exactly `1187`. Lemmas 1\u20133 lose no acceptance or agreement and discharge the interpolation and reconstruction interfaces of that candidate. The remaining energy, identity-transfer, discriminant, C4-peeling, survival, and component-mass statements are not proved here, so `epsilon_*` is not claimed as soundness.\n\n### [P7] Sharpness of `D+1` \u2014 proved\n\nChoose `D=17642` distinct homogeneous linear forms `ell_1,...,ell_D`, possible because the pencil has `p+1=147458` directions. Put\n\n`H=product_i ell_i` and `B=Z-H`.\n\nThen `wdeg(B)=D`, `B_Z=1`, and the zero polynomial is an exact line root on every chosen line. Any global polynomial root of `B` must equal `H`, whose total degree is `D>87`. Hence `D` seed lines do not imply the global degree-87 root conclusion; `D+1` is sharp for this interface.\n\n### [P8] Singular, inseparable, and content obstructions \u2014 proved\n\nAt the origin, `B=Z^2-XY` has `B_Z=0`. For every nonzero square slope `s=r^2`, the line `(t,st)` carries the root `rt`; both coordinate axes carry root zero. This gives `(p-1)/2+2=73730` root lines through one common value, yet `Q^2=XY` has no polynomial solution because the prime-factor exponents of `XY` are odd.\n\nThe polynomial `Z^p-X` is squarefree because its `X`-derivative is `-1`, but its `Z`-derivative is zero. This is excluded by `deg_Z\u2264202<p`.\n\nFinally, `A=X(Z-Y)` is squarefree and has `A_Z=X`, yet on `X=0` its identity is independent of the line label. Its coefficient content is exactly `X`; dividing it out produces the informative primitive factor `Z-Y`.\n\n## Soundness Ledger\n\n| stage | input | exact loss | output | status |\n|---|---|---:|---|---|\n| sampling context | uniform affine line then point | `0` | incident-pair denominator `3206262880419842` | proved |\n| interpolation | `r=600782`, `D=17642` | `0`; surplus `1281` | squarefree `A`, `A_Z\u22600` | proved |\n| content removal | squarefree `A`, `deg_Z\u2264202<p` | no degree slack beyond `deg C+wdeg B=wdeg A` | primitive `B`, `gcd(B,B_Z)=1` | proved |\n| derivative degree | `wdeg(B)\u226417642` | weight decrement exactly `87` | `wdeg(B_Z)\u226417555` | proved |\n| seed reconstruction | `17643=D+1` simple identity lines | `0` agreement loss | one global total-degree-87 root | proved |\n| transition propagation | accepted simple crossings | `0` agreement loss | same polynomial on a connected line component | proved |\n| leaf recovery | every accepted point on a recovered line | `0`; no simplicity required at leaves | all such points agree with `Q` | proved |\n| candidate integration | `epsilon_*=7810919590/p^2` | algebraic stages add `0` | target `781091959/p^2`, or `781091960` points after a strict component bound | conditional |\n\nNo union bound, Markov inequality, Cauchy\u2013Schwarz inequality, randomized selection, multiplicity interpolation, resultant, or discriminant loss occurs in this package.\n\n## Counterexample Attempts\n\nThe `Z-product ell_i` construction proves that the seed threshold cannot be lowered from `D+1` to `D` for an arbitrary weighted-degree-`D` relation, even with everywhere nonzero `B_Z` on the seed.\n\nThe `Z^2-XY` construction survives squarefreeness and many more than `D` root directions. It shows that a singular common value permits incompatible branches and blocks globalization.\n\nThe `Z^p-X` construction shows that squarefreeness alone is not a separability certificate in characteristic `p`. The strict `Z`-degree bound is load-bearing.\n\nThe content example shows why an interpolating identity must be made primitive before it is interpreted as constraining a line label.\n\nAcceptance concentrated in a set of directions does not contradict the result: the seed lemma is explicitly a pencil statement and assumes no direction spreading.\n\n## Characteristic Audit\n\nThe immutable field is the prime field `F_147457`. The historical Pocklington certificate factors `p-1=2^14\u00b73^2` and verifies the necessary base-10 modular residues.\n\nAll positive `Z`-exponents in the interpolant lie in `{1,...,202}`, so none is zero modulo `p`. Ordinary differentiation is therefore sufficient. After primitive cleanup every irreducible factor has positive `Z`-degree, making `gcd(B,B_Z)=1` valid.\n\nFormal lifting divides only by the explicitly retained scalar `B_Z(b,a)`. It does not divide by derivatives of higher order, factorials, discriminants, resultants, or leading coefficients. No Hasse derivative is required.\n\nInterpolation has multiplicity one and is imposed coefficientwise. Reparametrizing a fixed affine line at a seed or transition point uses an invertible affine change of its parameter and preserves degree `87` and formal identities.\n\n## Limitations\n\nThis is an algebraic lemma package, not a soundness theorem. It does not prove the candidate whole-pencil energy inequality, identity-transfer ledger, nominal-discriminant cap `3559710`, C4 credit, core survival, or component-mass inequality.\n\nThe primitive-separability lemma establishes `gcd(B,B_Z)=1` but does not itself count derivative-degenerate lines. That downstream count must use nominal-degree homogenization and must not divide by a specialized leading coefficient.\n\nThe `D+1` threshold is sharp for arbitrary relations, so an improvement must exploit additional structure in the interpolant or replace the seed-root architecture. The transition formulation can reduce where simplicity is required, but it yields a numerical gain only if a downstream combinatorial argument certifies substantial singular leaf mass or a cheaper connected simple-transition skeleton.\n\nThe literal leaderboard is degenerate: unconditional constant recovery gives every `0<epsilon\u226410/p` formal soundness and permits score `1`. Accordingly this submission is not marked as a leaderboard improvement.\n\nThe active campaign manifest is stale and contains no campaign-30 evidence hashes. Promotion policy is also inconsistent between the target/configuration and older README text; this must be resolved before any endpoint submission.\n\n## Team Handoff\n\n- `researcher-0008` and `exact-analytic/ea-r1-02`: use [P1]\u2013[P2] verbatim for the `1281`-surplus squarefree interpolant.\n- `researcher-0009`, `researcher-0017`, and `ea-r1-04`: use [P3] for primitive `Z`-separability and the exact `17555` derivative degree; still prove the nominal-discriminant line cap separately.\n- `researcher-0014`, `researcher-0020`, and `researcher-0024`: use [P5]'s simple-transition graph to test two-layer cleanup in which singular leaves remain countable agreement points.\n- `ea-r1-08`, `ea-r1-09`, `researcher-0025`, and `researcher-0029`: use [P4]\u2013[P5] as the self-contained one-polynomial recovery module, with no KTZ black-box dependency and no agreement loss.",
+  "obstructions": [
+    "The active campaign-30 evidence index is empty; historical audited lemmas are navigation aids rather than active proof evidence.",
+    "The candidate epsilon_*=7810919590/21743566849 still depends on unproved energy, identity-transfer, nominal-discriminant, C4-credit, survival, and component-mass nodes.",
+    "The seed threshold D+1=17643 is sharp for arbitrary weighted-degree-D relations.",
+    "Pointwise B_Z(x,f(x))\u22600 is necessary at every intersection used to change lines; generic coprimality alone does not ensure branch uniqueness.",
+    "The literal score objective is already collapsed by unconditional constant-polynomial agreement: a pending score-one proof dominates every analytic threshold.",
+    "DATA_MANIFEST.json is stale and promotion policy is inconsistent across TARGET/configuration and older README material."
+  ],
+  "parameter_regime": "m=2; p=147457; d=87; D=17642; r=600782; deg_Z\u2264202; seed size D+1=17643; derivative cap q_der=17555. Candidate context: j=51837, s=5495, E_D=3559710, C4 credit K=193111783, epsilon_*=7810919590/21743566849, epsilon_*/10=781091959/21743566849.",
+  "proof_steps": [
+    {
+      "dependencies": [],
+      "id": "P1",
+      "proof": "Since D=87\u00b7202+68, reindexing the weighted monomial sum gives V=(7569\u00b72767905+12093\u00b720503+4830\u00b7203)/2=10599598107. Each formal line restriction has degree at most D and imposes at most D+1 equations. The exact constraint count is 600782\u00b717643=10599596826, leaving 1281 dimensions.",
+      "statement": "For p=147457, d=87, D=17642, and r=600782, the weighted monomial count is 10599598107, the formal line-identity constraint count is at most 10599596826, and their difference is 1281.",
+      "status": "proved"
+    },
+    {
+      "dependencies": [
+        "P1"
+      ],
+      "id": "P2",
+      "proof": "Rank-nullity gives a nonzero formal interpolant. A Z-independent interpolant would contain more distinct affine-line factors than its degree. Since deg_Z\u2264202<p, Z-dependence implies A_Z\u22600. Choosing minimum weighted degree, division by one copy of any repeated irreducible factor preserves every identity in the domain F_p[t] and strictly lowers weight, proving squarefreeness.",
+      "statement": "Every set of 600782 distinct degree-at-most-87 labeled affine lines over F_147457 has a nonzero squarefree formal interpolant A of weighted degree at most 17642 with deg_Z(A)\u2264202 and A_Z\u22600.",
+      "status": "proved"
+    },
+    {
+      "dependencies": [
+        "P2"
+      ],
+      "id": "P3",
+      "proof": "Weighted leading forms give deg C+wdeg B=wdeg A. Primitivity excludes irreducible factors of B in F[X,Y]. Every irreducible factor therefore has positive Z-degree below p and nonzero Z-derivative. Squarefreeness and reduction of the product rule modulo each factor yield gcd(B,B_Z)=1. Differentiation lowers weighted degree by 87.",
+      "statement": "If A=CB is the coefficient-content decomposition of the interpolant from P2, then B is primitive and squarefree, gcd(B,B_Z)=1, and wdeg(B_Z)\u226417555.",
+      "status": "proved"
+    },
+    {
+      "dependencies": [
+        "P3"
+      ],
+      "id": "P4",
+      "proof": "Degree-by-degree formal implicit recursion constructs the unique total-degree-87 truncation Q, dividing only by the nonzero seed derivative. Univariate uniqueness identifies Q with every seed label. The polynomial B(X,Y,Q) has total degree at most D and more than D distinct line factors, hence is zero.",
+      "statement": "A weighted-degree-at-most-17642 relation with 17643 distinct degree-at-most-87 root lines through one common simple root has one total-degree-at-most-87 global polynomial root agreeing with every seed line.",
+      "status": "proved"
+    },
+    {
+      "dependencies": [
+        "P4"
+      ],
+      "id": "P5",
+      "proof": "Across a simple accepted intersection, the known restriction Q|L and the next label P_M take the same value and are roots of the same one-variable polynomial. Formal simple-root uniqueness identifies them. Path induction gives the whole line component. Equality with a recovered line label gives agreement at all its accepted points without requiring simplicity there.",
+      "statement": "The polynomial from P4 propagates through the connected graph of identity lines joined at accepted simple-root intersections and agrees at every accepted point incident to the recovered line component.",
+      "status": "proved"
+    },
+    {
+      "dependencies": [
+        "P4",
+        "P5"
+      ],
+      "id": "P6",
+      "proof": "A connected core of point minimum degree 17643 supplies a seed at any point. Every bipartite path between lines becomes a path in the simple-transition line graph. Applying P4 and P5 gives one polynomial on the component with zero agreement loss. Exact score arithmetic shows compatibility with the candidate target but does not prove the other candidate dependencies.",
+      "statement": "Every connected fixed core with point minimum degree 17643, formal B-identities, accepted edges, and pointwise simple roots is governed by one total-degree-at-most-87 polynomial.",
+      "status": "proved"
+    },
+    {
+      "dependencies": [],
+      "id": "P7",
+      "proof": "For D distinct pencil lines with equations ell_i=0, take B=Z-product_i ell_i and zero labels. Then B_Z=1 and all seed identities hold, but B(X,Y,Q)=0 forces Q=product_i ell_i of degree D>87.",
+      "statement": "There is a weighted-degree-17642 relation with 17642 simple seed-line roots and no total-degree-at-most-87 global polynomial root.",
+      "status": "proved"
+    },
+    {
+      "dependencies": [],
+      "id": "P8",
+      "proof": "The relation Z^2-XY supplies 73730 singular root directions but no polynomial root; Z^p-X is squarefree with zero Z-derivative; and X(Z-Y) has an uninformative content line. These respectively test pointwise simplicity, the strict Z-degree bound, and coefficient-content removal.",
+      "statement": "Pointwise simplicity, deg_Z<p for the separability inference, and coefficient-content removal cannot be omitted from the stated package.",
+      "status": "proved"
+    }
+  ],
+  "result_status": "proved",
+  "sampling_model": "A uniformly random affine line of F_147457^2 followed by a uniformly random point on that line; the algebraic package itself is deterministic and preserves this model.",
+  "soundness_ledger": [
+    {
+      "input_bound": "Uniform affine-line-then-point sampling; p^2(p+1)=3206262880419842 incident pairs.",
+      "justification": "All affine lines have p points, so the verifier is uniform on incidences.",
+      "loss": "0",
+      "output_bound": "The sampling normalization is unchanged.",
+      "stage": "sampling context",
+      "status": "proved"
+    },
+    {
+      "input_bound": "r=600782 line identities and weighted degree D=17642.",
+      "justification": "10599598107 coefficients exceed 10599596826 constraints.",
+      "loss": "0; kernel surplus 1281",
+      "output_bound": "A nonzero squarefree interpolant with A_Z\u22600 and deg_Z\u2264202.",
+      "stage": "weighted interpolation",
+      "status": "proved"
+    },
+    {
+      "input_bound": "Squarefree A with deg_Z\u2264202<p.",
+      "justification": "Coefficient-content removal, primitivity, and factorwise Z-separability.",
+      "loss": "No incidence loss; deg C+wdeg B=wdeg A.",
+      "output_bound": "gcd(B,B_Z)=1 and wdeg(B_Z)\u226417555.",
+      "stage": "primitive separability",
+      "status": "proved"
+    },
+    {
+      "input_bound": "17643 distinct seed lines through a point with B_Z\u22600.",
+      "justification": "Formal implicit recursion followed by the more-than-D line-factor argument.",
+      "loss": "0 agreement loss",
+      "output_bound": "One global polynomial Q of total degree at most 87.",
+      "stage": "seed reconstruction",
+      "status": "proved"
+    },
+    {
+      "input_bound": "A connected line component whose transitions occur at accepted simple roots.",
+      "justification": "One-variable formal-root uniqueness along each transition.",
+      "loss": "0 agreement loss",
+      "output_bound": "The same Q equals every component line label and f at every accepted point on those lines.",
+      "stage": "component propagation",
+      "status": "proved"
+    },
+    {
+      "input_bound": "epsilon_*=7810919590/21743566849 and external strict component mass greater than epsilon_*/10.",
+      "justification": "The proved algebraic stages add no loss; all other analytic nodes remain external.",
+      "loss": "0 within this package",
+      "output_bound": "Conditionally, at least 781091960 agreeing points, exceeding the required 781091959.",
+      "stage": "candidate integration",
+      "status": "conditional"
+    }
+  ],
+  "theorem_statement": "Let F=F_147457, d=87, D=17642, and r=600782. Every r distinct degree-at-most-d labeled affine lines admit a nonzero squarefree formal interpolant A of (1,1,d)-weighted degree at most D with deg_Z(A)\u2264202 and A_Z\u22600. Its primitive coefficient-content quotient B satisfies gcd(B,B_Z)=1 and wdeg(B_Z)\u226417555. Any D+1 distinct B-root lines through one common accepted simple root determine one global polynomial Q of total degree at most d; Q propagates across every connected component of identity lines joined at accepted simple-root intersections and agrees with f at every accepted point incident to a recovered line.",
+  "title": "Lossless fixed-field interpolation and simple-transition reconstruction"
+}

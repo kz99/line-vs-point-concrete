@@ -1,0 +1,330 @@
+{
+  "benchmark_improved": true,
+  "counterexample_attempts": [
+    "The 49152-complete-direction construction attains equality in P2's pointwise envelope, but Q=0 already has full global agreement, so it does not refute the theorem.",
+    "A complete bipartite residual would defeat the P7 credit, confirming that C4-freeness is essential; affine point-line incidence graphs are C4-free.",
+    "Exactly 15129 accepted directions attain the point-deletion cap D at every point, but do not contradict survival above the submitted threshold.",
+    "For B=Z(Z+g(X)) with deg(g)=15042, the zero branch has exactly 15042 derivative-zero points on each nonvertical line. This confirms that q=15042 cannot be lowered at this interface.",
+    "The squarefree example Z^p-X has B_Z=0, but is excluded because every submitted relation has deg_Z(B)<=173<p.",
+    "The branch-switching example B=Z^2-X^2 becomes singular where branches meet and is excluded from propagation by the retained-edge condition B_Z(x,f(x))!=0. No counterexample to the exact theorem was found."
+  ],
+  "coverage_complete": true,
+  "dimension_verified": true,
+  "fatal_obstruction": null,
+  "field_regime_verified": true,
+  "fixed_degree_verified": true,
+  "fixed_prime_verified": true,
+  "line_audit": [
+    {
+      "claim": "The audited theorem is exactly the hash-designated claim.",
+      "justification": "SHA-256 of the UTF-8 theorem_statement, without an added newline, is 53c9e438528bd0576c18932996e7607f719d4f9e051243f15e86889aae6b4762.",
+      "reference": "Theorem 1, lines 0065-0075; response.json theorem_statement",
+      "verdict": "valid"
+    },
+    {
+      "claim": "The affine-plane cardinalities and sampling normalization are correct.",
+      "justification": "p^2=21743566849, p(p+1)=21743714306, and p^2(p+1)=3206262880419842. Equal line sizes make uniform-line-then-uniform-point sampling uniform over these incidences.",
+      "reference": "Lines 0015-0022",
+      "verdict": "valid"
+    },
+    {
+      "claim": "P1 correctly certifies the fixed prime.",
+      "justification": "147456=2^14*3^2. The displayed modular powers and gcds satisfy Pocklington's criterion for both prime divisors 2 and 3 of the fully factored p-1.",
+      "reference": "P1, lines 0099-0111",
+      "verdict": "valid"
+    },
+    {
+      "claim": "P2's three-direction envelope and averaging are correct.",
+      "justification": "The consecutive-ratio calculation places the unique maximum at a=49152. Summing aH_a<=K(h-a) gives E[U_R]/N<=K(1-rho), so some deterministic three-direction choice satisfies it.",
+      "reference": "P2, lines 0113-0139",
+      "verdict": "valid"
+    },
+    {
+      "claim": "P3's interpolation space is feasible and produces a squarefree Z-dependent relation.",
+      "justification": "The exact surplus is 6693082347-6693073230=9117. A Z-free relation would have more distinct line factors than its degree. Since deg_Z(A)<p, Z-dependence implies A_Z!=0; minimal weighted degree excludes repeated factors after specialization to the domain F_p[t].",
+      "reference": "P3, lines 0141-0155",
+      "verdict": "valid"
+    },
+    {
+      "claim": "P4 correctly transfers accepted incidences to identity lines.",
+      "justification": "At covered accepted points, a selected accepted line gives A(x,f(x))=0. Each nonidentity restriction has degree at most D and therefore at most D covered accepted roots, giving the displayed inequality without double counting.",
+      "reference": "P4, lines 0157-0167",
+      "verdict": "valid"
+    },
+    {
+      "claim": "P5's primitive cleanup and exceptional-line bound are valid.",
+      "justification": "Weighted degrees add under A=CB. Primitivity and deg_Z(B)<p exclude inseparable or Z-free factors, giving gcd(B,B_Z)=1. The nominal discriminant has XY-degree at most (nu-1)(2W-87nu), and the content-plus-discriminant count is maximized at nu=173, yielding 2615604.",
+      "reference": "P5, lines 0169-0191",
+      "verdict": "valid"
+    },
+    {
+      "claim": "P5's derivative-root cap is valid.",
+      "justification": "On a nonexceptional identity line the derivative restriction is explicitly nonzero and has degree at most wdeg(B_Z)<=W-87<=15042, so ordinary root counting applies.",
+      "reference": "P5, lines 0193-0197",
+      "verdict": "valid"
+    },
+    {
+      "claim": "P6's residual C4 bound is exact.",
+      "justification": "At 646374 edges the convex minimum of the common-point-pair count equals binom(5194,2); one additional edge raises it by 42. C4-freeness forbids exceeding the available point pairs.",
+      "reference": "P6, lines 0199-0213",
+      "verdict": "valid"
+    },
+    {
+      "claim": "P7's empty-core credit is valid for every n>=0.",
+      "justification": "For n>=15129, stopping an emptying order at the 5194-by-15129 corner charges deleted vertices once and leaves at most 646374 edges. For n<15129, the stated endpoint margin makes the trivial Mn bound sufficient.",
+      "reference": "P7, lines 0215-0235",
+      "verdict": "valid"
+    },
+    {
+      "claim": "P8's consolidated ledger and survival comparison are correct.",
+      "justification": "Collecting coefficients gives C_*=769296828797543. Exact arithmetic gives R0<7349491214/M and positive margin 1249813349/27810935621062861282, so acceptance at the weak threshold cannot be completely peeled.",
+      "reference": "P8, lines 0237-0283",
+      "verdict": "valid"
+    },
+    {
+      "claim": "P9 correctly forces every component above epsilon/10 density.",
+      "justification": "The affine-plane second moment yields the stated centered incidence inequality. Splitting at ell=ca gives the necessary condition; beta-tau>0, c tau<1/2, F(tau)>0, F'(tau)<0, and F''>0 exclude every a<=tau.",
+      "reference": "P9, lines 0285-0337",
+      "verdict": "valid"
+    },
+    {
+      "claim": "P10 reconstructs and propagates one total-degree-at-most-87 polynomial.",
+      "justification": "Simple-root recursion constructs the unique degree-87 truncation without factorial division. Its restrictions equal at least D+1 seed labels; consequently B(X,Y,Q) of degree at most D vanishes on D+1 distinct lines and is zero. Simple-root uniqueness then propagates this same Q through the connected component.",
+      "reference": "P10, lines 0339-0351",
+      "verdict": "valid"
+    },
+    {
+      "claim": "P11 satisfies the admissibility, recovery, and leaderboard arithmetic.",
+      "justification": "epsilon exceeds 957/1474570; epsilon/10 exceeds 174/147457; ceil(epsilon M/10)=734949122; and ceil(epsilon M)=7349491214, which is 461429563 below the comparison score.",
+      "reference": "P11, lines 0353-0375",
+      "verdict": "valid"
+    },
+    {
+      "claim": "The deterministic exact-arithmetic certificate replays successfully.",
+      "justification": "The embedded Fraction/integer checker completed with every assertion passing. It covers primality residues, interpolation, exceptional sets, C4 credit, consolidation, survival, component endpoint, recovery, and comparison score.",
+      "reference": "Exact Arithmetic Replay, lines 0397-0467",
+      "verdict": "valid"
+    }
+  ],
+  "literature_audit": [
+    {
+      "claim": "There is no load-bearing literature dependency.",
+      "justification": "Interpolation, primitive cleanup, discriminant counting, C4 peeling, component conversion, and simple-root reconstruction are all proved in P3-P10 rather than imported.",
+      "reference": "Lines 0059-0061; literature_dependencies=[]",
+      "verdict": "valid"
+    },
+    {
+      "claim": "Pocklington's criterion is applicable as the standard imported primality lemma.",
+      "justification": "The full factorization of p-1 is supplied, its factored part exceeds sqrt(p), and the required congruence and gcd conditions are certified for q=2 and q=3.",
+      "reference": "Pocklington criterion as invoked in P1",
+      "verdict": "valid"
+    },
+    {
+      "claim": "The mentioned KTZ lemmas are not dependencies of the proof chain.",
+      "justification": "No step invokes a KTZ statement; P3, P5, P9, and P10 contain the needed arguments and hypotheses directly.",
+      "reference": "Lines 0059-0061 and P3-P10",
+      "verdict": "valid"
+    }
+  ],
+  "proof_chain_audit": [
+    {
+      "claim": "The fixed affine-plane and field setup is correct.",
+      "justification": "All cardinalities and the primality certificate check exactly.",
+      "reference": "P1",
+      "verdict": "valid"
+    },
+    {
+      "claim": "A suitable union of three complete directions exists with the claimed uncovered-incidence loss.",
+      "justification": "The exact hypergeometric miss probability, pointwise maximization, and averaging preserve all quantifiers.",
+      "reference": "P2",
+      "verdict": "valid"
+    },
+    {
+      "claim": "The selected line labels admit the required squarefree weighted interpolant.",
+      "justification": "The dimension surplus, degree restriction, Z-dependence, characteristic bound, and repeated-factor removal all apply.",
+      "reference": "P3",
+      "verdict": "valid"
+    },
+    {
+      "claim": "All but the charged covered incidences lie on identity lines.",
+      "justification": "The degree-D univariate root bound yields exactly the P4 transfer inequality.",
+      "reference": "P4",
+      "verdict": "valid"
+    },
+    {
+      "claim": "Exceptional lines and derivative-zero incidences are bounded as claimed.",
+      "justification": "Content factors, nominal discriminant degree, characteristic assumptions, and q=15042 root counting are all justified.",
+      "reference": "P5",
+      "verdict": "valid"
+    },
+    {
+      "claim": "The residual affine incidence corner has at most 646374 edges.",
+      "justification": "C4-freeness and the exact convex pair-count certificate prove the bound.",
+      "reference": "P6",
+      "verdict": "valid"
+    },
+    {
+      "claim": "An empty two-sided core receives the exact credit 156513678.",
+      "justification": "The stopping argument handles n>=D, and the separately proved n<D case closes the quantifier over every residual line count.",
+      "reference": "P7",
+      "verdict": "valid"
+    },
+    {
+      "claim": "Acceptance at epsilon forces a nonempty simple-root core.",
+      "justification": "P2, P4, P5, and P7 combine without duplicated losses; the exact survival margin is strictly positive.",
+      "reference": "P8",
+      "verdict": "valid"
+    },
+    {
+      "claim": "A surviving connected component has more than epsilon/10 of all points.",
+      "justification": "The minimum-degree constraints and exact affine incidence inequality imply the displayed necessary condition, which the rational endpoint certificate excludes on [0,tau].",
+      "reference": "P9",
+      "verdict": "valid"
+    },
+    {
+      "claim": "One polynomial governs an entire connected component.",
+      "justification": "The local implicit reconstruction, D+1-line identity argument, and edge-by-edge simple-root propagation are self-contained and preserve total degree 87.",
+      "reference": "P10",
+      "verdict": "valid"
+    },
+    {
+      "claim": "The component conclusion meets the exact theorem contract and score.",
+      "justification": "The maximum recovery fraction equals epsilon/10, integer rounding gives 734949122 agreements, and the trigger score is 7349491214.",
+      "reference": "P11",
+      "verdict": "valid"
+    },
+    {
+      "claim": "The primality step's imported criterion has all hypotheses available.",
+      "justification": "The P1 certificate supplies a^(p-1)=1 and the required coprimality checks for every prime divisor of the fully factored p-1.",
+      "reference": "Pocklington criterion used in P1",
+      "verdict": "valid"
+    }
+  ],
+  "proof_chain_complete": true,
+  "quantifier_audit": [
+    {
+      "claim": "The theorem remains universal over every point table and complete degree-87 line table.",
+      "justification": "No genericity or probabilistic assumption is imposed on f or the labels; random direction selection is used only as an averaging proof of deterministic existence.",
+      "reference": "Theorem 1 and P2-P11",
+      "verdict": "valid"
+    },
+    {
+      "claim": "The dimension is exactly m=2.",
+      "justification": "The proof uses p+1 directions, unique lines through point pairs, C4-free affine incidence, and the bivariate second-moment identity; no lifting is used.",
+      "reference": "P1, P6, P9",
+      "verdict": "valid"
+    },
+    {
+      "claim": "The field remains exactly F_147457.",
+      "justification": "P1 certifies this prime, and every algebraic and counting step is performed over that field without extension.",
+      "reference": "P1-P11",
+      "verdict": "valid"
+    },
+    {
+      "claim": "The sampling convention is unchanged.",
+      "justification": "rho is normalized by p^2(p+1), exactly the uniform affine-line followed by uniform-point distribution.",
+      "reference": "Lines 0017-0024 and P8",
+      "verdict": "valid"
+    },
+    {
+      "claim": "The degree convention remains total degree at most 87.",
+      "justification": "Line restrictions use univariate degree 87, while P10 constructs a bivariate polynomial whose homogeneous truncation has total degree at most 87.",
+      "reference": "P3, P5, P10",
+      "verdict": "valid"
+    },
+    {
+      "claim": "The conclusion is about one polynomial, not a list.",
+      "justification": "After selecting any surviving component, P10 propagates a single fixed Q across every point of that component.",
+      "reference": "P9-P10",
+      "verdict": "valid"
+    },
+    {
+      "claim": "Acceptance at least epsilon, including equality, is covered.",
+      "justification": "The empty-core upper bound is strictly below epsilon, so the weak premise rho>=epsilon forces survival.",
+      "reference": "P8",
+      "verdict": "valid"
+    },
+    {
+      "claim": "The exact max(174/p,epsilon/10) recovery requirement is preserved.",
+      "justification": "epsilon/10-174/p is the positive fraction 3546458017/108717834245, and the proof obtains strictly more than epsilon/10 agreement.",
+      "reference": "P9-P11",
+      "verdict": "valid"
+    }
+  ],
+  "recovery_ratio_verified": true,
+  "required_changes": [],
+  "scope_verified": "bivariate_theorem",
+  "soundness_audit": [
+    {
+      "claim": "Sampling denominator",
+      "justification": "Uniform line-then-point sampling gives N=3206262880419842 equiprobable incidences.",
+      "reference": "Sampling ledger",
+      "verdict": "valid"
+    },
+    {
+      "claim": "Three-direction loss",
+      "justification": "The exact loss is at most K(1-rho)N with K=1610629120/10871857153.",
+      "reference": "P2 / soundness ledger",
+      "verdict": "valid"
+    },
+    {
+      "claim": "Interpolation feasibility",
+      "justification": "6693082347 monomials exceed 6693073230 constraints by 9117.",
+      "reference": "P3 / soundness ledger",
+      "verdict": "valid"
+    },
+    {
+      "claim": "Identity-extension loss",
+      "justification": "Nonidentity lines contribute at most D(Lambda-t) covered accepted incidences; uncovered ones are charged once to U_R.",
+      "reference": "P4 / soundness ledger",
+      "verdict": "valid"
+    },
+    {
+      "claim": "Algebraic-cleanup losses",
+      "justification": "At most pe exceptional-line incidences and q(t-e) derivative-zero incidences are removed, with e<=2615604 and q=15042.",
+      "reference": "P5 / soundness ledger",
+      "verdict": "valid"
+    },
+    {
+      "claim": "C4-sharpened peel",
+      "justification": "Complete deletion costs at most DM+5194(t-e)-156513678 in the cleaned graph.",
+      "reference": "P6-P7 / soundness ledger",
+      "verdict": "valid"
+    },
+    {
+      "claim": "Fixed-loss consolidation",
+      "justification": "The three positive-coefficient terms are 440005802696216, 328958422858521, and 332759756484; subtracting the credit gives C_*=769296828797543.",
+      "reference": "P8 / soundness ledger",
+      "verdict": "valid"
+    },
+    {
+      "claim": "Core survival threshold",
+      "justification": "R0=1244293905093223/3681259956715522 lies below 7349491214/21743566849, with exact positive margin 1249813349/27810935621062861282.",
+      "reference": "P8 / soundness ledger",
+      "verdict": "valid"
+    },
+    {
+      "claim": "Component conversion",
+      "justification": "The exact endpoint certificate proves every component density is strictly greater than tau=epsilon/10.",
+      "reference": "P9 / soundness ledger",
+      "verdict": "valid"
+    },
+    {
+      "claim": "Single-polynomial recovery",
+      "justification": "P10 loses no point agreement and produces one total-degree-at-most-87 Q throughout the chosen component.",
+      "reference": "P10 / soundness ledger",
+      "verdict": "valid"
+    },
+    {
+      "claim": "Recovery and score arithmetic",
+      "justification": "The component has at least 734949122 points. The trigger score is 7349491214 versus comparison score 7810920777, an improvement of 461429563.",
+      "reference": "P11 / exact checker",
+      "verdict": "valid"
+    }
+  ],
+  "summary": "Accept. The exact hash-designated theorem is proved for m=2, p=147457, total degree d=87, and uniform affine-line-then-point sampling. The full exact ledger forces a nonempty simple-root core at epsilon=7349491214/21743566849; every component exceeds epsilon/10; and P10 recovers one polynomial agreeing on at least 734949122 points. The admissibility floor and max(174/p,epsilon/10) contract hold. Its absolute score 7349491214 improves the comparison score by 461429563.",
+  "unfixable": false,
+  "verdict": "accept",
+  "verified_claim_sha256": "53c9e438528bd0576c18932996e7607f719d4f9e051243f15e86889aae6b4762",
+  "verified_soundness": 0.33800761692132436
+}

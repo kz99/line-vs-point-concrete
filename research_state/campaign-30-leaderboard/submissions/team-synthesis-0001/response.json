@@ -1,0 +1,206 @@
+{
+  "title": "Record-equivalent synthesis of the C4-sharpened fixed-instance theorem",
+  "dimension": 2,
+  "field_regime": "prime",
+  "fixed_prime": 147457,
+  "fixed_degree": 87,
+  "result_status": "proved",
+  "claim_scope": "bivariate_theorem",
+  "leaderboard_submission": false,
+  "benchmark_improved": false,
+  "claimed_soundness": 0.3380076168821833,
+  "guaranteed_recovery_fraction": 0.033800761719726805,
+  "guaranteed_recovery_agreement_count": 734949122,
+  "theorem_statement": "For p=147457 and d=87, every point table and degree-at-most-87 affine-line table accepted under uniform affine-line-then-point sampling with probability at least 3380076168821833/10^16 admit one polynomial Q in F_p[X,Y] of total degree at most 87 agreeing with the point table on more than 3674745607/108717834245 of F_p^2, hence on at least 734949122 points.",
+  "parameter_regime": "m=2; p=147457; total degree d=87; epsilon=3380076168821833/10^16; score=7349491214",
+  "sampling_model": "Uniform affine line in F_147457^2 followed by a uniform point on that line.",
+  "global_conclusion": "The completed artifacts combine into a self-contained theorem at the existing verified agreement-count score 7349491214. Incidence-lattice normalization lowers the numerical trigger within the same score cell. No completed module proves a strictly smaller agreement-count score.",
+  "literature_dependencies": [],
+  "proof_steps": [
+    {
+      "id": "P1",
+      "statement": "The integer 147457 is prime, and F_147457^2 has 21743566849 points, 21743714306 affine lines, and 3206262880419842 point-line incidences.",
+      "status": "proved",
+      "proof": "Pocklington's criterion with p-1=2^14*3^2 certifies primality; affine-plane counting gives the three cardinalities.",
+      "dependencies": []
+    },
+    {
+      "id": "P2",
+      "statement": "Every accepted-incidence graph of density rho admits three complete directions with uncovered accepted-incidence density at most (1610629120/10871857153)(1-rho).",
+      "status": "proved",
+      "proof": "Average over three directions and maximize the exact pencil miss expression over integral accepted degrees; the maximum is at degree 49152.",
+      "dependencies": ["P1"]
+    },
+    {
+      "id": "P3",
+      "statement": "The 442371 selected labeled lines admit a nonzero squarefree interpolant of (1,1,87)-weighted degree at most 15129, Z-degree at most 173, and nonzero Z-derivative.",
+      "status": "proved",
+      "proof": "There are 6693082347 eligible monomials and at most 6693073230 constraints. A minimum-weight interpolant is Z-dependent and squarefree.",
+      "dependencies": ["P1", "P2"]
+    },
+    {
+      "id": "P4",
+      "statement": "Adding every line with more than 15129 covered accepted points produces formal identity lines at total loss at most 15129 times the number of omitted lines.",
+      "status": "proved",
+      "proof": "The restricted interpolant has degree at most 15129 and more than 15129 distinct roots on every added line.",
+      "dependencies": ["P3"]
+    },
+    {
+      "id": "P5",
+      "statement": "After primitive factorization, at most 2615604 identity lines are exceptional and each regular identity line has at most 15042 derivative-zero accepted points.",
+      "status": "proved",
+      "proof": "Primitivity, squarefreeness, the Z-degree cutoff, the nominal projective discriminant, and univariate root counting give the exact caps.",
+      "dependencies": ["P3", "P4"]
+    },
+    {
+      "id": "P6",
+      "statement": "A C4-free 5194-by-15129 bipartite graph has at most 646374 edges, yielding an empty-core peeling credit of 156513678 incidences.",
+      "status": "proved",
+      "proof": "Convex pair counting is exact at 646374 edges and fails after one additional edge; induction extends the corner bound to every deletion order.",
+      "dependencies": ["P1"]
+    },
+    {
+      "id": "P7",
+      "statement": "Every realized acceptance density above 1244293905093223/3681259956715522 leaves a nonempty simple-root core with minimum point degree 15130 and minimum line degree 5195.",
+      "status": "proved",
+      "proof": "Combining P2-P6 gives fixed charge 769296828797543 and the stated exact survival frontier.",
+      "dependencies": ["P2", "P3", "P4", "P5", "P6"]
+    },
+    {
+      "id": "P8",
+      "statement": "Every connected component of the retained core contains more than (3674745607/108717834245) times 21743566849 point vertices.",
+      "status": "proved",
+      "proof": "The exact centered affine incidence inequality and the two minimum-degree bounds contradict every component density at or below the threshold.",
+      "dependencies": ["P7"]
+    },
+    {
+      "id": "P9",
+      "statement": "Each retained connected component determines one polynomial of total degree at most 87 agreeing with f on every point vertex of that component.",
+      "status": "proved",
+      "proof": "Simple-root homogeneous lifting on a 15130-line seed yields one global root; the same unique recursion propagates it across every simple accepted transition.",
+      "dependencies": ["P3", "P5", "P7"]
+    },
+    {
+      "id": "P10",
+      "statement": "Acceptance at least 3380076168821833/10^16 implies the conclusion of the theorem, with score 7349491214 and at least 734949122 recovered points.",
+      "status": "proved",
+      "proof": "Acceptance lies on the 1/3206262880419842 lattice, and its first value above the trigger exceeds the survival frontier. P8-P9 give the stronger recovery fraction, and exact arithmetic checks the admissibility and recovery floors.",
+      "dependencies": ["P7", "P8", "P9"]
+    }
+  ],
+  "soundness_ledger": [
+    {
+      "stage": "three-direction coverage",
+      "input_bound": "acceptance density rho",
+      "output_bound": "uncovered density at most (1610629120/10871857153)(1-rho)",
+      "loss": "exact pencil envelope",
+      "justification": "P2",
+      "status": "proved"
+    },
+    {
+      "stage": "weighted interpolation",
+      "input_bound": "442371 selected labeled lines",
+      "output_bound": "squarefree weighted-degree-15129 relation",
+      "loss": "no incidence loss; dimension surplus 9117",
+      "justification": "P3",
+      "status": "proved"
+    },
+    {
+      "stage": "identity transfer",
+      "input_bound": "covered accepted incidences",
+      "output_bound": "formal identities on retained lines",
+      "loss": "15129 per omitted line",
+      "justification": "P4",
+      "status": "proved"
+    },
+    {
+      "stage": "primitive cleanup",
+      "input_bound": "formal identity lines",
+      "output_bound": "simple accepted roots on regular lines",
+      "loss": "at most 2615604 exceptional lines and 15042 derivative roots per regular line",
+      "justification": "P5",
+      "status": "proved"
+    },
+    {
+      "stage": "C4 peeling",
+      "input_bound": "two-sided emptying order",
+      "output_bound": "minimum-degree core or deletion certificate",
+      "loss": "credit of 156513678 incidences",
+      "justification": "P6",
+      "status": "proved"
+    },
+    {
+      "stage": "core survival",
+      "input_bound": "fixed charge 769296828797543",
+      "output_bound": "survival above 1244293905093223/3681259956715522",
+      "loss": "all previous charges consolidated exactly once",
+      "justification": "P7",
+      "status": "proved"
+    },
+    {
+      "stage": "component conversion",
+      "input_bound": "minimum degrees 15130 and 5195",
+      "output_bound": "component density greater than 3674745607/108717834245",
+      "loss": "one exact centered Cauchy-Schwarz inequality",
+      "justification": "P8",
+      "status": "proved"
+    },
+    {
+      "stage": "polynomial reconstruction",
+      "input_bound": "one connected simple-root component",
+      "output_bound": "one total-degree-at-most-87 polynomial",
+      "loss": "none",
+      "justification": "P9",
+      "status": "proved"
+    },
+    {
+      "stage": "incidence-lattice conversion",
+      "input_bound": "epsilon=3380076168821833/10^16",
+      "output_bound": "realized acceptance strictly above the survival frontier",
+      "loss": "none",
+      "justification": "P10",
+      "status": "proved"
+    },
+    {
+      "stage": "final recovery contract",
+      "input_bound": "epsilon >= 957/1474570",
+      "output_bound": "agreement at least max(174/147457,epsilon/10)",
+      "loss": "guaranteed count 734949122",
+      "justification": "P10",
+      "status": "proved"
+    }
+  ],
+  "counterexample_attempts": [
+    "The accepted-degree 49152 construction saturates the point-degree-only direction envelope.",
+    "The relation B=Z(Z+g(X)) saturates the whole-relation derivative charge while an individual factor already yields the global polynomial.",
+    "The adjacent choice s=5194 improves survival but fails the present component certificate.",
+    "An 86-color point table refutes the weak theorem required by the natural 3%-Johnson splice.",
+    "Inseparable relations such as Z^p-X exceed the weighted-degree budget."
+  ],
+  "characteristic_audit": [
+    "Pocklington's criterion certifies p=147457 prime.",
+    "The bounds deg_Z B <= 173 < p and 15042 < p justify ordinary differentiation and root counting.",
+    "The discriminant argument does not invert a specialized leading coefficient.",
+    "Reconstruction divides only by a nonzero simple-root derivative.",
+    "No extension field or dimension bootstrap is used."
+  ],
+  "finite_sanity_checks": [
+    "certificate.py uses exact fractions and integers, no randomness or floating point.",
+    "The exact replay prints team-synthesis-0001 exact arithmetic: PASS.",
+    "The certificate verifies the admissibility floor, recovery maximum, score, recovery count, interpolation surplus, C4 credit, fixed charge, survival frontier, component endpoint, and incidence-lattice conversion."
+  ],
+  "obstructions": [
+    "The theorem has the same absolute agreement-count score as the current verified record.",
+    "The D'=15128,s=5194 improvement has a negative endpoint under the current component inequality.",
+    "A one-score improvement at D=15129,s=5195 requires at least 25216 additional fixed-incidence credits.",
+    "The D=17642 reconstruction package does not directly substitute at D=15129.",
+    "The below-Johnson size-90 list-cover interface is unproved, and the natural 3%-Johnson bridge is false."
+  ],
+  "next_tasks": [
+    "Strengthen the component inequality enough to certify D'=15128,s=5194 at score 7349471019.",
+    "Save at least 25216 fixed incidences at D=15129,s=5195 through factor-aware cleanup or another exact credit.",
+    "Develop a label-sensitive direction selector that beats the point-degree-only envelope.",
+    "Run one independent audit only if this synthesis is ever proposed as a leaderboard artifact after a strict score improvement."
+  ],
+  "note_markdown": "# Abstract\n\nThis submission consolidates every completed campaign-30 artifact into one self-contained theorem for m=2, p=147457, and d=87. Acceptance at least 3380076168821833/10^16 yields one total-degree-at-most-87 polynomial agreeing on more than 3674745607/108717834245 of the plane, hence at least 734949122 points. Its score is 7349491214, equal to the verified record, so it is intentionally not a leaderboard submission.\n\n# Test and Notation\n\nThe test samples a uniform affine line and then a uniform point on it. There are 21743566849 points and 3206262880419842 incidences. The formal recovery requirement is max(174/147457,epsilon/10), with epsilon at least 957/1474570.\n\n# Prior Results\n\nResearchers 2 and 3 independently proved and received accepting audits for the C4-sharpened chain at the same score. Researcher 1 proved the incidence-lattice normalization used here. Researchers 4 and 5 supplied off-path algebraic and list-decoding modules.\n\n# Theorem\n\nThe exact theorem is stated in theorem_statement and proved in P1-P10.\n\n# Proof or Conditional Proof\n\nThree-direction averaging, weighted interpolation, identity transfer, primitive cleanup, the exact C4 peeling credit, core survival, affine component mixing, simple-root reconstruction, and incidence-lattice normalization form a complete proved chain. The canonical note.md contains the full derivation and exact certificate.py replays every finite inequality.\n\n# Soundness Ledger\n\nThe fixed charge is 769296828797543, the continuous survival frontier is 1244293905093223/3681259956715522, and the recovered component has density greater than 3674745607/108717834245. No loss is hidden in reconstruction or lattice conversion.\n\n# Counterexample Attempts\n\nThe direction envelope and whole-relation derivative charge are locally sharp. The adjacent lower-s choice fails the current component certificate. The natural 3%-Johnson weak bridge is false.\n\n# Characteristic Audit\n\nThe prime, derivative, Z-degree, discriminant, and root-count conditions are checked explicitly over F_147457.\n\n# Limitations\n\nNo completed result lowers the absolute score below 7349491214. The present synthesis hash has not itself been independently audited, and the remaining modules do not close a strict improvement."
+}

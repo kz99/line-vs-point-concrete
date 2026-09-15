@@ -1,0 +1,24 @@
+{
+  "fixed_degree": 87,
+  "fixed_prime": 147457,
+  "lower_is_better": true,
+  "points": [
+    {
+      "agreement_count": 7349491214,
+      "gain": 0.021221429099622657,
+      "job_id": "researcher-0002",
+      "previous_best": 0.359229046020947,
+      "recovery_agreement_count": 734949122,
+      "soundness": 0.33800761692132436,
+      "theorem_sha256": "0deb37bf169eaa842a2de0ca23041121bf46964ea643bdd6c7df36164be0370f",
+      "title": "A C4-Free Fixed-Parameter Improvement to the Bivariate KTZ Chain",
+      "verified_at": "2026-09-15T08:34:17Z",
+      "verifier_ids": [
+        "verifier-a-researcher-0002"
+      ]
+    }
+  ],
+  "score_metric": "guaranteed agreement-count equivalent ceil(epsilon * p^2)",
+  "score_unit": "points in F_p^2",
+  "verification_threshold": 1
+}

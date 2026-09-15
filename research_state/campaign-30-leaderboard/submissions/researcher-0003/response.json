@@ -1,0 +1,261 @@
+{
+  "benchmark_improved": true,
+  "characteristic_audit": [
+    "Pocklington certificate: 147457-1=2^14*3^2, 10^147456=1, 10^73728=-1, and 10^49152=78348 modulo 147457, with both required gcds equal to 1.",
+    "The line-label degree is 87, the interpolation weight is 15129<147457, and every univariate restriction used for root counting has degree at most 15129.",
+    "The primitive relation has Z-degree at most 173<147457, so every positive Z-exponent is detected by the ordinary derivative.",
+    "Nominal-degree homogenization and Euler's identity use only division by 1<=nu<=173, never by a specialized leading coefficient.",
+    "Formal implicit reconstruction divides only by a retained nonzero value of B_Z; it uses no factorials or higher derivatives.",
+    "Interpolation has multiplicity one. No irreducibility, randomized computation, floating-point inequality, or Hasse-derivative assumption is used."
+  ],
+  "claim_scope": "bivariate_theorem",
+  "claimed_soundness": 0.33800761692132436,
+  "counterexample_attempts": [
+    "For f=0, labels zero on 49152 complete directions and one elsewhere attain equality in the pointwise three-direction envelope. Thus that envelope cannot be improved using only the accepted degree at each point, although direction-correlation arguments may improve the existential selection.",
+    "A complete bipartite residual violates the new peeling credit if C4-freeness is removed, so the affine-plane no-K_{2,2} property is essential.",
+    "Choosing exactly 15129 fully accepted directions gives accepted degree 15129 at every point and attains the generic point-peeling charge 15129*p^2.",
+    "For g(X)=product_{a=0}^{15041}(X-a) and B=Z(Z+g(X)), zero line labels are formal roots and B_Z(X,Y,0)=g(X). Every nonvertical line has exactly 15042 derivative-zero points, showing the regular-line derivative cap is sharp without factor-aware recovery.",
+    "The squarefree polynomial Z^p-X has zero Z-derivative; the proof excludes it through deg_Z(B)<p, not squarefreeness alone.",
+    "For B=Z^2-X^2, incompatible branches meet only at B_Z=0. Pointwise simplicity is therefore load-bearing for propagation."
+  ],
+  "dimension": 2,
+  "field_regime": "prime",
+  "finite_sanity_checks": [
+    "p^2=21743566849, p(p+1)=21743714306, and p^2(p+1)=3206262880419842.",
+    "The weighted monomial count is 6693082347, versus 442371*15130=6693073230 constraints, leaving surplus 9117.",
+    "The residual C4 calculation is 15129*binom(42,2)+10956*42=13486221=binom(5194,2), while one further edge raises the convex lower bound by 42.",
+    "The residual edge cap is 646374 and the empty-core credit is 2*15129*5194-646374=156513678.",
+    "The fixed charge after the credit is 769296828797543 incidences.",
+    "The survival boundary is 1244293905093223/3681259956715522, strictly between 7349491213/21743566849 and 7349491214/21743566849.",
+    "The exact survival margin is 1249813349/27810935621062861282.",
+    "The component endpoint polynomial equals 498727149435244/30939665878432433176225>0 and its derivative at the endpoint equals -13793284387/4837976433085<0.",
+    "ceil(epsilon*p^2)=7349491214 and ceil(epsilon*p^2/10)=734949122.",
+    "The comparison decimal 0.35922904602094702 has count 7810920777, so the proved count improves it by 461429563."
+  ],
+  "fixed_degree": 87,
+  "fixed_prime": 147457,
+  "global_conclusion": "The exact C4-free residual-corner credit lowers the three-direction affine-plane theorem to epsilon=7349491214/21743566849. Acceptance at this threshold forces one total-degree-at-most-87 polynomial agreeing on at least 734949122 points. The proof is self-contained, satisfies the admissibility floor and recovery maximum, and improves the stated comparison count by 461429563.",
+  "guaranteed_recovery_agreement_count": 734949122,
+  "guaranteed_recovery_fraction": 0.033800761719726805,
+  "leaderboard_submission": true,
+  "literature_dependencies": [],
+  "next_tasks": [
+    "Integration and optimization modules researcher-0013, researcher-0019, researcher-0022, and researcher-0024 should use score 7349491214 and fixed charge 769296828797543.",
+    "The combinatorial-core module should import P6-P7 with residual cap 646374 and credit 156513678; the separate n<15129 case must be retained.",
+    "The energy and direction module researcher-0011 should seek a selector exploiting correlations among accepted directions, since the pointwise envelope is locally sharp.",
+    "The interpolation and algebra modules should retain t=3, r=442371, D=15129, q=15042, nu<=173, and E_D=2615604.",
+    "The reconstruction modules researcher-0014 and researcher-0020 may use P10 as a self-contained substitute for external lifting and propagation lemmas.",
+    "The certification module researcher-0016 should replay the embedded exact checker and obtain two exact-hash independent audits."
+  ],
+  "note_markdown": "# C4-sharpened three-direction soundness at `(p,d)=(147457,87)`\n\n## Abstract\n\nFor the affine line-versus-point test on `F_147457^2`, I prove the admissible soundness threshold\n\n`epsilon = 7349491214/21743566849 = 0.33800761692132436...`.\n\nAcceptance at least `epsilon` forces one bivariate polynomial of total degree at most `87` to agree with the point table on more than `epsilon/10` of the plane, hence on at least `734949122` points.\n\nThe new fixed-instance ingredient is an exact affine-incidence credit in the final two-sided peel. A `C4`-free residual with `5194` point vertices and `15129` line vertices has at most `646374` edges. Consequently an empty `(15130,5195)` core costs `156513678` fewer incidences than separate point and line charging. Spliced into a three-complete-direction pencil argument, this lowers the previous unaudited three-direction count by `924` and the stated comparison count by `461429563`.\n\n## Test and Notation\n\nLet `F=F_147457`, `d=87`, and\n\n- `h=p+1=147458`;\n- `M=p^2=21743566849` points;\n- `Lambda=p(p+1)=21743714306` affine lines;\n- `N=p^2(p+1)=3206262880419842` incident point-line pairs.\n\nThe verifier samples a uniform affine line and then a uniform point on it. Since every line has `p` points, this is uniform sampling from the `N` incidences.\n\nFor the accepted incidence graph `G`, write `rho=|E(G)|/N`. The auxiliary parameters are\n\n| parameter | value |\n|---|---:|\n| selected directions | `t=3` |\n| selected lines | `r=3p=442371` |\n| weighted degree | `D=15129` |\n| point-core degree | `D+1=15130` |\n| line-core degree | `s=5195` |\n| line-deletion cap | `b=s-1=5194` |\n| derivative root cap | `q=D-d=15042` |\n| maximum Z-degree | `nu<=173` |\n| exceptional-line cap | `E_D=2615604` |\n| pencil-envelope maximizer | `j=49152` |\n| pencil coefficient | `K=1610629120/10871857153` |\n| residual edge cap | `Z_*=646374` |\n| C4 peeling credit | `kappa=156513678` |\n| fixed charge after credit | `C_*=769296828797543` |\n\nThe theorem uses\n\n`epsilon=7349491214/M`\n\nand its acceptance premise is equivalently at least\n\n`epsilon*N=1083741275434012`\n\naccepted incidences.\n\n## Prior Results\n\nThe authoritative campaign-30 soundness history contains no verified point. The comparison threshold supplied for this task is the terminating decimal `0.35922904602094702`, whose absolute count is `7810920777`.\n\nThe prior campaign-30 submission by researcher-0003 derived the three-direction tuple `(D,s)=(15129,5195)` and count `7349492138`, but did not use a `C4` credit. Researcher-0002 proved the same style of residual-corner lemma at the different tuple `(17642,5494)`. Neither campaign-30 artifact has an audit verdict. The present proof recomputes the residual corner at the new tuple and includes every other load-bearing step explicitly.\n\nThe historical campaign-10 theorem at `0.359229046020947` was independently accepted twice. Its proof is comparison material only. No theorem from that campaign is imported here.\n\nThere is no load-bearing literature dependency. The interpolation, primitive cleanup, component estimate, and simple-root reconstruction are proved directly. In particular, the analogous KTZ revision-1 Lemmas 2.5, 2.7, and 6.1 are not invoked.\n\n## Theorem\n\n### Theorem 1\n\nFor `p=147457`, `d=87`, every function `f:F_p^2 -> F_p`, and every assignment of a degree-at-most-87 polynomial to every affine line, if\n\n`Pass(f,P) >= 7349491214/21743566849`,\n\nthen there is a polynomial `Q in F_p[X,Y]` of total degree at most `87` satisfying\n\n`Pr_x[Q(x)=f(x)] >= max(174/147457, 3674745607/108717834245)`.\n\nMoreover, `Q` agrees with `f` on at least `734949122` points.\n\n### Lemma 2\n\nFor every accepted incidence graph of density `rho` on `F_147457^2`, there are three distinct directions whose `442371` lines form a set `R` such that\n\n`U_R/N <= (1610629120/10871857153)(1-rho)`,\n\nwhere `U_R` counts accepted incidences at points whose accepted pencil contains no line of `R`.\n\n### Lemma 3\n\nEvery `C4`-free bipartite graph with vertex-class sizes `5194` and `15129` has at most `646374` edges.\n\n### Lemma 4\n\nFor every integer `n>=0`, every `C4`-free bipartite graph with `21743566849` point-side vertices and `n` line-side vertices that is emptied by deletion of point vertices of current degree at most `15129` and line vertices of current degree at most `5194` has at most\n\n`15129*21743566849 + 5194*n - 156513678`\n\nedges.\n\n## Proof\n\n### [P1] Fixed field and incidence arithmetic \u2014 proved\n\nThe affine plane has `M=p^2` points, `Lambda=p(p+1)` lines, and `N=p^2(p+1)` incidences.\n\nFor primality, `p-1=2^14*3^2`. Direct modular exponentiation gives\n\n`10^(p-1)=1`, `10^((p-1)/2)=p-1`, and `10^((p-1)/3)=78348 mod p`,\n\nwith\n\n`gcd(p-2,p)=gcd(78347,p)=1`.\n\nPocklington's criterion therefore certifies that `147457` is prime.\n\n### [P2] Three-direction pencil coverage \u2014 proved\n\nChoose a uniform three-element subset of the `h` directions and include every line in those directions. A point having accepted degree `a` is missed with probability\n\n`H_a=binom(h-a,3)/binom(h,3)`.\n\nFor `0<a<h-2`, the quantity relevant to the affine majorant is\n\n`a H_a/(h-a)=a(h-a-1)(h-a-2)/(h(h-1)(h-2))`.\n\nThe ratio of consecutive positive numerators is\n\n`((a+1)(h-a-3))/(a(h-a-1))`.\n\nIt is at least one exactly when `h-3-3a>=0`. Thus the unique maximum is attained at `j=49152`, and\n\n`a H_a <= K(h-a)`\n\nfor every integer `0<=a<=h`, where\n\n`K=j*binom(h-j,3)/((h-j)binom(h,3))=1610629120/10871857153`.\n\nSince `sum_x a_x=rho*M*h`, averaging gives\n\n`E_R[U_R]/N <= K(1-rho)`.\n\nAt least one three-direction set realizes this bound, proving Lemma 2. This is averaging only; there is no Markov or union-bound loss.\n\n### [P3] Weighted interpolation \u2014 proved\n\nGive `X,Y,Z` weights `(1,1,87)` and put `D=15129`. The number of monomials of weighted degree at most `D` is\n\n`V_D=sum_{z=0}^{173} binom(D-87z+2,2)=6693082347`.\n\nEvery selected labeled-line identity imposes at most `D+1=15130` homogeneous coefficient equations, while\n\n`442371*15130=6693073230<V_D`.\n\nHence there is a nonzero polynomial `A(X,Y,Z)` of weighted degree at most `D` vanishing formally on every selected line graph.\n\nA `Z`-independent solution would be a bivariate polynomial of degree at most `D` divisible by the distinct equations of `442371>D` affine lines, which is impossible. Thus `A` depends on `Z`. Since `deg_Z(A)<=173<p`, one has `A_Z!=0`.\n\nChoose a nonzero interpolant of minimum weighted degree. If an irreducible factor occurred twice, dividing by one copy would preserve every selected formal identity: specialization occurs in the domain `F[t]`, so either that factor or the complementary factor specializes to zero. The quotient would be a lower-weight nonzero interpolant, a contradiction. Therefore `A` is squarefree.\n\n### [P4] Extension to identity lines \u2014 proved\n\nCall an accepted point covered when its accepted pencil meets the selected line set `R`. Let `T` consist of `R` and every other line having more than `D` covered accepted points. At a covered accepted point of a line `L`, a selected accepted line through that point shows\n\n`A(x,P_L(x))=A(x,f(x))=0`.\n\nThe restriction `A(L(t),P_L(t))` has degree at most `D`, so more than `D` roots force a formal identity. Consequently every line in `T` is an `A`-identity line.\n\nWriting `t=|T|` and `E_T` for accepted edges on these lines gives\n\n`|E| <= |E_T|+U_R+D(Lambda-t)`.\n\n### [P5] Primitive and derivative cleanup \u2014 proved\n\nWrite `A=CB`, where `C in F[X,Y]` is the coefficient content in `Z` and `B` is primitive. Let `c_0=deg C`, `W=wdeg(B)`, and `nu=deg_Z(B)`. Weighted leading forms do not cancel, so\n\n`c_0+W=wdeg(A)<=D`.\n\nThe polynomial `B` is squarefree and `1<=nu<=173<p`. Primitivity excludes `Z`-independent irreducible factors. Every irreducible factor therefore has nonzero `Z`-derivative, and squarefreeness gives `gcd(B,B_Z)=1`.\n\nFor `nu>=2`, the nominal-degree discriminant is nonzero. Its monomials have coefficient degree `2nu-2` and coefficient-index weight `nu(nu-1)`, hence its `(X,Y)`-degree is at most\n\n`(nu-1)(2W-87nu)`.\n\nIf a noncontent identity line also makes `B_Z(L(t),P_L(t))` vanish formally, the homogenized nominal-degree binary form has a singular finite root. Euler's identity is valid because `nu<p`; therefore the specialized nominal discriminant vanishes. No leading coefficient is inverted.\n\nThe number of content or derivative-degenerate identity lines is at most\n\n`c_0+(nu-1)(2W-87nu) <= (nu-1)(2D-87nu)`.\n\nThe last expression increases through `nu=173`, because its consecutive difference is `2(D-87nu)>0` for `nu<=172`. Its maximum is\n\n`172*(2*15129-87*173)=2615604`.\n\nFor `nu=1`, a derivative-degenerate noncontent identity line would divide both coefficients of the primitive linear polynomial, which is impossible; its content count is at most `D-87<2615604`.\n\nOn every remaining identity line, `B_Z(L(t),P_L(t))` is a nonzero polynomial of degree at most\n\n`q=D-87=15042`,\n\nand therefore has at most `15042` roots.\n\n### [P6] The residual affine-incidence corner \u2014 proved\n\nConsider a `C4`-free bipartite graph with `b=5194` point vertices and `D=15129` line vertices. If the line degrees are `r_1,...,r_D`, every pair of point vertices has at most one common line, so\n\n`sum_i binom(r_i,2) <= binom(5194,2)=13486221`.\n\nFor a fixed edge total, discrete convexity minimizes the left side when the degrees differ by at most one. The exact division is\n\n`646374=42*15129+10956`,\n\nand\n\n`15129*binom(42,2)+10956*42=13486221`.\n\nOne more edge would make the convex lower bound `13486221+42`. Thus there are at most `646374` edges, proving Lemma 3.\n\n### [P7] C4-free empty-core credit \u2014 proved\n\nLet `H` satisfy Lemma 4. For `n>=D`, follow an emptying order until either only `b` point vertices or only `D` line vertices remain. If the point side reaches `b` first, all remaining line vertices have degree at most `b`, so delete down to `D` line vertices. The symmetric argument applies if the line side reaches `D` first. Pad the residual with isolated vertices when necessary.\n\nEdges deleted before the residual cost at most\n\n`D(M-b)+b(n-D)`.\n\nLemma 3 bounds the residual by `646374`. Therefore\n\n`|E(H)| <= DM+bn-kappa`,\n\nwhere\n\n`kappa=2Db-646374=156513678`.\n\nFor `n<D`, the trivial estimate `|E(H)|<=Mn` suffices because the minimum difference occurs at `n=D-1` and equals\n\n`M+b(D-1)-kappa=21665628003>0`.\n\nThis proves Lemma 4 for every `n>=0`.\n\n### [P8] Cleanup, peeling, and survival \u2014 proved\n\nDelete all accepted edges on the `e` exceptional identity lines and at most `q` derivative-zero edges on each remaining identity line. Apply Lemma 4 to the resulting graph with `n=t-e`.\n\nIf the `(15130,5195)` core were empty, P4-P7 would give\n\n`|E| <= U_R+D(Lambda-t)+pe+q(t-e)+DM+b(t-e)-kappa`.\n\nThe coefficients of `t` and `e` after collection are\n\n`q+b-D=s-88=5107>0`\n\nand\n\n`p-q-b=p-q-s+1=127221>0`.\n\nUsing `t<=Lambda` and `e<=E_D` yields\n\n`|E| <= U_R+C_*`,\n\nwhere\n\n`C_*=(q+s-1)Lambda+DM+(p-q-s+1)E_D-kappa`\n\n`=440005802696216+328958422858521+332759756484-156513678`\n\n`=769296828797543`.\n\nCombining this with P2 gives, under complete deletion,\n\n`rho <= R_0 := (C_*/N+K)/(1+K)`\n\nwith\n\n`R_0=1244293905093223/3681259956715522`.\n\nExact cross multiplication gives\n\n`7349491213/M <= R_0 < 7349491214/M`.\n\nAt `epsilon=7349491214/M`, the survival margin in the original inequality is\n\n`epsilon-C_*/N-K(1-epsilon)`\n\n`=1249813349/27810935621062861282>0`.\n\nThus acceptance at least `epsilon` leaves a nonempty core with point degree at least `15130`, line degree at least `5195`, formal `B`-identities, and `B_Z(x,f(x))!=0` on every retained edge.\n\n### [P9] Exact component mass \u2014 proved\n\nFor point set `X`, put `a=|X|/M` and let `m_L=|X intersection L|`. Ordered-pair counting gives\n\n`sum_L m_L=h|X|`\n\nand\n\n`sum_L m_L^2=|X|^2+p|X|`.\n\nTherefore\n\n`sum_L (m_L-ap)^2=p^3a(1-a)`.\n\nFor a line set of density `ell`, centering its indicator and applying Cauchy-Schwarz yields\n\n`I(X,S)/N <= a ell + sqrt(a(1-a)ell(1-ell)/h)`.\n\nConsider a connected core component. Define\n\n`alpha=15130/147458=445/4337`,\n\n`beta=5195/147457`,\n\n`c=alpha/beta=13123673/4506143`,\n\n`gamma^2=1/(ch)=1039/446204882`.\n\nMinimum degrees imply retained-edge density at least `alpha*a` and at least `beta*ell`. Splitting at `ell=ca` and using that `ca<1/2` gives the necessary condition\n\n`beta <= a+gamma*sqrt((1-a)(1-ca))`.\n\nLet\n\n`tau=epsilon/10=3674745607/108717834245`\n\nand\n\n`F(a)=(beta-a)^2-gamma^2(1-a)(1-ca)`.\n\nThe exact endpoint values are\n\n`beta-tau=155449968/108717834245>0`,\n\n`1/2-c*tau=2668206923709/6644623283510>0`,\n\n`F(tau)=498727149435244/30939665878432433176225>0`,\n\n`F'(tau)=-13793284387/4837976433085<0`.\n\nMoreover `F''=2(1-1/h)>0`, so `F'` is negative throughout `[0,tau]` and `F(a)>=F(tau)>0` there. This contradicts the necessary component condition. Every component therefore has point density greater than `tau`.\n\nSince `tau*M=734949121.4`, every component contains at least `734949122` point vertices.\n\n### [P10] One-polynomial reconstruction \u2014 proved\n\nChoose a point `x_0` in a retained component and translate it to the origin. Put `a_0=f(x_0)` and `c_1=B_Z(0,0,a_0)!=0`.\n\nRecursively construct homogeneous polynomials `Q_1,...,Q_87`. If `a_0+Q_1+...+Q_{n-1}` solves `B=0` modulo `(X,Y)^n`, adding a homogeneous polynomial `Q_n` changes the degree-`n` residual by `c_1 Q_n`. Division by `c_1` uniquely cancels that residual. Let\n\n`Q=a_0+Q_1+...+Q_87`.\n\nEach of the at least `D+1` retained line labels through `x_0` is a formal root with the same simple constant value. The one-variable version of the recursion shows that its coefficients through degree `87` equal those of `Q` restricted to the line. Both polynomials have degree at most `87`, so they are identical.\n\nThe polynomial `B(X,Y,Q(X,Y))` has total degree at most the weighted degree `D`. It vanishes formally on `D+1` distinct seed lines, whose distinct linear equations divide it. Hence it is zero identically.\n\nAt an accepted simple intersection of a recovered line with a new retained line, `Q` and the new line label are two formal roots with the same constant value. The same recursion makes them identical. Connectivity propagates the fixed polynomial `Q` throughout the component. It agrees with `f` at every component point.\n\n### [P11] Soundness contract and score \u2014 proved\n\nThe admissibility-floor difference is\n\n`epsilon-957/1474570=73353795791/217435668490>0`.\n\nThe two recovery fractions satisfy\n\n`epsilon/10-174/147457=3546458017/108717834245>0`.\n\nThus the required maximum is exactly\n\n`max(2d/p,epsilon/10)=epsilon/10=3674745607/108717834245`.\n\nP9-P10 give at least `734949122` agreements, whose density is\n\n`734949122/21743566849 > epsilon/10`.\n\nFinally,\n\n`ceil(epsilon*p^2)=7349491214`.\n\nThe comparison decimal has score `7810920777`, so the exact improvement is `461429563`. This proves Theorem 1.\n\n## Soundness Ledger\n\n| stage | input | exact loss | output |\n|---|---|---:|---|\n| sampling | uniform line then point | `0` | denominator `N=3206262880419842` |\n| three-direction coverage | accepted density `rho` | at most `K(1-rho)N` uncovered incidences | `K=1610629120/10871857153` |\n| interpolation | `442371` selected lines | no incidence deletion; surplus `9117` | squarefree relation of weight at most `15129` |\n| identity extension | nonidentity lines | at most `D(Lambda-t)` covered incidences | all retained lines are identities |\n| content lines | `e` exceptional lines | at most `pe` incidences | primitive identities remain |\n| derivative roots | `t-e` regular identity lines | at most `q(t-e)`, `q=15042` | every retained edge is simple |\n| point/line peel | caps `(15129,5194)` | `DM+b(t-e)-156513678` | new C4 credit `156513678` |\n| regular-line consolidated charge | preceding identity and peel terms | `440005802696216` | included once in `C_*` |\n| point consolidated charge | point peel | `328958422858521` | included once in `C_*` |\n| exceptional correction | at most `2615604` lines | `332759756484` | included once in `C_*` |\n| fixed subtotal | all non-pencil charges | `C_*=769296828797543`, or `C_*/N` | no double counting |\n| survival | `rho>=epsilon` | pencil loss plus `C_*/N` | positive margin `1249813349/27810935621062861282` |\n| component conversion | `(15130,5195)` core | one Cauchy-Schwarz inequality, no edge deletion | component density greater than `epsilon/10` |\n| reconstruction | connected simple-root component | `0` agreement loss | one total-degree-at-most-87 polynomial |\n| recovery maximum | `174/p` and `epsilon/10` | none | target `epsilon/10`; count `734949122` |\n\n## Exact Arithmetic Replay\n\nThe following deterministic checker only replays displayed identities; the analytic arguments above prove the inequalities and no exhaustive search is a proof dependency.\n\n```python\nfrom fractions import Fraction as F\nfrom math import comb, gcd\n\np=147457; d=87; h=p+1\nM=p*p; La=p*h; N=M*h\nD=15129; r=3*p; s=5195; b=s-1\nq=D-d; nu=D//d; j=49152\n\nassert (M,La,N)==(21743566849,21743714306,3206262880419842)\nassert p-1==2**14*3**2\nassert pow(10,p-1,p)==1\nassert pow(10,(p-1)//2,p)==p-1\nassert pow(10,(p-1)//3,p)==78348\nassert gcd(pow(10,(p-1)//2,p)-1,p)==1\nassert gcd(pow(10,(p-1)//3,p)-1,p)==1\n\nV=sum(comb(D-d*z+2,2) for z in range(nu+1))\nassert (V,r*(D+1),V-r*(D+1))==(6693082347,6693073230,9117)\n\nK=F(j*comb(h-j,3),(h-j)*comb(h,3))\nassert K==F(1610629120,10871857153)\n\nED=max([D]+[(v-1)*(2*D-d*v) for v in range(2,nu+1)])\nassert (q,nu,ED)==(15042,173,2615604)\n\npair=comb(b,2); qq=42; rr=10956\nZ=qq*D+rr\nassert D*comb(qq,2)+rr*qq==pair==13486221\nassert D*comb(qq,2)+(rr+1)*qq>pair\nassert Z==646374\n\nkappa=2*D*b-Z\nassert kappa==156513678\nassert M+b*(D-1)-kappa==21665628003\n\nterms=((q+s-1)*La,D*M,(p-q-s+1)*ED)\nassert terms==(440005802696216,328958422858521,332759756484)\nC=sum(terms)-kappa\nassert C==769296828797543\n\nR0=(F(C,N)+K)/(1+K)\nassert R0==F(1244293905093223,3681259956715522)\nA=7349491214; eps=F(A,M)\nassert F(A-1,M)<=R0<eps\nmargin=eps-F(C,N)-K*(1-eps)\nassert margin==F(1249813349,27810935621062861282)>0\n\nalpha=F(D+1,h); beta=F(s,p); c=alpha/beta\ngam2=F(1,c*h); tau=eps/10\nfun=lambda x:(beta-x)**2-gam2*(1-x)*(1-c*x)\nder=lambda x:2*(x-beta)+gam2*(1+c-2*c*x)\nassert (alpha,c,gam2)==(F(445,4337),F(13123673,4506143),F(1039,446204882))\nassert beta-tau==F(155449968,108717834245)>0\nassert F(1,2)-c*tau==F(2668206923709,6644623283510)>0\nassert fun(tau)==F(498727149435244,30939665878432433176225)>0\nassert der(tau)==F(-13793284387,4837976433085)<0\n\nassert eps>=F(957,1474570)\nassert tau>F(174,p)\nassert (A+9)//10==734949122\n\nold=F(35922904602094702,10**17)\nz=old*M\nold_score=(z.numerator+z.denominator-1)//z.denominator\nassert old_score==7810920777\nassert old_score-A==461429563\n```\n\n## Counterexample Attempts\n\n1. A table supported on `49152` complete accepted directions attains the pointwise pencil envelope. It does not refute soundness because the constant polynomial already explains the table, but it shows that a better pencil loss must exploit correlations or polynomial labels rather than only point degrees.\n\n2. Without `C4`-freeness, the complete residual bipartite graph invalidates Lemma 3 and the credit in Lemma 4.\n\n3. A table supported on exactly `15129` accepted directions has accepted degree exactly `15129` everywhere, attaining the generic point-peeling charge.\n\n4. The primitive relation `Z(Z+g(X))` with `deg g=15042` attains `15042` derivative roots on every nonvertical line under the zero branch. Factor-aware recovery is needed to improve this interface.\n\n5. `Z^p-X` and `Z^2-X^2` respectively test inseparability and branch switching. They are excluded by `deg_Z(B)<p` and pointwise nonvanishing of `B_Z`.\n\n## Characteristic Audit\n\n- `147457` is prime by the Pocklington certificate in P1.\n- `87<15129<147457` and `deg_Z(B)<=173<147457`.\n- Ordinary derivatives detect all positive Z-degrees occurring in `B`.\n- Nominal homogenization prevents specialized leading-coefficient division.\n- Euler's identity divides only by `nu`, which is nonzero in the field.\n- Root counting is applied only to explicitly nonzero univariate polynomials.\n- Formal reconstruction divides only by a retained nonzero scalar `B_Z(x,f(x))`.\n- No discriminant value, irreducibility claim, floating-point comparison, or randomized experiment is assumed.\n\n## Limitations\n\nThe `646374` residual corner is an exact certified upper bound, not a construction or a claimed extremal value. A stronger affine-geometric rich-line estimate could increase the credit further.\n\nThe three-direction pointwise envelope is sharp only for the degree-only averaging method. A selector exploiting direction correlations or the line labels may improve it.\n\nThe proof is specific to the bivariate prime-field instance and total degree `87`. It makes no claim about dimension lifting, extension fields, or individual degree.\n\nThe campaign-30 history still contains no verified point. Leaderboard promotion therefore requires two independent auditors to accept this exact theorem chain and theorem digest.\n\n## Team Handoff\n\n- **Combinatorial core:** import Lemmas 3-4 with `(b,D,Z_*,kappa)=(5194,15129,646374,156513678)`. Preserve the `n<D` case.\n- **Integration and optimization:** use `A=7349491214`, `C_*=769296828797543`, and the exact survival margin.\n- **Energy and direction selection:** any improvement to `K` must use more than the point-degree envelope.\n- **Interpolation and algebra:** retain `(t,r,D,q,nu,E_D)=(3,442371,15129,15042,173,2615604)`.\n- **Reconstruction:** P10 is self-contained and imports no external lifting lemma.\n- **Certification:** replay the exact checker and request two hash-matched audits.",
+  "obstructions": [
+    "The degree-only three-direction envelope is attained by concentrated accepted-direction data; a better selector must exploit direction correlations or polynomial labels.",
+    "The generic point-peeling and regular derivative-root interfaces admit exact fixed-instance examples attaining their local caps.",
+    "The C4 residual bound is not proved optimal; improving it requires stronger affine-geometric information than no-K_{2,2}.",
+    "The active campaign-30 corpus has no audit verdicts, so promotion still requires two independent exact-hash accepts."
+  ],
+  "parameter_regime": "m=2; p=147457; d=87; epsilon=7349491214/21743566849; uniform affine-line-then-point sampling; t=3 complete directions; r=442371 selected lines; weighted degree D=15129; derivative cap q=15042; Z-degree at most 173; exceptional-line cap 2615604; core degrees (15130,5195); C4 residual corner (5194,15129); residual edge cap 646374; peeling credit 156513678; fixed charge 769296828797543.",
+  "proof_steps": [
+    {
+      "dependencies": [],
+      "id": "P1",
+      "proof": "The affine-plane formulas give M=p^2=21743566849, Lambda=p(p+1)=21743714306, and N=M(p+1)=3206262880419842. For primality, p-1=2^14*3^2, base 10 satisfies the Pocklington congruence modulo p, and its powers at exponents (p-1)/2 and (p-1)/3 differ from 1 by residues coprime to p.",
+      "statement": "For p=147457, the affine plane has 21743566849 points, 21743714306 affine lines, and 3206262880419842 incidences, and p is prime.",
+      "status": "proved"
+    },
+    {
+      "dependencies": [
+        "P1"
+      ],
+      "id": "P2",
+      "proof": "For accepted point degree a, three uniformly selected directions miss the accepted pencil with probability H_a=binom(h-a,3)/binom(h,3). The consecutive ratio of a(h-a-1)(h-a-2) crosses one at a=49152, giving aH_a<=K(h-a). Summing over points and using sum a_x=rho*M*h proves the averaged bound and hence existence of the required direction set.",
+      "statement": "For every accepted incidence graph of density rho on F_147457^2, there are three directions whose union R satisfies U_R/N<=(1610629120/10871857153)(1-rho).",
+      "status": "proved"
+    },
+    {
+      "dependencies": [
+        "P1",
+        "P2"
+      ],
+      "id": "P3",
+      "proof": "There are 6693082347 monomials of (1,1,87)-weighted degree at most 15129 and only 6693073230 formal line constraints. Rank-nullity yields a nonzero relation. A Z-independent relation would contain more distinct affine-line factors than its degree. Since its Z-degree is at most 173<p, its Z-derivative is nonzero. Choosing minimum weight and removing any repeated factor proves squarefreeness.",
+      "statement": "Every degree-at-most-87 labeling of the 442371 lines in three directions admits a nonzero squarefree formal interpolant A of weighted degree at most 15129 with A_Z nonzero.",
+      "status": "proved"
+    },
+    {
+      "dependencies": [
+        "P2",
+        "P3"
+      ],
+      "id": "P4",
+      "proof": "At every covered accepted point on a line L, a selected accepted line supplies A(x,f(x))=0 and acceptance gives f(x)=P_L(x). More than D distinct roots force the degree-at-most-D restriction to vanish formally. Lines outside the identity set have at most D covered accepted incidences; all remaining incidences are charged to U_R.",
+      "statement": "For the selected family R, there is an identity-line set T containing R such that |E|<=|E_T|+U_R+15129(Lambda-|T|).",
+      "status": "proved"
+    },
+    {
+      "dependencies": [
+        "P3",
+        "P4"
+      ],
+      "id": "P5",
+      "proof": "Remove the coefficient content C and write A=CB with B primitive. Weighted degrees add, B is squarefree, and deg_Z(B)<p makes gcd(B,B_Z)=1. The nominal discriminant has degree at most (nu-1)(2W-87nu). Content plus discriminant lines are maximized at nu=173, giving 2615604. On every other identity line the nonzero derivative restriction has degree at most 15042.",
+      "statement": "After primitive-content removal, at most 2615604 identity lines are content or derivative-degenerate, and every remaining derivative restriction has at most 15042 zeros.",
+      "status": "proved"
+    },
+    {
+      "dependencies": [],
+      "id": "P6",
+      "proof": "If the 15129 line-side degrees sum to z, convexity makes their pair count at least 15129*binom(q,2)+rq for z=15129q+r. At z=646374 this equals binom(5194,2); one more edge increases it by 42. C4-freeness bounds the pair count by binom(5194,2).",
+      "statement": "Every C4-free bipartite graph with vertex-class sizes 5194 and 15129 has at most 646374 edges.",
+      "status": "proved"
+    },
+    {
+      "dependencies": [
+        "P6"
+      ],
+      "id": "P7",
+      "proof": "Follow an emptying order until one side reaches the opposite deletion cap, delete the other side down to its cap, and retain a 5194 by 15129 residual. Deleted edges cost at most 15129(M-5194)+5194(n-15129), while P6 bounds the residual. The n<15129 case follows from |E|<=Mn and the positive endpoint margin 21665628003.",
+      "statement": "For every n>=0, an empty-core C4-free graph with M=21743566849 point vertices, n line vertices, and deletion caps (15129,5194) has at most 15129M+5194n-156513678 edges.",
+      "status": "proved"
+    },
+    {
+      "dependencies": [
+        "P2",
+        "P4",
+        "P5",
+        "P7"
+      ],
+      "id": "P8",
+      "proof": "After exceptional and derivative cleanup, apply P7 to the regular identity graph. Combining its credit with the identity-transfer bound gives |E|<=U_R+C_* under complete deletion, where C_*=769296828797543. P2 then implies rho<=R_0=1244293905093223/3681259956715522. Exact cross multiplication places R_0 below epsilon=7349491214/M, leaving positive margin 1249813349/27810935621062861282.",
+      "statement": "Every accepted graph with density at least 7349491214/21743566849 contains a nonempty core of point degree at least 15130 and line degree at least 5195, with formal primitive identities and B_Z(x,f(x)) nonzero on every retained edge.",
+      "status": "proved"
+    },
+    {
+      "dependencies": [
+        "P8"
+      ],
+      "id": "P9",
+      "proof": "Exact affine-plane second moments and Cauchy-Schwarz give I(X,S)/N<=a ell+sqrt(a(1-a)ell(1-ell)/h). The two minimum-degree inequalities reduce feasibility to beta<=a+gamma sqrt((1-a)(1-ca)). At tau=epsilon/10, the exact polynomial F(tau) is positive, F'(tau) is negative, and F''>0, so F is positive throughout [0,tau], contradicting feasibility there.",
+      "statement": "Every connected component of the core in P8 has point density greater than epsilon/10 and contains at least 734949122 point vertices.",
+      "status": "proved"
+    },
+    {
+      "dependencies": [
+        "P3",
+        "P5",
+        "P8",
+        "P9"
+      ],
+      "id": "P10",
+      "proof": "At a core point, formal implicit recursion through the nonzero scalar B_Z constructs the unique degree-at-most-87 truncation Q. Its restrictions equal the at least D+1 seed line labels. Then B(X,Y,Q) has degree at most D and vanishes on D+1 lines, so it is identically zero. Simple-root uniqueness propagates Q along every edge path in the component, and accepted edges give Q=f at every component point.",
+      "statement": "Every connected component in P9 is governed by one polynomial Q in F_147457[X,Y] of total degree at most 87 agreeing with f at every point vertex.",
+      "status": "proved"
+    },
+    {
+      "dependencies": [
+        "P1",
+        "P8",
+        "P9",
+        "P10"
+      ],
+      "id": "P11",
+      "proof": "The exact epsilon exceeds 957/1474570. Its tenth exceeds 174/147457, so the mandated maximum equals epsilon/10. P9-P10 supply at least ceil(epsilon*M/10)=734949122 agreements. Since epsilon*M=7349491214, the absolute score is 7349491214, which is 461429563 below the comparison score 7810920777.",
+      "statement": "At epsilon=7349491214/21743566849, the fixed line-versus-point test satisfies the required recovery max(174/147457,epsilon/10), with absolute score 7349491214.",
+      "status": "proved"
+    }
+  ],
+  "result_status": "proved",
+  "sampling_model": "The verifier chooses uniformly among the p(p+1)=21743714306 affine lines of F_147457^2 and then uniformly among the p=147457 points on that line; equivalently it samples uniformly from N=p^2(p+1)=3206262880419842 incidences.",
+  "soundness_ledger": [
+    {
+      "input_bound": "Accepted incidence density rho.",
+      "justification": "Exact three-direction hypergeometric miss probability and pointwise affine envelope.",
+      "loss": "At most K(1-rho)N uncovered accepted incidences, K=1610629120/10871857153.",
+      "output_bound": "A deterministic union of three complete direction classes.",
+      "stage": "Three-direction pencil coverage",
+      "status": "proved"
+    },
+    {
+      "input_bound": "442371 selected labeled lines.",
+      "justification": "6693082347 weighted monomials exceed 6693073230 constraints.",
+      "loss": "No incidence loss; interpolation surplus 9117.",
+      "output_bound": "Squarefree weighted-degree-at-most-15129 relation.",
+      "stage": "Weighted interpolation",
+      "status": "proved"
+    },
+    {
+      "input_bound": "Lines outside the identity set.",
+      "justification": "A nonzero restriction of degree at most 15129 has at most 15129 covered roots.",
+      "loss": "15129(Lambda-t) incidences.",
+      "output_bound": "All remaining line vertices carry formal identities.",
+      "stage": "Identity extension",
+      "status": "proved"
+    },
+    {
+      "input_bound": "e exceptional identity lines.",
+      "justification": "Content and nominal-discriminant line count.",
+      "loss": "At most pe incidences, with e<=2615604.",
+      "output_bound": "Primitive nondegenerate identity lines.",
+      "stage": "Exceptional-line deletion",
+      "status": "proved"
+    },
+    {
+      "input_bound": "t-e regular identity lines.",
+      "justification": "Each nonzero derivative restriction has degree at most 15042.",
+      "loss": "At most 15042(t-e) incidences.",
+      "output_bound": "B_Z is nonzero on retained edges.",
+      "stage": "Derivative cleanup",
+      "status": "proved"
+    },
+    {
+      "input_bound": "Cleaned C4-free graph with deletion caps 15129 and 5194.",
+      "justification": "Residual 5194 by 15129 corner has at most 646374 edges.",
+      "loss": "At most 15129M+5194(t-e)-156513678 edges under complete deletion.",
+      "output_bound": "A credit of 156513678 over separate peeling charges.",
+      "stage": "C4-sharpened two-sided peel",
+      "status": "proved"
+    },
+    {
+      "input_bound": "All identity, cleanup, and peeling charges.",
+      "justification": "Exact collection with positive t and e coefficients.",
+      "loss": "C_*=769296828797543 incidences, normalized as 769296828797543/3206262880419842.",
+      "output_bound": "Under complete deletion, |E|<=U_R+C_*.",
+      "stage": "Fixed-loss consolidation",
+      "status": "proved"
+    },
+    {
+      "input_bound": "rho>=7349491214/21743566849.",
+      "justification": "Substitution into rho-C_*/N-K(1-rho).",
+      "loss": "Pencil loss plus C_*/N.",
+      "output_bound": "Nonempty simple-root core; exact margin 1249813349/27810935621062861282.",
+      "stage": "Core survival",
+      "status": "proved"
+    },
+    {
+      "input_bound": "A connected (15130,5195) core component.",
+      "justification": "Exact centered affine-plane incidence inequality and endpoint polynomial.",
+      "loss": "One Cauchy-Schwarz inequality; no edge deletion.",
+      "output_bound": "Point density greater than epsilon/10 and at least 734949122 points.",
+      "stage": "Component conversion",
+      "status": "proved"
+    },
+    {
+      "input_bound": "A connected simple-root identity component.",
+      "justification": "Self-contained formal implicit reconstruction and propagation.",
+      "loss": "No agreement loss.",
+      "output_bound": "One total-degree-at-most-87 polynomial agrees throughout the component.",
+      "stage": "Polynomial recovery",
+      "status": "proved"
+    },
+    {
+      "input_bound": "Recovery fractions 174/147457 and epsilon/10.",
+      "justification": "epsilon/10-174/147457=3546458017/108717834245>0.",
+      "loss": "None.",
+      "output_bound": "Required fraction epsilon/10; guaranteed count 734949122.",
+      "stage": "Recovery contract",
+      "status": "proved"
+    }
+  ],
+  "theorem_statement": "Let p=147457, d=87, and epsilon=7349491214/21743566849. Under uniform affine-line sampling followed by a uniform point on the selected line, every degree-at-most-87 line table and every point table with acceptance at least epsilon admit one polynomial in F_p[X,Y] of total degree at most 87 agreeing with the point table on more than epsilon/10 of F_p^2, hence on at least 734949122 points. Since epsilon/10>174/147457, this is the required max(2d/p,epsilon/10) recovery. The absolute score is 7349491214.",
+  "title": "C4-Sharpened Three-Direction Soundness at the Fixed Affine-Plane Instance"
+}

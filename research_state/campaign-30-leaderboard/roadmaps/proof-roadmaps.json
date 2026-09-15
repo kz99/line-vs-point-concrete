@@ -1,0 +1,1185 @@
+{
+  "active_roadmaps": [
+    "exact-analytic",
+    "certified-computation",
+    "end-to-end-soundness"
+  ],
+  "model": "gpt-5.6-sol",
+  "reasoning_effort": "ultra",
+  "roadmaps": [
+    {
+      "corpus_sha256": "2947d27413190eeefd83c9fc071689178fe37147481a82c947c9b8b094ced877",
+      "critical_path": [
+        "ea-r3-00-fixed-target",
+        "ea-r3-01-target-arithmetic",
+        "ea-r3-02-ktz-interfaces",
+        "ea-r3-03-three-direction-pruning",
+        "ea-r3-04-squarefree-interpolation",
+        "ea-r3-05-identity-transfer",
+        "ea-r3-06-primitive-factorization",
+        "ea-r3-07-c4-peeling-credit",
+        "ea-r3-08-core-survival",
+        "ea-r3-09-component-mass",
+        "ea-r3-10-one-polynomial-recovery",
+        "ea-r3-11-soundness"
+      ],
+      "focus": "constant-optimized pruning, interpolation, factorization, and one-polynomial recovery",
+      "goal_node_id": "ea-r3-11-soundness",
+      "messages": [
+        {
+          "body_markdown": "Round 2 is superseded by the live target. Since $$\\frac{957}{10p}>\\frac{10}{p}$$ and a constant polynomial guarantees only $1/p<174/p$, `ea-r2-01-constant-recovery` through `ea-r2-03-score-optimal-theorem` prove neither admissibility nor the required agreement floor. The analytic chain is again load-bearing.",
+          "channel": "global",
+          "in_reply_to": "msg-313506a0ff09",
+          "kind": "objection",
+          "references": [
+            "TARGET.md",
+            "exact-analytic/ea-r2-01-constant-recovery",
+            "exact-analytic/ea-r2-03-score-optimal-theorem",
+            "exact-analytic/ea-r3-00-fixed-target",
+            "exact-analytic/ea-r3-11-soundness"
+          ],
+          "related_node_ids": [
+            "ea-r3-00-fixed-target",
+            "ea-r3-01-target-arithmetic",
+            "ea-r3-11-soundness"
+          ],
+          "subject": "Restore the analytic critical path"
+        },
+        {
+          "body_markdown": "Please certify the new $(D,b)=(15129,5194)$ corner. Convex pair counting gives $$15129\\binom{42}{2}+10956\\cdot42=\\binom{5194}{2}=13486221,$$ so $Z\\le646374$ and $K_c=156513678$. The $n<D$ boundary is closed by $M+b(D-1)-K_c=21665628003>0$. Splicing this into researcher-0003/P7 lowers the fixed charge to $769296828797543$ and the minimal survival score from $7349492138$ to $7349491214$.",
+          "channel": "certified-computation",
+          "in_reply_to": "msg-9861eaea5849",
+          "kind": "request",
+          "references": [
+            "researcher-0001|[P10]|de4537e9ee389fde7c78664f9f77e5188ac1283ef152121467376ca11e62e7c3",
+            "researcher-0003|P7|29abac529d4016becae1afda4a6b9d0929219539339731a92c93c53459912825",
+            "exact-analytic/ea-r3-07-c4-peeling-credit",
+            "exact-analytic/ea-r3-08-core-survival"
+          ],
+          "related_node_ids": [
+            "ea-r3-07-c4-peeling-credit",
+            "ea-r3-08-core-survival",
+            "ea-r3-11-soundness"
+          ],
+          "subject": "Certify the new C4 splice"
+        },
+        {
+          "body_markdown": "The revised target makes researcher-0003/P8 and P9 necessary. Please import the full P3--P10 route, including the target guards. The sharpened core retains degrees $(15130,5195)$, so P8 still supplies at least $734949214$ points and P9 still recovers one polynomial; the new target needs only $734949122$ points.",
+          "channel": "end-to-end-soundness",
+          "in_reply_to": "msg-2ffdaf810035",
+          "kind": "request",
+          "references": [
+            "researcher-0003|P3|29abac529d4016becae1afda4a6b9d0929219539339731a92c93c53459912825",
+            "researcher-0003|P8|29abac529d4016becae1afda4a6b9d0929219539339731a92c93c53459912825",
+            "researcher-0003|P9|29abac529d4016becae1afda4a6b9d0929219539339731a92c93c53459912825",
+            "exact-analytic/ea-r3-09-component-mass",
+            "exact-analytic/ea-r3-10-one-polynomial-recovery"
+          ],
+          "related_node_ids": [
+            "ea-r3-01-target-arithmetic",
+            "ea-r3-09-component-mass",
+            "ea-r3-10-one-polynomial-recovery",
+            "ea-r3-11-soundness"
+          ],
+          "subject": "Import the admissible analytic endpoint"
+        },
+        {
+          "body_markdown": "Replace the earlier score-one repair request with a clean analytic artifact. It should contain only the load-bearing P3--P10 chain plus the new C4 step, set `claimed_soundness` to the exact rational $7349491214/21743566849$, state the full $\\max\\{174/147457,\\varepsilon/10\\}$ conclusion, and obtain two independent accepts on one exact theorem hash.",
+          "channel": "global",
+          "in_reply_to": "msg-e7fec1fe4b1d",
+          "kind": "request",
+          "references": [
+            "research_state/campaign-30-leaderboard/submissions/researcher-0003/manifest.json",
+            "researcher-0003|P10|29abac529d4016becae1afda4a6b9d0929219539339731a92c93c53459912825",
+            "exact-analytic/ea-r3-12-promotion-artifact"
+          ],
+          "related_node_ids": [
+            "ea-r3-07-c4-peeling-credit",
+            "ea-r3-11-soundness",
+            "ea-r3-12-promotion-artifact"
+          ],
+          "subject": "Submit the sharpened analytic theorem"
+        }
+      ],
+      "nodes": [
+        {
+          "dependencies": [],
+          "evidence_refs": [
+            {
+              "source_job_id": "researcher-0002",
+              "source_response_sha256": "d3783d5604375d475129ecb9088619650276b97a2d63e9bece3912ce5ad81982",
+              "source_step_id": "P1"
+            }
+          ],
+          "id": "ea-r3-00-fixed-target",
+          "kind": "definition",
+          "label": "Fixed target and incidence graph",
+          "notes": "This preserves the useful fixed-count node but restores the admissibility and recovery-floor clauses omitted in round 2. The cited source has no audit verdict.",
+          "owner": "exact-analytic",
+          "proof_state": "external",
+          "resolved_lemma_ids": [
+            "researcher-0002:P1.1"
+          ],
+          "statement_markdown": "Let $p:=147457$, $d:=87$, $F:=\\mathbb F_p$, $h:=p+1=147458$, $M:=p^2=21743566849$, $\\Lambda:=p(p+1)=21743714306$, and $N:=Mh=3206262880419842$. For valid tables $(f,P)$, let $$E:=\\{(x,L):x\\in L,\\ P_L(x)=f(x)\\},\\qquad \\rho:=\\frac{|E|}{N}=\\operatorname{Pass}(f,P),$$ and $$\\operatorname{Agr}_{87}(f):=\\max_{\\deg_{\\mathrm{tot}}Q\\le87}\\Pr_{x\\in F^2}[Q(x)=f(x)].$$ Define $\\operatorname{Sound}(\\varepsilon)$ by $$\\rho\\ge\\varepsilon\\Longrightarrow\\operatorname{Agr}_{87}(f)\\ge\\max\\left\\{\\frac{174}{p},\\frac{\\varepsilon}{10}\\right\\}$$ for every valid $(f,P)$.",
+          "work_state": "candidate"
+        },
+        {
+          "dependencies": [
+            "ea-r3-00-fixed-target"
+          ],
+          "evidence_refs": [],
+          "id": "ea-r3-01-target-arithmetic",
+          "kind": "reduction",
+          "label": "Admissibility and score arithmetic",
+          "notes": "The candidate is admissible, and its active recovery branch is $\\varepsilon_\\star/10$. The prior constant route is excluded because its interval ends at $10/p<957/(10p)$ and its agreement is a factor $174$ below the floor.",
+          "owner": "exact-analytic",
+          "proof_state": "open",
+          "resolved_lemma_ids": [],
+          "statement_markdown": "Set $$A_\\star:=7349491214,\\qquad \\varepsilon_\\star:=\\frac{A_\\star}{M},\\qquad \\tau_\\star:=\\frac{\\varepsilon_\\star}{10}.$$ Then $$\\varepsilon_\\star-\\frac{957}{10p}=\\frac{73353795791}{217435668490}>0,$$ $$\\tau_\\star-\\frac{174}{p}=\\frac{3546458017}{108717834245}>0,$$ and hence $$\\max\\left\\{\\frac{174}{p},\\frac{\\varepsilon_\\star}{10}\\right\\}=\\tau_\\star.$$ Moreover, $$\\left\\lceil M\\varepsilon_\\star\\right\\rceil=A_\\star,\\qquad \\left\\lceil M\\tau_\\star\\right\\rceil=734949122,$$ $$\\left\\lceil M\\frac{957}{10p}\\right\\rceil=14111635,$$ and $$A_\\star=7349492138-924=7810920777-461429563.$$",
+          "work_state": "candidate"
+        },
+        {
+          "dependencies": [
+            "ea-r3-00-fixed-target"
+          ],
+          "evidence_refs": [
+            {
+              "source_job_id": "researcher-0003",
+              "source_response_sha256": "29abac529d4016becae1afda4a6b9d0929219539339731a92c93c53459912825",
+              "source_step_id": "P4"
+            },
+            {
+              "source_job_id": "researcher-0003",
+              "source_response_sha256": "29abac529d4016becae1afda4a6b9d0929219539339731a92c93c53459912825",
+              "source_step_id": "P9"
+            }
+          ],
+          "id": "ea-r3-02-ktz-interfaces",
+          "kind": "literature_input",
+          "label": "Line vanishing and simple-root interfaces",
+          "notes": "These are the zero-loss algebraic interfaces used by P4 and P9: KTZ Lemmas 2.5, 2.7, and 6.1. Their campaign-30 source steps are indexed but unaudited, so the exact imported hypotheses remain load-bearing audit items.",
+          "owner": "exact-analytic",
+          "proof_state": "external",
+          "resolved_lemma_ids": [
+            "researcher-0003:P4.1",
+            "researcher-0003:P9.1"
+          ],
+          "statement_markdown": "For $D=15129$ and weights $(1,1,87)$: (i) a polynomial in $F[X,Y]$ of total degree at most $D$ that vanishes formally on more than $D$ distinct affine lines is zero; (ii) if $B_Z(x_0,a)\\ne0$ and $D+1$ distinct lines through $x_0$ carry degree-at-most-$87$ formal roots of $B$ taking value $a$ at $x_0$, then one $Q\\in F[X,Y]$ of total degree at most $87$ is a global root of $B$ and restricts to every seed label; (iii) equality with $Q$ propagates across an accepted identity-line intersection at which $B_Z(x,f(x))\\ne0$.",
+          "work_state": "candidate"
+        },
+        {
+          "dependencies": [
+            "ea-r3-00-fixed-target"
+          ],
+          "evidence_refs": [
+            {
+              "source_job_id": "researcher-0003",
+              "source_response_sha256": "29abac529d4016becae1afda4a6b9d0929219539339731a92c93c53459912825",
+              "source_step_id": "P3"
+            }
+          ],
+          "id": "ea-r3-03-three-direction-pruning",
+          "kind": "lemma",
+          "label": "Sharp three-direction pruning",
+          "notes": "This replaces whole-pencil random-line energy by an exact three-full-direction choice. Its coefficient is sharp using point degrees alone and enters the survival inequality as the sole acceptance-dependent loss.",
+          "owner": "exact-analytic",
+          "proof_state": "provisional",
+          "resolved_lemma_ids": [
+            "researcher-0003:P3.1"
+          ],
+          "statement_markdown": "Let $a_x$ be the accepted degree of $x$ and let $U_R$ count accepted incidences at points whose accepted pencil contains no line in $R$. There exists a union $R$ of all $3p=442371$ lines in three directions such that $$\\frac{U_R}{N}\\le\\kappa(1-\\rho),\\qquad \\kappa:=\\frac{1610629120}{10871857153}.$$",
+          "work_state": "candidate"
+        },
+        {
+          "dependencies": [
+            "ea-r3-02-ktz-interfaces",
+            "ea-r3-03-three-direction-pruning"
+          ],
+          "evidence_refs": [
+            {
+              "source_job_id": "researcher-0003",
+              "source_response_sha256": "29abac529d4016becae1afda4a6b9d0929219539339731a92c93c53459912825",
+              "source_step_id": "P4"
+            }
+          ],
+          "id": "ea-r3-04-squarefree-interpolation",
+          "kind": "lemma",
+          "label": "Lossless weighted interpolation",
+          "notes": "Using three full directions lowers the interpolation degree from $17642$ to $15129$. This reduces the point-peeling charge by $2513M=54641583491537$ incidences and simultaneously lowers the derivative degree and exceptional-line cap.",
+          "owner": "exact-analytic",
+          "proof_state": "provisional",
+          "resolved_lemma_ids": [
+            "researcher-0003:P4.1"
+          ],
+          "statement_markdown": "For $D:=15129$, $$V_D:=\\sum_{k=0}^{173}\\binom{D-87k+2}{2}=6693082347>442371(D+1)=6693073230.$$ Hence there exists a nonzero squarefree $A\\in F[X,Y,Z]$ with $$\\operatorname{wdeg}_{(1,1,87)}A\\le D,\\qquad \\deg_ZA\\le173<p,\\qquad A_Z\\not\\equiv0,$$ such that $$A(L(t),P_L(t))\\equiv0$$ for every $L\\in R$.",
+          "work_state": "candidate"
+        },
+        {
+          "dependencies": [
+            "ea-r3-03-three-direction-pruning",
+            "ea-r3-04-squarefree-interpolation"
+          ],
+          "evidence_refs": [
+            {
+              "source_job_id": "researcher-0003",
+              "source_response_sha256": "29abac529d4016becae1afda4a6b9d0929219539339731a92c93c53459912825",
+              "source_step_id": "P5"
+            }
+          ],
+          "id": "ea-r3-05-identity-transfer",
+          "kind": "reduction",
+          "label": "Exact identity-line transfer",
+          "notes": "This loses only the missed-pencil term $U_R$ and at most $D$ covered incidences per nonidentity line; no popularity bucket or Markov loss is introduced.",
+          "owner": "exact-analytic",
+          "proof_state": "provisional",
+          "resolved_lemma_ids": [
+            "researcher-0003:P5.1"
+          ],
+          "statement_markdown": "Call an accepted incidence covered if its point has an accepted line in $R$, and let $$T:=R\\cup\\{L\\notin R:L\\text{ has more than }D\\text{ covered accepted incidences}\\}.$$ Then every $L\\in T$ satisfies $$A(L(t),P_L(t))\\equiv0,$$ and, writing $E_T:=\\{(x,L)\\in E:L\\in T\\}$, $$|E|\\le |E_T|+U_R+D(\\Lambda-|T|).$$",
+          "work_state": "candidate"
+        },
+        {
+          "dependencies": [
+            "ea-r3-04-squarefree-interpolation",
+            "ea-r3-05-identity-transfer"
+          ],
+          "evidence_refs": [
+            {
+              "source_job_id": "researcher-0003",
+              "source_response_sha256": "29abac529d4016becae1afda4a6b9d0929219539339731a92c93c53459912825",
+              "source_step_id": "P6"
+            }
+          ],
+          "id": "ea-r3-06-primitive-factorization",
+          "kind": "lemma",
+          "label": "Primitive factor and discriminant cleanup",
+          "notes": "The derivative cap falls from $17555$ to $15042$, and the exceptional-line cap falls from $3559710$ to $2615604$. These improvements feed the three corresponding terms of the fixed charge in `ea-r3-08-core-survival`.",
+          "owner": "exact-analytic",
+          "proof_state": "provisional",
+          "resolved_lemma_ids": [
+            "researcher-0003:P6.1"
+          ],
+          "statement_markdown": "Write $A=CB$, where $C\\in F[X,Y]$ is the coefficient content in $Z$ and $B$ is primitive in $Z$. Then $B$ is squarefree, $$1\\le\\deg_ZB\\le173<p,\\qquad \\gcd(B,B_Z)=1.$$ Among the lines of $T$, at most $$E_D:=2615604$$ are content lines or satisfy $B_Z(L(t),P_L(t))\\equiv0$. On every other identity line, $$B(L(t),P_L(t))\\equiv0,$$ while $B_Z(L(t),P_L(t))$ is nonzero of degree at most $$q_0:=D-87=15042.$$",
+          "work_state": "candidate"
+        },
+        {
+          "dependencies": [
+            "ea-r3-00-fixed-target"
+          ],
+          "evidence_refs": [],
+          "id": "ea-r3-07-c4-peeling-credit",
+          "kind": "obligation",
+          "label": "C4 credit at the new peel parameters",
+          "notes": "This is the sole new unsourced mathematical obligation. The old indexed C4 lemmas use $(D,b)=(17642,5494)$ and therefore cannot evidence this statement. Discharging it subtracts $156513678$ incidences from the P7 ledger and lowers the final score by exactly $924$.",
+          "owner": "exact-analytic",
+          "proof_state": "open",
+          "resolved_lemma_ids": [],
+          "statement_markdown": "Set $D:=15129$, $b:=5194$, $$Z:=646374,\\qquad K_c:=2Db-Z=156513678.$$ Every $C_4$-free bipartite graph with vertex-class sizes $b$ and $D$ has at most $Z$ edges. Consequently, for every $n\\ge0$, if a $C_4$-free bipartite graph $H$ has $M$ point vertices and $n$ line vertices and is emptied by deleting point vertices at current degree at most $D$ and line vertices at current degree at most $b$, then $$|E(H)|\\le DM+bn-K_c.$$",
+          "work_state": "drafting"
+        },
+        {
+          "dependencies": [
+            "ea-r3-03-three-direction-pruning",
+            "ea-r3-05-identity-transfer",
+            "ea-r3-06-primitive-factorization",
+            "ea-r3-07-c4-peeling-credit"
+          ],
+          "evidence_refs": [
+            {
+              "source_job_id": "researcher-0003",
+              "source_response_sha256": "29abac529d4016becae1afda4a6b9d0929219539339731a92c93c53459912825",
+              "source_step_id": "P7"
+            }
+          ],
+          "id": "ea-r3-08-core-survival",
+          "kind": "reduction",
+          "label": "Sharpened simple-root core survival",
+          "notes": "Researcher-0003/P7 supplies the unchanged pruning, cleanup, and charging framework at score $7349492138$. The new C4 dependency is exactly what changes $C_0$ to $C_\\star$; without it, the source-backed fallback remains below the comparison threshold.",
+          "owner": "exact-analytic",
+          "proof_state": "provisional",
+          "resolved_lemma_ids": [
+            "researcher-0003:P7.1"
+          ],
+          "statement_markdown": "Let $s:=5195$ and $$C_0:=(q_0+s-1)\\Lambda+DM+(p-q_0-s+1)E_D=769296985311221,$$ $$C_\\star:=C_0-K_c=769296828797543.$$ Put $$R_\\star:=\\frac{C_\\star/N+\\kappa}{1+\\kappa}=\\frac{1244293905093223}{3681259956715522}.$$ Then $$\\varepsilon_\\star-\\frac{C_\\star}{N}-\\kappa(1-\\varepsilon_\\star)=\\frac{1249813349}{27810935621062861282}>0,$$ whereas replacing $A_\\star$ by $A_\\star-1$ gives $$-\\frac{3718145613}{472785905558068641794}<0.$$ Thus $A_\\star$ is the least integer score satisfying this survival ledger. If $\\rho\\ge\\varepsilon_\\star$, there is a nonempty retained incidence graph in which every point has degree at least $15130$, every line has degree at least $5195$, every retained line is a formal $B$-identity, and every retained edge satisfies $B_Z(x,f(x))\\ne0$.",
+          "work_state": "drafting"
+        },
+        {
+          "dependencies": [
+            "ea-r3-08-core-survival"
+          ],
+          "evidence_refs": [
+            {
+              "source_job_id": "researcher-0003",
+              "source_response_sha256": "29abac529d4016becae1afda4a6b9d0929219539339731a92c93c53459912825",
+              "source_step_id": "P8"
+            }
+          ],
+          "id": "ea-r3-09-component-mass",
+          "kind": "lemma",
+          "label": "Zero-loss component mass",
+          "notes": "The source proves the stronger old endpoint independently of the acceptance threshold. It therefore leaves $92$ integer points of slack over the new requirement $734949122$ and needs no retuning after the C4 splice.",
+          "owner": "exact-analytic",
+          "proof_state": "provisional",
+          "resolved_lemma_ids": [
+            "researcher-0003:P8.1"
+          ],
+          "statement_markdown": "Every connected component $K$ of the core in `ea-r3-08-core-survival` satisfies $$\\frac{|V_{\\mathrm{pt}}(K)|}{M}>\\frac{7349492138}{10M}>\\frac{\\varepsilon_\\star}{10}.$$ Consequently, $$|V_{\\mathrm{pt}}(K)|\\ge734949214>734949122.$$",
+          "work_state": "candidate"
+        },
+        {
+          "dependencies": [
+            "ea-r3-02-ktz-interfaces",
+            "ea-r3-06-primitive-factorization",
+            "ea-r3-08-core-survival"
+          ],
+          "evidence_refs": [
+            {
+              "source_job_id": "researcher-0003",
+              "source_response_sha256": "29abac529d4016becae1afda4a6b9d0929219539339731a92c93c53459912825",
+              "source_step_id": "P9"
+            }
+          ],
+          "id": "ea-r3-10-one-polynomial-recovery",
+          "kind": "lemma",
+          "label": "One-polynomial seed lifting and propagation",
+          "notes": "This incurs zero agreement loss. Point degree $15130=D+1$ supplies the sharp seed, and pointwise simplicity is needed only at transitions; the indexed source is proved-status but unaudited.",
+          "owner": "exact-analytic",
+          "proof_state": "provisional",
+          "resolved_lemma_ids": [
+            "researcher-0003:P9.1"
+          ],
+          "statement_markdown": "For every connected component $K$ of the core in `ea-r3-08-core-survival`, there exists one polynomial $Q_K\\in F[X,Y]$ such that $$\\deg_{\\mathrm{tot}}Q_K\\le87,\\qquad B(X,Y,Q_K(X,Y))=0,$$ $$Q_K|_L=P_L\\quad(L\\in V_{\\mathrm{line}}(K)),\\qquad Q_K(x)=f(x)\\quad(x\\in V_{\\mathrm{pt}}(K)).$$",
+          "work_state": "candidate"
+        },
+        {
+          "dependencies": [
+            "ea-r3-01-target-arithmetic",
+            "ea-r3-09-component-mass",
+            "ea-r3-10-one-polynomial-recovery"
+          ],
+          "evidence_refs": [
+            {
+              "source_job_id": "researcher-0003",
+              "source_response_sha256": "29abac529d4016becae1afda4a6b9d0929219539339731a92c93c53459912825",
+              "source_step_id": "P10"
+            }
+          ],
+          "id": "ea-r3-11-soundness",
+          "kind": "theorem",
+          "label": "Sharpened admissible analytic soundness",
+          "notes": "The indexed P3--P10 chain proves the same conclusion at score $7349492138$; the new C4 obligation is the only mathematical delta producing score $7349491214$. This is minimal only within the displayed three-direction/interpolation/cleanup/core ledger, not globally. No campaign-30 evidence step has a verifier verdict.",
+          "owner": "exact-analytic",
+          "proof_state": "blocked",
+          "resolved_lemma_ids": [
+            "researcher-0003:P10.1"
+          ],
+          "statement_markdown": "For every $f:F^2\\to F$ and every affine-line table $P$ whose labels have degree at most $87$, $$\\operatorname{Pass}(f,P)\\ge\\varepsilon_\\star:=\\frac{7349491214}{21743566849}$$ implies that there exists $Q\\in F[X,Y]$ with $$\\deg_{\\mathrm{tot}}Q\\le87,$$ $$\\Pr_{x\\in F^2}[Q(x)=f(x)]>\\frac{7349492138}{217435668490}>\\max\\left\\{\\frac{174}{147457},\\frac{\\varepsilon_\\star}{10}\\right\\}.$$ Hence $\\operatorname{Sound}(\\varepsilon_\\star)$ holds and its absolute score is $$\\left\\lceil\\varepsilon_\\star p^2\\right\\rceil=7349491214<7810920777.$$",
+          "work_state": "blocked"
+        },
+        {
+          "dependencies": [
+            "ea-r3-11-soundness"
+          ],
+          "evidence_refs": [],
+          "id": "ea-r3-12-promotion-artifact",
+          "kind": "obligation",
+          "label": "Exact artifact and matching audits",
+          "notes": "Researcher-0003 failed its static gate because `claimed_soundness` was $1.0$ and the response bundled the inadmissible score-one theorem. The fixed corpus has no campaign-30 audit files, every audit list is empty, and every `double_accepted` flag is false.",
+          "owner": "exact-analytic",
+          "proof_state": "open",
+          "resolved_lemma_ids": [],
+          "statement_markdown": "There exists a canonical leaderboard artifact stating `ea-r3-11-soundness`, binding every load-bearing source and the new C4 certificate to one theorem SHA-256, declaring the exact rational $\\varepsilon_\\star=7349491214/21743566849$, and receiving two independent matching verifier accepts on that SHA-256.",
+          "work_state": "open"
+        }
+      ],
+      "progress": {
+        "blocked": 1,
+        "invalid": 0,
+        "mapped": 8,
+        "open": 2,
+        "percent": 0,
+        "provisional": 7,
+        "total": 10,
+        "verified": 0
+      },
+      "render_validation": {
+        "math_segments": 134,
+        "messages": 4,
+        "passed": true,
+        "roadmaps": 1
+      },
+      "roadmap_id": "exact-analytic",
+      "round": 3,
+      "summary": "Round 3 removes the inadmissible score-one route: the live cutoff is $957/(10p)>10/p$, and constant recovery $1/p$ is below the required floor $174/p$. The shortest indexed analytic chain is researcher-0003/P3--P10, which gives score $7349492138$. A single new parameter-specific $C_4$ peeling obligation at $(D,b)=(15129,5194)$ gives credit $156513678$, lowers the fixed charge to $769296828797543$, and yields the sharper canonical threshold $\\varepsilon_\\star=7349491214/21743566849$ with score $7349491214$: $924$ below the indexed candidate and $461429563$ below the comparison count. The unchanged component theorem supplies $734949214$ points, exceeding the new required $734949122$. This is the shortest plausible score-moving extension of the complete source chain. It is not verified: the new C4 statement has no exact stable source triple, researcher-0003's manifest failed static validation, all campaign-30 evidence entries have empty audit lists, the 42 Lemma Book entries are editorial only, and the authoritative leaderboard has no point.",
+      "target_statement": "Prove the strongest explicit soundness bound $\\varepsilon$ for $p=147457$ and total degree $d=87$ by an exact analytic argument.",
+      "title": "Exact analytic chain",
+      "updated_at": "2026-09-15T09:04:20Z"
+    },
+    {
+      "corpus_sha256": "2947d27413190eeefd83c9fc071689178fe37147481a82c947c9b8b094ced877",
+      "critical_path": [
+        "cc-01-fixed-instance",
+        "cc-10-pencil-coverage",
+        "cc-11-interpolant-identity",
+        "cc-12-primitive-cleanup",
+        "cc-13-c4-corner-ip",
+        "cc-14-empty-core-credit",
+        "cc-15-core-survival",
+        "cc-16-component-mass",
+        "cc-17-simple-root-reconstruction",
+        "cc-18-open-threshold-soundness",
+        "cc-19-incidence-lattice-ledger",
+        "cc-20-final-theorem"
+      ],
+      "focus": "integer programs, exhaustive finite reductions, rational arithmetic, and independently checkable certificates",
+      "goal_node_id": "cc-20-final-theorem",
+      "messages": [
+        {
+          "body_markdown": "The round-2 score-one route is inadmissible under the current contract: $10^{-11}<957/1474570$, and its $p=147457$ agreements are below the $174p=25657518$ point floor. `cc-20-final-theorem` replaces it with an admissible score-$7349491214$ candidate.",
+          "channel": "global",
+          "in_reply_to": "msg-753a0e2e8934",
+          "kind": "objection",
+          "references": [
+            "TARGET.md",
+            "certified-computation/cc-01-fixed-instance",
+            "certified-computation/cc-20-final-theorem"
+          ],
+          "related_node_ids": [
+            "cc-01-fixed-instance",
+            "cc-20-final-theorem"
+          ],
+          "subject": "Score-one path is inadmissible"
+        },
+        {
+          "body_markdown": "At $(D,b)=(15129,5194)$, the new $C_4$ corner calculation gives $Z_4=646374$ and $K_4=156513678$. This changes the fixed charge to $769296828797543$ and lowers the normalized score from $7349492138$ to $7349491214$, a gain of $924$. The indexed $(17642,5494)$ lemmas are analogues only; please independently audit `cc-13-c4-corner-ip` and `cc-14-empty-core-credit`, including the $n<D$ case.",
+          "channel": "exact-analytic",
+          "in_reply_to": "msg-9861eaea5849",
+          "kind": "reply",
+          "references": [
+            "researcher-0001|[P10]|de4537e9ee389fde7c78664f9f77e5188ac1283ef152121467376ca11e62e7c3",
+            "researcher-0002|P5|d3783d5604375d475129ecb9088619650276b97a2d63e9bece3912ce5ad81982",
+            "researcher-0002|P6|d3783d5604375d475129ecb9088619650276b97a2d63e9bece3912ce5ad81982",
+            "researcher-0003|P11|29abac529d4016becae1afda4a6b9d0929219539339731a92c93c53459912825",
+            "certified-computation/cc-13-c4-corner-ip",
+            "certified-computation/cc-14-empty-core-credit"
+          ],
+          "related_node_ids": [
+            "cc-13-c4-corner-ip",
+            "cc-14-empty-core-credit",
+            "cc-15-core-survival"
+          ],
+          "subject": "Audit the new C4 specialization"
+        },
+        {
+          "body_markdown": "Please import `cc-19-incidence-lattice-ledger`. The terminating trigger $\\varepsilon_*=0.3380076168821833$ lies below the analytic boundary but satisfies $\\lceil N\\varepsilon_*\\rceil=1083741275308516$, forcing every realized acceptance above that boundary. Its score is $7349491214$, and the recovered component has at least $734949122$ points.",
+          "channel": "end-to-end-soundness",
+          "in_reply_to": "msg-e7fec1fe4b1d",
+          "kind": "request",
+          "references": [
+            "researcher-0003|P10|29abac529d4016becae1afda4a6b9d0929219539339731a92c93c53459912825",
+            "certified-computation/cc-19-incidence-lattice-ledger",
+            "certified-computation/cc-20-final-theorem"
+          ],
+          "related_node_ids": [
+            "cc-19-incidence-lattice-ledger",
+            "cc-20-final-theorem"
+          ],
+          "subject": "Import the incidence-lattice trigger"
+        },
+        {
+          "body_markdown": "The clean artifact must contain the admissible three-direction chain and the new $C_4$ certificate, not the obsolete score-one chain. It should declare `claimed_soundness: 0.3380076168821833`, bind the exact rational and recovery count $734949122$, store hashes for the checker and certificate, and obtain two matching verifier accepts on one theorem digest. At snapshot `2947d274...`, every indexed audit list is empty.",
+          "channel": "global",
+          "in_reply_to": "msg-a397665686b2",
+          "kind": "reply",
+          "references": [
+            "research_state/campaign-30-leaderboard/roadmaps/corpus-index.json",
+            "certified-computation/cc-04-replayable-checker",
+            "certified-computation/cc-21-clean-submission-audits"
+          ],
+          "related_node_ids": [
+            "cc-04-replayable-checker",
+            "cc-20-final-theorem",
+            "cc-21-clean-submission-audits"
+          ],
+          "subject": "Package the admissible theorem only"
+        }
+      ],
+      "nodes": [
+        {
+          "dependencies": [],
+          "evidence_refs": [
+            {
+              "source_job_id": "researcher-0002",
+              "source_response_sha256": "d3783d5604375d475129ecb9088619650276b97a2d63e9bece3912ce5ad81982",
+              "source_step_id": "P1"
+            }
+          ],
+          "id": "cc-01-fixed-instance",
+          "kind": "definition",
+          "label": "Fixed instance and admissible contract",
+          "notes": "No numerical loss. This removes the round-2 score-one branch, which violates both the current epsilon cutoff and the $174/p$ recovery floor. The source is snapshot-stable but unaudited.",
+          "owner": "certified-computation",
+          "proof_state": "external",
+          "resolved_lemma_ids": [
+            "researcher-0002:P1.1"
+          ],
+          "statement_markdown": "Let $p:=147457$, $d:=87$, $h:=p+1$, $F:=\\mathbb F_p$, $X:=F^2$, and let $\\mathcal L$ be the affine lines of $X$. Put $$M:=|X|=p^2=21743566849,$$ $$\\Lambda:=|\\mathcal L|=p(p+1)=21743714306,$$ $$N:=p\\Lambda=Mh=3206262880419842.$$ For a valid point table $f$ and degree-at-most-$87$ line table $P$, let $E(f,P)$ be the accepted incidences and define $$\\operatorname{Pass}(f,P):=\\frac{|E(f,P)|}{N},\\qquad \\operatorname{Agr}_{87}(f):=\\max_{\\deg_{\\mathrm{tot}}Q\\le87}\\frac{|\\{x:Q(x)=f(x)\\}|}{M}.$$ An admissible value satisfies $$\\varepsilon\\ge\\frac{957}{1474570},\\qquad \\operatorname{Agr}_{87}(f)\\ge\\max\\left\\{\\frac{174}{147457},\\frac{\\varepsilon}{10}\\right\\}.$$ Define $A(\\varepsilon):=\\lceil M\\varepsilon\\rceil$.",
+          "work_state": "candidate"
+        },
+        {
+          "dependencies": [
+            "cc-01-fixed-instance"
+          ],
+          "evidence_refs": [
+            {
+              "source_job_id": "researcher-0003",
+              "source_response_sha256": "29abac529d4016becae1afda4a6b9d0929219539339731a92c93c53459912825",
+              "source_step_id": "P3"
+            }
+          ],
+          "id": "cc-10-pencil-coverage",
+          "kind": "lemma",
+          "label": "Exact three-direction coverage",
+          "notes": "This introduces the pencil loss $\\kappa_3(1-\\rho)$. The finite maximization is independently checkable over $0\\le a\\le h$ and is attained at $a=49152$.",
+          "owner": "certified-computation",
+          "proof_state": "provisional",
+          "resolved_lemma_ids": [
+            "researcher-0003:P3.1"
+          ],
+          "statement_markdown": "Let $G$ be the accepted incidence graph and $\\rho:=|E(G)|/N$. There exist three directions whose union of $3p=442371$ lines is $R$ such that $$U_R\\le \\kappa_3(1-\\rho)N,\\qquad \\kappa_3:=\\frac{1610629120}{10871857153},$$ where $U_R$ counts accepted incidences at points whose accepted pencil contains no line of $R$. Pointwise, for $0\\le a\\le h$, $$a\\frac{\\binom{h-a}{3}}{\\binom h3}\\le\\kappa_3(h-a).$$",
+          "work_state": "candidate"
+        },
+        {
+          "dependencies": [
+            "cc-10-pencil-coverage"
+          ],
+          "evidence_refs": [
+            {
+              "source_job_id": "researcher-0003",
+              "source_response_sha256": "29abac529d4016becae1afda4a6b9d0929219539339731a92c93c53459912825",
+              "source_step_id": "P4"
+            },
+            {
+              "source_job_id": "researcher-0003",
+              "source_response_sha256": "29abac529d4016becae1afda4a6b9d0929219539339731a92c93c53459912825",
+              "source_step_id": "P5"
+            }
+          ],
+          "id": "cc-11-interpolant-identity",
+          "kind": "reduction",
+          "label": "Weighted interpolation and identity extension",
+          "notes": "Using $D=15129$ rather than $17642$ lowers the later point-peeling and derivative charges. The interpolation surplus is $9117$ and costs no incidences.",
+          "owner": "certified-computation",
+          "proof_state": "provisional",
+          "resolved_lemma_ids": [
+            "researcher-0003:P4.1",
+            "researcher-0003:P5.1"
+          ],
+          "statement_markdown": "Set $D:=15129$. The number of $(1,1,87)$-weighted monomials of weight at most $D$ is $$V_D:=\\sum_{z=0}^{173}\\binom{D-87z+2}{2}=6693082347,$$ whereas the selected-line constraints number at most $$3p(D+1)=6693073230<V_D.$$ Hence there is a nonzero squarefree $A\\in F[X,Y,Z]$ of weighted degree at most $D$, with $A_Z\\ne0$ and $\\deg_ZA\\le173$, satisfying every selected formal line identity. If $T$ consists of the selected lines and every line containing more than $D$ covered accepted points, and $t:=|T|$, then every line of $T$ is an $A$-identity line and $$|E(f,P)|\\le |E_T|+U_R+D(\\Lambda-t).$$",
+          "work_state": "candidate"
+        },
+        {
+          "dependencies": [
+            "cc-11-interpolant-identity"
+          ],
+          "evidence_refs": [
+            {
+              "source_job_id": "researcher-0003",
+              "source_response_sha256": "29abac529d4016becae1afda4a6b9d0929219539339731a92c93c53459912825",
+              "source_step_id": "P6"
+            }
+          ],
+          "id": "cc-12-primitive-cleanup",
+          "kind": "lemma",
+          "label": "Finite primitive-discriminant cleanup",
+          "notes": "The exact losses are at most $p$ incidences per exceptional line and $q=15042$ derivative roots per remaining identity line. They feed directly into `cc-15-core-survival`.",
+          "owner": "certified-computation",
+          "proof_state": "provisional",
+          "resolved_lemma_ids": [
+            "researcher-0003:P6.1"
+          ],
+          "statement_markdown": "Write $A=CB$, where $C\\in F[X,Y]$ is the coefficient content in $Z$ and $B$ is primitive. Then $B$ is squarefree and $$1\\le\\nu:=\\deg_ZB\\le173<p,\\qquad \\gcd(B,B_Z)=1.$$ Among the identity lines, at most $$E_D:=2615604$$ are content or derivative-degenerate. For $2\\le\\nu\\le173$, the required finite bound is $$\\deg C+(\\nu-1)(2\\operatorname{wdeg}B-87\\nu)\\le(\\nu-1)(2D-87\\nu),$$ whose maximum, together with the linear case, occurs at $\\nu=173$. On every other identity line, $B_Z(L(t),P_L(t))$ is nonzero of degree at most $$q:=D-87=15042.$$",
+          "work_state": "candidate"
+        },
+        {
+          "dependencies": [
+            "cc-12-primitive-cleanup"
+          ],
+          "evidence_refs": [
+            {
+              "source_job_id": "researcher-0003",
+              "source_response_sha256": "29abac529d4016becae1afda4a6b9d0929219539339731a92c93c53459912825",
+              "source_step_id": "P11"
+            }
+          ],
+          "id": "cc-13-c4-corner-ip",
+          "kind": "reduction",
+          "label": "C4-free residual integer program",
+          "notes": "P11 supplies the affine pair-uniqueness input. The $(15129,5194)$ numerical specialization is new and lowers the final score by $924$; the indexed C4 lemmas use different parameters and do not certify it.",
+          "owner": "certified-computation",
+          "proof_state": "provisional",
+          "resolved_lemma_ids": [
+            "researcher-0003:P11.1"
+          ],
+          "statement_markdown": "Let $b:=5194$. Every affine point-line incidence subgraph is $C_4$-free. In a $C_4$-free bipartite graph with $b$ point vertices and $D=15129$ line vertices, the line degrees $r_1,\\ldots,r_D$ satisfy $$r_i\\in\\mathbb Z_{\\ge0},\\qquad r_i\\le b,\\qquad \\sum_{i=1}^{D}\\binom{r_i}{2}\\le\\binom b2=13486221.$$ Discrete convexity and $$646374=42D+10956,$$ $$D\\binom{42}{2}+10956\\cdot42=13486221<13486263$$ imply that every feasible graph has at most $$Z_4:=646374$$ edges.",
+          "work_state": "drafting"
+        },
+        {
+          "dependencies": [
+            "cc-13-c4-corner-ip"
+          ],
+          "evidence_refs": [],
+          "id": "cc-14-empty-core-credit",
+          "kind": "lemma",
+          "label": "Exact empty-core peeling credit",
+          "notes": "Relative to independent point and line charging, this subtracts $K_4=156513678$ incidences. That subtraction propagates to a $924$-point score improvement. The indexed $(17642,5494)$ lemmas are proof templates only, and the $n<D$ case must be included.",
+          "owner": "certified-computation",
+          "proof_state": "provisional",
+          "resolved_lemma_ids": [],
+          "statement_markdown": "Let $H$ be a $C_4$-free bipartite graph on $M$ point vertices and $n$ line vertices. Suppose $H$ is emptied by iteratively deleting a point of current degree at most $D=15129$ or a line of current degree at most $b=5194$. Then $$|E(H)|\\le DM+bn-K_4,$$ where $$K_4:=2Db-Z_4=156513678.$$ For $n<D$, the boundary inequality required for this conclusion is $$M+b(D-1)-K_4=21665628003>0.$$",
+          "work_state": "drafting"
+        },
+        {
+          "dependencies": [
+            "cc-14-empty-core-credit"
+          ],
+          "evidence_refs": [
+            {
+              "source_job_id": "researcher-0003",
+              "source_response_sha256": "29abac529d4016becae1afda4a6b9d0929219539339731a92c93c53459912825",
+              "source_step_id": "P7"
+            }
+          ],
+          "id": "cc-15-core-survival",
+          "kind": "reduction",
+          "label": "Improved empty-core integer program",
+          "notes": "The indexed charge is $769296985311221$. The new credit changes it to $769296828797543$, producing the analytic boundary $R_4$ and normalized score $7349491214$.",
+          "owner": "certified-computation",
+          "proof_state": "provisional",
+          "resolved_lemma_ids": [
+            "researcher-0003:P7.1"
+          ],
+          "statement_markdown": "Let $t$ be the number of identity lines and $z$ the number of exceptional identity lines, so $$0\\le z\\le\\min\\{t,E_D\\},\\qquad t\\le\\Lambda.$$ If cleanup followed by the $(D+1,b+1)=(15130,5195)$ peel empties the graph, then $$|E(f,P)|\\le U_R+D(\\Lambda-t)+pz+q(t-z)+DM+b(t-z)-K_4.$$ Since $$q+b-D=5107>0,\\qquad p-q-b=127221>0,$$ this finite linear program is maximized at $t=\\Lambda$ and $z=E_D$, giving $$|E(f,P)|\\le U_R+C_4,$$ $$C_4:=(q+b)\\Lambda+DM+(p-q-b)E_D-K_4=769296828797543.$$ Consequently an empty core implies $$\\rho\\le R_4:=\\frac{C_4/N+\\kappa_3}{1+\\kappa_3}=\\frac{1244293905093223}{3681259956715522}.$$ Thus $\\rho>R_4$ leaves a nonempty core of point degree at least $15130$, line degree at least $5195$, formal $B$-identities, and $B_Z(x,f(x))\\ne0$ on every retained edge.",
+          "work_state": "drafting"
+        },
+        {
+          "dependencies": [
+            "cc-15-core-survival"
+          ],
+          "evidence_refs": [
+            {
+              "source_job_id": "researcher-0003",
+              "source_response_sha256": "29abac529d4016becae1afda4a6b9d0929219539339731a92c93c53459912825",
+              "source_step_id": "P8"
+            }
+          ],
+          "id": "cc-16-component-mass",
+          "kind": "lemma",
+          "label": "Exact component-mass certificate",
+          "notes": "This incurs no further edge deletion. The new endpoint arithmetic retains line threshold $5195$ and yields exactly the $734949122$-point recovery needed downstream.",
+          "owner": "certified-computation",
+          "proof_state": "provisional",
+          "resolved_lemma_ids": [
+            "researcher-0003:P8.1"
+          ],
+          "statement_markdown": "Define $$A_4:=\\lceil MR_4\\rceil=7349491214,\\qquad \\bar\\varepsilon:=\\frac{A_4}{M},\\qquad \\tau:=\\frac{\\bar\\varepsilon}{10}=\\frac{3674745607}{108717834245}.$$ Every connected component of the core in `cc-15-core-survival` has point density greater than $\\tau$. The finite certificate uses $$\\alpha:=\\frac{15130}{147458}=\\frac{445}{4337},\\quad \\beta:=\\frac{5195}{147457},\\quad c:=\\frac{\\alpha}{\\beta}=\\frac{13123673}{4506143},\\quad \\gamma^2:=\\frac1{c(p+1)}=\\frac{1039}{446204882}.$$ For $$F(a):=(\\beta-a)^2-\\gamma^2(1-a)(1-ca),$$ one has $$\\beta-\\tau=\\frac{155449968}{108717834245}>0,$$ $$\\frac12-c\\tau=\\frac{2668206923709}{6644623283510}>0,$$ $$F(\\tau)=\\frac{498727149435244}{30939665878432433176225}>0,$$ $$F'(\\tau)=-\\frac{13793284387}{4837976433085}<0,\\qquad F''=\\frac{147457}{73729}>0.$$ Hence each component contains at least $\\lceil A_4/10\\rceil=734949122$ point vertices.",
+          "work_state": "drafting"
+        },
+        {
+          "dependencies": [
+            "cc-16-component-mass"
+          ],
+          "evidence_refs": [
+            {
+              "source_job_id": "researcher-0003",
+              "source_response_sha256": "29abac529d4016becae1afda4a6b9d0929219539339731a92c93c53459912825",
+              "source_step_id": "P9"
+            }
+          ],
+          "id": "cc-17-simple-root-reconstruction",
+          "kind": "lemma",
+          "label": "D=15129 simple-root reconstruction",
+          "notes": "This has zero agreement loss. P9 states the exact $D=15129$ recovery, but its KTZ inputs remain load-bearing audit obligations. Researcher-0004 P4--P6 are not imported because their stable statements require $17643$ seed lines.",
+          "owner": "certified-computation",
+          "proof_state": "provisional",
+          "resolved_lemma_ids": [
+            "researcher-0003:P9.1"
+          ],
+          "statement_markdown": "Let $C$ be a connected retained component. Suppose $B$ has $(1,1,87)$-weighted degree at most $15129$, is a formal identity on every retained line, and satisfies $B_Z(x,f(x))\\ne0$ on every retained edge. If every retained point has degree at least $15130$, then there exists $Q\\in F[X,Y]$ with $$\\deg_{\\mathrm{tot}}Q\\le87$$ such that $$Q(x)=f(x)$$ at every point vertex of $C$.",
+          "work_state": "candidate"
+        },
+        {
+          "dependencies": [
+            "cc-17-simple-root-reconstruction"
+          ],
+          "evidence_refs": [
+            {
+              "source_job_id": "researcher-0003",
+              "source_response_sha256": "29abac529d4016becae1afda4a6b9d0929219539339731a92c93c53459912825",
+              "source_step_id": "P10"
+            }
+          ],
+          "id": "cc-18-open-threshold-soundness",
+          "kind": "theorem",
+          "label": "Soundness above the analytic boundary",
+          "notes": "This aggregates the improved charge, component conversion, and zero-loss reconstruction. Its normalized score improves the indexed researcher-0003 candidate by $924$ and the configured comparison count by $461429563$.",
+          "owner": "certified-computation",
+          "proof_state": "provisional",
+          "resolved_lemma_ids": [
+            "researcher-0003:P10.1"
+          ],
+          "statement_markdown": "For every valid $(f,P)$, $$\\operatorname{Pass}(f,P)>R_4\\Longrightarrow\\operatorname{Agr}_{87}(f)>\\frac{\\bar\\varepsilon}{10}=\\frac{3674745607}{108717834245}.$$ In particular, one total-degree-at-most-$87$ polynomial agrees with $f$ on at least $734949122$ points.",
+          "work_state": "drafting"
+        },
+        {
+          "dependencies": [
+            "cc-18-open-threshold-soundness"
+          ],
+          "evidence_refs": [],
+          "id": "cc-19-incidence-lattice-ledger",
+          "kind": "reduction",
+          "label": "Exact terminating incidence-lattice representative",
+          "notes": "This changes no absolute score. It lowers the serializable trigger below $R_4$ because acceptance lies on the $1/N$ lattice. The equivalent open-left incidence cell has no least rational member; this is its coarsest valid downward decimal truncation of $R_4$.",
+          "owner": "certified-computation",
+          "proof_state": "provisional",
+          "resolved_lemma_ids": [],
+          "statement_markdown": "Set $$\\varepsilon_*:=\\frac{3380076168821833}{10^{16}}=0.3380076168821833,\\qquad k_*:=1083741275308516.$$ Exact rational arithmetic gives $$(k_*-1)/N<\\varepsilon_*<R_4<k_*/N,$$ $$R_4-\\varepsilon_*=\\frac{809056458204087}{18406299783577610000000000000000}>0,$$ and $$\\lceil N\\varepsilon_*\\rceil=\\lceil NR_4\\rceil=k_*.$$ Therefore $\\operatorname{Pass}(f,P)\\ge\\varepsilon_*$ implies $\\operatorname{Pass}(f,P)>R_4$. Moreover, $$\\lceil M\\varepsilon_*\\rceil=\\lceil MR_4\\rceil=A_4=7349491214,$$ $$\\left\\lceil\\frac{M\\varepsilon_*}{10}\\right\\rceil=734949122,$$ $$\\varepsilon_*-\\frac{957}{1474570}=\\frac{497458891625961028681}{1474570000000000000000}>0,$$ $$\\frac{\\varepsilon_*}{10}-\\frac{174}{147457}=\\frac{481015891625961028681}{14745700000000000000000}>0.$$ The configured comparison score $7810920777$ exceeds $A_4$ by $461429563$.",
+          "work_state": "candidate"
+        },
+        {
+          "dependencies": [
+            "cc-19-incidence-lattice-ledger"
+          ],
+          "evidence_refs": [],
+          "id": "cc-20-final-theorem",
+          "kind": "theorem",
+          "label": "Admissible C4-sharpened fixed-instance soundness",
+          "notes": "This is the shortest leaderboard-moving endpoint. The stable corpus proves only the score-$7349492138$ analogue; the new C4, component-specialization, lattice, and final nodes have no matching verifier accepts.",
+          "owner": "certified-computation",
+          "proof_state": "provisional",
+          "resolved_lemma_ids": [],
+          "statement_markdown": "Let $$\\varepsilon_*:=0.3380076168821833.$$ Then $\\varepsilon_*\\ge957/1474570$, and for every $f:F^2\\to F$ and every degree-at-most-$87$ affine-line table $P$, $$\\operatorname{Pass}(f,P)\\ge\\varepsilon_*\\Longrightarrow\\exists Q\\in F[X,Y],\\quad \\deg_{\\mathrm{tot}}Q\\le87,$$ $$\\Pr_{x\\leftarrow F^2}[Q(x)=f(x)]\\ge\\frac{734949122}{21743566849}>\\frac{\\bar\\varepsilon}{10}>\\frac{\\varepsilon_*}{10}=\\max\\left\\{\\frac{174}{147457},\\frac{\\varepsilon_*}{10}\\right\\}.$$ Its absolute score is $$A(\\varepsilon_*)=7349491214.$$",
+          "work_state": "drafting"
+        },
+        {
+          "dependencies": [
+            "cc-19-incidence-lattice-ledger"
+          ],
+          "evidence_refs": [],
+          "id": "cc-04-replayable-checker",
+          "kind": "obligation",
+          "label": "Stored exact checker and certificate",
+          "notes": "No numerical loss. Inline arithmetic is not a hash-bound proof artifact. The checker must use exact integers and rationals and reject floating-point input, randomness, malformed encodings, and C0 control characters.",
+          "owner": "certified-computation",
+          "proof_state": "provisional",
+          "resolved_lemma_ids": [],
+          "statement_markdown": "Construct canonical byte strings $B_{\\mathrm{cert}},B_{\\mathrm{chk}},B_{\\mathrm{man}}$ such that $$\\operatorname{RunExact}(B_{\\mathrm{chk}},B_{\\mathrm{cert}})=\\mathrm{true}.$$ The certificate shall check a Pocklington witness for $p$, the pencil inequality for every $0\\le a\\le h$, the weighted-monomial sum, the discriminant maximum for $1\\le\\nu\\le173$, the $C_4$ histogram bound, the $n<D$ boundary, both linear-program coefficient signs, $C_4$, $R_4$, every component-polynomial sign, all ceiling identities, both target cutoffs, and the comparison score. A kernel theorem shall make checker acceptance imply precisely these numerical propositions; the algebraic lemmas remain explicit proof obligations. The manifest shall bind the corpus, source, certificate, checker, theorem, byte lengths, and SHA-256 digests.",
+          "work_state": "open"
+        },
+        {
+          "dependencies": [
+            "cc-20-final-theorem",
+            "cc-04-replayable-checker"
+          ],
+          "evidence_refs": [],
+          "id": "cc-21-clean-submission-audits",
+          "kind": "obligation",
+          "label": "Clean theorem artifact and matching audits",
+          "notes": "No numerical loss. At the stipulated snapshot there are no verifier audit files, every stable source has empty verdicts, and the indexed researcher-0003 artifact has inconsistent soundness metadata. Activity here does not constitute verified progress.",
+          "owner": "certified-computation",
+          "proof_state": "provisional",
+          "resolved_lemma_ids": [],
+          "statement_markdown": "Submit only the load-bearing chain `cc-10-pencil-coverage` through `cc-20-final-theorem`, with stable step identifiers and no score-one or conditional ledger clauses. Declare the exact rational $\\varepsilon_*=3380076168821833/10^{16}$, numeric `claimed_soundness` $0.3380076168821833$, target recovery fraction $0.03380076168821833$, and recovery count $734949122$. Bind the artifact from `cc-04-replayable-checker`, ingest its source hash into the corpus index, and obtain two independent accepting verdicts matching the identical theorem SHA-256 and parameter tuple $(2,147457,87)$.",
+          "work_state": "open"
+        }
+      ],
+      "progress": {
+        "blocked": 0,
+        "invalid": 0,
+        "mapped": 8,
+        "open": 0,
+        "percent": 0,
+        "provisional": 11,
+        "total": 11,
+        "verified": 0
+      },
+      "render_validation": {
+        "math_segments": 171,
+        "messages": 4,
+        "passed": true,
+        "roadmaps": 1
+      },
+      "roadmap_id": "certified-computation",
+      "round": 3,
+      "summary": "Round 3 deletes the score-one route because it violates the mandated cutoff and recovers fewer than the required $174p=25657518$ points. The shortest admissible indexed candidate is researcher-0003/P3--P10 at score $7349492138$. A new exact $C_4$ residual integer program for $(D,b)=(15129,5194)$ gives corner cap $646374$ and empty-core credit $156513678$. It lowers the fixed charge to $769296828797543$, the analytic boundary to $R_4=1244293905093223/3681259956715522$, and the normalized score to $7349491214$: $924$ below the indexed candidate and $461429563$ below the configured comparison count. Exact component arithmetic gives at least $734949122$ points, and indexed P9 supplies zero-loss recovery of one total-degree-at-most-$87$ polynomial. Incidence-lattice rounding permits the terminating trigger $0.3380076168821833$ without changing the score. The stable $(17642,5494)$ C4 lemmas and researcher-0004's $17643$-seed package are analogues only, not evidence for the new parameters. Every indexed audit list is empty and `double_accepted=false`; the new splice and final theorem are drafting activity, not verified progress. Promotion requires a stored exact checker/certificate and two matching verifier accepts.",
+      "target_statement": "Reduce fixed-instance soundness to finite exact obligations and certify them with reproducible checkers at $p=147457$ and $d=87$.",
+      "title": "Certified finite computation",
+      "updated_at": "2026-09-15T09:04:20Z"
+    },
+    {
+      "corpus_sha256": "2947d27413190eeefd83c9fc071689178fe37147481a82c947c9b8b094ced877",
+      "critical_path": [
+        "e2e-00-fixed-instance",
+        "e2e-r3-01-direction-cover",
+        "e2e-r3-02-squarefree-interpolant",
+        "e2e-r3-03-identity-transfer",
+        "e2e-r3-04-primitive-cleanup",
+        "e2e-r3-05-core-survival",
+        "e2e-r3-06-component-mass",
+        "e2e-r3-07-ktz-recovery-interface",
+        "e2e-r3-08-one-global-polynomial",
+        "e2e-r3-09-target-conversion",
+        "e2e-r3-10-goal"
+      ],
+      "focus": "a complete fixed-parameter dependency chain ending in one global polynomial",
+      "goal_node_id": "e2e-r3-10-goal",
+      "messages": [
+        {
+          "body_markdown": "The amended round-3 target supersedes the score-one conclusion in `ea-r2-03-score-optimal-theorem`: its unconditional interval ends at $10/p<957/(10p)$, and its agreement $1/p$ is below $174/p$. The shortest currently indexed admissible candidate is therefore researcher-0003/P3--P10, not the constant-polynomial branch.",
+          "channel": "global",
+          "in_reply_to": "msg-313506a0ff09",
+          "kind": "objection",
+          "references": [
+            "TARGET.md",
+            "exact-analytic/ea-r2-03-score-optimal-theorem",
+            "researcher-0003|P10|29abac529d4016becae1afda4a6b9d0929219539339731a92c93c53459912825"
+          ],
+          "related_node_ids": [
+            "e2e-00-fixed-instance",
+            "e2e-r3-09-target-conversion",
+            "e2e-r3-10-goal"
+          ],
+          "subject": "Round-3 cutoff removes score one"
+        },
+        {
+          "body_markdown": "Please supersede my earlier score-one artifact request with a clean P3--P10 submission for $\\varepsilon_*=7349492138/21743566849$. Populate both recovery fields with the exact fraction and count $734949214$, remove the stale `claimed_soundness: 1.0`, and obtain two matching exact-hash accepts. The numeric-only metadata needs either rational support or a new exact proof at $0.3380076594166521$; rounding upward to $0.3380076594166522$ changes the score to $7349492139$.",
+          "channel": "certified-computation",
+          "in_reply_to": "msg-e7fec1fe4b1d",
+          "kind": "request",
+          "references": [
+            "research_state/campaign-30-leaderboard/submissions/researcher-0003/manifest.json",
+            "research_state/campaign-30-leaderboard/roadmaps/corpus-index.json",
+            "researcher-0003|P10|29abac529d4016becae1afda4a6b9d0929219539339731a92c93c53459912825"
+          ],
+          "related_node_ids": [
+            "e2e-r3-09-target-conversion",
+            "e2e-r3-10-goal"
+          ],
+          "subject": "Package the exact P3--P10 candidate"
+        },
+        {
+          "body_markdown": "The amended target makes P6, P8, and P9 load-bearing. Please independently audit the nominal-discriminant cap $E_D=2615604$, including degree-drop cases, and the centered-mixing certificate forcing component density above $\\varepsilon_*/10$. Both source steps are author-marked proved but presently have no verifier verdict.",
+          "channel": "exact-analytic",
+          "in_reply_to": "msg-2ffdaf810035",
+          "kind": "request",
+          "references": [
+            "researcher-0003|P6|29abac529d4016becae1afda4a6b9d0929219539339731a92c93c53459912825",
+            "researcher-0003|P8|29abac529d4016becae1afda4a6b9d0929219539339731a92c93c53459912825",
+            "researcher-0003|P9|29abac529d4016becae1afda4a6b9d0929219539339731a92c93c53459912825"
+          ],
+          "related_node_ids": [
+            "e2e-r3-04-primitive-cleanup",
+            "e2e-r3-06-component-mass",
+            "e2e-r3-07-ktz-recovery-interface"
+          ],
+          "subject": "Audit the two delicate interfaces"
+        },
+        {
+          "body_markdown": "Researcher-0004/P4--P5 supplies a useful self-contained recovery pattern, but its immutable hypotheses require $17643$ seed lines at weighted degree $17642$ and do not directly discharge the present $15130=D+1$ seed. Please restate that argument at $D=15129$ if we want to replace the external KTZ recovery interface without changing the score.",
+          "channel": "exact-analytic",
+          "in_reply_to": null,
+          "kind": "request",
+          "references": [
+            "researcher-0004|P4|62dd79b344b0a6985ff962e686d850272161014c2b3e4f3b12a8b8dd5896d5fe",
+            "researcher-0004|P5|62dd79b344b0a6985ff962e686d850272161014c2b3e4f3b12a8b8dd5896d5fe",
+            "researcher-0003|P9|29abac529d4016becae1afda4a6b9d0929219539339731a92c93c53459912825"
+          ],
+          "related_node_ids": [
+            "e2e-r3-07-ktz-recovery-interface",
+            "e2e-r3-08-one-global-polynomial"
+          ],
+          "subject": "Specialize the self-contained recovery proof"
+        }
+      ],
+      "nodes": [
+        {
+          "dependencies": [],
+          "evidence_refs": [
+            {
+              "source_job_id": "researcher-0003",
+              "source_response_sha256": "29abac529d4016becae1afda4a6b9d0929219539339731a92c93c53459912825",
+              "source_step_id": "P3"
+            }
+          ],
+          "id": "e2e-00-fixed-instance",
+          "kind": "definition",
+          "label": "Fixed plane, protocol, and candidate",
+          "notes": "No numerical loss. This preserves the useful fixed-instance node while replacing the now-inadmissible score-one parameter with the best indexed candidate below the comparison count.",
+          "owner": "end-to-end-soundness",
+          "proof_state": "external",
+          "resolved_lemma_ids": [
+            "researcher-0003:P3.1"
+          ],
+          "statement_markdown": "Put $p:=147457$, $F:=\\mathbb F_p$, $d:=87$, $X:=F^2$, $h:=p+1=147458$, $M:=p^2=21743566849$, $\\Lambda:=p(p+1)=21743714306$, and $N:=Mh=3206262880419842$. For $f:X\\to F$ and line labels $P_L\\in F[t]$ with $\\deg P_L\\le d$, let $$E:=\\{(x,L):x\\in L,\\ P_L(x)=f(x)\\},\\qquad \\rho:=\\frac{|E|}{N}=\\operatorname{Pass}(f,P),$$ and $$\\operatorname{Agr}_{87}(f):=\\max_{\\deg_{\\mathrm{tot}}Q\\le87}\\Pr_{x\\in X}[Q(x)=f(x)].$$ Set $$A_*:=7349492138,\\qquad \\varepsilon_*:=\\frac{A_*}{M}.$$",
+          "work_state": "candidate"
+        },
+        {
+          "dependencies": [
+            "e2e-00-fixed-instance"
+          ],
+          "evidence_refs": [
+            {
+              "source_job_id": "researcher-0003",
+              "source_response_sha256": "29abac529d4016becae1afda4a6b9d0929219539339731a92c93c53459912825",
+              "source_step_id": "P3"
+            }
+          ],
+          "id": "e2e-r3-01-direction-cover",
+          "kind": "lemma",
+          "label": "Sharp three-direction coverage",
+          "notes": "The only loss is $\\kappa(1-\\rho)$. This sharper coverage permits the later choice $D=15129$; its improvement propagates through the fixed charge in core survival.",
+          "owner": "end-to-end-soundness",
+          "proof_state": "provisional",
+          "resolved_lemma_ids": [
+            "researcher-0003:P3.1"
+          ],
+          "statement_markdown": "For every accepted incidence set $E$ of density $\\rho$, there is a union $R$ of all lines in three directions, so $|R|=3p=442371$, such that, with $$C_R:=\\{x\\in X:\\exists L\\in R,\\ (x,L)\\in E\\},\\qquad U_R:=|\\{(x,L)\\in E:x\\notin C_R\\}|,$$ one has $$\\frac{U_R}{N}\\le\\kappa(1-\\rho),\\qquad \\kappa:=\\frac{1610629120}{10871857153}.$$",
+          "work_state": "candidate"
+        },
+        {
+          "dependencies": [
+            "e2e-r3-01-direction-cover"
+          ],
+          "evidence_refs": [
+            {
+              "source_job_id": "researcher-0003",
+              "source_response_sha256": "29abac529d4016becae1afda4a6b9d0929219539339731a92c93c53459912825",
+              "source_step_id": "P4"
+            }
+          ],
+          "id": "e2e-r3-02-squarefree-interpolant",
+          "kind": "lemma",
+          "label": "Weighted squarefree interpolant",
+          "notes": "No accepted incidence is deleted. The dimension surplus is $9117$; the reduced weighted degree $D=15129$ becomes both the nonidentity-line charge and the source of the derivative charge $D-87$. The squarefree reduction, corresponding to the specialized KTZ interpolation input, remains part of the audit surface.",
+          "owner": "end-to-end-soundness",
+          "proof_state": "provisional",
+          "resolved_lemma_ids": [
+            "researcher-0003:P4.1"
+          ],
+          "statement_markdown": "Let $D:=15129$. Since the number $V_D$ of monomials of $(1,1,87)$-weighted degree at most $D$ satisfies $$V_D=6693082347>|R|(D+1)=442371\\cdot15130=6693073230,$$ there exists a nonzero squarefree $A\\in F[X,Y,Z]$ with $$\\operatorname{wdeg}_{(1,1,87)}A\\le D,\\qquad \\deg_ZA\\le173<p,\\qquad A_Z\\ne0,$$ such that $$A(L(t),P_L(t))\\equiv0$$ for every $L\\in R$.",
+          "work_state": "candidate"
+        },
+        {
+          "dependencies": [
+            "e2e-r3-02-squarefree-interpolant"
+          ],
+          "evidence_refs": [
+            {
+              "source_job_id": "researcher-0003",
+              "source_response_sha256": "29abac529d4016becae1afda4a6b9d0929219539339731a92c93c53459912825",
+              "source_step_id": "P5"
+            }
+          ],
+          "id": "e2e-r3-03-identity-transfer",
+          "kind": "reduction",
+          "label": "Transfer to all identity lines",
+          "notes": "The exact losses are the uncovered-incidence term $U_R$ and at most $D$ covered accepted incidences on each nonidentity line. Lowering $D$ reduces the core-survival charge linearly.",
+          "owner": "end-to-end-soundness",
+          "proof_state": "provisional",
+          "resolved_lemma_ids": [
+            "researcher-0003:P5.1"
+          ],
+          "statement_markdown": "Define the identity-line set and its accepted edges by $$T:=\\{L:A(L(t),P_L(t))\\equiv0\\},\\qquad E_T:=\\{(x,L)\\in E:L\\in T\\}.$$ Then $R\\subseteq T$ and $$|E|\\le |E_T|+U_R+D(\\Lambda-|T|).$$",
+          "work_state": "candidate"
+        },
+        {
+          "dependencies": [
+            "e2e-r3-03-identity-transfer"
+          ],
+          "evidence_refs": [
+            {
+              "source_job_id": "researcher-0003",
+              "source_response_sha256": "29abac529d4016becae1afda4a6b9d0929219539339731a92c93c53459912825",
+              "source_step_id": "P6"
+            }
+          ],
+          "id": "e2e-r3-04-primitive-cleanup",
+          "kind": "obligation",
+          "label": "Primitive and discriminant cleanup",
+          "notes": "The loss is at most $E_D$ fully exceptional identity lines plus $q_0$ derivative-zero points on every regular identity line. These terms enter the fixed charge $C$ in the next node. The nominal-discriminant bound, especially under leading-coefficient degree drop, is the primary algebraic audit obligation.",
+          "owner": "end-to-end-soundness",
+          "proof_state": "provisional",
+          "resolved_lemma_ids": [
+            "researcher-0003:P6.1"
+          ],
+          "statement_markdown": "Write $A=HB$, where $H\\in F[X,Y]$ is the coefficient content in $Z$ and $B$ is primitive and squarefree. Put $$q_0:=D-d=15042,\\qquad E_D:=2615604.$$ Then $\\deg_ZB\\le173<p$ and $\\gcd(B,B_Z)=1$. Among the lines of $T$, at most $E_D$ are content lines or satisfy $B_Z(L(t),P_L(t))\\equiv0$. On every other identity line, $B_Z(L(t),P_L(t))$ is nonzero of degree at most $q_0$ and consequently has at most $q_0$ zeros.",
+          "work_state": "candidate"
+        },
+        {
+          "dependencies": [
+            "e2e-r3-04-primitive-cleanup"
+          ],
+          "evidence_refs": [
+            {
+              "source_job_id": "researcher-0003",
+              "source_response_sha256": "29abac529d4016becae1afda4a6b9d0929219539339731a92c93c53459912825",
+              "source_step_id": "P7"
+            }
+          ],
+          "id": "e2e-r3-05-core-survival",
+          "kind": "reduction",
+          "label": "Nonempty simple-root core",
+          "notes": "This node aggregates every coverage, identity-transfer, cleanup, and peeling loss into $C$. The exact threshold $R_0$ shows that $A_*$ is the smallest $M$-aligned count certified by this ledger. It is responsible for the final $461428639$-count improvement over the comparison value.",
+          "owner": "end-to-end-soundness",
+          "proof_state": "provisional",
+          "resolved_lemma_ids": [
+            "researcher-0003:P7.1"
+          ],
+          "statement_markdown": "Put $s:=5195$ and $$C:=(q_0+s-1)\\Lambda+DM+(p-q_0-s+1)E_D=769296985311221.$$ After cleanup, repeatedly delete point vertices of degree below $D+1=15130$ and line vertices of degree below $s$. If the graph emptied, then $$|E|\\le U_R+C.$$ Moreover, $$R_0:=\\frac{C/N+\\kappa}{1+\\kappa}=\\frac{1244294061606901}{3681259956715522},\\qquad \\lfloor MR_0\\rfloor=A_*-1,$$ and $$\\varepsilon_*-\\frac{C}{N}-\\kappa(1-\\varepsilon_*)=\\frac{9844042591}{472785905558068641794}>0.$$ Hence $\\rho\\ge\\varepsilon_*$ leaves a nonempty core of minimum point degree $15130$ and minimum line degree $5195$, with $$B(L(t),P_L(t))\\equiv0$$ on every retained line and $$B_Z(x,f(x))\\ne0$$ on every retained edge.",
+          "work_state": "candidate"
+        },
+        {
+          "dependencies": [
+            "e2e-r3-05-core-survival"
+          ],
+          "evidence_refs": [
+            {
+              "source_job_id": "researcher-0003",
+              "source_response_sha256": "29abac529d4016becae1afda4a6b9d0929219539339731a92c93c53459912825",
+              "source_step_id": "P8"
+            }
+          ],
+          "id": "e2e-r3-06-component-mass",
+          "kind": "lemma",
+          "label": "Every core component is large",
+          "notes": "There is no further deletion charge. Centered incidence mixing converts the two minimum-degree bounds into component density strictly above $\\varepsilon_*/10$, producing the final recovery count $734949214$. Any weakening here propagates directly to the agreement guarantee.",
+          "owner": "end-to-end-soundness",
+          "proof_state": "provisional",
+          "resolved_lemma_ids": [
+            "researcher-0003:P8.1"
+          ],
+          "statement_markdown": "For a connected core component with point and line densities $a$ and $b$, centered affine-plane mixing gives $$\\frac{I(a,b)}{N}\\le ab+\\sqrt{\\frac{a(1-a)b(1-b)}{h}}.$$ Put $$\\alpha:=\\frac{15130}{147458}=\\frac{445}{4337},\\quad \\beta:=\\frac{5195}{147457},\\quad c:=\\frac{\\alpha}{\\beta}=\\frac{13123673}{4506143},\\quad \\gamma^2:=\\frac1{ch}=\\frac{1039}{446204882},$$ $$\\tau:=\\frac{\\varepsilon_*}{10},\\qquad F(z):=(\\beta-z)^2-\\gamma^2(1-z)(1-cz).$$ If $0\\le a\\le\\tau$, the two minimum-degree inequalities and mixing imply $F(a)\\le0$. But $$F(\\tau)=\\frac{8471989052510612}{525974319933351363995825}>0,\\quad F'(\\tau)=-\\frac{13793243269}{4837976433085}<0,\\quad F''=2\\left(1-\\frac1h\\right)>0,$$ so $F(a)>0$ throughout $[0,\\tau]$, a contradiction. Thus every component has point density $a>\\tau$ and at least $$\\left\\lceil\\frac{A_*}{10}\\right\\rceil=734949214$$ point vertices.",
+          "work_state": "candidate"
+        },
+        {
+          "dependencies": [
+            "e2e-r3-06-component-mass"
+          ],
+          "evidence_refs": [
+            {
+              "source_job_id": "researcher-0003",
+              "source_response_sha256": "29abac529d4016becae1afda4a6b9d0929219539339731a92c93c53459912825",
+              "source_step_id": "P9"
+            }
+          ],
+          "id": "e2e-r3-07-ktz-recovery-interface",
+          "kind": "literature_input",
+          "label": "Specialized simple-root recovery interface",
+          "notes": "This interface has zero numerical loss. It makes the KTZ Lemmas 6.1 and 2.7 dependencies explicit. A self-contained specialization at $D=15129$ would remove the literature dependency; the indexed researcher-0004 version requires $17643$ seed lines and does not directly substitute.",
+          "owner": "end-to-end-soundness",
+          "proof_state": "provisional",
+          "resolved_lemma_ids": [
+            "researcher-0003:P9.1"
+          ],
+          "statement_markdown": "For $d=87$ and $D=15129$, use the following two specialized simple-root facts. First, if $D+1$ distinct lines through $x_0$ carry formal $B$-roots $P_L$ of degree at most $d$, all taking the same value $a$ at $x_0$, with $B_Z(x_0,a)\\ne0$, then there is $Q\\in F[X,Y]$ with $$\\deg_{\\mathrm{tot}}Q\\le d,\\qquad B(X,Y,Q(X,Y))=0,$$ whose restrictions equal the seed-line roots. Second, if $Q|_L$ and $P_L$ are formal $B$-roots that agree at a point where $B_Z\\ne0$, then $$Q|_L=P_L.$$",
+          "work_state": "candidate"
+        },
+        {
+          "dependencies": [
+            "e2e-r3-07-ktz-recovery-interface"
+          ],
+          "evidence_refs": [
+            {
+              "source_job_id": "researcher-0003",
+              "source_response_sha256": "29abac529d4016becae1afda4a6b9d0929219539339731a92c93c53459912825",
+              "source_step_id": "P9"
+            }
+          ],
+          "id": "e2e-r3-08-one-global-polynomial",
+          "kind": "lemma",
+          "label": "Recover one global polynomial",
+          "notes": "There is no list-to-one or propagation loss. This is the focus endpoint: the recovered object is one polynomial on the entire plane, and its certified agreement set is one large connected component.",
+          "owner": "end-to-end-soundness",
+          "proof_state": "provisional",
+          "resolved_lemma_ids": [
+            "researcher-0003:P9.1"
+          ],
+          "statement_markdown": "Choose a connected component of the nonempty core and a point $x_0$ in it. Its at least $D+1=15130$ incident core lines supply the seed in the recovery interface, yielding one $Q\\in F[X,Y]$ of total degree at most $87$. Repeated simple-root uniqueness along paths in the component gives $$Q(x)=f(x)$$ at every point vertex of that component. Consequently, $$|\\{x\\in X:Q(x)=f(x)\\}|\\ge734949214.$$",
+          "work_state": "candidate"
+        },
+        {
+          "dependencies": [
+            "e2e-r3-08-one-global-polynomial"
+          ],
+          "evidence_refs": [
+            {
+              "source_job_id": "researcher-0003",
+              "source_response_sha256": "29abac529d4016becae1afda4a6b9d0929219539339731a92c93c53459912825",
+              "source_step_id": "P10"
+            }
+          ],
+          "id": "e2e-r3-09-target-conversion",
+          "kind": "reduction",
+          "label": "Exact cutoff, recovery, and score conversion",
+          "notes": "No numerical loss is added. These integer comparisons show that $\\varepsilon_*/10$, rather than the fixed floor, governs the target and that the candidate improves the comparison count by $461428639$.",
+          "owner": "end-to-end-soundness",
+          "proof_state": "provisional",
+          "resolved_lemma_ids": [
+            "researcher-0003:P10.1"
+          ],
+          "statement_markdown": "The candidate satisfies the cutoff because $$\\varepsilon_*-\\frac{957}{1474570}=\\frac{10A_*-957p}{10M}=\\frac{73353805031}{217435668490}>0.$$ Its requested acceptance-dependent recovery dominates the fixed floor because $$\\frac{\\varepsilon_*}{10}-\\frac{174}{p}=\\frac{A_*-1740p}{10M}=\\frac{7092916958}{217435668490}>0.$$ Moreover, $$174p=25657518,\\qquad \\left\\lceil\\frac{A_*}{10}\\right\\rceil=734949214,$$ and therefore the polynomial from the preceding node satisfies $$\\Pr_{x\\in X}[Q(x)=f(x)]\\ge\\frac{734949214}{M}>\\max\\left\\{\\frac{174}{147457},\\frac{\\varepsilon_*}{10}\\right\\}.$$ Finally, $$\\lceil M\\varepsilon_*\\rceil=A_*=7349492138=7810920777-461428639.$$",
+          "work_state": "candidate"
+        },
+        {
+          "dependencies": [
+            "e2e-r3-09-target-conversion"
+          ],
+          "evidence_refs": [
+            {
+              "source_job_id": "researcher-0003",
+              "source_response_sha256": "29abac529d4016becae1afda4a6b9d0929219539339731a92c93c53459912825",
+              "source_step_id": "P10"
+            }
+          ],
+          "id": "e2e-r3-10-goal",
+          "kind": "theorem",
+          "label": "Fixed-parameter end-to-end soundness",
+          "notes": "No new mathematical loss occurs here. The cited source has no verifier verdict, and its current artifact has stale soundness metadata and missing recovery fields. Activity is blocked until one clean exact theorem digest receives the two required independent matching accepts; no verified progress is asserted.",
+          "owner": "end-to-end-soundness",
+          "proof_state": "blocked",
+          "resolved_lemma_ids": [
+            "researcher-0003:P10.1"
+          ],
+          "statement_markdown": "Let $$\\varepsilon_*:=\\frac{7349492138}{21743566849}\\ge\\frac{957}{1474570}.$$ For every $f:\\mathbb F_{147457}^2\\to\\mathbb F_{147457}$ and every degree-at-most-$87$ affine-line table $P$, $$\\operatorname{Pass}(f,P)\\ge\\varepsilon_*$$ implies that there exists one global polynomial $$Q\\in\\mathbb F_{147457}[X,Y],\\qquad \\deg_{\\mathrm{tot}}Q\\le87,$$ such that $$\\Pr_{x\\in\\mathbb F_{147457}^2}[Q(x)=f(x)]\\ge\\frac{734949214}{21743566849}>\\max\\left\\{\\frac{174}{147457},\\frac{\\varepsilon_*}{10}\\right\\}.$$ Its absolute soundness score is $7349492138$.",
+          "work_state": "blocked"
+        }
+      ],
+      "progress": {
+        "blocked": 1,
+        "invalid": 0,
+        "mapped": 9,
+        "open": 0,
+        "percent": 0,
+        "provisional": 8,
+        "total": 9,
+        "verified": 0
+      },
+      "render_validation": {
+        "math_segments": 127,
+        "messages": 4,
+        "passed": true,
+        "roadmaps": 1
+      },
+      "roadmap_id": "end-to-end-soundness",
+      "round": 3,
+      "summary": "The amended cutoff and recovery floor invalidate every score-one node from round 2, so those nodes were removed except for the reusable fixed-instance definition. The shortest admissible indexed candidate is researcher-0003/P3--P10: sharp three-direction coverage, a weighted-degree-$15129$ squarefree interpolant, identity transfer, primitive/discriminant cleanup, survival of a $(15130,5195)$ simple-root core, a centered-mixing component bound, and KTZ seed lifting plus propagation to one global polynomial. It proves the exact candidate $\\varepsilon_*=7349492138/21743566849$ with at least $734949214$ agreement points. Exact conversion gives $\\varepsilon_*>957/1474570$, $\\varepsilon_*/10>174/147457$, and score $7349492138$, improving the comparison count $7810920777$ by $461428639$. This is the smallest $M$-aligned count certified by the displayed ledger, not a claim of global optimality. Every cited corpus step is author-marked proved but has an empty audit list and `double_accepted=false`; the researcher-0003 artifact also fails the current static contract because it records `claimed_soundness: 1.0` and omits the recovery fields. Historical double-accepted theorems inspected from earlier campaigns do not beat the comparison count. The goal therefore remains blocked pending a clean exact submission and two independent matching accepts.",
+      "target_statement": "At $m=2$, $p=147457$, and total degree $d=87$, prove the lowest explicit $\\varepsilon\\ge957/1474570$ for which $\\operatorname{Pass}(f,P)\\ge\\varepsilon$ forces agreement with one $Q\\in\\mathbb F_{147457}[X,Y]$ of total degree at most $87$ on at least $\\max\\{174/147457,\\varepsilon/10\\}$ of all points.",
+      "title": "End-to-end soundness chain",
+      "updated_at": "2026-09-15T09:04:20Z"
+    }
+  ],
+  "round": 4,
+  "schema": "line-point-proof-roadmaps-v1",
+  "status": "running",
+  "updated_at": "2026-09-15T09:05:05Z"
+}

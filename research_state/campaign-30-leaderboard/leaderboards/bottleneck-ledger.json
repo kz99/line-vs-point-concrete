@@ -1,0 +1,524 @@
+[
+  {
+    "input_bound": "Accepted-incidence count |E| with density \u03c1=|E|/N.",
+    "job_id": "researcher-0001",
+    "justification": "Uniform line-then-point sampling is uniform on incidences.",
+    "loss": "None.",
+    "output_bound": "N=3206262880419842 equally likely incidences.",
+    "stage": "sampling normalization",
+    "status": "proved"
+  },
+  {
+    "input_bound": "Point accepted degrees a_x.",
+    "job_id": "researcher-0001",
+    "justification": "Exact averaging over three directions and pointwise maximization at a=49152.",
+    "loss": "\u03ba(1\u2212\u03c1), \u03ba=1610629120/10871857153.",
+    "output_bound": "One three-complete-direction family with uncovered accepted incidence density at most \u03ba(1\u2212\u03c1).",
+    "stage": "direction coverage",
+    "status": "proved"
+  },
+  {
+    "input_bound": "442371 selected line graphs and D=15129.",
+    "job_id": "researcher-0001",
+    "justification": "6693082347 monomials exceed 6693073230 constraints.",
+    "loss": "No incidence loss; dimension surplus 9117.",
+    "output_bound": "A nonzero weighted-degree-at-most-15129 formal relation.",
+    "stage": "weighted interpolation",
+    "status": "proved"
+  },
+  {
+    "input_bound": "t identity lines.",
+    "job_id": "researcher-0001",
+    "justification": "Each omitted line has at most D covered accepted points.",
+    "loss": "D(\u039b\u2212t).",
+    "output_bound": "Every retained line carries a formal relation identity.",
+    "stage": "identity extension",
+    "status": "proved"
+  },
+  {
+    "input_bound": "e exceptional lines, e\u22642615604.",
+    "job_id": "researcher-0001",
+    "justification": "Content plus nominal-discriminant degree maximization.",
+    "loss": "pe, at most 385689119028 incidences before consolidation.",
+    "output_bound": "Primitive, derivative-nondegenerate identity lines.",
+    "stage": "exceptional-line deletion",
+    "status": "proved"
+  },
+  {
+    "input_bound": "t\u2212e regular identity lines.",
+    "job_id": "researcher-0001",
+    "justification": "Each restricted derivative is nonzero of degree at most q=15042.",
+    "loss": "15042(t\u2212e); atomic maximum 15042\u039b.",
+    "output_bound": "Only simple accepted roots remain.",
+    "stage": "derivative cleanup",
+    "status": "proved"
+  },
+  {
+    "input_bound": "Simple-root incidence graph.",
+    "job_id": "researcher-0001",
+    "justification": "C4-free peeling with Z=646374 and K4=156513678.",
+    "loss": "15129M+5194(t\u2212e)\u2212156513678.",
+    "output_bound": "A nonempty core or a certified complete-deletion bound.",
+    "stage": "point-line peeling",
+    "status": "proved"
+  },
+  {
+    "input_bound": "Primitive loss terms with t\u2264\u039b and e\u22642615604.",
+    "job_id": "researcher-0001",
+    "justification": "Both variable coefficients are positive.",
+    "loss": "440005802696216+328958422858521+332759756484\u2212156513678.",
+    "output_bound": "C*=769296828797543.",
+    "stage": "fixed-loss consolidation",
+    "status": "proved"
+  },
+  {
+    "input_bound": "Canonical acceptance bar \u03b5=7349491214/M.",
+    "job_id": "researcher-0001",
+    "justification": "Substitute bar \u03b5 into C*/N+\u03ba(1\u2212bar \u03b5).",
+    "loss": "9400308072378016503/27810935621062861282.",
+    "output_bound": "Positive survival margin 1249813349/27810935621062861282.",
+    "stage": "core survival",
+    "status": "proved"
+  },
+  {
+    "input_bound": "A retained component with minimum point and line degrees 15130 and 5195.",
+    "job_id": "researcher-0001",
+    "justification": "Centered affine incidence mixing and exact endpoint polynomial.",
+    "loss": "Cauchy\u2013Schwarz term sqrt(a(1\u2212a)b(1\u2212b)/147458); no additive agreement loss.",
+    "output_bound": "Every component has point density greater than 3674745607/108717834245.",
+    "stage": "component conversion",
+    "status": "proved"
+  },
+  {
+    "input_bound": "A simple-root connected component.",
+    "job_id": "researcher-0001",
+    "justification": "KTZ Lemmas 2.7 and 6.1 plus connectivity.",
+    "loss": "None.",
+    "output_bound": "One total-degree-at-most-87 polynomial agrees at every point vertex in the component.",
+    "stage": "polynomial recovery",
+    "status": "proved"
+  },
+  {
+    "input_bound": "\u03b5*=3380076168821833/10^16.",
+    "job_id": "researcher-0001",
+    "justification": "ceil(N\u03b5*)=ceil(NR*) and realized acceptance lies on the 1/N lattice.",
+    "loss": "None; score-equivalent normalization only.",
+    "output_bound": "Score 7349491214 and acceptance strictly above R*.",
+    "stage": "incidence-lattice normalization",
+    "status": "proved"
+  },
+  {
+    "input_bound": "Claimed \u03b5* and proved component density bar \u03b5/10.",
+    "job_id": "researcher-0001",
+    "justification": "\u03b5*/10>174/p and bar \u03b5/10>\u03b5*/10.",
+    "loss": "Required contract factor 1/10.",
+    "output_bound": "max(174/p,\u03b5*/10)=\u03b5*/10; actual guarantee >3674745607/108717834245 and at least 734949122 points.",
+    "stage": "final recovery contract",
+    "status": "proved"
+  },
+  {
+    "input_bound": "Accepted incidence density \u03c1; point degrees a_x\u2208[0,147458].",
+    "job_id": "researcher-0002",
+    "justification": "Exact averaging over three-element direction subsets.",
+    "loss": "\u03ba(1\u2212\u03c1), \u03ba=1610629120/10871857153.",
+    "output_bound": "One family of 442371 lines in three complete directions.",
+    "stage": "three-direction coverage",
+    "status": "proved"
+  },
+  {
+    "input_bound": "442371 selected degree-at-most-87 line graphs.",
+    "job_id": "researcher-0002",
+    "justification": "6693082347 weighted monomials versus 6693073230 homogeneous constraints.",
+    "loss": "No incidence loss; algebraic surplus 9117.",
+    "output_bound": "Squarefree weighted-degree-at-most-15129 interpolant with nonzero Z-derivative.",
+    "stage": "interpolation",
+    "status": "proved"
+  },
+  {
+    "input_bound": "Identity set T of size t.",
+    "job_id": "researcher-0002",
+    "justification": "Every omitted line has at most 15129 covered accepted incidences.",
+    "loss": "15129(\u039b\u2212t).",
+    "output_bound": "|E|\u2264|E_T|+U_R+15129(\u039b\u2212t).",
+    "stage": "identity extension",
+    "status": "proved"
+  },
+  {
+    "input_bound": "At most e\u22642615604 exceptional identity lines.",
+    "job_id": "researcher-0002",
+    "justification": "Coefficient content plus nominal projective discriminant.",
+    "loss": "At most pe accepted incidences.",
+    "output_bound": "Primitive informative identity lines.",
+    "stage": "exceptional-line removal",
+    "status": "proved"
+  },
+  {
+    "input_bound": "t\u2212e regular identity lines.",
+    "job_id": "researcher-0002",
+    "justification": "Each nonzero derivative restriction has degree at most 15042.",
+    "loss": "At most 15042(t\u2212e) incidences.",
+    "output_bound": "Simple-root incidences.",
+    "stage": "derivative cleanup",
+    "status": "proved"
+  },
+  {
+    "input_bound": "C4-free residual graph on M points and t\u2212e lines, empty under thresholds 15129 and 5194.",
+    "job_id": "researcher-0002",
+    "justification": "Fixed corner bound 646374 and induction on an emptying order.",
+    "loss": "15129M+5194(t\u2212e)\u2212156513678.",
+    "output_bound": "Universal credited emptying bound.",
+    "stage": "core peeling",
+    "status": "proved"
+  },
+  {
+    "input_bound": "t\u2264\u039b and e\u22642615604; both symbolic coefficients are positive.",
+    "job_id": "researcher-0002",
+    "justification": "Substitution into the identity-extension inequality.",
+    "loss": "440005802696216+328958422858521+332759756484\u2212156513678.",
+    "output_bound": "C*=769296828797543 fixed incidences.",
+    "stage": "fixed-loss consolidation",
+    "status": "proved"
+  },
+  {
+    "input_bound": "\u03b5=7349491214/21743566849.",
+    "job_id": "researcher-0002",
+    "justification": "Coverage plus consolidated fixed charge.",
+    "loss": "9400308072378016503/27810935621062861282 normalized.",
+    "output_bound": "Positive survival margin 1249813349/27810935621062861282.",
+    "stage": "core survival",
+    "status": "proved"
+  },
+  {
+    "input_bound": "Core minimum degrees 15130 and 5195.",
+    "job_id": "researcher-0002",
+    "justification": "Exact affine mixing and endpoint polynomial F.",
+    "loss": "Cauchy\u2013Schwarz term sqrt(a(1\u2212a)b(1\u2212b)/147458); no additive edge deletion.",
+    "output_bound": "Every component has point density greater than \u03b5/10.",
+    "stage": "component conversion",
+    "status": "proved"
+  },
+  {
+    "input_bound": "A simple-root connected component.",
+    "job_id": "researcher-0002",
+    "justification": "KTZ Lemmas 6.1 and 2.7.",
+    "loss": "No agreement loss.",
+    "output_bound": "One total-degree-at-most-87 polynomial agreeing throughout the component.",
+    "stage": "polynomial recovery",
+    "status": "proved"
+  },
+  {
+    "input_bound": "\u03b5\u2212957/(10p)=73353795791/217435668490 and \u03b5/10\u2212174/p=3546458017/108717834245.",
+    "job_id": "researcher-0002",
+    "justification": "Exact contract comparison and integer rounding.",
+    "loss": "Ceiling from 734949121.4 to 734949122 agreements.",
+    "output_bound": "max(174/p,\u03b5/10)=\u03b5/10; at least 734949122 agreements; score 7349491214.",
+    "stage": "final recovery contract",
+    "status": "proved"
+  },
+  {
+    "input_bound": "Accepted incidence density rho.",
+    "job_id": "researcher-0003",
+    "justification": "Exact three-direction hypergeometric miss probability and pointwise affine envelope.",
+    "loss": "At most K(1-rho)N uncovered accepted incidences, K=1610629120/10871857153.",
+    "output_bound": "A deterministic union of three complete direction classes.",
+    "stage": "Three-direction pencil coverage",
+    "status": "proved"
+  },
+  {
+    "input_bound": "442371 selected labeled lines.",
+    "job_id": "researcher-0003",
+    "justification": "6693082347 weighted monomials exceed 6693073230 constraints.",
+    "loss": "No incidence loss; interpolation surplus 9117.",
+    "output_bound": "Squarefree weighted-degree-at-most-15129 relation.",
+    "stage": "Weighted interpolation",
+    "status": "proved"
+  },
+  {
+    "input_bound": "Lines outside the identity set.",
+    "job_id": "researcher-0003",
+    "justification": "A nonzero restriction of degree at most 15129 has at most 15129 covered roots.",
+    "loss": "15129(Lambda-t) incidences.",
+    "output_bound": "All remaining line vertices carry formal identities.",
+    "stage": "Identity extension",
+    "status": "proved"
+  },
+  {
+    "input_bound": "e exceptional identity lines.",
+    "job_id": "researcher-0003",
+    "justification": "Content and nominal-discriminant line count.",
+    "loss": "At most pe incidences, with e<=2615604.",
+    "output_bound": "Primitive nondegenerate identity lines.",
+    "stage": "Exceptional-line deletion",
+    "status": "proved"
+  },
+  {
+    "input_bound": "t-e regular identity lines.",
+    "job_id": "researcher-0003",
+    "justification": "Each nonzero derivative restriction has degree at most 15042.",
+    "loss": "At most 15042(t-e) incidences.",
+    "output_bound": "B_Z is nonzero on retained edges.",
+    "stage": "Derivative cleanup",
+    "status": "proved"
+  },
+  {
+    "input_bound": "Cleaned C4-free graph with deletion caps 15129 and 5194.",
+    "job_id": "researcher-0003",
+    "justification": "Residual 5194 by 15129 corner has at most 646374 edges.",
+    "loss": "At most 15129M+5194(t-e)-156513678 edges under complete deletion.",
+    "output_bound": "A credit of 156513678 over separate peeling charges.",
+    "stage": "C4-sharpened two-sided peel",
+    "status": "proved"
+  },
+  {
+    "input_bound": "All identity, cleanup, and peeling charges.",
+    "job_id": "researcher-0003",
+    "justification": "Exact collection with positive t and e coefficients.",
+    "loss": "C_*=769296828797543 incidences, normalized as 769296828797543/3206262880419842.",
+    "output_bound": "Under complete deletion, |E|<=U_R+C_*.",
+    "stage": "Fixed-loss consolidation",
+    "status": "proved"
+  },
+  {
+    "input_bound": "rho>=7349491214/21743566849.",
+    "job_id": "researcher-0003",
+    "justification": "Substitution into rho-C_*/N-K(1-rho).",
+    "loss": "Pencil loss plus C_*/N.",
+    "output_bound": "Nonempty simple-root core; exact margin 1249813349/27810935621062861282.",
+    "stage": "Core survival",
+    "status": "proved"
+  },
+  {
+    "input_bound": "A connected (15130,5195) core component.",
+    "job_id": "researcher-0003",
+    "justification": "Exact centered affine-plane incidence inequality and endpoint polynomial.",
+    "loss": "One Cauchy-Schwarz inequality; no edge deletion.",
+    "output_bound": "Point density greater than epsilon/10 and at least 734949122 points.",
+    "stage": "Component conversion",
+    "status": "proved"
+  },
+  {
+    "input_bound": "A connected simple-root identity component.",
+    "job_id": "researcher-0003",
+    "justification": "Self-contained formal implicit reconstruction and propagation.",
+    "loss": "No agreement loss.",
+    "output_bound": "One total-degree-at-most-87 polynomial agrees throughout the component.",
+    "stage": "Polynomial recovery",
+    "status": "proved"
+  },
+  {
+    "input_bound": "Recovery fractions 174/147457 and epsilon/10.",
+    "job_id": "researcher-0003",
+    "justification": "epsilon/10-174/147457=3546458017/108717834245>0.",
+    "loss": "None.",
+    "output_bound": "Required fraction epsilon/10; guaranteed count 734949122.",
+    "stage": "Recovery contract",
+    "status": "proved"
+  },
+  {
+    "input_bound": "p=147457, d=87",
+    "job_id": "researcher-0005",
+    "justification": "Exact affine-plane enumeration.",
+    "loss": "none",
+    "output_bound": "N=21,743,566,849 points and 3,206,262,880,419,842 incidences",
+    "stage": "normalization",
+    "status": "proved"
+  },
+  {
+    "input_bound": "E1=7,810,920,776/N",
+    "job_id": "researcher-0005",
+    "justification": "E1 exceeds 957/(10p) by 77,968,091,411/(10p^2).",
+    "loss": "none",
+    "output_bound": "admissible candidate trigger",
+    "stage": "admissibility",
+    "status": "proved"
+  },
+  {
+    "input_bound": "E1",
+    "job_id": "researcher-0005",
+    "justification": "E1/10>174/p and E1N/10=781,092,077.6.",
+    "loss": "factor 1/10 required by contract",
+    "output_bound": "gamma=E1/10 and 781,092,078 points",
+    "stage": "recovery target",
+    "status": "proved"
+  },
+  {
+    "input_bound": "K86=252,832,173",
+    "job_id": "researcher-0005",
+    "justification": "Common-factor construction attains 90; no upper bound is proved.",
+    "loss": "candidate list size r=90",
+    "output_bound": "|L_K86(f)|<=90",
+    "stage": "below-Johnson list size",
+    "status": "conditional"
+  },
+  {
+    "input_bound": "beta=b",
+    "job_id": "researcher-0005",
+    "justification": "Required interface for P5.",
+    "loss": "u=b unexplained-good density",
+    "output_bound": "beta+u=2b",
+    "stage": "good-point list coverage",
+    "status": "conditional"
+  },
+  {
+    "input_bound": "r=90, gamma<9/250, t=7/200",
+    "job_id": "researcher-0005",
+    "justification": "Exact affine variance and Cantelli.",
+    "loss": "1,561,680/90,335,377",
+    "output_bound": "abnormal-line mass bound",
+    "stage": "line concentration",
+    "status": "proved"
+  },
+  {
+    "input_bound": "r=90, d=87",
+    "job_id": "researcher-0005",
+    "justification": "Each nonstandard difference has at most 87 roots.",
+    "loss": "7830/147457",
+    "output_bound": "nonstandard explained-incidence bound",
+    "stage": "coincidences",
+    "status": "proved"
+  },
+  {
+    "input_bound": "t, abnormal, coincidence",
+    "job_id": "researcher-0005",
+    "justification": "Exact addition.",
+    "loss": "lambda=280,765,415,738,023/2,664,116,737,257,800",
+    "output_bound": "total structural list-to-one loss",
+    "stage": "list-to-one aggregation",
+    "status": "proved"
+  },
+  {
+    "input_bound": "gamma+lambda+2b",
+    "job_id": "researcher-0005",
+    "justification": "Exact rational identity.",
+    "loss": "all losses shown above",
+    "output_bound": "E1",
+    "stage": "conditional closure",
+    "status": "conditional"
+  },
+  {
+    "input_bound": "all p^3916 global polynomials",
+    "job_id": "researcher-0005",
+    "justification": "Exact union-bound certificate.",
+    "loss": "493,416 overwrite points",
+    "output_bound": "deterministic overwritten table with fewer than 493,416 random matches per polynomial",
+    "stage": "overwrite",
+    "status": "proved"
+  },
+  {
+    "input_bound": "acceptance at least b^2",
+    "job_id": "researcher-0005",
+    "justification": "P4 with K86 and s=493,416.",
+    "loss": "493,415-point bridge",
+    "output_bound": "weak recovery of 253,325,588 points implies the needed coverage",
+    "stage": "weak-to-list alternative",
+    "status": "conditional"
+  },
+  {
+    "input_bound": "K3=652,307,006, r=94",
+    "job_id": "researcher-0005",
+    "justification": "86-color table and exact Hoeffding union bound.",
+    "loss": "required weak output 652,800,421 is impossible at sigma94",
+    "output_bound": "natural explicit-Johnson splice blocked",
+    "stage": "counterexample obstruction",
+    "status": "refuted"
+  },
+  {
+    "input_bound": "comparison threshold 0.35922904602094702",
+    "job_id": "researcher-0005",
+    "justification": "Exact ceiling arithmetic.",
+    "loss": "one score count",
+    "output_bound": "comparison score 7,810,920,777 versus conditional score 7,810,920,776",
+    "stage": "leaderboard comparison",
+    "status": "conditional"
+  },
+  {
+    "input_bound": "acceptance density rho",
+    "job_id": "team-synthesis-0001",
+    "justification": "P2",
+    "loss": "exact pencil envelope",
+    "output_bound": "uncovered density at most (1610629120/10871857153)(1-rho)",
+    "stage": "three-direction coverage",
+    "status": "proved"
+  },
+  {
+    "input_bound": "442371 selected labeled lines",
+    "job_id": "team-synthesis-0001",
+    "justification": "P3",
+    "loss": "no incidence loss; dimension surplus 9117",
+    "output_bound": "squarefree weighted-degree-15129 relation",
+    "stage": "weighted interpolation",
+    "status": "proved"
+  },
+  {
+    "input_bound": "covered accepted incidences",
+    "job_id": "team-synthesis-0001",
+    "justification": "P4",
+    "loss": "15129 per omitted line",
+    "output_bound": "formal identities on retained lines",
+    "stage": "identity transfer",
+    "status": "proved"
+  },
+  {
+    "input_bound": "formal identity lines",
+    "job_id": "team-synthesis-0001",
+    "justification": "P5",
+    "loss": "at most 2615604 exceptional lines and 15042 derivative roots per regular line",
+    "output_bound": "simple accepted roots on regular lines",
+    "stage": "primitive cleanup",
+    "status": "proved"
+  },
+  {
+    "input_bound": "two-sided emptying order",
+    "job_id": "team-synthesis-0001",
+    "justification": "P6",
+    "loss": "credit of 156513678 incidences",
+    "output_bound": "minimum-degree core or deletion certificate",
+    "stage": "C4 peeling",
+    "status": "proved"
+  },
+  {
+    "input_bound": "fixed charge 769296828797543",
+    "job_id": "team-synthesis-0001",
+    "justification": "P7",
+    "loss": "all previous charges consolidated exactly once",
+    "output_bound": "survival above 1244293905093223/3681259956715522",
+    "stage": "core survival",
+    "status": "proved"
+  },
+  {
+    "input_bound": "minimum degrees 15130 and 5195",
+    "job_id": "team-synthesis-0001",
+    "justification": "P8",
+    "loss": "one exact centered Cauchy-Schwarz inequality",
+    "output_bound": "component density greater than 3674745607/108717834245",
+    "stage": "component conversion",
+    "status": "proved"
+  },
+  {
+    "input_bound": "one connected simple-root component",
+    "job_id": "team-synthesis-0001",
+    "justification": "P9",
+    "loss": "none",
+    "output_bound": "one total-degree-at-most-87 polynomial",
+    "stage": "polynomial reconstruction",
+    "status": "proved"
+  },
+  {
+    "input_bound": "epsilon=3380076168821833/10^16",
+    "job_id": "team-synthesis-0001",
+    "justification": "P10",
+    "loss": "none",
+    "output_bound": "realized acceptance strictly above the survival frontier",
+    "stage": "incidence-lattice conversion",
+    "status": "proved"
+  },
+  {
+    "input_bound": "epsilon >= 957/1474570",
+    "job_id": "team-synthesis-0001",
+    "justification": "P10",
+    "loss": "guaranteed count 734949122",
+    "output_bound": "agreement at least max(174/147457,epsilon/10)",
+    "stage": "final recovery contract",
+    "status": "proved"
+  }
+]
