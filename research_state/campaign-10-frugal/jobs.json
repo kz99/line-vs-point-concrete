@@ -51,7 +51,7 @@
     "status": "succeeded"
   },
   {
-    "attempts": 0,
+    "attempts": 1,
     "created_at": "2026-09-15T18:09:47Z",
     "dependency": null,
     "direction": "FRUGAL FUNNEL / SCOUT: Search the exact integer parameter neighborhood around the incumbent interpolation and pruning choices; return a reproducible rational certificate for every feasible improvement.",
@@ -64,8 +64,8 @@
     "output_dir": null,
     "reasoning_effort": "xhigh",
     "role": "researcher",
-    "started_at": null,
-    "status": "queued"
+    "started_at": "2026-09-15T18:32:55Z",
+    "status": "running"
   },
   {
     "attempts": 0,
@@ -170,24 +170,24 @@
     "status": "queued"
   },
   {
-    "attempts": 0,
+    "attempts": 1,
     "created_at": "2026-09-15T18:32:43Z",
     "dependency": "researcher-0001",
     "direction": "independent verifier audit of researcher-0001",
     "error": null,
-    "finished_at": null,
+    "finished_at": "2026-09-15T18:37:56Z",
     "id": "verifier-a-researcher-0001",
     "max_attempts": 2,
     "model": "gpt-5.6-sol",
     "ordinal": null,
-    "output_dir": null,
+    "output_dir": "/Users/kaizheng/.codex/worktrees/1f44/SSE-auto/Line-vs-Point-concrete/research_state/campaign-10-frugal/reviews/researcher-0001/verifier-a-researcher-0001",
     "reasoning_effort": "xhigh",
     "role": "verifier",
-    "started_at": null,
-    "status": "queued"
+    "started_at": "2026-09-15T18:32:55Z",
+    "status": "succeeded"
   },
   {
-    "attempts": 0,
+    "attempts": 1,
     "created_at": "2026-09-15T18:20:38Z",
     "dependency": "researcher-0003",
     "direction": "independent verifier audit of researcher-0003",
@@ -200,7 +200,7 @@
     "output_dir": null,
     "reasoning_effort": "xhigh",
     "role": "verifier",
-    "started_at": null,
-    "status": "queued"
+    "started_at": "2026-09-15T18:32:55Z",
+    "status": "running"
   }
 ]

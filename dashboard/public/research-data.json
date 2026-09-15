@@ -868,7 +868,292 @@
     "promising": [
       {
         "agreement_count": 7249456452,
-        "audits": [],
+        "audits": [
+          {
+            "benchmark_improved": true,
+            "counterexample_attempts": [
+              "Inseparable relations such as B=Z^p-X have B_Z=0, but are excluded by deg_Z(B)<=173<p.",
+              "For B=Z^2-X^2, branch switching requires a multiple root where B_Z=0; such incidences are deleted.",
+              "A complete bipartite residual would invalidate P7, but affine point-line incidence graphs are C4-free.",
+              "The P6 potential optimization was checked at both exact rational endpoints; no violating endpoint exists.",
+              "At the empty-core corner, 550551 edges force 9743922 repeated point-pairs, exceeding binom(4415,2)=9743905."
+            ],
+            "coverage_complete": true,
+            "dimension_verified": true,
+            "fatal_obstruction": null,
+            "field_regime_verified": true,
+            "fixed_degree_verified": true,
+            "fixed_prime_verified": true,
+            "line_audit": [
+              {
+                "claim": "Exact theorem hash binding",
+                "justification": "SHA-256 of the UTF-8 theorem_statement without a trailing newline equals the required digest.",
+                "reference": "Theorem lines 0044\u20130061; response.json theorem_statement",
+                "verdict": "valid"
+              },
+              {
+                "claim": "Fixed instance and sampling",
+                "justification": "The proof uses m=2, F_147457, total line degree 87, and uniform affine-line then uniform-point sampling.",
+                "reference": "Lines 0014\u20130035",
+                "verdict": "valid"
+              },
+              {
+                "claim": "Interpolation and cleanup interfaces",
+                "justification": "The dimension surplus, Z-degree bound, identity-extension loss, exceptional-line cap, and derivative-root cap all recompute exactly.",
+                "reference": "Lines 0076\u20130130",
+                "verdict": "valid"
+              },
+              {
+                "claim": "Component-potential certificate",
+                "justification": "The affine mixing formula, maximization, squaring conditions, endpoint monotonicity, and integer credits are valid.",
+                "reference": "Lines 0132\u20130206",
+                "verdict": "valid"
+              },
+              {
+                "claim": "Peeling credit",
+                "justification": "Both the nonempty-component potential and empty-core C4 calculation imply the uniform credit 66772609.",
+                "reference": "Lines 0208\u20130234",
+                "verdict": "valid"
+              },
+              {
+                "claim": "Survival ledger",
+                "justification": "C=752360602649754, R=613678839472717/1840629978357761, and the strict survival margin replay exactly.",
+                "reference": "Lines 0236\u20130282",
+                "verdict": "valid"
+              },
+              {
+                "claim": "One-polynomial recovery",
+                "justification": "Simple-root recursion, D+1 seed identities, global vanishing of B(X,Y,Q), and connected propagation produce one total-degree-at-most-87 Q.",
+                "reference": "Lines 0284\u20130286",
+                "verdict": "valid"
+              },
+              {
+                "claim": "Contract and leaderboard arithmetic",
+                "justification": "epsilon exceeds the admissibility floor, epsilon/10 exceeds 174/p, recovery is 724945646 points, and the exact score is 7249456451.",
+                "reference": "Lines 0288\u20130308",
+                "verdict": "valid"
+              },
+              {
+                "claim": "Generated agreement_count metadata",
+                "justification": "promising-results.json records 7249456452 from an apparent floating-point ceiling; exact arithmetic gives 7249456451. The hash-bound theorem itself is correct.",
+                "reference": "campaign-10-frugal/leaderboards/promising-results.json",
+                "verdict": "false"
+              },
+              {
+                "claim": "Incumbent comparison",
+                "justification": "The requested campaign-10-frugal history has an empty points array, but the task explicitly imports score 7349491214 and campaign-30 history corroborates it. The exact improvement is 100034763.",
+                "reference": "campaign-10-frugal and campaign-30 soundness-history.json",
+                "verdict": "valid"
+              }
+            ],
+            "literature_audit": [
+              {
+                "claim": "No load-bearing literature theorem is imported",
+                "justification": "Interpolation, cleanup, mixing, peeling, and reconstruction are proved in P2\u2013P9; the mentioned KTZ lemmas are analogies only.",
+                "reference": "Lines 0038\u20130042; literature_dependencies=[]",
+                "verdict": "valid"
+              },
+              {
+                "claim": "Pocklington criterion applies",
+                "justification": "The full factorization p-1=2^14*3^2 and exact modular/gcd certificates cover prime divisors 2 and 3.",
+                "reference": "P1",
+                "verdict": "valid"
+              }
+            ],
+            "proof_chain_audit": [
+              {
+                "claim": "The fixed field and affine incidence counts are correct",
+                "justification": "The primality certificate and M, Lambda, N identities check exactly.",
+                "reference": "P1",
+                "verdict": "valid"
+              },
+              {
+                "claim": "Three complete directions achieve the claimed coverage",
+                "justification": "The hypergeometric envelope is maximized at a=49152; averaging gives a deterministic triple.",
+                "reference": "P2",
+                "verdict": "valid"
+              },
+              {
+                "claim": "A squarefree Z-dependent weighted relation exists",
+                "justification": "There are 9117 surplus monomials; Z-free relations and repeated factors are excluded, and deg_Z<p implies A_Z is nonzero.",
+                "reference": "P3",
+                "verdict": "valid"
+              },
+              {
+                "claim": "Identity extension and simple-root cleanup have the stated losses",
+                "justification": "Root counting gives the extension; the nominal discriminant gives z<=2615604; regular derivative restrictions have at most 15042 roots.",
+                "reference": "P4",
+                "verdict": "valid"
+              },
+              {
+                "claim": "The exact affine mixing inequality holds",
+                "justification": "Ordered-pair counting gives the variance identity and centered Cauchy\u2013Schwarz gives the stated bound.",
+                "reference": "P5",
+                "verdict": "valid"
+              },
+              {
+                "claim": "Every sub-threshold component has negative potential",
+                "justification": "Q_eta<0, the R slopes are negative, and the positive endpoint L,R values cover both intervals.",
+                "reference": "P6",
+                "verdict": "valid"
+              },
+              {
+                "claim": "No-large-component graphs satisfy the sharpened peel bound",
+                "justification": "Nonempty cores contribute at most -66772609; empty cores receive the larger C4 credit 133038520.",
+                "reference": "P7",
+                "verdict": "valid"
+              },
+              {
+                "claim": "Acceptance at epsilon forces a component of density at least tau",
+                "justification": "The fixed charge is exact and epsilon lies strictly above the no-large-component frontier.",
+                "reference": "P8",
+                "verdict": "valid"
+              },
+              {
+                "claim": "One polynomial governs each retained component",
+                "justification": "Seed-point recursion, D+1 line identities, and simple-root propagation establish one Q throughout the connected component.",
+                "reference": "P9",
+                "verdict": "valid"
+              },
+              {
+                "claim": "The exact recovery and leaderboard contracts hold",
+                "justification": "tau=epsilon/10>174/p, recovery is 724945646 points, and the score improves the incumbent.",
+                "reference": "P10",
+                "verdict": "valid"
+              },
+              {
+                "claim": "The imported primality lemma has all hypotheses",
+                "justification": "Pocklington\u2019s conditions are certified for every prime divisor of the fully factored p-1.",
+                "reference": "Pocklington criterion used in P1",
+                "verdict": "valid"
+              }
+            ],
+            "proof_chain_complete": true,
+            "quantifier_audit": [
+              {
+                "claim": "Universality over point and line tables",
+                "justification": "No genericity assumption is imposed; P2 randomness is used only for deterministic existence by averaging.",
+                "reference": "Theorem; P2\u2013P10",
+                "verdict": "valid"
+              },
+              {
+                "claim": "Acceptance equality is included",
+                "justification": "The no-large-component frontier is strictly below epsilon, so Pass>=epsilon forces survival at equality.",
+                "reference": "P8",
+                "verdict": "valid"
+              },
+              {
+                "claim": "The dimension remains exactly two",
+                "justification": "All incidence, C4, and mixing arguments are for F_p^2.",
+                "reference": "P1, P5, P7",
+                "verdict": "valid"
+              },
+              {
+                "claim": "The field remains exactly F_147457",
+                "justification": "P1 certifies primality and no extension field is introduced.",
+                "reference": "P1\u2013P10",
+                "verdict": "valid"
+              },
+              {
+                "claim": "The degree convention remains total degree at most 87",
+                "justification": "P9 constructs Q from homogeneous total-degree pieces through degree 87.",
+                "reference": "P3, P4, P9",
+                "verdict": "valid"
+              },
+              {
+                "claim": "The sampling convention is unchanged",
+                "justification": "rho=|E|/p^2(p+1) is exactly uniform line-then-point sampling.",
+                "reference": "Lines 0016\u20130023; P8",
+                "verdict": "valid"
+              },
+              {
+                "claim": "The conclusion concerns one polynomial",
+                "justification": "P9 fixes one Q at a seed and propagates that same Q throughout the component.",
+                "reference": "P9\u2013P10",
+                "verdict": "valid"
+              },
+              {
+                "claim": "The exact recovery maximum is preserved",
+                "justification": "epsilon/10-174/147457=6992881271/217435668490>0, and the component contains at least ceil(epsilon M/10) points.",
+                "reference": "P10",
+                "verdict": "valid"
+              }
+            ],
+            "recovery_ratio_verified": true,
+            "required_changes": [
+              "Harness rejected an internally inconsistent accept verdict."
+            ],
+            "scope_verified": "bivariate_theorem",
+            "soundness_audit": [
+              {
+                "claim": "Sampling normalization",
+                "justification": "M=21743566849, Lambda=21743714306, N=3206262880419842.",
+                "reference": "P1 / ledger stage 1",
+                "verdict": "valid"
+              },
+              {
+                "claim": "Direction loss",
+                "justification": "U<=kappa(1-rho)N with kappa=1610629120/10871857153.",
+                "reference": "P2 / ledger stage 2",
+                "verdict": "valid"
+              },
+              {
+                "claim": "Interpolation feasibility",
+                "justification": "6693082347-6693073230=9117.",
+                "reference": "P3 / ledger stage 3",
+                "verdict": "valid"
+              },
+              {
+                "claim": "Identity-extension loss",
+                "justification": "The loss is D(Lambda-t), with uncovered incidences charged once in U.",
+                "reference": "P4 / ledger stage 4",
+                "verdict": "valid"
+              },
+              {
+                "claim": "Exceptional and derivative cleanup",
+                "justification": "At most pz+15042(t-z) incidences are removed, with z<=2615604.",
+                "reference": "P4 / ledger stages 5\u20136",
+                "verdict": "valid"
+              },
+              {
+                "claim": "Component-aware peel",
+                "justification": "The cleaned graph bound is DM+4415(t-z)-66772609.",
+                "reference": "P6\u2013P7 / ledger stage 7",
+                "verdict": "valid"
+              },
+              {
+                "claim": "Fixed-charge consolidation",
+                "justification": "423067449251842+328958422858521+334797312000-66772609=752360602649754.",
+                "reference": "P8 / ledger stage 8",
+                "verdict": "valid"
+              },
+              {
+                "claim": "Survival threshold",
+                "justification": "The first strict point-score is 7249456451; the margin is 4190366454/236392952779034320897>0.",
+                "reference": "P8 / ledger stage 9",
+                "verdict": "valid"
+              },
+              {
+                "claim": "Polynomial reconstruction",
+                "justification": "A surviving component is converted to one Q with no agreement loss.",
+                "reference": "P9 / ledger stage 10",
+                "verdict": "valid"
+              },
+              {
+                "claim": "Recovery and score",
+                "justification": "max(174/p,epsilon/10)=epsilon/10, giving 724945646 agreements; ceil(epsilon p^2)=7249456451.",
+                "reference": "P10 / ledger stage 11",
+                "verdict": "valid"
+              }
+            ],
+            "summary": "Accept the exact hash-bound theorem. The P1\u2013P10 chain is sound for m=2, p=147457, total degree 87, and uniform line-then-point sampling. Exact epsilon is 7249456451/21743566849\u22480.3334069567033068; it forces one polynomial on at least 724945646 points and improves the incumbent by 100034763 points. The generated promising-results.json has a non-load-bearing floating-ceiling metadata error. The required checkpoint write was attempted, but the managed sandbox rejected it because the advertised outbox was mounted read-only.",
+            "unfixable": false,
+            "verdict": "revise",
+            "verified_claim_sha256": "cdd867c0846c7921715a88b4faf7a353dad84d88bf7f53d230bfa2252c40b725",
+            "verified_soundness": 0.3334069567033068,
+            "verifier_id": "verifier-a-researcher-0001"
+          }
+        ],
         "benchmark_improved": true,
         "campaign": "campaign-10-frugal",
         "claim_scope": "bivariate_theorem",
@@ -2451,7 +2736,7 @@
       "status": "succeeded"
     },
     {
-      "attempts": 0,
+      "attempts": 1,
       "direction": "FRUGAL FUNNEL / SCOUT: Search the exact integer parameter neighborhood around the incumbent interpolation and pruning choices; return a reproducible rational certificate for every feasible improvement.",
       "error": null,
       "finished_at": null,
@@ -2459,8 +2744,8 @@
       "max_attempts": 2,
       "ordinal": 4,
       "role": "researcher",
-      "started_at": null,
-      "status": "queued"
+      "started_at": "2026-09-15T18:32:55Z",
+      "status": "running"
     },
     {
       "attempts": 0,
@@ -2535,19 +2820,19 @@
       "status": "queued"
     },
     {
-      "attempts": 0,
+      "attempts": 1,
       "direction": "independent verifier audit of researcher-0001",
       "error": null,
-      "finished_at": null,
+      "finished_at": "2026-09-15T18:37:56Z",
       "id": "verifier-a-researcher-0001",
       "max_attempts": 2,
       "ordinal": null,
       "role": "verifier",
-      "started_at": null,
-      "status": "queued"
+      "started_at": "2026-09-15T18:32:55Z",
+      "status": "succeeded"
     },
     {
-      "attempts": 0,
+      "attempts": 1,
       "direction": "independent verifier audit of researcher-0003",
       "error": null,
       "finished_at": null,
@@ -2555,8 +2840,8 @@
       "max_attempts": 2,
       "ordinal": null,
       "role": "verifier",
-      "started_at": null,
-      "status": "queued"
+      "started_at": "2026-09-15T18:32:55Z",
+      "status": "running"
     }
   ],
   "lemma_book": {
@@ -5316,8 +5601,9 @@
   "status": {
     "campaign_dir": "/Users/kaizheng/.codex/worktrees/1f44/SSE-auto/Line-vs-Point-concrete/research_state/campaign-10-frugal",
     "counts": {
-      "queued": 9,
-      "succeeded": 3
+      "queued": 6,
+      "running": 2,
+      "succeeded": 4
     },
     "dimension": 2,
     "field_regime": "prime",
@@ -5337,7 +5623,7 @@
       "researcher": 10,
       "verifier": 2
     },
-    "updated_at": "2026-09-15T18:32:43Z",
+    "updated_at": "2026-09-15T18:37:56Z",
     "verification_policy": "one independent high-reasoning audit for leaderboard submissions",
     "verifier_count": 1,
     "verifier_reasoning_effort": "xhigh"
