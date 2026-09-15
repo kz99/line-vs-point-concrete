@@ -1,5 +1,104 @@
 [
   {
+    "input_bound": "Accepted-incidence density rho.",
+    "job_id": "researcher-0001",
+    "justification": "Uniform line-then-point sampling is uniform on incidences.",
+    "loss": "None.",
+    "output_bound": "N=3206262880419842 equiprobable incidences.",
+    "stage": "sampling normalization",
+    "status": "proved"
+  },
+  {
+    "input_bound": "Point accepted degrees.",
+    "job_id": "researcher-0001",
+    "justification": "Exact three-direction hypergeometric averaging, maximized at degree 49152.",
+    "loss": "At most kappa(1-rho)N, kappa=1610629120/10871857153.",
+    "output_bound": "One union of three complete direction classes.",
+    "stage": "direction coverage",
+    "status": "proved"
+  },
+  {
+    "input_bound": "442371 selected line labels.",
+    "job_id": "researcher-0001",
+    "justification": "6693082347 monomials versus 6693073230 constraints.",
+    "loss": "No incidence deletion; dimension surplus 9117.",
+    "output_bound": "Squarefree weighted-degree-at-most-15129 relation.",
+    "stage": "weighted interpolation",
+    "status": "proved"
+  },
+  {
+    "input_bound": "t identity lines.",
+    "job_id": "researcher-0001",
+    "justification": "A nonzero restriction of degree at most 15129 has at most 15129 covered roots.",
+    "loss": "15129(Lambda-t) accepted incidences.",
+    "output_bound": "Formal identities on retained lines.",
+    "stage": "identity extension",
+    "status": "proved"
+  },
+  {
+    "input_bound": "z exceptional identity lines, z<=2615604.",
+    "job_id": "researcher-0001",
+    "justification": "Coefficient content and nominal projective discriminant.",
+    "loss": "At most pz accepted incidences.",
+    "output_bound": "Primitive derivative-nondegenerate identity lines.",
+    "stage": "exceptional-line deletion",
+    "status": "proved"
+  },
+  {
+    "input_bound": "t-z regular identity lines.",
+    "job_id": "researcher-0001",
+    "justification": "Every nonzero restricted B_Z has degree at most 15042.",
+    "loss": "At most 15042(t-z) incidences.",
+    "output_bound": "Only simple accepted roots remain.",
+    "stage": "derivative cleanup",
+    "status": "proved"
+  },
+  {
+    "input_bound": "Cleaned graph with no component of point density at least tau.",
+    "job_id": "researcher-0001",
+    "justification": "Two-range affine mixing; empty-core C4 credit 133038520.",
+    "loss": "15129M+4415(t-z)-66772609.",
+    "output_bound": "Uniform empty-or-bad-component peeling certificate.",
+    "stage": "component-aware peeling",
+    "status": "proved"
+  },
+  {
+    "input_bound": "t<=Lambda and z<=2615604.",
+    "job_id": "researcher-0001",
+    "justification": "The collected t and z coefficients are 4328 and 128000, both positive.",
+    "loss": "423067449251842+328958422858521+334797312000-66772609.",
+    "output_bound": "C=752360602649754.",
+    "stage": "fixed-loss consolidation",
+    "status": "proved"
+  },
+  {
+    "input_bound": "epsilon=7249456451/21743566849.",
+    "job_id": "researcher-0001",
+    "justification": "Substitute C and kappa into the no-large-component inequality.",
+    "loss": "C/N+kappa(1-epsilon).",
+    "output_bound": "Positive survival margin 4190366454/236392952779034320897.",
+    "stage": "component survival",
+    "status": "proved"
+  },
+  {
+    "input_bound": "A connected simple-root identity component of density at least tau.",
+    "job_id": "researcher-0001",
+    "justification": "Formal implicit reconstruction and connected propagation.",
+    "loss": "No agreement loss.",
+    "output_bound": "One total-degree-at-most-87 polynomial agrees throughout the component.",
+    "stage": "polynomial recovery",
+    "status": "proved"
+  },
+  {
+    "input_bound": "epsilon and recovery floor 174/147457.",
+    "job_id": "researcher-0001",
+    "justification": "epsilon/10-174/147457=6992881271/217435668490>0.",
+    "loss": "Required factor 1/10 and final integer ceiling.",
+    "output_bound": "Recovery fraction epsilon/10=7249456451/217435668490 and at least 724945646 points.",
+    "stage": "recovery contract",
+    "status": "proved"
+  },
+  {
     "input_bound": "Uniform affine-line-then-point sampling",
     "job_id": "researcher-0002",
     "justification": "Every line has p points; there are Lambda=p(p+1) lines.",
