@@ -30,6 +30,20 @@
       "verifier_ids": [
         "verifier-a-researcher-0006"
       ]
+    },
+    {
+      "agreement_count": 7249403422,
+      "gain": 2.759436568133822e-10,
+      "job_id": "researcher-0005",
+      "previous_best": 0.3334045181429561,
+      "recovery_agreement_count": 724940343,
+      "soundness": 0.3334045178670124,
+      "theorem_sha256": "293018472ac8e44a9289b7f4a39ad56245e39da25e491eafc1af7269b9a5b9c9",
+      "title": "Balanced Two-Range Component Potential at Score 7,249,403,422",
+      "verified_at": "2026-09-15T18:59:51Z",
+      "verifier_ids": [
+        "verifier-a-researcher-0005"
+      ]
     }
   ],
   "score_metric": "guaranteed agreement-count equivalent ceil(epsilon * p^2)",

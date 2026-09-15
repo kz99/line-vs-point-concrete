@@ -655,27 +655,5 @@
     "theorem_sha256": "67bb6bc7683a800c9d6bb7825dfccac7a97369f1a9b805d772296d566bde462c",
     "theorem_statement": "Let p=147457, d=87, and epsilon=7249403463/21743566849. Under uniform affine-line sampling followed by a uniformly random point on the selected line, every degree-at-most-87 affine-line table and every point table accepted with probability at least epsilon admit one polynomial Q\u2208F_p[X,Y] of total degree at most 87 agreeing with the point table on at least max(174/147457,epsilon/10)=epsilon/10 of F_p\u00b2, hence on at least 724940347 points. Its absolute agreement-count score is ceil(epsilon\u00b7p\u00b2)=7249403463.",
     "title": "Partial-Fourth-Direction Component-Potential Soundness at Score 7,249,403,463"
-  },
-  {
-    "agreement_count": 7249403422,
-    "audits": [],
-    "benchmark_improved": true,
-    "claim_scope": "bivariate_theorem",
-    "claimed_soundness": 0.3334045178670124,
-    "dimension": 2,
-    "double_verified": false,
-    "field_regime": "prime",
-    "fixed_degree": 87,
-    "fixed_prime": 147457,
-    "job_id": "researcher-0005",
-    "leaderboard_submission": true,
-    "note_path": "/Users/kaizheng/.codex/worktrees/1f44/SSE-auto/Line-vs-Point-concrete/research_state/campaign-10-frugal/submissions/researcher-0005/note.md",
-    "recovery_agreement_count": 724940343,
-    "result_status": "proved",
-    "review_verdict": "awaiting (0/1 accept)",
-    "role": "researcher",
-    "theorem_sha256": "293018472ac8e44a9289b7f4a39ad56245e39da25e491eafc1af7269b9a5b9c9",
-    "theorem_statement": "Let p=147457, d=87, and epsilon=3334045178670124/10^16. Under uniform affine-line sampling followed by a uniformly random point on the selected line, every degree-at-most-87 affine-line table and every point table accepted with probability at least epsilon admit one polynomial Q\u2208F_p[X,Y] of total degree at most 87 agreeing with the point table on at least max(174/147457,epsilon/10), and in fact on at least 724940343 points. The absolute agreement-count score is ceil(epsilon p\u00b2)=7249403422.",
-    "title": "Balanced Two-Range Component Potential at Score 7,249,403,422"
   }
 ]
