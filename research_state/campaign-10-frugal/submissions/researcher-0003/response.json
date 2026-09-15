@@ -1,0 +1,243 @@
+{
+  "benchmark_improved": true,
+  "characteristic_audit": [
+    "The fixed prime is certified by p\u22121=2^14\u00b73^2 and the Pocklington residues recorded in the verified incumbent.",
+    "The augmented constraints A(x,f(x))=0 introduce neither derivatives nor division and do not change the weighted-degree or Z-degree bounds.",
+    "Every nonzero augmented interpolant is Z-dependent because a Z-independent polynomial of degree at most 15129 cannot vanish formally on 442371 distinct affine lines.",
+    "Repeated-factor removal preserves the added point zeros: if A=F^eG, e\u22652, and A(x,f(x))=0, then F^(e\u22121)G also vanishes there.",
+    "The resulting squarefree relation has deg_Z\u2264173<p, so ordinary Z-derivatives detect every positive Z-degree factor.",
+    "The primitive-content and nominal-discriminant arguments use no specialized leading-coefficient inverse. Formal reconstruction divides only by retained nonzero values of B_Z."
+  ],
+  "claim_scope": "bivariate_theorem",
+  "claimed_soundness": 0.3380075810946357,
+  "counterexample_attempts": [
+    "Pencil-family approach, three-anchor variant: three noncollinear point pencils contain exactly 3p lines. For q=h\u2212a unaccepted directions at a point, the exact miss numerator is C(q(p\u22121),3)\u2212qC(p\u22121,3)\u2212(p\u00b2\u22121)C(q,3). Maximization gives 105063534529804369922/709178858337102962691 at a=49153, producing the worse score 7349510106.",
+    "Pencil-family approach, hybrid variant: two complete directions, one point pencil, and one complementary line also use exactly 3p lines. Its coefficient is 35020980267729797120/236392952779034320897, producing the worse score 7349499610. Thus the successful second approach instead spends interpolation surplus on actual point labels."
+  ],
+  "dimension": 2,
+  "field_regime": "prime",
+  "finite_sanity_checks": [
+    "M=p\u00b2=21743566849, \u039b=p(p+1)=21743714306, and N=p\u00b2(p+1)=3206262880419842.",
+    "The augmented interpolation dimension is 6693082347\u22126693073230\u22129116=1.",
+    "The improved coefficient is \u03ba'=35020807257170984960/236392952779034320897.",
+    "The strict survival frontier is R'=61159938999447089357/180942506690803537238, with floor(MR')=7349490434.",
+    "At \u03b5=3380075810946357/10^16, the survival margin is 64670249872480163804912949/2363929527790343208970000000000000000>0.",
+    "The component certificate has F(\u03b5/10)=46026890721603811175097575043969660020720273/2853573963573659380000000000000000000000000000000000>0 and F'(\u03b5/10)<0.",
+    "Exact replay returns score 7349490435, recovery count 734949044, and improvement 779."
+  ],
+  "fixed_degree": 87,
+  "fixed_prime": 147457,
+  "global_conclusion": "A fully proved label-sensitive augmentation improves the verified incumbent. The 9116 unused interpolation dimensions are spent on equations A(x,f(x))=0 at the heaviest points left uncovered by the three selected directions. This multiplies the uncovered-incidence coefficient by 1\u22129116/p\u00b2 and lowers the agreement-count score from 7349491214 to 7349490435, a strict improvement of 779 points.",
+  "guaranteed_recovery_agreement_count": 734949044,
+  "guaranteed_recovery_fraction": 0.03380075810946357,
+  "leaderboard_submission": true,
+  "literature_dependencies": [],
+  "next_tasks": [
+    "Researcher-0008 should splice the augmented-covered-set definition into the algebraic-cleanup builder module.",
+    "Researcher-0009 should audit preservation of the added point zeros during squarefree reduction and verify that the content factor is used only after identity-line extension.",
+    "Researcher-0010 should replay the exact arithmetic and submit the terminating trigger 3380075810946357/10^16.",
+    "The interpolation module should investigate whether the 442371 line-identity equations have a provable rank deficit beyond the guaranteed surplus 9117."
+  ],
+  "note_markdown": "# Label-Sensitive Surplus Interpolation Lowers the Fixed Score by 779\n\n## Abstract\n\nFor `p=147457`, total degree `d=87`, and uniform affine-line-then-point sampling, the verified incumbent selects three complete directions and leaves an interpolation kernel of dimension at least `9117`. I spend `9116` of these dimensions on the actual labels of the heaviest points not covered by the selected directions. This reduces the uncovered-incidence coefficient from\n\n\\[\n\\kappa=\\frac{1610629120}{10871857153}\n\\]\n\nto\n\n\\[\n\\kappa'=\\left(1-\\frac{9116}{21743566849}\\right)\\kappa\n=\\frac{35020807257170984960}{236392952779034320897}.\n\\]\n\nThe resulting terminating trigger is\n\n\\[\n\\varepsilon=\\frac{3380075810946357}{10^{16}},\n\\]\n\nwith score `7349490435`, improving the incumbent `7349491214` by `779`.\n\n## Test and Notation\n\nSet\n\n\\[\nh=p+1=147458,\\quad M=p^2=21743566849,\n\\]\n\\[\n\\Lambda=p(p+1)=21743714306,\\quad N=Mh=3206262880419842.\n\\]\n\nLet `E` be the accepted incidence graph, `rho=|E|/N`, and `a_x` the accepted degree of point `x`.\n\n## Prior Results\n\nThe imported record is the doubly verified campaign-30 theorem in `research_state/campaign-30-leaderboard/submissions/researcher-0003/response.json`, theorem SHA-256 `53c9e438528bd0576c18932996e7607f719d4f9e051243f15e86889aae6b4762`. Its exact audits are in `research_state/campaign-30-leaderboard/reviews/researcher-0003/verifier-a-researcher-0003/audit.json` and the verified-results ledger. Its interpolation count is\n\n\\[\n6693082347-442371\\cdot15130=9117.\n\\]\n\nThe sensitivity and partial-direction obstruction are recorded in `research_state/campaign-30-leaderboard/submissions/researcher-0001/response.json`. The present proof uses the self-contained version of the incumbent modules, so it has no load-bearing primary-paper dependency.\n\n## Theorem\n\nLet `p=147457`, `d=87`, and `epsilon=3380075810946357/10^16`. Every point table and every affine-line table of univariate degree at most `87` with acceptance at least `epsilon` admit a polynomial in `F_p[X,Y]` of total degree at most `87` agreeing with the point table on more than `epsilon/10` of `F_p\u00b2`.\n\n## Proof\n\n[P1, proved] The verified three-direction averaging lemma supplies three directions whose `3p=442371` lines leave uncovered accepted-incidence mass\n\n\\[\nU\\le \\kappa(1-\\rho)N.\n\\]\n\n[P2, proved] Choose the `k=9116` largest weights `a_x` among uncovered points, or every uncovered point if there are fewer. For nonnegative weights totaling `U` on at most `M` points, their top `k` values total at least `kU/M`. After declaring these points covered, the residual mass satisfies\n\n\\[\nU'\\le\\left(1-\\frac{k}{M}\\right)U\n\\le\\kappa'(1-\\rho)N.\n\\]\n\n[P3, proved] Impose the original formal identities on the `442371` selected labeled lines and additionally impose `A(x,f(x))=0` at the selected points. Weighted degree `D=15129` gives `6693082347` monomials. The line identities impose at most `6693073230` equations and the point labels impose at most `9116`, leaving dimension at least one.\n\nEvery nonzero solution is Z-dependent. Choose one of minimum weighted degree. Dividing out one copy of a repeated irreducible factor preserves every formal line identity and every added point zero. The incumbent repeated-factor argument also preserves a nonzero Z-derivative. Minimality therefore gives a squarefree `A` with `A_Z` nonzero and `deg_Z A\u2264173<p`.\n\n[P4, proved] Redefine a covered point to mean either a point hit by an accepted selected-direction line or one of the additional labeled points. At every covered point, `A(x,f(x))=0`. Hence any unselected line containing more than `D` covered accepted points is an A-identity line. The identity-extension inequality becomes\n\n\\[\n|E|\\le |E_T|+U'+D(\\Lambda-|T|).\n\\]\n\n[P5, proved] The verified primitive cleanup, nominal-discriminant estimate, and C4-free peeling apply unchanged. Their parameters are\n\n\\[\nq=D-d=15042,\\quad E_D=2615604,\n\\]\n\nline threshold `s=5195`, and peeling credit `156513678`. Complete deletion would imply\n\n\\[\n\\rho\\le \\frac{C_*}{N}+\\kappa'(1-\\rho),\n\\qquad C_*=769296828797543.\n\\]\n\n[P6, proved] The strict frontier is\n\n\\[\nR'=\\frac{C_*/N+\\kappa'}{1+\\kappa'}\n=\\frac{61159938999447089357}{180942506690803537238}.\n\\]\n\nAt the claimed terminating epsilon,\n\n\\[\n\\varepsilon-\\frac{C_*}{N}-\\kappa'(1-\\varepsilon)\n=\\frac{64670249872480163804912949}\n{2363929527790343208970000000000000000}>0.\n\\]\n\nThus a nonempty `(15130,5195)` simple-root core survives.\n\n[P7, proved] The incumbent affine-incidence component argument applies with `tau=epsilon/10`. Its endpoint polynomial satisfies `F(tau)>0`, `F'(tau)<0`, and `F''=2(1-1/h)>0`; hence every connected core component contains more than `tau M` points. The incumbent formal implicit-lifting and propagation argument then produces one total-degree-at-most-87 polynomial agreeing throughout that component.\n\nFinally,\n\n\\[\n\\frac{\\varepsilon}{10}-\\frac{174}{147457}\n=\\frac{481015838854716964149}{14745700000000000000000}>0.\n\\]\n\nTherefore the required maximum is `epsilon/10=3380075810946357/10^17`, and\n\n\\[\n\\left\\lceil\\varepsilon M\\right\\rceil=7349490435,\n\\qquad\n\\left\\lceil\\frac{\\varepsilon M}{10}\\right\\rceil=734949044.\n\\]\n\nThis proves the theorem.\n\n## Soundness Ledger\n\n| Stage | Exact loss or gain |\n|---|---:|\n| Three-direction coverage | `kappa(1-rho)N` |\n| Label-sensitive point constraints | gain factor `1-9116/M` |\n| Interpolation | `442371\u00b715130+9116` equations; surplus `1` |\n| Identity extension | `15129(\u039b-t)` |\n| Exceptional lines | at most `p\u00b72615604` incidences |\n| Derivative roots | at most `15042(t-e)` |\n| C4 peeling | `15129M+5194(t-e)-156513678` |\n| Fixed subtotal | `C*=769296828797543` |\n| Component conversion | no deletion; exact incidence mixing |\n| Reconstruction | zero agreement loss |\n| Final agreement | `epsilon/10`, at least `734949044` points |\n\n## Counterexample Attempts\n\nThree noncollinear point pencils use the same `3p` line budget but give coefficient approximately `0.148148148093641`, worse than the incumbent. A two-direction/one-pencil/one-line hybrid gives approximately `0.148147310890715`, also worse. These exact negative results rule out the most economical pencil replacements.\n\n## Characteristic Audit\n\nAll Z-degrees are at most `173<p`. Added point constraints introduce no derivative, discriminant, irreducibility, or interpolation-multiplicity issue. Repeated-factor removal preserves both line identities and point zeros. The inherited cleanup never divides by a specialized leading coefficient, and reconstruction divides only by a certified nonzero simple-root derivative.\n\n## Limitations\n\nThe improvement uses only the guaranteed rank-nullity surplus. It does not prove an additional rank deficit, optimize multiplicity constraints, or improve the C4 corner. The campaign-10-frugal history file is presently empty; comparison is against the imported doubly verified campaign-30 record specified by the task.\n\n## Team Handoff\n\n- `researcher-0008`: import [P2]\u2013[P4] as the label-sensitive coverage module.\n- `researcher-0009`: audit squarefree reduction with the added point-zero invariant.\n- `researcher-0010`: integrate `kappa'`, `R'`, the terminating epsilon, score `7349490435`, and recovery count `734949044`.\n- Interpolation/rank module: seek a certified rank deficit beyond the current guaranteed surplus `9117`.\n- Verifier: replay the incumbent checker after replacing `kappa` by `kappa'` and adding the single identity `6693082347\u22126693073230\u22129116=1`.",
+  "obstructions": [
+    "The guaranteed line-interpolation kernel supports at most 9116 arbitrary additional point equations while retaining a provably nonzero solution.",
+    "A larger improvement by this mechanism requires either a certified rank deficit in the line-identity system or a constraint representing multiple useful point labels.",
+    "The two economical pencil-selector families have worse exact retention coefficients than three complete directions."
+  ],
+  "parameter_regime": "m=2; p=147457; d=87; D=15129; three complete directions; 442371 selected lines; 9116 added labeled points; s=5195; q=15042; E_D=2615604",
+  "proof_steps": [
+    {
+      "dependencies": [],
+      "id": "[P1]",
+      "proof": "The complete factorization p\u22121=2^14\u00b73^2 and the incumbent Pocklington residues certify primality. Standard affine-plane counting gives M=p\u00b2, \u039b=p(p+1), and N=Mp.",
+      "statement": "For p=147457, the affine plane F_p\u00b2 has M=21743566849 points, \u039b=21743714306 affine lines, and N=3206262880419842 incident point-line pairs.",
+      "status": "proved"
+    },
+    {
+      "dependencies": [
+        "research_state/campaign-30-leaderboard/submissions/researcher-0003/response.json [P2]",
+        "theorem SHA-256 53c9e438528bd0576c18932996e7607f719d4f9e051243f15e86889aae6b4762"
+      ],
+      "id": "[P2]",
+      "proof": "For point degree a, a uniformly random three-direction set misses its accepted pencil with probability C(h\u2212a,3)/C(h,3). Exact consecutive-ratio maximization occurs at a=49152 and gives \u03ba. Averaging chooses a deterministic triple.",
+      "statement": "For every accepted-incidence graph of density \u03c1 on F_147457\u00b2, there are three directions whose union leaves uncovered accepted-incidence mass U\u2264\u03ba(1\u2212\u03c1)N, where \u03ba=1610629120/10871857153.",
+      "status": "proved"
+    },
+    {
+      "dependencies": [
+        "[P2]"
+      ],
+      "id": "[P3]",
+      "proof": "If at least 9116 uncovered points exist, the sum of their 9116 largest accepted degrees is at least 9116U/M; otherwise all uncovered mass is selected. Removing those weights proves the inequality.",
+      "statement": "For every set of at most M nonnegative integer point weights totaling U, there is a set S of at most 9116 points whose removal leaves total weight at most (1\u22129116/M)U.",
+      "status": "proved"
+    },
+    {
+      "dependencies": [
+        "[P2]",
+        "[P3]",
+        "research_state/campaign-30-leaderboard/submissions/researcher-0003/response.json [P3]"
+      ],
+      "id": "[P4]",
+      "proof": "There are 6693082347 eligible monomials. The formal line identities impose at most 6693073230 equations and the added evaluations impose at most 9116, leaving dimension at least one. Z-independent solutions are excluded by the 442371>D formal line identities. Minimum-weight repeated-factor removal preserves both kinds of constraints and the nonzero Z-derivative.",
+      "statement": "For every selected union R of three directions, every degree-at-most-87 line table, and every set S of at most 9116 labeled points, there exists a nonzero squarefree polynomial A of (1,1,87)-weighted degree at most 15129, with A_Z nonzero, satisfying every selected formal line identity and A(x,f(x))=0 for every x in S.",
+      "status": "proved"
+    },
+    {
+      "dependencies": [
+        "[P4]",
+        "research_state/campaign-30-leaderboard/submissions/researcher-0003/response.json [P4]"
+      ],
+      "id": "[P5]",
+      "proof": "At every augmented-covered accepted point, A(x,f(x))=0. A restriction of degree at most D with more than D such roots is zero. All accepted incidences outside identity lines are therefore either at residual uncovered points or among at most D covered roots per omitted line.",
+      "statement": "Let covered points be those hit by an accepted line of R together with S, and let T contain R and every other line with more than 15129 covered accepted points. Then every line of T is an A-identity line and |E|\u2264|E_T|+U'+15129(\u039b\u2212|T|).",
+      "status": "proved"
+    },
+    {
+      "dependencies": [
+        "[P5]",
+        "research_state/campaign-30-leaderboard/submissions/researcher-0003/response.json [P5]\u2013[P8]",
+        "research_state/campaign-30-leaderboard/reviews/researcher-0003/verifier-a-researcher-0003/audit.json"
+      ],
+      "id": "[P6]",
+      "proof": "Primitive-content removal, the nominal discriminant, derivative-root counting, and the C4-free emptying induction are unchanged because their hypotheses use only the identity-line relation and weighted-degree bound. Collecting their charges gives C*.",
+      "statement": "If the augmented identity graph has no (15130,5195) simple-root core, then |E|\u2264U'+769296828797543.",
+      "status": "proved"
+    },
+    {
+      "dependencies": [
+        "[P2]",
+        "[P3]",
+        "[P6]"
+      ],
+      "id": "[P7]",
+      "proof": "Substitution gives \u03ba'=35020807257170984960/236392952779034320897 and complete deletion implies \u03c1\u2264C*/N+\u03ba'(1\u2212\u03c1). At \u03b5=3380075810946357/10^16 the right-side deficit is the displayed strictly positive rational margin, contradicting complete deletion.",
+      "statement": "Every table of acceptance at least 3380075810946357/10^16 has a nonempty (15130,5195) simple-root core.",
+      "status": "proved"
+    },
+    {
+      "dependencies": [
+        "[P7]",
+        "research_state/campaign-30-leaderboard/submissions/researcher-0003/response.json [P9]"
+      ],
+      "id": "[P8]",
+      "proof": "The exact affine incidence identity and Cauchy\u2013Schwarz give the incumbent component inequality. At \u03c4=\u03b5/10, its endpoint polynomial is positive, its derivative is negative, and its second derivative is positive, excluding every component point density at most \u03c4.",
+      "statement": "Every connected component of the core in [P7] contains more than (3380075810946357/10^17)M point vertices.",
+      "status": "proved"
+    },
+    {
+      "dependencies": [
+        "[P8]",
+        "research_state/campaign-30-leaderboard/submissions/researcher-0003/response.json [P10]"
+      ],
+      "id": "[P9]",
+      "proof": "At a seed point, at least D+1 line labels are formal simple roots. Homogeneous implicit recursion constructs one total-degree-at-most-87 polynomial; formal line vanishing makes it a global root of the relation, and simple-root uniqueness propagates it across the connected component.",
+      "statement": "Every connected core component admits one polynomial Q\u2208F_147457[X,Y] of total degree at most 87 satisfying Q(x)=f(x) at every point vertex of the component.",
+      "status": "proved"
+    },
+    {
+      "dependencies": [
+        "[P8]",
+        "[P9]"
+      ],
+      "id": "[P10]",
+      "proof": "Exact subtraction shows \u03b5\u2265957/1474570 and \u03b5/10>174/147457. Exact ceilings give ceil(\u03b5p\u00b2)=7349490435 and ceil(\u03b5p\u00b2/10)=734949044. Subtracting from the verified incumbent score gives 779.",
+      "statement": "Acceptance at least \u03b5=3380075810946357/10^16 guarantees agreement at least max(174/147457,\u03b5/10)=\u03b5/10 and at least 734949044 agreeing points, with score 7349490435.",
+      "status": "proved"
+    }
+  ],
+  "result_status": "proved",
+  "sampling_model": "Choose uniformly among the p(p+1) affine lines of F_147457\u00b2 and then uniformly among the p points on that line; equivalently, sample uniformly from N=p\u00b2(p+1) incident pairs.",
+  "soundness_ledger": [
+    {
+      "input_bound": "Accepted incidence density \u03c1.",
+      "justification": "Exact three-direction hypergeometric averaging.",
+      "loss": "At most \u03ba(1\u2212\u03c1)N uncovered accepted incidences, \u03ba=1610629120/10871857153.",
+      "output_bound": "Three selected direction classes containing 442371 lines.",
+      "stage": "direction selection",
+      "status": "proved"
+    },
+    {
+      "input_bound": "Uncovered point weights totaling U.",
+      "justification": "The 9116 largest weights carry at least 9116U/M.",
+      "loss": "Gain factor 1\u22129116/21743566849.",
+      "output_bound": "U'\u2264\u03ba'(1\u2212\u03c1)N, \u03ba'=35020807257170984960/236392952779034320897.",
+      "stage": "label-sensitive surplus coverage",
+      "status": "proved"
+    },
+    {
+      "input_bound": "6693082347 weighted monomials.",
+      "justification": "The line identities cost at most 6693073230 equations and point labels cost at most 9116.",
+      "loss": "9116 additional scalar equations.",
+      "output_bound": "Kernel dimension at least 1.",
+      "stage": "weighted interpolation",
+      "status": "proved"
+    },
+    {
+      "input_bound": "Augmented covered accepted points.",
+      "justification": "A nonidentity restriction has degree at most 15129.",
+      "loss": "At most 15129(\u039b\u2212t) covered incidences on omitted lines.",
+      "output_bound": "All lines in T are A-identities.",
+      "stage": "identity extension",
+      "status": "proved"
+    },
+    {
+      "input_bound": "Squarefree A-identity lines.",
+      "justification": "Primitive-content and nominal-discriminant bounds from the verified incumbent.",
+      "loss": "At most p\u00b72615604 exceptional-line incidences.",
+      "output_bound": "Nonexceptional primitive identity lines.",
+      "stage": "exceptional-line cleanup",
+      "status": "proved"
+    },
+    {
+      "input_bound": "Nonexceptional identity lines.",
+      "justification": "Each nonzero derivative restriction has degree at most 15042.",
+      "loss": "At most 15042 derivative-zero points per regular line.",
+      "output_bound": "Simple-root accepted incidence graph.",
+      "stage": "derivative cleanup",
+      "status": "proved"
+    },
+    {
+      "input_bound": "Cleaned C4-free affine incidence graph.",
+      "justification": "Exact 5194-by-15129 corner and emptying induction.",
+      "loss": "15129M+5194(t\u2212e)\u2212156513678 incidences.",
+      "output_bound": "Either a nonempty core or the certified empty-core charge.",
+      "stage": "core peeling",
+      "status": "proved"
+    },
+    {
+      "input_bound": "Identity extension, cleanup, and peeling losses.",
+      "justification": "Exact incumbent consolidation remains unchanged.",
+      "loss": "C*=769296828797543 fixed incidences plus \u03ba'(1\u2212\u03c1)N.",
+      "output_bound": "A nonempty core at \u03b5=3380075810946357/10^16.",
+      "stage": "core survival",
+      "status": "proved"
+    },
+    {
+      "input_bound": "Connected (15130,5195) core component.",
+      "justification": "Exact affine incidence mixing and positive component endpoint.",
+      "loss": "No incidence deletion.",
+      "output_bound": "Component point density greater than \u03b5/10.",
+      "stage": "component conversion",
+      "status": "proved"
+    },
+    {
+      "input_bound": "Connected simple-root component.",
+      "justification": "Formal implicit lifting and simple-root propagation.",
+      "loss": "Zero agreement loss.",
+      "output_bound": "One total-degree-at-most-87 polynomial on the component.",
+      "stage": "polynomial reconstruction",
+      "status": "proved"
+    },
+    {
+      "input_bound": "\u03b5=3380075810946357/10^16.",
+      "justification": "\u03b5/10\u2212174/p is a positive exact rational; integer ceiling is exact.",
+      "loss": "None.",
+      "output_bound": "Agreement fraction max(174/147457,\u03b5/10)=3380075810946357/10^17; at least 734949044 points.",
+      "stage": "final recovery contract",
+      "status": "proved"
+    }
+  ],
+  "theorem_statement": "Let p=147457, d=87, and epsilon=3380075810946357/10^16. Under uniform affine-line sampling followed by a uniform point on the selected line, every degree-at-most-87 line table and every point table with acceptance at least epsilon admit one polynomial in F_p[X,Y] of total degree at most 87 agreeing with the point table on more than epsilon/10 of F_p^2, hence on at least 734949044 points. Since epsilon/10>174/147457, this is the required max(2d/p,epsilon/10) recovery. The absolute agreement-count score is 7349490435.",
+  "title": "Label-Sensitive Surplus Interpolation Lowers the Fixed Score by 779"
+}

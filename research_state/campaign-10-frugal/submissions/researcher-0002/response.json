@@ -1,0 +1,219 @@
+{
+  "benchmark_improved": false,
+  "characteristic_audit": [
+    "The Pocklington certificate in the incumbent corpus verifies that p=147457 is prime, with p-1=2^14\u00b73^2.",
+    "A proper positive-Z factor G has weighted degree at most 15042 and therefore deg_Z(G)\u2264172<147457; ordinary differentiation detects its Z-dependence.",
+    "For irreducible G, Gauss's lemma and deg_Z(G)<p imply gcd(G,G_Z)=1.",
+    "The nominal projective discriminant is used without dividing by a specialized leading coefficient.",
+    "Every regular derivative restriction has degree at most 14955<p, so formal root counting applies.",
+    "The downstream simple-root recursion divides only by a retained nonzero value of G_Z and uses no factorials, Hasse derivatives, or field extensions.",
+    "Interpolation has multiplicity one and all reconstructed polynomials have total degree at most 87."
+  ],
+  "claim_scope": "algebraic_lemma",
+  "claimed_soundness": null,
+  "counterexample_attempts": [
+    "For g(X)=\u220f_{a=0}^{15041}(X-a), the irreducible primitive relation G=Y+g(X)Z has weighted degree 15129. On L(t)=(t,0), P_L=0 is an identity and G_Z=g(t) has exactly 15042 roots. Thus the incumbent per-regular-line cap cannot be lowered even by assuming irreducibility.",
+    "B_0=X^78 Z^173+Y^15129 is primitive and squarefree of weighted degree 15129. Its nominal discriminant has XY-degree exactly 2615604, so the current discriminant degree formula admits no one-unit parameter-only improvement.",
+    "The earlier B=Z(Z+g(X)) construction saturates the whole-relation derivative charge, while the factor Z has derivative one. It supports factor-aware cleanup but also demonstrates why factor selection must be coherent across lines.",
+    "The squarefree inseparable polynomial Z^p-X has B_Z=0, but weighted degree 87p=12828759 exceeds D=15129.",
+    "The 49152-complete-direction accepted table saturates the point-degree direction envelope but is globally explained by Q=0; it does not affect the factor lemma."
+  ],
+  "dimension": 2,
+  "field_regime": "prime",
+  "finite_sanity_checks": [
+    "The stored baseline checker research_state/campaign-30-leaderboard/submissions/team-synthesis-0001/certificate.py, SHA-256 c92b2181b89a38f564fbac81ce0145b01e1a1015e4110603ababd5b203fa747f, replayed successfully.",
+    "Exact rational replay gave E_fac=2585520, C_fac=767401523276597, R_fac=1242398599572277/3681259956715522, and conditional score 7338296486.",
+    "The survival margin at epsilon_fac=7338296486/21743566849 is 10269023767/542827549437400727554>0.",
+    "The component endpoint is 87078601536763088/525974319933351363995825>0 and its derivative is -14291449783/4837976433085<0.",
+    "The factor-coherent fixed-incidence saving is 1895305520946, exceeding the exact one-score requirement ceil((3718145613/147457))=25216."
+  ],
+  "fixed_degree": 87,
+  "fixed_prime": 147457,
+  "global_conclusion": "A coherent proper factor of the primitive interpolation relation would lower the proved-chain score from 7349491214 to 7338296486, a reduction of 11194728 points. The algebraic cleanup and numerical splice are proved, but the test hypothesis does not currently force one factor to explain every identity line. Local derivative and discriminant bounds are individually sharp, so factor coherence\u2014not another degree-only shave\u2014is the downstream bottleneck.",
+  "guaranteed_recovery_agreement_count": null,
+  "guaranteed_recovery_fraction": null,
+  "leaderboard_submission": false,
+  "literature_dependencies": [],
+  "next_tasks": [
+    "Researcher-0008 algebraic-cleanup builder: prove that a single proper factor explains a core retaining minimum degrees (15130,5195), or formulate a colored-core substitute with the same component-mass bound.",
+    "Researcher-0008 component module: if lines are colored by irreducible factors, prevent the point degree from splitting among colors; ordinary factor assignment alone does not preserve the 15130 point threshold.",
+    "Researcher-0009 red-team: test any coherence lemma against B=Z(Z+g), G=Y+gZ, B=Z^2-XY, and line families whose identities alternate between distinct factors.",
+    "Researcher-0010 integrator: use C_fac=767401523276597 and epsilon_fac=7338296486/21743566849 only after factor coherence is proved; otherwise retain the incumbent score."
+  ],
+  "note_markdown": "# Factor-coherent cleanup: an exact conditional score reduction and two sharp local obstructions\n\n## Abstract\n\nAt `p=147457`, `d=87`, weighted interpolation degree `D=15129`, and line-core threshold `s=5195`, a proper irreducible factor common to every identity line has weighted degree at most `D-d=15042`. Its exceptional-line cap is `2585520`, and its regular derivative-root cap is `14955`. Substitution in the audited incumbent ledger changes the fixed charge from `769296828797543` to `767401523276597` and gives the conditional trigger\n\n\\[\n\\varepsilon_{\\rm fac}=\\frac{7338296486}{21743566849}\n\\approx0.3374927645018597.\n\\]\n\nThe corresponding absolute score is `7338296486`, improving the incumbent by `11194728`, and recovery is strictly greater than `epsilon_fac/10`, hence at least `733829649` points. The missing hypothesis is factor coherence: product vanishing assigns each identity line some factor but need not assign the same factor to all lines. Two exact examples show that neither the `15042` local derivative cap nor the `2615604` discriminant-degree cap can be reduced using only the incumbent degree, primitivity, squarefreeness, or irreducibility data.\n\n## Test and Notation\n\nThe test samples an affine line uniformly in `F_p^2`, then a uniform point on it. Put\n\n\\[\np=147457,\\quad d=87,\\quad h=p+1=147458,\n\\]\n\\[\nM=p^2=21743566849,\\quad \\Lambda=p(p+1)=21743714306,\n\\quad N=Mh=3206262880419842.\n\\]\n\nThe incumbent parameters are\n\n\\[\nD=15129,\\quad s=5195,\\quad k=s-1=5194,\n\\quad \\kappa=\\frac{1610629120}{10871857153},\n\\quad K_4=156513678.\n\\]\n\nWeights of `(X,Y,Z)` are `(1,1,87)`.\n\n## Prior Results\n\nThe active scan covered the 17 top-level prior notes, all leaderboard files, 18 verifier audits, and both active message boards, excluding every `superseded` directory. The authoritative [history](/Users/kaizheng/.codex/worktrees/1f44/SSE-auto/Line-vs-Point-concrete/research_state/campaign-30-leaderboard/leaderboards/soundness-history.json) records score `7349491214`. The exact incumbent chain is in [researcher-0002/note.md](/Users/kaizheng/.codex/worktrees/1f44/SSE-auto/Line-vs-Point-concrete/research_state/campaign-30-leaderboard/submissions/researcher-0002/note.md), and the factor-aware target `25216` is isolated in [researcher-0001/note.md](/Users/kaizheng/.codex/worktrees/1f44/SSE-auto/Line-vs-Point-concrete/research_state/campaign-30-leaderboard/submissions/researcher-0001/note.md).\n\nThe primary-source counterparts are KTZ revision-1 Lemma 2.6 (coprime resultant line bound), Lemma 2.7 (unique simple formal lift), and Lemma 6.1 (lifting from more than `D` root lines) in the [official report](https://eccc.weizmann.ac.il/report/2026/147/revision/1/download/). They are not load-bearing here: the discriminant calculation is proved below, while component mixing and reconstruction are imported from the self-contained [team synthesis](/Users/kaizheng/.codex/worktrees/1f44/SSE-auto/Line-vs-Point-concrete/research_state/campaign-30-leaderboard/submissions/team-synthesis-0001/note.md), steps P6\u2013P9.\n\n## Theorem\n\n**Lemma 1 (factor-coherent cleanup).** Let `B in F_147457[X,Y,Z]` be primitive and squarefree with `(1,1,87)`-weighted degree at most `15129`. Let `G` be a proper irreducible factor of `B`, and let `T` be a family of affine lines carrying polynomials `P_L` of degree at most `87` such that\n\n\\[\nG(L(t),P_L(t))\\equiv0\\qquad(L\\in T).\n\\]\n\nThen `wdeg(G)\u226415042`, `deg_Z(G)\u2264172`, and `gcd(G,G_Z)=1`. There is a set `E subseteq T` with `|E|\u22642585520` such that, for every `L in T\\E`, the polynomial `G_Z(L(t),P_L(t))` is nonzero and has degree at most `14955`.\n\n**Conditional Corollary 2.** Suppose the incumbent three-direction interpolation and identity-extension construction produces `B,T` satisfying Lemma 1 with one proper irreducible factor `G` common to every line of `T`. If the test accepts with probability at least\n\n\\[\n\\varepsilon_{\\rm fac}=\\frac{7338296486}{21743566849},\n\\]\n\nthen one polynomial of total degree at most `87` agrees with the point table on more than\n\n\\[\n\\frac{\\varepsilon_{\\rm fac}}{10}\n=\\frac{3669148243}{108717834245}\n\\]\n\nof the plane, hence on at least `733829649` points.\n\n## Proof or Conditional Proof\n\n### [P1] Proper-factor degree \u2014 proved\n\nWrite `B=GH`. Since `B` is primitive in `Z`, the nonconstant factor `H` cannot be `Z`-independent. Thus `wdeg(H)\u226587`. Weighted leading forms multiply nontrivially, so weighted degree is additive and\n\n\\[\nw:=\\operatorname{wdeg}G\\le15129-87=15042.\n\\]\n\nConsequently `nu:=deg_Z(G)\u2264floor(15042/87)=172<p`. Irreducibility, Gauss's lemma, and this characteristic bound give `G_Z!=0` and `gcd(G,G_Z)=1`.\n\n### [P2] Exceptional lines \u2014 proved\n\nFor `nu\u22652`, the nominal projective `Z`-discriminant is nonzero. If `g_j(X,Y)` is the coefficient of `Z^j`, then `deg(g_j)\u2264w-87j`. Discriminant homogeneity therefore gives\n\n\\[\n\\deg_{X,Y}\\Delta_G\\le(\\nu-1)(2w-87\\nu).\n\\]\n\nA line on which both specialized identities hold divides `Delta_G`; nominal homogenization makes this valid even when the specialized leading coefficient vanishes. Since\n\n\\[\n(\\nu-1)(2w-87\\nu)\\le171(30084-14964)=2585520,\n\\]\n\nthere are at most `2585520` exceptional lines. For `nu=1`, simultaneous vanishing of `G` and `G_Z` on a line would make that line divide both coefficients of `G`, contradicting primitivity.\n\n### [P3] Regular derivative roots \u2014 proved\n\n`wdeg(G_Z)\u2264w-87\u226414955`. Hence every nonexceptional restriction is a nonzero univariate polynomial of degree at most `14955` and has at most that many roots.\n\n### [P4] Fixed-charge propagation \u2014 proved under factor coherence\n\nUsing the unchanged identity loss, point peeling, line peeling, and `C_4` credit gives\n\n\\[\nC_{\\rm fac}=(14955+5195-1)\\Lambda+15129M\n +(147457-14955-5195+1)2585520-K_4\n\\]\n\\[\n=438114099551594+328958422858521+329157380160-156513678\n=767401523276597.\n\\]\n\nThe old-to-new fixed saving is\n\n\\[\n769296828797543-C_{\\rm fac}=1895305520946.\n\\]\n\nOnly `25216` fixed incidences are needed for a one-score improvement, since the exact threshold is\n\n\\[\n\\frac{3718145613}{147457}=25215.117\\ldots.\n\\]\n\nThe resulting continuous survival frontier is\n\n\\[\nR_{\\rm fac}=\\frac{1242398599572277}{3681259956715522},\n\\]\n\nand\n\n\\[\n\\varepsilon_{\\rm fac}-R_{\\rm fac}\n=\\frac{10269023767}{542827549437400727554}>0.\n\\]\n\n### [P5] Component and recovery splice \u2014 proved under factor coherence\n\nThe core retains minimum degrees `(15130,5195)`. At `tau=epsilon_fac/10`, the incumbent component polynomial satisfies\n\n\\[\nF(\\tau)=\\frac{87078601536763088}{525974319933351363995825}>0,\n\\quad\nF'(\\tau)=-\\frac{14291449783}{4837976433085}<0.\n\\]\n\nThe side conditions are\n\n\\[\n\\beta-\\tau=\\frac{161047332}{108717834245}>0,\n\\qquad\n\\frac12-c\\tau=\\frac{2669203254501}{6644623283510}>0.\n\\]\n\nThus every component has point density greater than `tau`. Since a seed point has `15130>w` factor-coherent root lines and all retained roots are simple for `G`, the self-contained lifting and propagation proof yields one total-degree-at-most-87 polynomial on the component. Finally,\n\n\\[\n\\varepsilon_{\\rm fac}-\\frac{957}{10p}\n=\\frac{73241848511}{217435668490}>0,\n\\]\n\\[\n\\frac{\\varepsilon_{\\rm fac}}{10}-\\frac{174}{p}\n=\\frac{3540860653}{108717834245}>0.\n\\]\n\nThe score is `7338296486`, and strict agreement above `733829648.6` points gives at least `733829649` points.\n\n### [P6] Sharp local bounds \u2014 proved\n\nLet `g(X)=prod_{a=0}^{15041}(X-a)`. The polynomial `Y+g(X)Z` is irreducible, primitive, squarefree, and has weighted degree `15129`; on `Y=0,Z=0`, its derivative has exactly `15042` roots. Thus no universal `15041` cap holds even for an irreducible relation.\n\nAlso `X^78Z^173+Y^15129` is primitive and squarefree, and its nominal discriminant has degree\n\n\\[\n172(78+15129)=2615604.\n\\]\n\nThus the discriminant degree expression itself cannot be lowered.\n\n### [P7] Unconditional splice \u2014 conditional\n\nProduct vanishing only shows that each identity line belongs to at least one factor. Different lines may choose different factors, splitting the point degree and destroying both monochromatic seeding and the component-mass inequality. No active-corpus lemma establishes the factor-coherence hypothesis.\n\n## Soundness Ledger\n\n| Stage | Exact loss | Output |\n|---|---:|---|\n| Sampling | none; `N=3206262880419842` | uniform incidences |\n| Direction coverage | `kappa(1-rho)` | unchanged three-direction selector |\n| Interpolation | surplus `9117` | squarefree relation, weight `15129` |\n| Identity extension | `15129(Lambda-t)` | factor-coherent identities assumed |\n| Exceptional factor lines | `p e`, `e\u22642585520` | derivative-nondegenerate lines |\n| Derivative roots | `14955(t-e)` | simple factor roots |\n| Peeling | `15129M+5194(t-e)-156513678` | minimum degrees `(15130,5195)` |\n| Fixed subtotal | `C_fac=767401523276597` | frontier `R_fac` |\n| Component conversion | centered affine mixing | density `>epsilon_fac/10` |\n| Reconstruction | no loss | one total-degree-87 polynomial |\n| Required recovery | `max(174/p,epsilon_fac/10)=epsilon_fac/10` | at least `733829649` points |\n| Conditional score | `ceil(epsilon_fac M)` | `7338296486` |\n\n## Counterexample Attempts\n\nThe two polynomials in [P6] show that local degree-only sharpening cannot supply the required credit. The reducible example `Z(Z+g)` shows a large factor-aware saving but is favorable precisely because the factor `Z` is globally coherent. Branch switching in `Z^2-X^2` remains possible at product-singular intersections. Concentrated good directions do not supply factor coherence.\n\n## Characteristic Audit\n\nAll `Z`-degrees are below `p`. Ordinary derivatives therefore detect every positive-`Z` irreducible factor. The discriminant proof uses nominal homogenization and no leading-coefficient division. Root restrictions have degree below `p`. Downstream reconstruction divides only by a certified nonzero first derivative and uses neither factorials nor Hasse derivatives. No irreducibility of a line specialization is assumed.\n\n## Limitations\n\nThe factor-coherent corollary is not an unconditional line-versus-point theorem. The discriminant example proves sharpness of the algebraic degree bound, not existence of `2615604` distinct exceptional identity lines. The derivative example saturates one regular line, not the aggregate charge over all lines. These leave an aggregate irreducible-case incidence bound as a possible third direction, outside this scout's two-approach budget.\n\n## Team Handoff\n\n- **Researcher-0008 / algebraic-cleanup builder:** target a monochromatic `(15130,5195)` core; on success, import `E_fac=2585520`, `q_fac=14955`, and `C_fac=767401523276597`.\n- **Researcher-0009 / red-team:** reject any argument that infers a common factor merely from product identities; test the four displayed examples.\n- **Researcher-0010 / integrator:** the conditional trigger is `7338296486/21743566849`, recovery is `3669148243/108717834245`, and the proved conditional count is `733829649`; do not mark it as a leaderboard result until factor coherence is closed.",
+  "obstructions": [
+    "The constructed product relation B may assign different irreducible factors to different identity lines.",
+    "A factor-colored peeling argument with thresholds based on factor weights can split the 15130 point degree among colors, invalidating the incumbent component-mass conclusion.",
+    "The regular-line derivative cap 15042 is attained on one line by an irreducible primitive relation.",
+    "The nominal discriminant degree 2615604 is attained by a primitive squarefree polynomial, so degree arithmetic alone gives no exceptional-line saving.",
+    "No active source proves the required common-factor or monochromatic-core property."
+  ],
+  "parameter_regime": "m=2; p=147457; d=87; D=15129; s=5195; k=5194; proper common factor weight at most 15042",
+  "proof_steps": [
+    {
+      "dependencies": [],
+      "id": "P1",
+      "proof": "Write B=GH. Primitivity excludes a nonconstant Z-independent cofactor H. Thus wdeg(H)\u226587, weighted-degree additivity gives wdeg(G)\u226415042, and deg_Z(G)\u2264172<p. Irreducibility and Gauss's lemma then give gcd(G,G_Z)=1.",
+      "statement": "Under the hypotheses of Lemma 1, wdeg(G)\u226415042, deg_Z(G)\u2264172, and gcd(G,G_Z)=1.",
+      "status": "proved"
+    },
+    {
+      "dependencies": [
+        "P1"
+      ],
+      "id": "P2",
+      "proof": "The nominal discriminant is nonzero and has degree at most (nu-1)(2w-87nu). Each derivative-degenerate identity line divides it. The expression is maximized at w=15042 and nu=172, where it equals 2585520. The linear-Z case follows directly from primitivity.",
+      "statement": "There are at most 2585520 factor-derivative-degenerate identity lines.",
+      "status": "proved"
+    },
+    {
+      "dependencies": [
+        "P1",
+        "P2"
+      ],
+      "id": "P3",
+      "proof": "Differentiation lowers weighted degree by 87. On every nonexceptional line the restriction is nonzero, so univariate root counting gives at most 14955 roots.",
+      "statement": "Every nonexceptional identity line has at most 14955 zeros of the restricted factor derivative.",
+      "status": "proved"
+    },
+    {
+      "dependencies": [
+        "P2",
+        "P3",
+        "research_state/campaign-30-leaderboard/submissions/team-synthesis-0001/note.md:P2-P7"
+      ],
+      "id": "P4",
+      "proof": "Substitute q=14955 and E=2585520 into the unchanged identity-extension and C4-peeling ledger. Exact collection gives C_fac=767401523276597 and R_fac=1242398599572277/3681259956715522.",
+      "statement": "Under factor coherence, complete core deletion has continuous acceptance frontier at most 1242398599572277/3681259956715522.",
+      "status": "proved"
+    },
+    {
+      "dependencies": [
+        "P4",
+        "research_state/campaign-30-leaderboard/submissions/team-synthesis-0001/note.md:P8-P9"
+      ],
+      "id": "P5",
+      "proof": "At epsilon_fac=7338296486/M, the survival margin and component endpoint are the positive exact fractions displayed in the note. The unchanged simple-root reconstruction applies to G because each seed has 15130>wdeg(G) incident factor-root lines.",
+      "statement": "Under factor coherence, acceptance at least 7338296486/21743566849 yields one total-degree-at-most-87 polynomial with agreement greater than 3669148243/108717834245.",
+      "status": "proved"
+    },
+    {
+      "dependencies": [],
+      "id": "P6",
+      "proof": "The examples Y+g(X)Z and X^78Z^173+Y^15129 attain, respectively, the local derivative-root cap and nominal discriminant degree.",
+      "statement": "The incumbent local derivative and discriminant degree bounds cannot be uniformly lowered from their stated hypotheses alone.",
+      "status": "proved"
+    },
+    {
+      "dependencies": [
+        "P5"
+      ],
+      "id": "P7",
+      "proof": "The current interpolation relation supplies only a product identity on each line. It does not identify a common irreducible factor, and a factor-colored graph may lose the required point degree after splitting by color.",
+      "statement": "An unconditional score improvement requires an additional factor-coherence or monochromatic-core lemma.",
+      "status": "conditional"
+    }
+  ],
+  "result_status": "proved",
+  "sampling_model": "A uniformly random affine line in F_147457^2, followed by a uniformly random point on that line.",
+  "soundness_ledger": [
+    {
+      "input_bound": "Uniform affine-line-then-point sampling",
+      "justification": "Every line has p points; there are Lambda=p(p+1) lines.",
+      "loss": "none",
+      "output_bound": "N=3206262880419842 equiprobable incidences",
+      "stage": "sampling normalization",
+      "status": "proved"
+    },
+    {
+      "input_bound": "Accepted incidence density rho",
+      "justification": "Imported exact three-direction averaging inequality.",
+      "loss": "kappa(1-rho), kappa=1610629120/10871857153",
+      "output_bound": "A selected family of 442371 lines",
+      "stage": "direction coverage",
+      "status": "proved"
+    },
+    {
+      "input_bound": "442371 selected lines",
+      "justification": "6693082347 monomials versus 6693073230 constraints.",
+      "loss": "no incidence loss; surplus 9117",
+      "output_bound": "Squarefree relation of weighted degree at most 15129",
+      "stage": "interpolation",
+      "status": "proved"
+    },
+    {
+      "input_bound": "Identity-line family T",
+      "justification": "Conditional common proper factor G and Lemma 1.",
+      "loss": "At most p\u00b72585520 exceptional incidences",
+      "output_bound": "Factor-derivative-nondegenerate lines",
+      "stage": "exceptional-line cleanup",
+      "status": "proved"
+    },
+    {
+      "input_bound": "Regular factor-identity lines",
+      "justification": "Restricted derivative degree at most 14955.",
+      "loss": "At most 14955(t-e) incidences",
+      "output_bound": "Simple factor roots",
+      "stage": "derivative cleanup",
+      "status": "proved"
+    },
+    {
+      "input_bound": "Cleaned factor graph",
+      "justification": "Unchanged C4-free peeling lemma.",
+      "loss": "15129M+5194(t-e)-156513678",
+      "output_bound": "Minimum degrees (15130,5195)",
+      "stage": "core peeling",
+      "status": "proved"
+    },
+    {
+      "input_bound": "All fixed charges",
+      "justification": "Exact coefficient collection with q=14955 and e\u22642585520.",
+      "loss": "C_fac=767401523276597",
+      "output_bound": "R_fac=1242398599572277/3681259956715522",
+      "stage": "fixed-loss consolidation",
+      "status": "proved"
+    },
+    {
+      "input_bound": "epsilon_fac=7338296486/21743566849",
+      "justification": "epsilon_fac-R_fac=10269023767/542827549437400727554>0.",
+      "loss": "no rounding loss",
+      "output_bound": "A nonempty factor-simple core",
+      "stage": "survival",
+      "status": "proved"
+    },
+    {
+      "input_bound": "Core minimum degrees (15130,5195)",
+      "justification": "Exact centered affine mixing and positive endpoint certificate.",
+      "loss": "sqrt(a(1-a)b(1-b)/147458)",
+      "output_bound": "Every component has point density greater than epsilon_fac/10",
+      "stage": "component conversion",
+      "status": "proved"
+    },
+    {
+      "input_bound": "Factor-coherent simple component",
+      "justification": "Formal simple-root lifting and connected propagation.",
+      "loss": "none",
+      "output_bound": "One total-degree-at-most-87 polynomial",
+      "stage": "reconstruction",
+      "status": "proved"
+    },
+    {
+      "input_bound": "Agreement greater than epsilon_fac/10",
+      "justification": "epsilon_fac/10>174/p and epsilon_fac is above the admissibility floor.",
+      "loss": "required factor 1/10",
+      "output_bound": "At least 733829649 agreeing points; conditional score 7338296486",
+      "stage": "target conversion",
+      "status": "proved"
+    },
+    {
+      "input_bound": "Acceptance hypothesis alone",
+      "justification": "No common-factor or monochromatic-core lemma is known.",
+      "loss": "unclosed factor-coherence hypothesis",
+      "output_bound": "No unconditional claimed soundness",
+      "stage": "global applicability",
+      "status": "conditional"
+    }
+  ],
+  "theorem_statement": "Let B\u2208F_147457[X,Y,Z] be primitive and squarefree of (1,1,87)-weighted degree at most 15129, let G be a proper irreducible factor of B, and let T be a family of affine lines carrying degree-at-most-87 polynomials P_L such that G(L(t),P_L(t))\u22610 for every L\u2208T. Then wdeg(G)\u226415042, deg_Z(G)\u2264172, gcd(G,G_Z)=1, and there is E\u2286T with |E|\u22642585520 such that for every L\u2208T\\E, G_Z(L(t),P_L(t)) is nonzero and has degree at most 14955.",
+  "title": "Factor-Coherent Derivative Cleanup Beats the Record Conditionally; Local Degree Charges Are Sharp"
+}

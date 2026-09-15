@@ -1,0 +1,209 @@
+[
+  {
+    "input_bound": "Uniform affine-line-then-point sampling",
+    "job_id": "researcher-0002",
+    "justification": "Every line has p points; there are Lambda=p(p+1) lines.",
+    "loss": "none",
+    "output_bound": "N=3206262880419842 equiprobable incidences",
+    "stage": "sampling normalization",
+    "status": "proved"
+  },
+  {
+    "input_bound": "Accepted incidence density rho",
+    "job_id": "researcher-0002",
+    "justification": "Imported exact three-direction averaging inequality.",
+    "loss": "kappa(1-rho), kappa=1610629120/10871857153",
+    "output_bound": "A selected family of 442371 lines",
+    "stage": "direction coverage",
+    "status": "proved"
+  },
+  {
+    "input_bound": "442371 selected lines",
+    "job_id": "researcher-0002",
+    "justification": "6693082347 monomials versus 6693073230 constraints.",
+    "loss": "no incidence loss; surplus 9117",
+    "output_bound": "Squarefree relation of weighted degree at most 15129",
+    "stage": "interpolation",
+    "status": "proved"
+  },
+  {
+    "input_bound": "Identity-line family T",
+    "job_id": "researcher-0002",
+    "justification": "Conditional common proper factor G and Lemma 1.",
+    "loss": "At most p\u00b72585520 exceptional incidences",
+    "output_bound": "Factor-derivative-nondegenerate lines",
+    "stage": "exceptional-line cleanup",
+    "status": "proved"
+  },
+  {
+    "input_bound": "Regular factor-identity lines",
+    "job_id": "researcher-0002",
+    "justification": "Restricted derivative degree at most 14955.",
+    "loss": "At most 14955(t-e) incidences",
+    "output_bound": "Simple factor roots",
+    "stage": "derivative cleanup",
+    "status": "proved"
+  },
+  {
+    "input_bound": "Cleaned factor graph",
+    "job_id": "researcher-0002",
+    "justification": "Unchanged C4-free peeling lemma.",
+    "loss": "15129M+5194(t-e)-156513678",
+    "output_bound": "Minimum degrees (15130,5195)",
+    "stage": "core peeling",
+    "status": "proved"
+  },
+  {
+    "input_bound": "All fixed charges",
+    "job_id": "researcher-0002",
+    "justification": "Exact coefficient collection with q=14955 and e\u22642585520.",
+    "loss": "C_fac=767401523276597",
+    "output_bound": "R_fac=1242398599572277/3681259956715522",
+    "stage": "fixed-loss consolidation",
+    "status": "proved"
+  },
+  {
+    "input_bound": "epsilon_fac=7338296486/21743566849",
+    "job_id": "researcher-0002",
+    "justification": "epsilon_fac-R_fac=10269023767/542827549437400727554>0.",
+    "loss": "no rounding loss",
+    "output_bound": "A nonempty factor-simple core",
+    "stage": "survival",
+    "status": "proved"
+  },
+  {
+    "input_bound": "Core minimum degrees (15130,5195)",
+    "job_id": "researcher-0002",
+    "justification": "Exact centered affine mixing and positive endpoint certificate.",
+    "loss": "sqrt(a(1-a)b(1-b)/147458)",
+    "output_bound": "Every component has point density greater than epsilon_fac/10",
+    "stage": "component conversion",
+    "status": "proved"
+  },
+  {
+    "input_bound": "Factor-coherent simple component",
+    "job_id": "researcher-0002",
+    "justification": "Formal simple-root lifting and connected propagation.",
+    "loss": "none",
+    "output_bound": "One total-degree-at-most-87 polynomial",
+    "stage": "reconstruction",
+    "status": "proved"
+  },
+  {
+    "input_bound": "Agreement greater than epsilon_fac/10",
+    "job_id": "researcher-0002",
+    "justification": "epsilon_fac/10>174/p and epsilon_fac is above the admissibility floor.",
+    "loss": "required factor 1/10",
+    "output_bound": "At least 733829649 agreeing points; conditional score 7338296486",
+    "stage": "target conversion",
+    "status": "proved"
+  },
+  {
+    "input_bound": "Acceptance hypothesis alone",
+    "job_id": "researcher-0002",
+    "justification": "No common-factor or monochromatic-core lemma is known.",
+    "loss": "unclosed factor-coherence hypothesis",
+    "output_bound": "No unconditional claimed soundness",
+    "stage": "global applicability",
+    "status": "conditional"
+  },
+  {
+    "input_bound": "Accepted incidence density \u03c1.",
+    "job_id": "researcher-0003",
+    "justification": "Exact three-direction hypergeometric averaging.",
+    "loss": "At most \u03ba(1\u2212\u03c1)N uncovered accepted incidences, \u03ba=1610629120/10871857153.",
+    "output_bound": "Three selected direction classes containing 442371 lines.",
+    "stage": "direction selection",
+    "status": "proved"
+  },
+  {
+    "input_bound": "Uncovered point weights totaling U.",
+    "job_id": "researcher-0003",
+    "justification": "The 9116 largest weights carry at least 9116U/M.",
+    "loss": "Gain factor 1\u22129116/21743566849.",
+    "output_bound": "U'\u2264\u03ba'(1\u2212\u03c1)N, \u03ba'=35020807257170984960/236392952779034320897.",
+    "stage": "label-sensitive surplus coverage",
+    "status": "proved"
+  },
+  {
+    "input_bound": "6693082347 weighted monomials.",
+    "job_id": "researcher-0003",
+    "justification": "The line identities cost at most 6693073230 equations and point labels cost at most 9116.",
+    "loss": "9116 additional scalar equations.",
+    "output_bound": "Kernel dimension at least 1.",
+    "stage": "weighted interpolation",
+    "status": "proved"
+  },
+  {
+    "input_bound": "Augmented covered accepted points.",
+    "job_id": "researcher-0003",
+    "justification": "A nonidentity restriction has degree at most 15129.",
+    "loss": "At most 15129(\u039b\u2212t) covered incidences on omitted lines.",
+    "output_bound": "All lines in T are A-identities.",
+    "stage": "identity extension",
+    "status": "proved"
+  },
+  {
+    "input_bound": "Squarefree A-identity lines.",
+    "job_id": "researcher-0003",
+    "justification": "Primitive-content and nominal-discriminant bounds from the verified incumbent.",
+    "loss": "At most p\u00b72615604 exceptional-line incidences.",
+    "output_bound": "Nonexceptional primitive identity lines.",
+    "stage": "exceptional-line cleanup",
+    "status": "proved"
+  },
+  {
+    "input_bound": "Nonexceptional identity lines.",
+    "job_id": "researcher-0003",
+    "justification": "Each nonzero derivative restriction has degree at most 15042.",
+    "loss": "At most 15042 derivative-zero points per regular line.",
+    "output_bound": "Simple-root accepted incidence graph.",
+    "stage": "derivative cleanup",
+    "status": "proved"
+  },
+  {
+    "input_bound": "Cleaned C4-free affine incidence graph.",
+    "job_id": "researcher-0003",
+    "justification": "Exact 5194-by-15129 corner and emptying induction.",
+    "loss": "15129M+5194(t\u2212e)\u2212156513678 incidences.",
+    "output_bound": "Either a nonempty core or the certified empty-core charge.",
+    "stage": "core peeling",
+    "status": "proved"
+  },
+  {
+    "input_bound": "Identity extension, cleanup, and peeling losses.",
+    "job_id": "researcher-0003",
+    "justification": "Exact incumbent consolidation remains unchanged.",
+    "loss": "C*=769296828797543 fixed incidences plus \u03ba'(1\u2212\u03c1)N.",
+    "output_bound": "A nonempty core at \u03b5=3380075810946357/10^16.",
+    "stage": "core survival",
+    "status": "proved"
+  },
+  {
+    "input_bound": "Connected (15130,5195) core component.",
+    "job_id": "researcher-0003",
+    "justification": "Exact affine incidence mixing and positive component endpoint.",
+    "loss": "No incidence deletion.",
+    "output_bound": "Component point density greater than \u03b5/10.",
+    "stage": "component conversion",
+    "status": "proved"
+  },
+  {
+    "input_bound": "Connected simple-root component.",
+    "job_id": "researcher-0003",
+    "justification": "Formal implicit lifting and simple-root propagation.",
+    "loss": "Zero agreement loss.",
+    "output_bound": "One total-degree-at-most-87 polynomial on the component.",
+    "stage": "polynomial reconstruction",
+    "status": "proved"
+  },
+  {
+    "input_bound": "\u03b5=3380075810946357/10^16.",
+    "job_id": "researcher-0003",
+    "justification": "\u03b5/10\u2212174/p is a positive exact rational; integer ceiling is exact.",
+    "loss": "None.",
+    "output_bound": "Agreement fraction max(174/147457,\u03b5/10)=3380075810946357/10^17; at least 734949044 points.",
+    "stage": "final recovery contract",
+    "status": "proved"
+  }
+]
