@@ -10,6 +10,11 @@ trap 'rm -rf "$publish_dir"' EXIT HUP INT TERM
 cd "$dashboard_root"
 env PATH="$runtime_bin" pnpm run build:pages
 
+if [ ! -f "$dashboard_root/dist/client/index.html" ]; then
+  echo "Refusing to publish: GitHub Pages build is missing root index.html." >&2
+  exit 1
+fi
+
 git clone --depth 1 https://github.com/kz99/line-vs-point-concrete-observatory.git "$publish_dir"
 find "$publish_dir" -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
 cp -R "$dashboard_root/dist/client/." "$publish_dir/"
