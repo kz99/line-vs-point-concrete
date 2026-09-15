@@ -106,17 +106,17 @@
     "created_at": "2026-09-15T18:09:47Z",
     "dependency": "[\"researcher-0001\", \"researcher-0004\", \"researcher-0006\"]",
     "direction": "FRUGAL FUNNEL / BUILDER: Combine the component, parameter-search, and alternative-incidence outputs into one concise end-to-end candidate or one exact minimal obstruction.",
-    "error": null,
-    "finished_at": null,
+    "error": "AgentError: researcher-0007 agent failed with exit code 1; see /Users/kaizheng/.codex/worktrees/1f44/SSE-auto/Line-vs-Point-concrete/research_state/campaign-10-frugal/agent_logs/20260915T185951Z-045b8f5282-84816240aa/stderr.txt",
+    "finished_at": "2026-09-15T19:11:28Z",
     "id": "researcher-0007",
     "max_attempts": 2,
     "model": "gpt-5.6-sol",
     "ordinal": 7,
-    "output_dir": null,
+    "output_dir": "/Users/kaizheng/.codex/worktrees/1f44/SSE-auto/Line-vs-Point-concrete/research_state/campaign-10-frugal/submissions/researcher-0007",
     "reasoning_effort": "max",
     "role": "researcher",
     "started_at": "2026-09-15T18:59:51Z",
-    "status": "running"
+    "status": "queued"
   },
   {
     "attempts": 0,
