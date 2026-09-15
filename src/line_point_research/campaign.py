@@ -435,6 +435,9 @@ class ResearchCampaign:
             reasoning_effort=str(self.cfg.get("reasoning_effort", "ultra")),
             disable_nested_agents=bool(self.cfg.get("disable_nested_agents", True)),
             timeout_seconds=int(self.cfg.get("timeout_seconds", 3600)),
+            checkpoint_root=(
+                self.paths.campaign_dir / "live_notes"
+                if bool(self.cfg.get("live_checkpoints_enabled", True)) else None),
         )
         self.max_workers = int(self.cfg.get("max_workers", 4))
         self.retry_seconds = int(self.cfg.get("retry_seconds", 120))
@@ -451,7 +454,8 @@ class ResearchCampaign:
             self.paths.workspace, self.paths.campaign_dir / "agent_logs",
             executable=self.provider.executable, model=self.provider.model,
             reasoning_effort=effort, disable_nested_agents=self.provider.disable_nested_agents,
-            timeout_seconds=self.provider.timeout_seconds)
+            timeout_seconds=self.provider.timeout_seconds,
+            checkpoint_root=self.provider.checkpoint_root)
 
     def connect(self) -> sqlite3.Connection:
         connection = sqlite3.connect(self.db_path, timeout=60)
@@ -672,7 +676,8 @@ class ResearchCampaign:
         return f"""The repository is {self.paths.workspace}. The durable corpus root is
 {self.paths.corpus_root}. Begin by reading TARGET.md, references/LITERATURE.md,
 references/bibliography.json, research_state/DATA_MANIFEST.json, all prior submissions,
-leaderboards, and verifier audits. You have a read-only shell. Treat literature summaries as
+leaderboards, and verifier audits. Treat the corpus as read-only except for any explicitly
+assigned live-checkpoint outbox. Treat literature summaries as
 navigation aids and identify exact primary-source theorem dependencies. Distinguish quoted
 theorems from your own fixed-parameter derivation. Exact deterministic computation may certify
 finite inequalities only with reproducible code and a checkable certificate; floating-point or
@@ -922,8 +927,8 @@ load-bearing proof step or imported lemma, using its exact step id or citation a
 is where downstream lemma verification occurs. Do not audit unrelated lemmas merely because they
 exist elsewhere in the corpus.
 
-Do not inspect, infer, or coordinate with the other verifier's audit. Your judgment must be
-independent. The instance is exactly m=2, p=147457, total degree d=87, uniform affine-line then
+Your judgment must be independent of the submission's author. The instance is exactly m=2,
+p=147457, total degree d=87, uniform affine-line then
 uniform point sampling. The submitted epsilon is valid only if acceptance at least epsilon forces
 agreement with one total-degree-at-most-87 bivariate polynomial on at least
 max(174/147457,epsilon/10) of p^2 points, and epsilon must be at least 957/1474570. Lower epsilon is stronger.
@@ -1202,21 +1207,21 @@ NUMBERED NOTE:
                 )
                 return bool(complete and chain and
                             all(item.get("verdict") == "valid" for item in chain))
-            double_verified = (
+            independently_verified = (
                 leaderboard_submission and len(audits) == 1 and claimed is not None and
                 response.get("result_status") == "proved" and
                 all(audit.get("verdict") == "accept" for audit in audits) and
                 all(audit.get("verified_claim_sha256") == claim_hash for audit in audits) and
                 all(audit.get("verified_soundness") == claimed for audit in audits) and
                 all(chain_verified(audit) for audit in audits))
-            if double_verified:
-                review_verdict = "double-accept"
+            if independently_verified:
+                review_verdict = "accept"
             elif any(audit.get("verdict") == "reject" for audit in audits):
                 review_verdict = "rejected"
             elif audits:
-                review_verdict = f"awaiting ({sum(a.get('verdict') == 'accept' for a in audits)}/2 accepts)"
+                review_verdict = f"awaiting ({sum(a.get('verdict') == 'accept' for a in audits)}/1 accept)"
             else:
-                review_verdict = "awaiting (0/2 accepts)"
+                review_verdict = "awaiting (0/1 accept)"
             entry = {
                 "job_id": row["id"],
                 "role": row["role"],
@@ -1239,10 +1244,10 @@ NUMBERED NOTE:
                 "theorem_sha256": claim_hash,
                 "note_path": str(response_path.parent / "note.md"),
                 "review_verdict": review_verdict,
-                "double_verified": double_verified,
+                "double_verified": independently_verified,
                 "audits": audits,
             }
-            if double_verified:
+            if independently_verified:
                 verified.append(entry)
             elif review_verdict == "rejected":
                 rejected.append(entry)
@@ -1328,6 +1333,9 @@ NUMBERED NOTE:
             "promising": [enrich(entry) for entry in load_board("promising-results")],
             "rejected": [enrich(entry) for entry in load_board("rejected-results")],
         }
+        for entries in candidate_groups.values():
+            for entry in entries:
+                entry.setdefault("campaign", self.paths.campaign_dir.name)
         dashboard_jobs = [{
             "id": row["id"],
             "role": row["role"],
@@ -1345,7 +1353,10 @@ NUMBERED NOTE:
             "campaign": self.paths.campaign_dir.name,
             "status": status,
             "candidates": candidate_groups,
-            "bottlenecks": load_board("bottleneck-ledger"),
+            "bottlenecks": [
+                {**entry, "campaign": self.paths.campaign_dir.name}
+                for entry in load_board("bottleneck-ledger")
+            ],
             "soundness_history": json.loads(
                 (board_dir / "soundness-history.json").read_text()),
             "jobs": dashboard_jobs,

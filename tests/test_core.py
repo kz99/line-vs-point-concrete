@@ -9,6 +9,8 @@ from line_point_research.campaign import ResearchCampaign
 from line_point_research.community import ingest_community_package, validate_community_package
 from line_point_research.lemma_book import LEMMA_STATEMENT_RULE, canonical_sha256, validate_editorial_response
 from line_point_research.roadmaps import ROADMAP_DEFINITIONS, RoadmapWorkshop
+from line_point_research.publisher import RepositoryPublisher
+from line_point_research.snapshot import update_dashboard_sections
 
 
 def write_config(root: Path, researchers: int = 10, effort: str = "ultra") -> Path:
@@ -45,6 +47,16 @@ class ProviderTests(unittest.TestCase):
             self.assertIn("gpt-5.6-sol", command)
             self.assertIn('model_reasoning_effort="ultra"', command)
             self.assertEqual(command[command.index("--disable") + 1], "multi_agent")
+
+    def test_provider_grants_only_the_checkpoint_outbox(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            provider = CommandAgentProvider(
+                root, root / "logs", checkpoint_root=root / "live-notes")
+            outbox = root / "live-notes" / "researcher-0001"
+            command = provider.command(root / "schema.json", root / "response.json", outbox)
+            self.assertEqual(command[command.index("--sandbox") + 1], "read-only")
+            self.assertEqual(command[command.index("--add-dir") + 1], str(outbox))
 
 
 class CampaignTests(unittest.TestCase):
@@ -175,6 +187,47 @@ class CampaignTests(unittest.TestCase):
             snapshot = json.loads((root / "dashboard" / "public" / "research-data.json").read_text())
             self.assertEqual(snapshot["soundness_history"]["verification_threshold"], 1)
             self.assertEqual(snapshot["soundness_history"]["points"], [])
+
+    def test_new_campaign_snapshot_never_erases_prior_research(self):
+        with tempfile.TemporaryDirectory() as directory:
+            workspace = Path(directory)
+            public = workspace / "dashboard" / "public"
+            public.mkdir(parents=True)
+            old_point = {
+                "agreement_count": 7349491214, "soundness": 0.338,
+                "title": "incumbent", "theorem_sha256": "old", "verified_at": "2026-01-01",
+            }
+            old_candidate = {"job_id": "researcher-0002", "title": "incumbent", "theorem_sha256": "old"}
+            old_lemma = {"id": "L1"}
+            (public / "research-data.json").write_text(json.dumps({
+                "campaign": "old", "candidates": {"verified": [old_candidate], "promising": [], "rejected": []},
+                "soundness_history": {"points": [old_point]},
+                "bottlenecks": [{"stage": "old"}],
+                "lemma_book": {"lemmas": [old_lemma]},
+            }))
+            update_dashboard_sections(workspace, {
+                "campaign": "new", "candidates": {"verified": [], "promising": [], "rejected": []},
+                "soundness_history": {"points": []}, "bottlenecks": [],
+                "jobs": [{"id": "researcher-0001"}],
+            }, replace_base=True)
+            snapshot = json.loads((public / "research-data.json").read_text())
+            self.assertEqual(snapshot["campaign"], "new")
+            self.assertEqual(snapshot["candidates"]["verified"], [old_candidate])
+            self.assertEqual(snapshot["soundness_history"]["points"], [old_point])
+            self.assertEqual(snapshot["bottlenecks"], [{"stage": "old"}])
+            self.assertEqual(snapshot["lemma_book"]["lemmas"], [old_lemma])
+
+    def test_repository_publisher_selects_notes_but_not_runtime_data(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            config = write_config(root, 1)
+            notes = root / "state" / "live_notes" / "researcher-0001"
+            notes.mkdir(parents=True)
+            (notes / "001-lemma.md").write_text("STATUS: conjectural\n")
+            (root / "state" / "campaign.sqlite3").write_text("runtime")
+            paths = RepositoryPublisher(config).artifact_paths()
+            self.assertIn((root / "state" / "live_notes").resolve(), paths)
+            self.assertNotIn((root / "state" / "campaign.sqlite3").resolve(), paths)
 
     def test_graph_requires_one_accept(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -315,14 +368,14 @@ class EditorialAndRoadmapTests(unittest.TestCase):
         self.assertEqual(validate_editorial_response("researcher-0001", source, response), [])
         self.assertIn("no motivation", LEMMA_STATEMENT_RULE)
 
-    def test_three_roadmaps_require_double_accept_for_progress(self):
+    def test_three_roadmaps_require_one_accept_for_progress(self):
         self.assertEqual([item["id"] for item in ROADMAP_DEFINITIONS], ["exact-analytic", "certified-computation", "end-to-end-soundness"])
         nodes, progress = RoadmapWorkshop._derive_progress([{
             "id": "R1", "kind": "lemma", "work_state": "candidate", "dependencies": [],
             "evidence_refs": [{"source_job_id": "researcher-0001", "source_step_id": "P1", "source_response_sha256": "hash"}],
         }], "R1", {"researcher-0001|P1|hash": {
-            "source_status": "proved", "audit_verdicts": ["accept", "accept"],
-            "double_audit_exact": True, "double_accepted": True, "lemma_ids": [],
+            "source_status": "proved", "audit_verdicts": ["accept"],
+            "audit_exact": True, "accepted": True, "lemma_ids": [],
         }})
         self.assertEqual(progress["percent"], 100)
         self.assertEqual(nodes[0]["proof_state"], "verified")

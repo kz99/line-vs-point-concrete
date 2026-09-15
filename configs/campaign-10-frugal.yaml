@@ -23,11 +23,17 @@ campaign:
   # only the final integrator uses ultra.
   researcher_reasoning_efforts: [xhigh, xhigh, xhigh, xhigh, xhigh, xhigh, max, max, xhigh, ultra]
   disable_nested_agents: true
+  live_checkpoints_enabled: true
+  repository_publisher_enabled: true
+  repository_poll_seconds: 20
+  repository_publish_remote: github
+  repository_publish_branch: main
   max_workers: 3
   timeout_seconds: 2700
   max_attempts: 2
   retry_seconds: 60
-  pages_publisher_enabled: false
+  pages_publisher_enabled: true
+  pages_poll_seconds: 30
   initial_soundness: 0.33800761692132436
   incumbent_agreement_count: 7349491214
   recovery_divisor: 10

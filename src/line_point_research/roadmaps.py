@@ -262,16 +262,16 @@ class RoadmapWorkshop:
             claim = source.get("theorem_statement") or source.get("integrated_theorem", "")
             claim_sha = hashlib.sha256(str(claim).encode()).hexdigest()
             audits = []
-            for seat in ("a", "b"):
+            for seat in ("a",):
                 audit_path = (self.paths.campaign_dir / "reviews" / source_job_id /
                               f"verifier-{seat}-{source_job_id}" / "audit.json")
                 if audit_path.exists():
                     audits.append(json.loads(audit_path.read_text()))
-            double_audit_exact = bool(
-                len(audits) == 2 and
+            audit_exact = bool(
+                len(audits) == 1 and
                 all(audit.get("verified_claim_sha256") == claim_sha for audit in audits))
-            double_accepted = bool(
-                double_audit_exact and
+            accepted = bool(
+                audit_exact and
                 all(audit.get("verdict") == "accept" for audit in audits))
             lemma_path = self.paths.campaign_dir / "lemma_book" / "submissions" / source_job_id / "response.json"
             lemma_parts: dict[str, list[str]] = {}
@@ -288,8 +288,8 @@ class RoadmapWorkshop:
                     "source_response_sha256": source_sha,
                     "source_status": step.get("status", "conditional"),
                     "audit_verdicts": [audit.get("verdict", "pending") for audit in audits],
-                    "double_audit_exact": double_audit_exact,
-                    "double_accepted": double_accepted,
+                    "audit_exact": audit_exact,
+                    "accepted": accepted,
                     "lemma_ids": sorted(lemma_parts.get(str(step["id"]), [])),
                 }
         payload = {"sha256": digest.hexdigest(), "files": receipts, "evidence": evidence}
@@ -344,7 +344,7 @@ $\\varepsilon$ for which acceptance at least $\\varepsilon$ forces agreement wit
 total-degree-at-most-$87$ polynomial on at least $\\max\\{{174/147457,\\varepsilon/10\\}}$ of all points, with $\\varepsilon\\ge957/1474570$. Lower is
 better. Use work_state only to report activity: `open`,
 `drafting`, `candidate`, `blocked`, or `refuted`. The harness—not you—derives proof status from
-exact source hashes and two independent matching verifier accepts. Never convert confidence, a polished lemma,
+exact source hashes and one independent matching verifier accept. Never convert confidence, a polished lemma,
 or informal discussion into verified proof progress.
 
 The authoritative leaderboard is {history_path}; its current record is {record}. Your purpose is
@@ -478,7 +478,7 @@ STABLE PROOF-EVIDENCE INDEX:
                 initial = "invalid"
             elif all(
                     item["source_status"] == "proved" and
-                    item["double_accepted"] and item["double_audit_exact"]
+                    item["accepted"] and item["audit_exact"]
                     for item in evidence):
                 initial = "verified"
             else:

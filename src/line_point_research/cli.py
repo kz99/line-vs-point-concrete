@@ -10,7 +10,12 @@ from .community import (
     validate_community_package,
 )
 from .lemma_book import LemmaBookEditor, launch_lemma_book
-from .publisher import PagesPublisher, launch_pages_publisher
+from .publisher import (
+    PagesPublisher,
+    RepositoryPublisher,
+    launch_pages_publisher,
+    launch_repository_publisher,
+)
 from .roadmaps import RoadmapWorkshop, launch_roadmap_workshop
 
 
@@ -59,6 +64,8 @@ def cmd_community_ingest(args: argparse.Namespace) -> int:
 def cmd_campaign_launch(args: argparse.Namespace) -> int:
     payload = {"campaign": launch_campaign(args.config)}
     campaign = ResearchCampaign(args.config)
+    if bool(campaign.cfg.get("repository_publisher_enabled", True)):
+        payload["repository"] = launch_repository_publisher(args.config)
     if bool(campaign.cfg.get("lemma_writer_enabled", True)):
         payload["lemma_book"] = launch_lemma_book(args.config)
     if bool(campaign.cfg.get("roadmap_agents_enabled", True)):
@@ -130,6 +137,16 @@ def cmd_dashboard_launch(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_repository_publish_run(args: argparse.Namespace) -> int:
+    print(json.dumps(RepositoryPublisher(args.config).run(), indent=2, sort_keys=True))
+    return 0
+
+
+def cmd_repository_publish_launch(args: argparse.Namespace) -> int:
+    print(json.dumps(launch_repository_publisher(args.config), indent=2, sort_keys=True))
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="line-point-concrete")
     subparsers = parser.add_subparsers(dest="command", required=True)
@@ -148,6 +165,10 @@ def build_parser() -> argparse.ArgumentParser:
         ("roadmap-export", cmd_roadmap_export, "refresh proof roadmaps and message board"),
         ("dashboard-run", cmd_dashboard_run, "watch and publish GitHub Pages data"),
         ("dashboard-launch", cmd_dashboard_launch, "launch the GitHub Pages publisher"),
+        ("repository-publish-run", cmd_repository_publish_run,
+         "watch and upload durable campaign artifacts"),
+        ("repository-publish-launch", cmd_repository_publish_launch,
+         "launch the durable artifact uploader"),
     )
     for name, function, help_text in commands:
         item = subparsers.add_parser(name, help=help_text)

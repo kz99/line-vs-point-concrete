@@ -20,7 +20,8 @@ class CommandAgentProvider:
                  executable: str = "codex", model: str | None = None,
                  timeout_seconds: int = 900,
                  reasoning_effort: str | None = None,
-                 disable_nested_agents: bool = True):
+                 disable_nested_agents: bool = True,
+                 checkpoint_root: Path | str | None = None):
         self.workspace = Path(workspace).resolve()
         self.log_dir = Path(log_dir).resolve()
         self.log_dir.mkdir(parents=True, exist_ok=True)
@@ -29,8 +30,10 @@ class CommandAgentProvider:
         self.timeout_seconds = timeout_seconds
         self.reasoning_effort = reasoning_effort
         self.disable_nested_agents = disable_nested_agents
+        self.checkpoint_root = Path(checkpoint_root).resolve() if checkpoint_root else None
 
-    def command(self, schema_path: Path, output_path: Path) -> list[str]:
+    def command(self, schema_path: Path, output_path: Path,
+                checkpoint_dir: Path | None = None) -> list[str]:
         command = [self.executable, "exec", "--ephemeral", "--sandbox", "read-only",
                    "--cd", str(self.workspace), "--output-schema", str(schema_path),
                    "--output-last-message", str(output_path), "-"]
@@ -41,6 +44,8 @@ class CommandAgentProvider:
             prefix.extend(["--config", f'model_reasoning_effort="{self.reasoning_effort}"'])
         if self.disable_nested_agents:
             prefix.extend(["--disable", "multi_agent"])
+        if checkpoint_dir is not None:
+            prefix.extend(["--add-dir", str(checkpoint_dir)])
         command[2:2] = prefix
         return command
 
@@ -55,12 +60,30 @@ class CommandAgentProvider:
         schema_path = invocation_dir / "schema.json"
         output_path = invocation_dir / "response.json"
         stderr_path = invocation_dir / "stderr.txt"
-        prompt_path.write_text(prompt)
+        checkpoint_dir: Path | None = None
+        effective_prompt = prompt
+        if self.checkpoint_root is not None:
+            checkpoint_dir = self.checkpoint_root / role
+            checkpoint_dir.mkdir(parents=True, exist_ok=True)
+            effective_prompt += f"""
+
+LIVE RESEARCH CHECKPOINTS
+Your assigned writable checkpoint outbox is {checkpoint_dir}. The rest of the research corpus is
+read-only. As soon as you have a concrete reusable mathematical artifact, write a concise Markdown
+checkpoint there using apply_patch; do not wait for your final response. Examples are a quantified
+lemma, exact inequality, parameter certificate, counterexample, obstruction, or named proof route.
+Use monotonically numbered filenames such as 001-component-bound.md. Put STATUS: proved,
+conditional, conjectural, refuted, or computation at the top, followed by the statement, evidence
+or proof, exact dependencies, and intended downstream use. Update or supersede the checkpoint when
+your conclusion changes. Do not publish raw private scratch reasoning or vague brainstorming.
+These files are automatically committed and uploaded for the rest of the team.
+"""
+        prompt_path.write_text(effective_prompt)
         schema_path.write_text(json.dumps(schema, indent=2, sort_keys=True) + "\n")
-        command = self.command(schema_path, output_path)
+        command = self.command(schema_path, output_path, checkpoint_dir)
         try:
             completed = subprocess.run(
-                command, input=prompt, text=True, stdout=subprocess.DEVNULL,
+                command, input=effective_prompt, text=True, stdout=subprocess.DEVNULL,
                 stderr=subprocess.PIPE, timeout=self.timeout_seconds, check=False)
             stderr_path.write_text(completed.stderr)
         except subprocess.TimeoutExpired as exc:
@@ -82,5 +105,6 @@ class CommandAgentProvider:
             "invocation_id": invocation_id,
             "command": command[:-1],
             "response_path": str(output_path),
+            "checkpoint_dir": str(checkpoint_dir) if checkpoint_dir else None,
         }
         return response, metadata
