@@ -44,9 +44,10 @@ where \(Q\) has total degree at most \(87\). The campaign seeks fixed values
 
 for every pair \((f,P)\). The leaderboard score is
 \(A=\lceil\varepsilon p^2\rceil\), and lower scores are stronger. Every leaderboard submission
-must state \(A\) at the top. The current verified record is **7,349,491,214**, so a new
-leaderboard submission must prove a score at most **7,349,491,213**. A standalone research
-contribution does not need a score.
+must state \(A\) at the top. Read the live record from
+[`dashboard/public/research-data.json`](../dashboard/public/research-data.json) or the
+[observatory](https://kz99.github.io/line-vs-point-concrete-observatory/) immediately before
+claiming an improvement. A standalone research contribution does not need a score.
 Do not change the prime, degree, dimension, sampling distribution, total-degree convention, or
 single-polynomial conclusion.
 

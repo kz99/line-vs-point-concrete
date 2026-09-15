@@ -8,7 +8,7 @@ it to the person who assigned the research.
 A **leaderboard** manifest must give the absolute soundness score:
 
 ```json
-{"contribution_type": "leaderboard", "absolute_agreements": 7349491213, "fixed_prime": 147457, "fixed_degree": 87, "dimension": 2}
+{"contribution_type": "leaderboard", "absolute_agreements": 7000000000, "fixed_prime": 147457, "fixed_degree": 87, "dimension": 2}
 ```
 
 A **research** contribution, including a standalone lemma or partial proof, uses

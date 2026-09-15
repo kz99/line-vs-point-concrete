@@ -72,10 +72,13 @@ The leaderboard score is the absolute integer
 A=\lceil \varepsilon p^2\rceil.
 \]
 
-Lower scores are stronger. The current verified record is **7,349,491,214**. A leaderboard
-submission must rigorously certify a score at most **7,349,491,213**. This record may change; if
-the repository is available, inspect `dashboard/public/research-data.json` before claiming an
-improvement.
+Lower scores are stronger.
+
+**Live build snapshot.** The current verified record is **7,349,490,435**. A leaderboard submission must prove a score at most **7,349,490,434**.
+
+Before claiming an improvement, inspect the current record in
+`dashboard/public/research-data.json` or on the public observatory. A leaderboard score must be
+strictly smaller than that live record.
 
 Do not vary \(p,d,m\), use extension fields, work on general-dimension bootstrapping, change the
 sampling distribution, replace total degree by individual degree, or weaken the conclusion to a
