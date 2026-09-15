@@ -412,5 +412,122 @@
     "output_bound": "Recovery fraction epsilon/10 and at least 724940347 agreeing points.",
     "stage": "final recovery contract",
     "status": "proved"
+  },
+  {
+    "input_bound": "Accepted incidence density \u03c1.",
+    "job_id": "researcher-0006",
+    "justification": "Uniform line-then-point sampling is uniform on N incidences.",
+    "loss": "None.",
+    "output_bound": "|E|=\u03c1N.",
+    "stage": "sampling normalization",
+    "status": "proved"
+  },
+  {
+    "input_bound": "Accepted pencil degrees.",
+    "job_id": "researcher-0006",
+    "justification": "Audited partial-fourth-direction hypergeometric envelope, maximized at degree 49122.",
+    "loss": "\u03ba4(1\u2212\u03c1)N before label augmentation.",
+    "output_bound": "442779 selected lines.",
+    "stage": "direction selection",
+    "status": "proved"
+  },
+  {
+    "input_bound": "Uncovered point weights.",
+    "job_id": "researcher-0006",
+    "justification": "The 3776 largest weights carry at least 3776/M of their total.",
+    "loss": "Residual coefficient \u03ba\u2032\u2084=1246437422331006215441194309538667/8421304329489870366247361127538688.",
+    "output_bound": "Residual uncovered mass at most \u03ba\u2032\u2084(1\u2212\u03c1)N.",
+    "stage": "label-sensitive coverage",
+    "status": "proved"
+  },
+  {
+    "input_bound": "6702349500 weighted monomials.",
+    "job_id": "researcher-0006",
+    "justification": "442779\u00b715137+3776=6702349499.",
+    "loss": "All but one kernel dimension.",
+    "output_bound": "Squarefree weighted-degree-at-most-15136 relation.",
+    "stage": "interpolation",
+    "status": "proved"
+  },
+  {
+    "input_bound": "Covered accepted incidences.",
+    "job_id": "researcher-0006",
+    "justification": "A nonidentity restriction has degree at most 15136.",
+    "loss": "15136(\u039b\u2212t).",
+    "output_bound": "t formal identity lines.",
+    "stage": "identity extension",
+    "status": "proved"
+  },
+  {
+    "input_bound": "t identity lines.",
+    "job_id": "researcher-0006",
+    "justification": "Primitive content plus nominal discriminant.",
+    "loss": "pz for z\u22642618012.",
+    "output_bound": "Derivative-nondegenerate identities.",
+    "stage": "exceptional-line cleanup",
+    "status": "proved"
+  },
+  {
+    "input_bound": "t\u2212z regular lines.",
+    "job_id": "researcher-0006",
+    "justification": "Every nonzero derivative restriction has degree at most D\u221287.",
+    "loss": "15049(t\u2212z).",
+    "output_bound": "Simple accepted roots.",
+    "stage": "derivative cleanup",
+    "status": "proved"
+  },
+  {
+    "input_bound": "Residual minimum degrees (15137,4415).",
+    "job_id": "researcher-0006",
+    "justification": "Centered affine mixing and both degree inequalities.",
+    "loss": "No deletion.",
+    "output_bound": "Every nonempty component has at least 622400212 points.",
+    "stage": "spectral component floor",
+    "status": "proved"
+  },
+  {
+    "input_bound": "No component at the recovery density.",
+    "job_id": "researcher-0006",
+    "justification": "Exact optimized potential and the larger audited empty-core C4 credit.",
+    "loss": "15136M+4414(t\u2212z)\u22125933551.",
+    "output_bound": "Uniform peel bound.",
+    "stage": "component-aware peeling",
+    "status": "proved"
+  },
+  {
+    "input_bound": "t\u2264\u039b and z\u22642618012.",
+    "job_id": "researcher-0006",
+    "justification": "The collected coefficients 4327 and 127994 are positive.",
+    "loss": "423197911537678+329110627826464+335089827928\u22125933551.",
+    "output_bound": "C\u2032=752643623258519.",
+    "stage": "fixed consolidation",
+    "status": "proved"
+  },
+  {
+    "input_bound": "\u03b5=3334045181429561/10^16.",
+    "job_id": "researcher-0006",
+    "justification": "Exact positive survival margin 69899855576037749414028334973789734033/2406086951282820104642103179296768000000000000000.",
+    "loss": "C\u2032/N+\u03ba\u2032\u2084(1\u2212\u03b5).",
+    "output_bound": "A component of density at least \u03b5/10.",
+    "stage": "component survival",
+    "status": "proved"
+  },
+  {
+    "input_bound": "Connected simple-root component.",
+    "job_id": "researcher-0006",
+    "justification": "KTZ Lemmas 2.5, 2.7, and 6.1.",
+    "loss": "None.",
+    "output_bound": "One total-degree-at-most-87 polynomial.",
+    "stage": "reconstruction",
+    "status": "proved"
+  },
+  {
+    "input_bound": "Agreement at least \u03b5/10.",
+    "job_id": "researcher-0006",
+    "justification": "\u03b5/10>174/p and \u03b5 exceeds 957/(10p).",
+    "loss": "Required factor 1/10.",
+    "output_bound": "Agreement fraction 3334045181429561/10^17 and at least 724940343 points.",
+    "stage": "recovery contract",
+    "status": "proved"
   }
 ]

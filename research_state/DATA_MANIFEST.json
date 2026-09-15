@@ -8,7 +8,7 @@
       "jobs": 11
     }
   },
-  "durable_file_count": 69,
+  "durable_file_count": 72,
   "files": [
     {
       "bytes": 642,
@@ -17,22 +17,22 @@
       "sha256": "d767faba3729522ea1cbe3e107dc7c14549c0d49e80fc08ed6660c55117020a3"
     },
     {
-      "bytes": 8506,
+      "bytes": 9112,
       "path": "research_state/campaign-10-frugal/jobs.json",
       "role": "campaign_index",
-      "sha256": "33a96153fc291107eb7c5365cfa2924f8d0fa776758984d22b4dd808a7398448"
+      "sha256": "25905f25bc23bca6a68f28a193469c0a404a444e83d248b230d1577488ef5406"
     },
     {
-      "bytes": 16966,
+      "bytes": 21493,
       "path": "research_state/campaign-10-frugal/leaderboards/bottleneck-ledger.json",
       "role": "leaderboard",
-      "sha256": "15ef1e8f3d299b2feec6af744c584deed6509439b0a3e1738bc4043de41979a3"
+      "sha256": "8e1b62aa5d4395e6ed15f94645914e59d5df388d78e6ce00dbbfeb34c18a881d"
     },
     {
-      "bytes": 37969,
+      "bytes": 39357,
       "path": "research_state/campaign-10-frugal/leaderboards/promising-results.json",
       "role": "leaderboard",
-      "sha256": "8db65603ca7441c65bf91d84a4fe8b8ad2ac1bc12b75d148ffc0225a30506030"
+      "sha256": "1ba5861341c8af2c14df22c8e930d7a34bd4953b3d29e9572288d9f20d24ad93"
     },
     {
       "bytes": 3,
@@ -92,7 +92,7 @@
       "bytes": 897,
       "path": "research_state/campaign-10-frugal/status.json",
       "role": "campaign_index",
-      "sha256": "af9b40d110b8efb69006192eefe1c53eb70ac4e1f7275f3a88f7c1a6922d4833"
+      "sha256": "a833ee941f3d651f72c6692e2af64f089d7823916179215334e228271b3c8622"
     },
     {
       "bytes": 1528,
@@ -165,6 +165,24 @@
       "path": "research_state/campaign-10-frugal/submissions/researcher-0004/response.json",
       "role": "proof_submission",
       "sha256": "904cb65144b3a7aa0d625b965ec8d69b249d75e87cb47dd564c1db0f21468fa9"
+    },
+    {
+      "bytes": 1843,
+      "path": "research_state/campaign-10-frugal/submissions/researcher-0006/manifest.json",
+      "role": "proof_submission",
+      "sha256": "76e703ce1b712e69a271809cb3e28c0c125878f545dfb03a58af47d54c04c7fa"
+    },
+    {
+      "bytes": 8106,
+      "path": "research_state/campaign-10-frugal/submissions/researcher-0006/note.md",
+      "role": "proof_submission",
+      "sha256": "23766bd87e52a2588043250e1107b8339a1d2cdf6a5c9d76bea1f4a45934b8ce"
+    },
+    {
+      "bytes": 24708,
+      "path": "research_state/campaign-10-frugal/submissions/researcher-0006/response.json",
+      "role": "proof_submission",
+      "sha256": "4977c9e80ab4721e94d93139ea7d6568f96ff943052408e13870e151962e4ee6"
     },
     {
       "bytes": 20480,
@@ -427,5 +445,5 @@
   ],
   "hash_algorithm": "sha256",
   "schema": "line-point-concrete-data-manifest-v1",
-  "total_bytes": 985367
+  "total_bytes": 1026545
 }

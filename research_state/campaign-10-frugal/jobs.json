@@ -90,16 +90,16 @@
     "dependency": null,
     "direction": "FRUGAL FUNNEL / SCOUT: Seek an alternative component-mass, spectral-incidence, or energy inequality that plugs into the incumbent proof and lowers its concrete score.",
     "error": null,
-    "finished_at": null,
+    "finished_at": "2026-09-15T18:59:06Z",
     "id": "researcher-0006",
     "max_attempts": 2,
     "model": "gpt-5.6-sol",
     "ordinal": 6,
-    "output_dir": null,
+    "output_dir": "/Users/kaizheng/.codex/worktrees/1f44/SSE-auto/Line-vs-Point-concrete/research_state/campaign-10-frugal/submissions/researcher-0006",
     "reasoning_effort": "xhigh",
     "role": "researcher",
     "started_at": "2026-09-15T18:48:15Z",
-    "status": "running"
+    "status": "succeeded"
   },
   {
     "attempts": 0,
@@ -219,5 +219,22 @@
     "role": "verifier",
     "started_at": "2026-09-15T18:48:15Z",
     "status": "succeeded"
+  },
+  {
+    "attempts": 0,
+    "created_at": "2026-09-15T18:59:06Z",
+    "dependency": "researcher-0006",
+    "direction": "independent verifier audit of researcher-0006",
+    "error": null,
+    "finished_at": null,
+    "id": "verifier-a-researcher-0006",
+    "max_attempts": 2,
+    "model": "gpt-5.6-sol",
+    "ordinal": null,
+    "output_dir": null,
+    "reasoning_effort": "xhigh",
+    "role": "verifier",
+    "started_at": null,
+    "status": "queued"
   }
 ]

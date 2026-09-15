@@ -981,6 +981,136 @@
       "output_bound": "Recovery fraction epsilon/10 and at least 724940347 agreeing points.",
       "stage": "final recovery contract",
       "status": "proved"
+    },
+    {
+      "campaign": "campaign-10-frugal",
+      "input_bound": "Accepted incidence density \u03c1.",
+      "job_id": "researcher-0006",
+      "justification": "Uniform line-then-point sampling is uniform on N incidences.",
+      "loss": "None.",
+      "output_bound": "|E|=\u03c1N.",
+      "stage": "sampling normalization",
+      "status": "proved"
+    },
+    {
+      "campaign": "campaign-10-frugal",
+      "input_bound": "Accepted pencil degrees.",
+      "job_id": "researcher-0006",
+      "justification": "Audited partial-fourth-direction hypergeometric envelope, maximized at degree 49122.",
+      "loss": "\u03ba4(1\u2212\u03c1)N before label augmentation.",
+      "output_bound": "442779 selected lines.",
+      "stage": "direction selection",
+      "status": "proved"
+    },
+    {
+      "campaign": "campaign-10-frugal",
+      "input_bound": "Uncovered point weights.",
+      "job_id": "researcher-0006",
+      "justification": "The 3776 largest weights carry at least 3776/M of their total.",
+      "loss": "Residual coefficient \u03ba\u2032\u2084=1246437422331006215441194309538667/8421304329489870366247361127538688.",
+      "output_bound": "Residual uncovered mass at most \u03ba\u2032\u2084(1\u2212\u03c1)N.",
+      "stage": "label-sensitive coverage",
+      "status": "proved"
+    },
+    {
+      "campaign": "campaign-10-frugal",
+      "input_bound": "6702349500 weighted monomials.",
+      "job_id": "researcher-0006",
+      "justification": "442779\u00b715137+3776=6702349499.",
+      "loss": "All but one kernel dimension.",
+      "output_bound": "Squarefree weighted-degree-at-most-15136 relation.",
+      "stage": "interpolation",
+      "status": "proved"
+    },
+    {
+      "campaign": "campaign-10-frugal",
+      "input_bound": "Covered accepted incidences.",
+      "job_id": "researcher-0006",
+      "justification": "A nonidentity restriction has degree at most 15136.",
+      "loss": "15136(\u039b\u2212t).",
+      "output_bound": "t formal identity lines.",
+      "stage": "identity extension",
+      "status": "proved"
+    },
+    {
+      "campaign": "campaign-10-frugal",
+      "input_bound": "t identity lines.",
+      "job_id": "researcher-0006",
+      "justification": "Primitive content plus nominal discriminant.",
+      "loss": "pz for z\u22642618012.",
+      "output_bound": "Derivative-nondegenerate identities.",
+      "stage": "exceptional-line cleanup",
+      "status": "proved"
+    },
+    {
+      "campaign": "campaign-10-frugal",
+      "input_bound": "t\u2212z regular lines.",
+      "job_id": "researcher-0006",
+      "justification": "Every nonzero derivative restriction has degree at most D\u221287.",
+      "loss": "15049(t\u2212z).",
+      "output_bound": "Simple accepted roots.",
+      "stage": "derivative cleanup",
+      "status": "proved"
+    },
+    {
+      "campaign": "campaign-10-frugal",
+      "input_bound": "Residual minimum degrees (15137,4415).",
+      "job_id": "researcher-0006",
+      "justification": "Centered affine mixing and both degree inequalities.",
+      "loss": "No deletion.",
+      "output_bound": "Every nonempty component has at least 622400212 points.",
+      "stage": "spectral component floor",
+      "status": "proved"
+    },
+    {
+      "campaign": "campaign-10-frugal",
+      "input_bound": "No component at the recovery density.",
+      "job_id": "researcher-0006",
+      "justification": "Exact optimized potential and the larger audited empty-core C4 credit.",
+      "loss": "15136M+4414(t\u2212z)\u22125933551.",
+      "output_bound": "Uniform peel bound.",
+      "stage": "component-aware peeling",
+      "status": "proved"
+    },
+    {
+      "campaign": "campaign-10-frugal",
+      "input_bound": "t\u2264\u039b and z\u22642618012.",
+      "job_id": "researcher-0006",
+      "justification": "The collected coefficients 4327 and 127994 are positive.",
+      "loss": "423197911537678+329110627826464+335089827928\u22125933551.",
+      "output_bound": "C\u2032=752643623258519.",
+      "stage": "fixed consolidation",
+      "status": "proved"
+    },
+    {
+      "campaign": "campaign-10-frugal",
+      "input_bound": "\u03b5=3334045181429561/10^16.",
+      "job_id": "researcher-0006",
+      "justification": "Exact positive survival margin 69899855576037749414028334973789734033/2406086951282820104642103179296768000000000000000.",
+      "loss": "C\u2032/N+\u03ba\u2032\u2084(1\u2212\u03b5).",
+      "output_bound": "A component of density at least \u03b5/10.",
+      "stage": "component survival",
+      "status": "proved"
+    },
+    {
+      "campaign": "campaign-10-frugal",
+      "input_bound": "Connected simple-root component.",
+      "job_id": "researcher-0006",
+      "justification": "KTZ Lemmas 2.5, 2.7, and 6.1.",
+      "loss": "None.",
+      "output_bound": "One total-degree-at-most-87 polynomial.",
+      "stage": "reconstruction",
+      "status": "proved"
+    },
+    {
+      "campaign": "campaign-10-frugal",
+      "input_bound": "Agreement at least \u03b5/10.",
+      "job_id": "researcher-0006",
+      "justification": "\u03b5/10>174/p and \u03b5 exceeds 957/(10p).",
+      "loss": "Required factor 1/10.",
+      "output_bound": "Agreement fraction 3334045181429561/10^17 and at least 724940343 points.",
+      "stage": "recovery contract",
+      "status": "proved"
     }
   ],
   "campaign": "campaign-10-frugal",
@@ -2271,6 +2401,228 @@
         "theorem_sha256": "67bb6bc7683a800c9d6bb7825dfccac7a97369f1a9b805d772296d566bde462c",
         "theorem_statement": "Let p=147457, d=87, and epsilon=7249403463/21743566849. Under uniform affine-line sampling followed by a uniformly random point on the selected line, every degree-at-most-87 affine-line table and every point table accepted with probability at least epsilon admit one polynomial Q\u2208F_p[X,Y] of total degree at most 87 agreeing with the point table on at least max(174/147457,epsilon/10)=epsilon/10 of F_p\u00b2, hence on at least 724940347 points. Its absolute agreement-count score is ceil(epsilon\u00b7p\u00b2)=7249403463.",
         "title": "Partial-Fourth-Direction Component-Potential Soundness at Score 7,249,403,463"
+      },
+      {
+        "agreement_count": 7249403428,
+        "audits": [],
+        "benchmark_improved": true,
+        "campaign": "campaign-10-frugal",
+        "claim_scope": "bivariate_theorem",
+        "claimed_soundness": 0.3334045181429561,
+        "dimension": 2,
+        "double_verified": false,
+        "field_regime": "prime",
+        "fixed_degree": 87,
+        "fixed_prime": 147457,
+        "global_conclusion": "A proved spectral component-floor lemma strengthens the audited partial-fourth-direction proof. It yields the end-to-end trigger \u03b5=3334045181429561/10^16, score 7249403428, and recovery of at least 724940343 points\u201435 score points below researcher-0004\u2019s pending theorem and 100087007 below the verified record.",
+        "job_id": "researcher-0006",
+        "leaderboard_submission": true,
+        "limitations": [
+          "The scalar centered-mixing inequality changes sign immediately after the certified 622400212-point floor, so further gain needs line-label structure, a higher-order incidence constraint, or a sharper empty-core argument.",
+          "The assigned live-checkpoint outbox was not writable; apply_patch was rejected by the managed read-only sandbox.",
+          "The theorem is fixed to m=2, p=147457, d=87 and does not claim parameter-global optimality."
+        ],
+        "note_markdown": "# Spectral Component Floor Lowers the Fixed Score to 7,249,403,428\n\n## Abstract\n\nFor `p=147457`, total degree `d=87`, and uniform affine-line-then-point sampling, I strengthen the component-potential module of researcher-0004. Combining both residual minimum degrees with the exact centered affine-incidence inequality forces every nonempty residual component to contain at least `622400212` points. This raises the nonempty-component peeling credit from `28291` to `5933551`.\n\nSpliced into the independently audited partial-fourth-direction proof, this gives\n\n\\[\n\\varepsilon=\\frac{3334045181429561}{10^{16}},\\qquad\n\\left\\lceil\\varepsilon p^2\\right\\rceil=7249403428.\n\\]\n\nThe recovered polynomial agrees on at least `724940343` points. The score improves the verified `7349490435` record by `100087007` and researcher-0004\u2019s pending score by `35`.\n\n## Test and Notation\n\nLet\n\n\\[\nh=p+1=147458,\\quad M=p^2=21743566849,\n\\]\n\\[\n\\Lambda=p(p+1)=21743714306,\\quad N=Mh=3206262880419842.\n\\]\n\nThe accepted-edge density is the prescribed test acceptance. Retain researcher-0004\u2019s parameters\n\n\\[\nD=15136,\\quad k=4414,\\quad q=D-d=15049,\n\\]\n\nand selector coefficient\n\n\\[\n\\kappa'_4=\n\\frac{1246437422331006215441194309538667}\n{8421304329489870366247361127538688}.\n\\]\n\n## Prior Results\n\nI scanned the 21 active submission notes, all active leaderboard files, 20 verifier audits, and both message boards, excluding every `superseded` directory. The authoritative history remains `research_state/campaign-10-frugal/leaderboards/soundness-history.json`.\n\nThe unchanged modules are researcher-0004 `[P2]`\u2013`[P5]` and `[P9]` in `research_state/campaign-10-frugal/submissions/researcher-0004/response.json`. Its audit at `research_state/campaign-10-frugal/reviews/researcher-0004/verifier-a-researcher-0004/audit.json` independently marks every load-bearing module valid; its aggregate `revise` verdict is caused by stale, non-load-bearing comparison metadata. The present theorem corrects that metadata and replaces its component step.\n\n## Theorem\n\nFor every point table \\(f:\\mathbb F_{147457}^2\\to\\mathbb F_{147457}\\) and every assignment of a degree-at-most-87 polynomial to every affine line, if\n\n\\[\n\\operatorname{Pass}(f,P)\\ge\n\\frac{3334045181429561}{10^{16}},\n\\]\n\nthen some \\(Q\\in\\mathbb F_{147457}[X,Y]\\) of total degree at most `87` satisfies\n\n\\[\n\\Pr_x[Q(x)=f(x)]\\ge\n\\max\\left\\{\\frac{174}{147457},\n\\frac{3334045181429561}{10^{17}}\\right\\}\n=\frac{3334045181429561}{10^{17}}.\n\\]\n\n## Proof\n\n### [P1] Centered affine incidence bound \u2014 proved\n\nFor point and line sets of densities \\(a,b\\), ordered-pair counting gives\n\n\\[\n\\frac{I(X,S)}N\\le ab+\n\\sqrt{\\frac{a(1-a)b(1-b)}h}. \\tag{1}\n\\]\n\n### [P2] Spectral component floor \u2014 proved\n\nLet a nonempty residual component have normalized edge mass \\(J\\), point density \\(a\\), and line density \\(b\\). Minimum degrees `(15137,4415)` give\n\n\\[\nJ\\ge\\alpha a,\\quad J\\ge\\beta b,\n\\quad \\alpha=\\frac{15137}{147458},\\quad\n\\beta=\\frac{4415}{147457}.\n\\]\n\nPut \\(c=\\alpha/\\beta=2232056609/651027070\\) and\n\\(\\gamma^2=1/(ch)=4415/2232056609\\). Applying (1) separately when \\(b\\le ca\\) and \\(b\\ge ca\\) yields, whenever \\(ca<1/2\\),\n\n\\[\n\\beta\\le a+\\gamma\\sqrt{(1-a)(1-ca)}. \\tag{2}\n\\]\n\nLet \\(a_*=622400211/M\\) and\n\n\\[\nF(a)=(\\beta-a)^2-\\gamma^2(1-a)(1-ca).\n\\]\n\nExact checks give\n\n\\[\nF(a_*)=\frac{84092949843}{3578280126216242515417889}>0,\n\\]\n\n\\[\nF'(a_*)=-\\frac{863766445687}{329134603449922}<0,\n\\]\n\n\\[\n\\beta-a_*=\\frac{28622444}{21743566849}>0,\n\\quad\n\\frac12-ca_*=\frac{19288988668294}{47999249330495}>0.\n\\]\n\nSince \\(F''=147457/73729>0\\), `F` is decreasing throughout `[0,a*]`. Squaring (2) would require `F(a)\u22640`, a contradiction. Thus every component has at least `622400212` points.\n\n### [P3] Improved component potential \u2014 proved\n\nSet\n\n\\[\n\\eta=\\frac{40407}{625000000000},\\quad\n\\delta=\\frac D h,\\quad \\theta=\\frac k p,\n\\]\n\nand conservatively use \\(\\bar\\tau=7249403428/(10M)\\), which exceeds the theorem\u2019s recovery density. Maximizing (1) minus \\(D|X|+k|S|\\) over the line density reduces the desired inequality to one squaring. With \\(\\delta'=\\delta-\\eta\\), its guards are\n\n\\[\nQ=4\\delta'(\\delta'-1)+1/h\n=-\\frac{195584747102179735885422401703791}\n{530856000097656250000000000000000}<0,\n\\]\n\n\\[\nL(\\bar\\tau)=\n\\frac{97794057801029066737011121001113}\n{28856757313290348000244140625000000000000000}>0,\n\\]\n\n\\[\nR(\\bar\\tau)=\n\\frac{4306203950438485321228529}\n{1252446437664000781250000000}>0.\n\\]\n\nBecause `Q<0` and `2\u03b4'\u22121<0`, these endpoint checks prove throughout the relevant interval\n\n\\[\nI(X,S)\\le D|X|+k|S|-\\eta h|X|. \\tag{3}\n\\]\n\nBy [P2], every nonempty component therefore contributes integer credit at least\n\n\\[\n\\left\\lceil\\eta h\\cdot622400212\\right\\rceil=5933551.\n\\]\n\n### [P4] Peeling dichotomy \u2014 proved\n\nSequentially peel points of degree at most `D` and lines of degree at most `k`. If a residual component remains and none reaches the recovery density, (3) supplies credit `5933551`. If the core empties, the audited `C4`-free corner supplies the larger credit `133070051`. Hence\n\n\\[\n|E(G)|\\le15136M+4414(t-z)-5933551. \\tag{4}\n\\]\n\n### [P5] Survival \u2014 proved\n\nThe audited selector, interpolation, identity-extension, and cleanup inequalities combine with (4). Since the coefficients of `t` and `z` are `4327` and `127994`, respectively,\n\n\\[\nC'=423197911537678+329110627826464\n+335089827928-5933551\n=752643623258519.\n\\]\n\nAbsence of a large component would imply\n\n\\[\n\\rho\\le C'/N+\\kappa'_4(1-\\rho).\n\\]\n\nIts frontier is\n\n\\[\nR'=\frac{3223268780051728141186708743365483}\n{9667741751820876581688555437077355},\n\\quad \\lfloor MR'\\rfloor=7249403427.\n\\]\n\nAt the claimed terminating \\(\\varepsilon\\), the exact survival margin is\n\n\\[\n\\frac{69899855576037749414028334973789734033}\n{2406086951282820104642103179296768000000000000000}>0.\n\\]\n\nThus a sufficiently large simple-root component survives.\n\n### [P6] Reconstruction and contract \u2014 proved\n\nKTZ revision-1 Lemmas 2.5, 2.7, and 6.1 reconstruct one total-degree-at-most-87 polynomial at a seed and propagate it through the connected component without agreement loss.\n\nFinally,\n\n\\[\n\\frac\\varepsilon{10}-\\frac{174}{p}\n=\frac{474228300318058776377}\n{14745700000000000000000}>0,\n\\]\n\nand\n\n\\[\n\\varepsilon-\\frac{957}{10p}\n=\frac{490671300318058776377}\n{1474570000000000000000}>0.\n\\]\n\nAlso `ceil(\u03b5M)=7249403428` and `ceil(\u03b5M/10)=724940343`.\n\n## Soundness Ledger\n\n| Stage | Exact loss/output |\n|---|---:|\n| selector and labeled points | `\u03ba\u2032\u2084(1\u2212\u03c1)N` |\n| interpolation | `442779\u00b715137+3776` constraints; surplus `1` |\n| identity extension | `15136(\u039b\u2212t)` |\n| exceptional lines | `pz`, `z\u22642618012` |\n| derivative roots | `15049(t\u2212z)` |\n| point/line peeling | `15136M+4414(t\u2212z)\u22125933551` |\n| fixed subtotal | `C\u2032=752643623258519` |\n| reconstruction | zero loss |\n| recovery | `\u03b5/10`; `724940343` points |\n\n## Counterexample Attempts\n\nThe Moore-only floor gives merely `66814719` points. The spectral quadratic changes sign at the next integer: `F(622400212/M)<0`, so this scalar method alone cannot certify a larger floor. The audited `k=4413` endpoint is negative. Concentrated directions, branch switching, and inseparability are covered by the selector, simple-root deletion, and `deg_Z<p`.\n\n## Characteristic Audit\n\nAll derivative degrees are below `p`; the discriminant is nominally homogenized; no specialized leading coefficient is inverted; reconstruction divides only by retained nonzero first derivatives. Total degree `87` and uniform affine-line sampling are unchanged.\n\n## Limitations\n\nThis is only the fixed bivariate prime-field instance. The spectral floor is sharp only for the displayed scalar inequality, not necessarily for realizable labeled components. The assigned checkpoint outbox was mounted read-only: `apply_patch` rejected both attempted checkpoint files.\n\n## Team Handoff\n\n- **researcher-0007 / builder:** replace only the component and fixed-charge modules by [P2]\u2013[P5].\n- **researcher-0009 / red-team:** audit the two-case elimination and three potential guards.\n- **researcher-0010 / integrator:** bind exact score `7249403428`, terminating epsilon, and recovery count `724940343` into the certificate.\n",
+        "note_path": "/Users/kaizheng/.codex/worktrees/1f44/SSE-auto/Line-vs-Point-concrete/research_state/campaign-10-frugal/submissions/researcher-0006/note.md",
+        "parameter_regime": "m=2; p=147457; total degree d=87; epsilon=3334045181429561/10^16; D=15136; point minimum degree 15137; line peel cap 4414 and minimum degree 4415; partial fourth direction uses 408 lines; 3776 labeled points; q=15049; E_D=2618012; eta=40407/625000000000; spectral point floor 622400212; peel credit 5933551.",
+        "proof_steps": [
+          {
+            "dependencies": [
+              "research_state/campaign-10-frugal/submissions/researcher-0004/response.json [P1]",
+              "research_state/campaign-10-frugal/reviews/researcher-0004/verifier-a-researcher-0004/audit.json"
+            ],
+            "id": "P1",
+            "proof": "Ordered-pair counting gives the exact centered second moment p^3a(1\u2212a); Cauchy\u2013Schwarz against a centered line-set indicator yields the bound.",
+            "statement": "For all point sets X and line sets S in AG(2,F_147457), with densities a=|X|/p\u00b2 and b=|S|/[p(p+1)], one has I(X,S)/[p\u00b2(p+1)]\u2264ab+sqrt(a(1\u2212a)b(1\u2212b)/(p+1)).",
+            "status": "proved"
+          },
+          {
+            "dependencies": [
+              "P1"
+            ],
+            "id": "P2",
+            "proof": "Minimum degrees give J\u2265\u03b1a and J\u2265\u03b2b. Eliminating b in the cases b\u2264ca and b\u2265ca gives the displayed scalar inequality. The exact endpoint values F(a*)>0, F'(a*)<0, beta>a*, ca*<1/2, and F''>0 exclude every integer size at most 622400211.",
+            "statement": "Every nonempty subgraph of the affine incidence graph with minimum point degree at least 15137 and minimum line degree at least 4415 contains at least 622400212 point vertices.",
+            "status": "proved"
+          },
+          {
+            "dependencies": [
+              "P1",
+              "P2"
+            ],
+            "id": "P3",
+            "proof": "Maximizing the centered incidence upper bound minus D|X|+k|S| over the line density gives a single square-root expression. The exact Q<0 and positive L,R endpoint guards license squaring and prove monotonicity throughout the interval; integer rounding gives 5933551.",
+            "statement": "For every point and line set supporting such a component with point density at most 7249403428/(10p\u00b2), one has I(X,S)\u226415136|X|+4414|S|\u2212(40407/625000000000)(p+1)|X|, and the rightmost deficit is at least 5933551.",
+            "status": "proved"
+          },
+          {
+            "dependencies": [
+              "P3",
+              "research_state/campaign-10-frugal/submissions/researcher-0004/response.json [P7]",
+              "research_state/campaign-10-frugal/reviews/researcher-0004/verifier-a-researcher-0004/audit.json"
+            ],
+            "id": "P4",
+            "proof": "Sequential deletion charges D per deleted point and k per deleted line. A nonempty residual component receives the P3 credit; an empty core receives the audited larger C4 credit 133070051.",
+            "statement": "If the cleaned accepted graph has no connected component of point density at least 7249403428/(10p\u00b2), then |E(G)|\u226415136p\u00b2+4414(t\u2212z)\u22125933551.",
+            "status": "proved"
+          },
+          {
+            "dependencies": [
+              "research_state/campaign-10-frugal/submissions/researcher-0004/response.json [P2]-[P5]",
+              "research_state/campaign-10-frugal/reviews/researcher-0004/verifier-a-researcher-0004/audit.json"
+            ],
+            "id": "P5",
+            "proof": "The exact partial-direction selector, 3776 heaviest labels, one-dimensional interpolation kernel, primitive discriminant cleanup, and derivative cap were independently verified. They give U'\u2264\u03ba\u2032\u2084(1\u2212\u03c1)N and the displayed identity/cleanup ledger.",
+            "statement": "For every accepted-incidence graph of density \u03c1, the unchanged selector, interpolation, and cleanup modules produce parameters t and z\u22642618012 satisfying |E|\u2264\u03ba\u2032\u2084(1\u2212\u03c1)N+15136(\u039b\u2212t)+pz+15049(t\u2212z)+|E(G)|.",
+            "status": "proved"
+          },
+          {
+            "dependencies": [
+              "P4",
+              "P5"
+            ],
+            "id": "P6",
+            "proof": "Collect t and z using their positive coefficients, substitute the exact caps, and solve the affine inequality for \u03c1. The displayed rational margin at epsilon is positive.",
+            "statement": "Acceptance at least 3334045181429561/10^16 forces a connected simple-root identity component of point density at least 3334045181429561/10^17.",
+            "status": "proved"
+          },
+          {
+            "dependencies": [
+              "P6",
+              "KTZ revision-1 Lemma 2.5",
+              "KTZ revision-1 Lemma 2.7",
+              "KTZ revision-1 Lemma 6.1"
+            ],
+            "id": "P7",
+            "proof": "A seed point has at least D+1 simple-root identity lines. Formal implicit lifting constructs one degree-87 polynomial; more than D line factors force the substituted relation to vanish globally; simple-root uniqueness propagates the same polynomial through the component.",
+            "statement": "Every connected component supplied by P6 is governed on all its point vertices by one bivariate polynomial of total degree at most 87.",
+            "status": "proved"
+          },
+          {
+            "dependencies": [
+              "P6",
+              "P7"
+            ],
+            "id": "P8",
+            "proof": "Exact subtraction proves both admissibility inequalities. Direct integer comparisons give the score and recovery ceiling.",
+            "statement": "For epsilon=3334045181429561/10^16, Pass(f,P)\u2265epsilon implies Agr_87(f)\u2265max(174/147457,epsilon/10)=epsilon/10, with score 7249403428 and at least 724940343 agreeing points.",
+            "status": "proved"
+          }
+        ],
+        "recovery_agreement_count": 724940343,
+        "result_status": "proved",
+        "review_verdict": "awaiting (0/1 accept)",
+        "role": "researcher",
+        "sampling_model": "Choose one of p(p+1) affine lines uniformly, then choose one of its p points uniformly; equivalently sample uniformly from N=p\u00b2(p+1) incidences.",
+        "soundness_ledger": [
+          {
+            "input_bound": "Accepted incidence density \u03c1.",
+            "justification": "Uniform line-then-point sampling is uniform on N incidences.",
+            "loss": "None.",
+            "output_bound": "|E|=\u03c1N.",
+            "stage": "sampling normalization",
+            "status": "proved"
+          },
+          {
+            "input_bound": "Accepted pencil degrees.",
+            "justification": "Audited partial-fourth-direction hypergeometric envelope, maximized at degree 49122.",
+            "loss": "\u03ba4(1\u2212\u03c1)N before label augmentation.",
+            "output_bound": "442779 selected lines.",
+            "stage": "direction selection",
+            "status": "proved"
+          },
+          {
+            "input_bound": "Uncovered point weights.",
+            "justification": "The 3776 largest weights carry at least 3776/M of their total.",
+            "loss": "Residual coefficient \u03ba\u2032\u2084=1246437422331006215441194309538667/8421304329489870366247361127538688.",
+            "output_bound": "Residual uncovered mass at most \u03ba\u2032\u2084(1\u2212\u03c1)N.",
+            "stage": "label-sensitive coverage",
+            "status": "proved"
+          },
+          {
+            "input_bound": "6702349500 weighted monomials.",
+            "justification": "442779\u00b715137+3776=6702349499.",
+            "loss": "All but one kernel dimension.",
+            "output_bound": "Squarefree weighted-degree-at-most-15136 relation.",
+            "stage": "interpolation",
+            "status": "proved"
+          },
+          {
+            "input_bound": "Covered accepted incidences.",
+            "justification": "A nonidentity restriction has degree at most 15136.",
+            "loss": "15136(\u039b\u2212t).",
+            "output_bound": "t formal identity lines.",
+            "stage": "identity extension",
+            "status": "proved"
+          },
+          {
+            "input_bound": "t identity lines.",
+            "justification": "Primitive content plus nominal discriminant.",
+            "loss": "pz for z\u22642618012.",
+            "output_bound": "Derivative-nondegenerate identities.",
+            "stage": "exceptional-line cleanup",
+            "status": "proved"
+          },
+          {
+            "input_bound": "t\u2212z regular lines.",
+            "justification": "Every nonzero derivative restriction has degree at most D\u221287.",
+            "loss": "15049(t\u2212z).",
+            "output_bound": "Simple accepted roots.",
+            "stage": "derivative cleanup",
+            "status": "proved"
+          },
+          {
+            "input_bound": "Residual minimum degrees (15137,4415).",
+            "justification": "Centered affine mixing and both degree inequalities.",
+            "loss": "No deletion.",
+            "output_bound": "Every nonempty component has at least 622400212 points.",
+            "stage": "spectral component floor",
+            "status": "proved"
+          },
+          {
+            "input_bound": "No component at the recovery density.",
+            "justification": "Exact optimized potential and the larger audited empty-core C4 credit.",
+            "loss": "15136M+4414(t\u2212z)\u22125933551.",
+            "output_bound": "Uniform peel bound.",
+            "stage": "component-aware peeling",
+            "status": "proved"
+          },
+          {
+            "input_bound": "t\u2264\u039b and z\u22642618012.",
+            "justification": "The collected coefficients 4327 and 127994 are positive.",
+            "loss": "423197911537678+329110627826464+335089827928\u22125933551.",
+            "output_bound": "C\u2032=752643623258519.",
+            "stage": "fixed consolidation",
+            "status": "proved"
+          },
+          {
+            "input_bound": "\u03b5=3334045181429561/10^16.",
+            "justification": "Exact positive survival margin 69899855576037749414028334973789734033/2406086951282820104642103179296768000000000000000.",
+            "loss": "C\u2032/N+\u03ba\u2032\u2084(1\u2212\u03b5).",
+            "output_bound": "A component of density at least \u03b5/10.",
+            "stage": "component survival",
+            "status": "proved"
+          },
+          {
+            "input_bound": "Connected simple-root component.",
+            "justification": "KTZ Lemmas 2.5, 2.7, and 6.1.",
+            "loss": "None.",
+            "output_bound": "One total-degree-at-most-87 polynomial.",
+            "stage": "reconstruction",
+            "status": "proved"
+          },
+          {
+            "input_bound": "Agreement at least \u03b5/10.",
+            "justification": "\u03b5/10>174/p and \u03b5 exceeds 957/(10p).",
+            "loss": "Required factor 1/10.",
+            "output_bound": "Agreement fraction 3334045181429561/10^17 and at least 724940343 points.",
+            "stage": "recovery contract",
+            "status": "proved"
+          }
+        ],
+        "theorem_sha256": "bc3529530bd055576d8feeedbb215d5bd0d37bd0820ebe75e4aed2853653aa3a",
+        "theorem_statement": "Let p=147457, d=87, and epsilon=3334045181429561/10^16. For every point table f:F_p\u00b2\u2192F_p and every assignment of a univariate degree-at-most-87 polynomial to every affine line, if the uniform affine-line-then-point test accepts with probability at least epsilon, then there exists Q\u2208F_p[X,Y] of total degree at most 87 such that Pr_x[Q(x)=f(x)]\u2265max{174/147457,epsilon/10}=epsilon/10. Consequently Q agrees with f on at least 724940343 points and ceil(epsilon\u00b7p\u00b2)=7249403428.",
+        "title": "Spectral Component Floor Lowers the Fixed Score to 7,249,403,428"
       }
     ],
     "rejected": [],
@@ -4069,13 +4421,13 @@
       "attempts": 1,
       "direction": "FRUGAL FUNNEL / SCOUT: Seek an alternative component-mass, spectral-incidence, or energy inequality that plugs into the incumbent proof and lowers its concrete score.",
       "error": null,
-      "finished_at": null,
+      "finished_at": "2026-09-15T18:59:06Z",
       "id": "researcher-0006",
       "max_attempts": 2,
       "ordinal": 6,
       "role": "researcher",
       "started_at": "2026-09-15T18:48:15Z",
-      "status": "running"
+      "status": "succeeded"
     },
     {
       "attempts": 0,
@@ -4160,6 +4512,18 @@
       "role": "verifier",
       "started_at": "2026-09-15T18:48:15Z",
       "status": "succeeded"
+    },
+    {
+      "attempts": 0,
+      "direction": "independent verifier audit of researcher-0006",
+      "error": null,
+      "finished_at": null,
+      "id": "verifier-a-researcher-0006",
+      "max_attempts": 2,
+      "ordinal": null,
+      "role": "verifier",
+      "started_at": null,
+      "status": "queued"
     }
   ],
   "lemma_book": {
@@ -6933,9 +7297,9 @@
   "status": {
     "campaign_dir": "/Users/kaizheng/.codex/worktrees/1f44/SSE-auto/Line-vs-Point-concrete/research_state/campaign-10-frugal",
     "counts": {
-      "queued": 4,
-      "running": 2,
-      "succeeded": 7
+      "queued": 5,
+      "running": 1,
+      "succeeded": 8
     },
     "dimension": 2,
     "field_regime": "prime",
@@ -6953,9 +7317,9 @@
     "researcher_count": 10,
     "roles": {
       "researcher": 10,
-      "verifier": 3
+      "verifier": 4
     },
-    "updated_at": "2026-09-15T18:55:38Z",
+    "updated_at": "2026-09-15T18:59:06Z",
     "verification_policy": "one independent high-reasoning audit for leaderboard submissions",
     "verifier_count": 1,
     "verifier_reasoning_effort": "xhigh"
