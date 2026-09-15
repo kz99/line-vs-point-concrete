@@ -94,6 +94,45 @@ class CampaignTests(unittest.TestCase):
                 [f"researcher-{index:04d}" for index in range(1, 7)],
             )
 
+    def test_frugal_ten_seat_funnel_gates_expensive_agents(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            config = write_config(root, 10)
+            text = config.read_text().replace(
+                "researcher_count: 10",
+                "researcher_count: 10\n  team_architecture: frugal-funnel-v1\n"
+                "  literature_agent_enabled: false\n"
+                "  researcher_reasoning_efforts: [xhigh, xhigh, xhigh, xhigh, xhigh, xhigh, max, max, xhigh, ultra]",
+            )
+            config.write_text(text)
+            campaign = ResearchCampaign(config)
+            campaign.initialize()
+            with campaign.connect() as connection:
+                jobs = {row["id"]: dict(row) for row in connection.execute(
+                    "SELECT * FROM campaign_jobs WHERE role='researcher'")}
+            self.assertEqual(len(jobs), 10)
+            self.assertTrue(jobs["researcher-0001"]["direction"].startswith("FRUGAL FUNNEL / SCOUT"))
+            self.assertEqual(
+                json.loads(jobs["researcher-0007"]["dependency"]),
+                ["researcher-0001", "researcher-0004", "researcher-0006"],
+            )
+            self.assertEqual(
+                json.loads(jobs["researcher-0010"]["dependency"]),
+                ["researcher-0007", "researcher-0008", "researcher-0009"],
+            )
+            self.assertEqual(jobs["researcher-0001"]["reasoning_effort"], "xhigh")
+            self.assertEqual(jobs["researcher-0007"]["reasoning_effort"], "max")
+            self.assertEqual(jobs["researcher-0010"]["reasoning_effort"], "ultra")
+            self.assertEqual(
+                [row["id"] for row in campaign._ready(10)],
+                [f"researcher-{index:04d}" for index in range(1, 7)],
+            )
+            prompt = campaign._research_prompt(jobs["researcher-0001"])
+            self.assertIn("token-efficient ten-seat scout-to-proof funnel", prompt)
+            self.assertIn("target at most\n2,500 words", prompt)
+            self.assertIn("One independent\nxhigh verifier", prompt)
+            self.assertNotIn("30-agent proof team", prompt)
+
     def test_prompt_uses_exact_soundness_definition(self):
         with tempfile.TemporaryDirectory() as directory:
             campaign = ResearchCampaign(write_config(Path(directory), 1))

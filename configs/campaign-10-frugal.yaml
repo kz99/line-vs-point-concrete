@@ -1,0 +1,36 @@
+workspace: ..
+corpus_root: ../research_state
+campaign_dir: ../research_state/campaign-10-frugal
+
+campaign:
+  researcher_count: 10
+  team_architecture: frugal-funnel-v1
+  literature_agent_enabled: false
+  dimension: 2
+  field_regime: prime
+  fixed_prime: 147457
+  fixed_degree: 87
+  verifier_enabled: true
+  verifier_count: 1
+  verifier_reasoning_effort: xhigh
+  lemma_writer_enabled: false
+  roadmap_agents_enabled: false
+  genius_enabled: false
+  executable: codex
+  model: gpt-5.6-sol
+  reasoning_effort: ultra
+  # Scouts 1-6 use xhigh; builders 7-8 use max; the critic uses xhigh;
+  # only the final integrator uses ultra.
+  researcher_reasoning_efforts: [xhigh, xhigh, xhigh, xhigh, xhigh, xhigh, max, max, xhigh, ultra]
+  disable_nested_agents: true
+  max_workers: 3
+  timeout_seconds: 2700
+  max_attempts: 2
+  retry_seconds: 60
+  pages_publisher_enabled: false
+  initial_soundness: 0.33800761692132436
+  incumbent_agreement_count: 7349491214
+  recovery_divisor: 10
+  minimum_soundness_numerator: 957
+  minimum_soundness_denominator: 1474570
+  minimum_recovery_agreement_count: 25657518

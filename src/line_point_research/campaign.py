@@ -292,6 +292,23 @@ COORDINATED_TEAM = (
     ("submission", "Produce the team's strongest fully proved leaderboard submission, or precisely record the final obstruction.", (28, 29)),
 )
 
+# A token-efficient ten-seat funnel. The first six seats produce short evidence
+# cards in parallel; only two builders, one critic, and one integrator receive
+# the resulting context. This preserves complementary work without paying ten
+# agents to independently rewrite an end-to-end proof.
+FRUGAL_TEAM = (
+    ("scout", "Sharpen the exact component-survival inequality near the incumbent parameters and identify the smallest rigorously feasible trigger score below 7349491214.", ()),
+    ("scout", "Audit the derivative, resultant, separability, and exceptional-line charges for factor-aware savings that propagate to at least one lower trigger point.", ()),
+    ("scout", "Develop a label-sensitive direction or pencil selector that improves the current incidence retention constant, with exact finite counts.", ()),
+    ("scout", "Search the exact integer parameter neighborhood around the incumbent interpolation and pruning choices; return a reproducible rational certificate for every feasible improvement.", ()),
+    ("scout", "Adversarially test the incumbent proof and proposed one-point improvements; isolate false shortcuts and the weakest repairable inequality.", ()),
+    ("scout", "Seek an alternative component-mass, spectral-incidence, or energy inequality that plugs into the incumbent proof and lowers its concrete score.", ()),
+    ("builder", "Combine the component, parameter-search, and alternative-incidence outputs into one concise end-to-end candidate or one exact minimal obstruction.", (1, 4, 6)),
+    ("builder", "Combine the algebraic-cleanup, direction-selector, and adversarial outputs into one concise end-to-end candidate or one exact minimal obstruction.", (2, 3, 5)),
+    ("red-team", "Audit both builder routes line by line, reject invalid imports, and specify the smallest repairs or strongest surviving strict improvement.", (7, 8)),
+    ("integrator", "Use both builder notes and the red-team report to publish the strongest fully proved strict leaderboard improvement; otherwise publish the exact frontier and next decisive calculation.", (7, 8, 9)),
+)
+
 
 LITERATURE_DIRECTION = """Establish the campaign's rigorous state-of-the-art baseline from
 primary literature. Locate the strongest published or publicly posted theorem actually
@@ -365,6 +382,9 @@ def load_campaign_config(path: Path | str) -> tuple[dict[str, Any], CampaignPath
     if not isinstance(researcher_efforts, list) or not researcher_efforts or any(
             str(item) not in {"xhigh", "max", "ultra"} for item in researcher_efforts):
         raise ValueError("campaign.researcher_reasoning_efforts must contain xhigh, max, or ultra")
+    architecture = str(campaign.get("team_architecture", "independent"))
+    if architecture == "frugal-funnel-v1" and count != len(FRUGAL_TEAM):
+        raise ValueError("frugal-funnel-v1 requires exactly 10 researchers")
     if int(campaign.get("dimension", 2)) != 2:
         raise ValueError("campaign.dimension must be exactly 2")
     if str(campaign.get("field_regime", "prime")) != "prime":
@@ -450,7 +470,14 @@ class ResearchCampaign:
                     "UPDATE campaign_jobs SET status='queued',error='recovered stale running lease' WHERE status='running'")
             for ordinal in range(1, int(self.cfg["researcher_count"]) + 1):
                 job_id = f"researcher-{ordinal:04d}"
-                if int(self.cfg["researcher_count"]) == 30 and ordinal <= len(COORDINATED_TEAM):
+                if (str(self.cfg.get("team_architecture", "")) == "frugal-funnel-v1" and
+                        ordinal <= len(FRUGAL_TEAM)):
+                    phase, mission, upstream_ordinals = FRUGAL_TEAM[ordinal - 1]
+                    direction = f"FRUGAL FUNNEL / {phase.upper()}: {mission}"
+                    dependency = (json.dumps([
+                        f"researcher-{item:04d}" for item in upstream_ordinals])
+                        if upstream_ordinals else None)
+                elif int(self.cfg["researcher_count"]) == 30 and ordinal <= len(COORDINATED_TEAM):
                     phase, mission, upstream_ordinals = COORDINATED_TEAM[ordinal - 1]
                     direction = f"ONE TEAM / {phase.upper()}: {mission}"
                     dependency = (json.dumps([
@@ -668,9 +695,15 @@ superseded: those files are retained only as provenance and are not part of the 
             record = f"The current verified leaderboard record is {record_count} agreement points (epsilon={best:.17g})."
         else:
             initial = float(self.cfg.get("initial_soundness", 1.0))
-            record = (
-                "There is no verified leaderboard point yet; "
-                f"the comparison threshold is epsilon={initial:.17g}.")
+            incumbent_count = self.cfg.get("incumbent_agreement_count")
+            if incumbent_count is not None:
+                record = (
+                    f"The imported verified incumbent is {int(incumbent_count)} agreement points "
+                    f"(epsilon approximately {initial:.17g}).")
+            else:
+                record = (
+                    "There is no verified leaderboard point yet; "
+                    f"the comparison threshold is epsilon={initial:.17g}.")
         return f"""LEADERBOARD OBJECTIVE: {record} Read the authoritative history at
 {history_path}. Every constructive choice must be evaluated by whether it can produce a smaller
 fully proved absolute agreement-count score ceil(epsilon*p^2) for the fixed instance. Do not optimize elegance, generality,
@@ -698,15 +731,44 @@ useful only when it isolates the shortest concrete route to a smaller certifiabl
             "repair rather than duplicate their gaps, and end with a Team Handoff section giving exact "
             "lemma IDs, parameter values, obstructions, and recommended downstream actions."
         )
+        frugal = str(self.cfg.get("team_architecture", "")) == "frugal-funnel-v1"
+        team_description = (
+            "a token-efficient ten-seat scout-to-proof funnel"
+            if frugal else
+            f"one coordinated {self.cfg['researcher_count']}-agent proof team"
+        )
+        budget_instruction = ""
+        if frugal:
+            ordinal = int(row["ordinal"])
+            if ordinal <= 6:
+                budget_instruction = """TOKEN BUDGET DISCIPLINE: You are a scout. Do not rewrite the incumbent proof.
+Investigate at most two concrete approaches and return a compact evidence card (target at most
+2,500 words) containing exact statements, calculations or counterexamples, source paths, and a
+precise handoff. Write a full theorem proof only if you have already found a strict score
+improvement."""
+            elif ordinal <= 8:
+                budget_instruction = """TOKEN BUDGET DISCIPLINE: You are a proof builder. Start from the named
+upstream evidence cards. Do not repeat their derivations. Write a full end-to-end proof only when
+the combined inequalities plausibly beat 7349491214; otherwise give the shortest exact obstruction."""
+            elif ordinal == 9:
+                budget_instruction = """TOKEN BUDGET DISCIPLINE: You are the red-team critic. Audit only the
+load-bearing steps of the two builder routes. Prefer a compact accept/reject/repair table over a
+new exposition of the whole literature."""
+            else:
+                budget_instruction = """TOKEN BUDGET DISCIPLINE: You are the final integrator. Spend your
+context on the strongest surviving route and its load-bearing chain. Publish one complete proof
+only for a strict improvement; otherwise record the exact frontier without speculative padding."""
         return f"""You are {row['id']}, one of {self.cfg['researcher_count']} coordinated
 mathematical research seats improving soundness of the affine line-versus-point low-degree
 test. Your assigned direction is: {row['direction']}. Your mode is {mode}. Your primary objective
 is to lower the concrete agreement-count score ceil(epsilon*p^2); proof roadmaps are shared reference material, not
 your principal deliverable.
 
-You belong to one coordinated 30-agent proof team, not an independent cohort. {coordination}
+You belong to {team_description}, not an independent cohort. {coordination}
 All successful upstream work is shared through the repository. Consult the message board for
 cross-branch warnings and useful imports; do not redo a calculation already certified upstream.
+
+{budget_instruction}
 
 {self._corpus_instruction()}
 
@@ -731,16 +793,16 @@ integer arithmetic whenever possible. Audit division
 by derivatives, discriminants, irreducibility, interpolation multiplicities, and every
 union/Markov/Cauchy--Schwarz loss. Test adversarial tables, inseparability, and concentrated good
 directions. A rigorous obstruction or correction is valuable. Set benchmark_improved=true only
-when the proved claimed_soundness is below the current verified record; the initial
-comparison threshold is 1. Set dimension=2, field_regime=prime, fixed_prime=147457, and
+when the proved claimed_soundness produces a strictly smaller agreement-count score than the
+current verified record. Set dimension=2, field_regime=prime, fixed_prime=147457, and
 fixed_degree=87 in the structured response.
 
 The old score-one/constant-polynomial argument is below the admissible epsilon floor and is not a
 leaderboard result. Treat earlier artifacts using only epsilon/10 as superseded, except for
 lemmas that remain valid independently of that recovery contract. Set leaderboard_submission=true only for a fully proved, numerical, end-to-end bivariate
 soundness theorem that strictly improves the record. Put its complete load-bearing logic chain
-in proof_steps, including exact citations and statements for imported lemmas. Two independent
-auditors will verify that chain and its lemmas. For a standalone lemma, obstruction,
+in proof_steps, including exact citations and statements for imported lemmas. One independent
+xhigh verifier will verify that chain and its lemmas immediately. For a standalone lemma, obstruction,
 counterexample, conditional architecture, or proof tool, set leaderboard_submission=false and
 benchmark_improved=false. It remains available to the Lemma Book and later researchers but does
 not consume verifier work until a leaderboard proof depends on it.
@@ -751,7 +813,8 @@ Characteristic Audit, and Limitations. Number all proof steps [P1], [P2], ... an
 proved, conditional, conjectural, or refuted. RULE: A lemma statement contains only its
 quantified objects, hypotheses, and conclusion. It contains no motivation, derivation,
 commentary, proof sketch, interpretation, history, or explanation; put all such material in the
-proof. A dedicated Lemma Writer will post-edit and may split a lemma without changing its content.
+proof. A Lemma Writer may post-edit and split a lemma without changing its content when that
+optional publishing pass is enabled.
 """
 
     def _genius_prompt(self) -> str:
