@@ -8,13 +8,19 @@
       "jobs": 11
     }
   },
-  "durable_file_count": 79,
+  "durable_file_count": 80,
   "files": [
     {
       "bytes": 642,
       "path": "research_state/README.md",
       "role": "documentation",
       "sha256": "d767faba3729522ea1cbe3e107dc7c14549c0d49e80fc08ed6660c55117020a3"
+    },
+    {
+      "bytes": 21,
+      "path": "research_state/campaign-10-frugal/COMPLETED",
+      "role": "documentation",
+      "sha256": "57556cc2c2f7cd18fff17d95357470536ad020ddbe5b666a373b2783a7fb1963"
     },
     {
       "bytes": 11660,
@@ -487,5 +493,5 @@
   ],
   "hash_algorithm": "sha256",
   "schema": "line-point-concrete-data-manifest-v1",
-  "total_bytes": 1155581
+  "total_bytes": 1155602
 }
