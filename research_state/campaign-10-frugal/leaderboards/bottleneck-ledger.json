@@ -414,6 +414,114 @@
     "status": "proved"
   },
   {
+    "input_bound": "Uniform affine-line-then-point sampling.",
+    "job_id": "researcher-0005",
+    "justification": "Every line contains p points.",
+    "loss": "None.",
+    "output_bound": "N=3206262880419842 equiprobable incidences.",
+    "stage": "sampling normalization",
+    "status": "proved"
+  },
+  {
+    "input_bound": "Accepted pencil degrees.",
+    "job_id": "researcher-0005",
+    "justification": "Exact hypergeometric averaging; maximum at a=49122.",
+    "loss": "At most (57324432897511903358379/387300960692066551488512)(1\u2212rho)N.",
+    "output_bound": "Three complete directions plus 408 fourth-direction lines.",
+    "stage": "direction selection",
+    "status": "proved"
+  },
+  {
+    "input_bound": "Uncovered point weights.",
+    "job_id": "researcher-0005",
+    "justification": "The largest 3776 weights carry at least 3776/M of the mass.",
+    "loss": "Residual factor 1\u22123776/M.",
+    "output_bound": "Coefficient kappa4'=1246437422331006215441194309538667/8421304329489870366247361127538688.",
+    "stage": "label-sensitive coverage",
+    "status": "proved"
+  },
+  {
+    "input_bound": "6702349500 weighted monomials.",
+    "job_id": "researcher-0005",
+    "justification": "442779\u00b715137+3776=6702349499.",
+    "loss": "All but one guaranteed kernel dimension.",
+    "output_bound": "Squarefree weighted-degree-at-most-15136 relation.",
+    "stage": "interpolation",
+    "status": "proved"
+  },
+  {
+    "input_bound": "Covered accepted incidences.",
+    "job_id": "researcher-0005",
+    "justification": "Nonidentity restrictions have at most 15136 roots.",
+    "loss": "15136(\u039b\u2212t).",
+    "output_bound": "Formal identities on t lines.",
+    "stage": "identity extension",
+    "status": "proved"
+  },
+  {
+    "input_bound": "t identity lines.",
+    "job_id": "researcher-0005",
+    "justification": "Content and nominal projective-discriminant degree.",
+    "loss": "pz with z\u22642618012.",
+    "output_bound": "Primitive derivative-nondegenerate lines.",
+    "stage": "exceptional cleanup",
+    "status": "proved"
+  },
+  {
+    "input_bound": "Regular identity lines.",
+    "job_id": "researcher-0005",
+    "justification": "Each nonzero B_Z restriction has degree at most 15049.",
+    "loss": "15049(t\u2212z).",
+    "output_bound": "Simple accepted roots.",
+    "stage": "derivative cleanup",
+    "status": "proved"
+  },
+  {
+    "input_bound": "No component of point density at least tau.",
+    "job_id": "researcher-0005",
+    "justification": "Balanced two-range potential and C4 empty-core bound.",
+    "loss": "15136M+4414(t\u2212z)\u22126861826.",
+    "output_bound": "Uniform no-large-component peeling bound.",
+    "stage": "component-aware peeling",
+    "status": "proved"
+  },
+  {
+    "input_bound": "t\u2264\u039b and z\u22642618012.",
+    "job_id": "researcher-0005",
+    "justification": "Both collected coefficients are positive.",
+    "loss": "Fixed subtotal C=752643622330244.",
+    "output_bound": "Continuous frontier R with floor(MR)=7249403421.",
+    "stage": "fixed-loss consolidation",
+    "status": "proved"
+  },
+  {
+    "input_bound": "Acceptance rho\u22657249403422/M.",
+    "job_id": "researcher-0005",
+    "justification": "Exact positive survival margin.",
+    "loss": "No further loss.",
+    "output_bound": "A component of density at least 7249403422/(10M).",
+    "stage": "component survival",
+    "status": "proved"
+  },
+  {
+    "input_bound": "Connected simple-root identity component.",
+    "job_id": "researcher-0005",
+    "justification": "KTZ Lemmas 2.5, 2.7, and 6.1.",
+    "loss": "None.",
+    "output_bound": "One total-degree-at-most-87 polynomial.",
+    "stage": "polynomial recovery",
+    "status": "proved"
+  },
+  {
+    "input_bound": "epsilon=3334045178670124/10^16.",
+    "job_id": "researcher-0005",
+    "justification": "The trigger is in the same 1/N acceptance cell as 7249403422/M.",
+    "loss": "Required factor 1/10 only.",
+    "output_bound": "Score 7249403422 and at least 724940343 recovered points.",
+    "stage": "lattice and recovery conversion",
+    "status": "proved"
+  },
+  {
     "input_bound": "Accepted incidence density \u03c1.",
     "job_id": "researcher-0006",
     "justification": "Uniform line-then-point sampling is uniform on N incidences.",
