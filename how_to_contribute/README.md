@@ -37,10 +37,13 @@ where \(Q\) has total degree at most \(87\). The campaign seeks explicit values
 \[
 \operatorname{Pass}(f,P)\ge\varepsilon
 \quad\Longrightarrow\quad
-\operatorname{Agr}_{87}(f)\ge\varepsilon/10
+\varepsilon\ge\frac{1.1d}{p}=\frac{957}{1474570}
+\quad\text{and}\quad
+\operatorname{Agr}_{87}(f)\ge\max\!\left\{\frac{2d}{p},\frac{\varepsilon}{10}\right\}
 \]
 
-for every pair \((f,P)\). The public leaderboard records decreasing values of \(\varepsilon\).
+for every pair \((f,P)\). In particular every leaderboard submission must state at its top its
+concrete recovery count, which is at least \(2dp=25{,}657{,}518\) points. The public leaderboard records decreasing values of \(\varepsilon\).
 Do not change the prime, degree, dimension, sampling distribution, total-degree convention, or
 single-polynomial conclusion.
 
@@ -151,4 +154,3 @@ public observatory.
 
 The standalone [research prompt](RESEARCH_PROMPT.md) can be copied directly into another capable
 AI system. The public observatory also provides a one-click copy button.
-

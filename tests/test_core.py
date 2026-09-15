@@ -30,6 +30,9 @@ campaign:
   reasoning_effort: {effort}
   initial_soundness: 1.0
   recovery_divisor: 10
+  minimum_soundness_numerator: 957
+  minimum_soundness_denominator: 1474570
+  minimum_recovery_agreement_count: 25657518
 """)
     return path
 
@@ -97,7 +100,8 @@ class CampaignTests(unittest.TestCase):
             prompt = campaign._research_prompt({"id": "researcher-0001", "ordinal": 1, "direction": "test"})
             self.assertIn("p=147457", prompt)
             self.assertIn("total degree d=87", prompt)
-            self.assertIn("epsilon/10", prompt)
+            self.assertIn("epsilon >= 957/1474570", prompt)
+            self.assertIn("max(174/147457, epsilon/10)", prompt)
             self.assertIn("Lower absolute agreement-count scores are stronger", prompt)
             self.assertIn("A lemma statement contains only", prompt)
             self.assertIn("leaderboard_submission=true", prompt)
@@ -145,6 +149,8 @@ class CampaignTests(unittest.TestCase):
                 "title": "Candidate", "result_status": "proved", "dimension": 2,
                 "field_regime": "prime", "fixed_prime": 147457, "fixed_degree": 87,
                 "claim_scope": "bivariate_theorem", "claimed_soundness": 0.2,
+                "guaranteed_recovery_fraction": 0.2,
+                "guaranteed_recovery_agreement_count": 147457 ** 2,
                 "leaderboard_submission": True, "benchmark_improved": True,
                 "theorem_statement": theorem,
                 "proof_steps": [], "soundness_ledger": [],
@@ -182,6 +188,8 @@ class CampaignTests(unittest.TestCase):
                     "leaderboard_submission": True, "claim_scope": "bivariate_theorem",
                     "result_status": "proved", "benchmark_improved": True,
                     "claimed_soundness": 0.2,
+                    "guaranteed_recovery_fraction": 0.2,
+                    "guaranteed_recovery_agreement_count": 147457 ** 2,
                 }),
             ):
                 target = submissions / job_id
@@ -216,6 +224,8 @@ class CampaignTests(unittest.TestCase):
                 "fixed_prime": 147457, "fixed_degree": 87, "result_status": "proved",
                 "claim_scope": "bivariate_theorem", "leaderboard_submission": True,
                 "benchmark_improved": True, "claimed_soundness": 0.5,
+                "guaranteed_recovery_fraction": 0.5,
+                "guaranteed_recovery_agreement_count": 147457 ** 2,
                 "theorem_statement": "Pass at least 1/2 implies agreement at least 1/20.",
                 "parameter_regime": "m=2,p=147457,d=87",
                 "sampling_model": "uniform affine line then uniform point",

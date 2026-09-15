@@ -42,7 +42,7 @@ ROADMAP_DEFINITIONS = (
         "focus": "a complete fixed-parameter dependency chain ending in one global polynomial",
         "target": (
             "Prove that acceptance at least an explicit $\\varepsilon$ yields agreement with one "
-            "total-degree-at-most-$87$ polynomial on at least $\\varepsilon/10$ of $\\mathbb F_{147457}^2$."
+            "total-degree-at-most-$87$ polynomial on at least $\\max\\{174/147457,\\varepsilon/10\\}$ of $\\mathbb F_{147457}^2$, with $\\varepsilon\\ge957/1474570$."
         ),
     },
 )
@@ -320,9 +320,9 @@ class RoadmapWorkshop:
             except (json.JSONDecodeError, OSError, TypeError):
                 points = []
         record = (
-            f"epsilon={min(float(point['soundness']) for point in points):.17g}"
+            f"agreement_count={min(int(point.get('agreement_count', round(float(point['soundness']) * 147457**2))) for point in points)}"
             if points else
-            f"no verified point yet (comparison threshold epsilon={float(self.cfg.get('initial_soundness', 1.0)):.17g})"
+            "no verified point yet (comparison threshold is the absolute count equivalent)"
         )
         return f"""You are the proof-roadmap agent for `{definition['id']}` in the bivariate
 prime-field line-versus-point campaign. Work at the level of a Lean-style proof plan: give a
@@ -341,7 +341,7 @@ splits are display-only and never change this proof reference.
 The scope is fixed at $m=2$ over $\\mathbb F_{{147457}}$ with total degree $d=87$. Do not vary
 these parameters or work on dimension bootstrapping. The target is the lowest explicit soundness
 $\\varepsilon$ for which acceptance at least $\\varepsilon$ forces agreement with one global
-total-degree-at-most-$87$ polynomial on at least $\\varepsilon/10$ of all points. Lower is
+total-degree-at-most-$87$ polynomial on at least $\\max\\{{174/147457,\\varepsilon/10\\}}$ of all points, with $\\varepsilon\\ge957/1474570$. Lower is
 better. Use work_state only to report activity: `open`,
 `drafting`, `candidate`, `blocked`, or `refuted`. The harness—not you—derives proof status from
 exact source hashes and two independent matching verifier accepts. Never convert confidence, a polished lemma,

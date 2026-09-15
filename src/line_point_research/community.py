@@ -3,6 +3,7 @@ from __future__ import annotations
 import hashlib
 import json
 import re
+from fractions import Fraction
 from pathlib import Path
 from typing import Any
 
@@ -125,6 +126,23 @@ def validate_community_package(package_path: Path | str) -> dict[str, Any]:
         if (not isinstance(soundness, (int, float)) or isinstance(soundness, bool) or
                 not 0 < float(soundness) <= 1):
             errors.append("a leaderboard submission needs claimed_soundness in (0,1]")
+        elif Fraction(str(soundness)) < Fraction(957, 1474570):
+            errors.append("a leaderboard submission needs claimed_soundness >= 957/1474570 = 1.1d/p")
+        recovery_fraction = response.get("guaranteed_recovery_fraction")
+        recovery_count = response.get("guaranteed_recovery_agreement_count")
+        if (not isinstance(recovery_fraction, (int, float)) or isinstance(recovery_fraction, bool)):
+            errors.append("a leaderboard submission needs numeric guaranteed_recovery_fraction")
+        elif isinstance(soundness, (int, float)) and not isinstance(soundness, bool) and \
+                Fraction(str(recovery_fraction)) < max(Fraction(174, 147457), Fraction(str(soundness)) / 10):
+            errors.append("guaranteed_recovery_fraction is below max(2d/p, epsilon/10)")
+        if not isinstance(recovery_count, int) or isinstance(recovery_count, bool):
+            errors.append("a leaderboard submission needs integer guaranteed_recovery_agreement_count")
+        elif isinstance(soundness, (int, float)) and not isinstance(soundness, bool):
+            required_fraction = max(Fraction(174, 147457), Fraction(str(soundness)) / 10)
+            rational_count = required_fraction * (147457 ** 2)
+            required = (rational_count.numerator + rational_count.denominator - 1) // rational_count.denominator
+            if recovery_count < required:
+                errors.append("guaranteed_recovery_agreement_count is below the required floor")
         for step in proof_steps if isinstance(proof_steps, list) else []:
             if not isinstance(step, dict) or step.get("status") != "proved":
                 errors.append("every leaderboard proof step must be proved")
@@ -221,4 +239,3 @@ def ingest_community_package(
         "submission_sha256": validation["submission_sha256"],
         "campaign": status,
     }
-

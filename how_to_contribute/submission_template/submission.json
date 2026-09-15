@@ -16,6 +16,8 @@
   "leaderboard_submission": false,
   "benchmark_improved": false,
   "claimed_soundness": null,
+  "guaranteed_recovery_fraction": null,
+  "guaranteed_recovery_agreement_count": null,
   "theorem_statement": "State the exact theorem or lemma, with all quantifiers and hypotheses.",
   "parameter_regime": "m=2; p=147457; total degree d=87",
   "sampling_model": "Uniform affine line in F_p^2, followed by a uniform point on that line.",
@@ -54,4 +56,3 @@
   "obstructions": [],
   "next_tasks": []
 }
-

@@ -30,7 +30,9 @@ The target is a rigorous explicit \(\varepsilon\in(0,1]\) such that, for every \
 \[
 \operatorname{Pass}(f,P)\ge\varepsilon
 \Longrightarrow
-\operatorname{Agr}_{87}(f)\ge\varepsilon/10.
+\varepsilon\ge\frac{957}{1474570}
+\quad\text{and}\quad
+\operatorname{Agr}_{87}(f)\ge\max\!\left\{\frac{174}{147457},\frac{\varepsilon}{10}\right\}.
 \]
 
 Lower leaderboard values are the campaign objective. Do not vary \(p,d,m\), use extension fields,
@@ -87,4 +89,3 @@ line-point-concrete community-validate community_submissions/<your-slug>
 
 Never claim verification yourself. The repository harness promotes a result only after two
 independent auditors accept the same theorem SHA-256 and the same numerical \(\varepsilon\).
-

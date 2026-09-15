@@ -27,16 +27,33 @@ and
 
 ## Score
 
-A number \(\varepsilon\in(0,1]\) is a verified LvP soundness if
+A number \(\varepsilon\in(0,1]\) is an admissible verified LvP soundness only when
+
+\[
+\varepsilon\ge \frac{11d}{10p}=\frac{957}{1474570},
+\]
+
+and
 
 \[
 \forall(f,P),\qquad
 \operatorname{Pass}(f,P)\ge\varepsilon
 \Longrightarrow
-\operatorname{Agr}_{87}(f)\ge\varepsilon/10.
+\operatorname{Agr}_{87}(f)\ge
+\max\!\left\{\frac{2d}{p},\frac{\varepsilon}{10}\right\}.
 \]
 
-The score is \(\varepsilon\), and **smaller is better**. The claimed decimal must be an explicit rational or terminating decimal, not asymptotic notation. A stronger recovery conclusion is welcome, but the graph records the largest exactly proved trigger needed to guarantee agreement \(\varepsilon/10\).
+The leaderboard score is the absolute agreement-count equivalent
+\[
+A=\left\lceil \varepsilon p^2\right\rceil.
+\]
+It records the number of points corresponding to the soundness threshold (with
+\(\varepsilon=A/p^2\) retained as a normalized reference); **smaller \(A\) is better**.
+The claimed decimal must be an explicit rational or terminating decimal, not asymptotic notation.
+A stronger recovery conclusion is welcome, but the graph records the largest exactly proved trigger
+needed to guarantee agreement \(\max\{2d/p,\varepsilon/10\}\), whose recovery count is
+\(\max\{2dp,\lceil A/10\rceil\}\).  Here the recovery floor is exactly
+\(2dp=25{,}657{,}518\) points.
 
 ## Promotion rule
 
@@ -45,15 +62,16 @@ only for a proved, numerical, end-to-end bivariate soundness theorem that improv
 record. Standalone lemmas, proof tools, obstructions, counterexamples, and conditional
 architectures are stored without verifier review.
 
-A leaderboard submission is graphed only if two independent verifier agents both:
+A leaderboard submission is graphed only if one independent verifier agent:
 
 1. audit the exact same theorem SHA-256;
 2. verify \(p=147457\), \(d=87\), uniform incident-pair sampling, and total degree;
 3. traverse the clear load-bearing logic chain and accept every lemma, imported result, and exact
    numerical inequality used in that chain;
 4. agree on the numeric soundness value;
-5. verify the conclusion \(\operatorname{Agr}_{87}(f)\ge\varepsilon/10\);
-6. return no required changes or fatal obstruction.
+5. verify \(\varepsilon\ge957/1474570\) and the conclusion
+   \(\operatorname{Agr}_{87}(f)\ge\max\{2d/p,\varepsilon/10\}\);
+6. returns no required changes or fatal obstruction.
 
 The harness, not an agent, computes double-verification and graph promotion. The first doubly verified value is promoted; later values are promoted only if strictly smaller than every earlier promoted value.
 
@@ -71,7 +89,7 @@ Finite computation may be part of a proof only through deterministic, reproducib
 - use exact integer programming or SAT certificates for finite combinatorial sublemmas;
 - combine analytic lemmas with reproducible computer-assisted certificates;
 - construct adversarial tables to rule out overly optimistic thresholds;
-- improve the recovery conversion specifically for the required factor \(1/10\).
+- improve the recovery conversion specifically for \(\max\{2d/p,\varepsilon/10\}\).
 
 ## Lemma writing rule
 

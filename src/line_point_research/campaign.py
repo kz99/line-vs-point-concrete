@@ -70,6 +70,7 @@ RESEARCH_SCHEMA = {
     "required": ["title", "dimension", "field_regime", "result_status", "claim_scope",
                  "leaderboard_submission", "benchmark_improved",
                  "fixed_prime", "fixed_degree", "claimed_soundness", "theorem_statement", "parameter_regime",
+                 "guaranteed_recovery_fraction", "guaranteed_recovery_agreement_count",
                  "sampling_model", "global_conclusion", "literature_dependencies",
                  "proof_steps", "soundness_ledger", "counterexample_attempts",
                  "characteristic_audit", "finite_sanity_checks", "obstructions",
@@ -85,6 +86,8 @@ RESEARCH_SCHEMA = {
         "leaderboard_submission": {"type": "boolean"},
         "benchmark_improved": {"type": "boolean"},
         "claimed_soundness": {"type": ["number", "null"], "exclusiveMinimum": 0, "maximum": 1},
+        "guaranteed_recovery_fraction": {"type": ["number", "null"], "exclusiveMinimum": 0, "maximum": 1},
+        "guaranteed_recovery_agreement_count": {"type": ["integer", "null"], "minimum": 0},
         "theorem_statement": {"type": "string"},
         "parameter_regime": {"type": "string"},
         "sampling_model": {"type": "string"},
@@ -243,7 +246,7 @@ DIRECTIONS = [
     "exploit pencils of accepted lines through popular points",
     "prove direction-by-direction consistency with exact counts",
     "construct a machine-checkable integer or rational certificate",
-    "optimize the final epsilon-to-epsilon/10 recovery step",
+        "optimize the final max(2d/p, epsilon/10) recovery step",
 ]
 
 COHORT_PREFIXES = (
@@ -268,7 +271,7 @@ COORDINATED_TEAM = (
     ("module", "Tighten resultant, discriminant, derivative, and exceptional-line accounting.", (2, 4)),
     ("module", "Turn affine pencils and direction structure into a quantitative reconstruction module.", (3, 6)),
     ("module", "Build an explicit energy or dependent-random-choice replacement for popularity pruning.", (3, 6)),
-    ("module", "Build an explicit list-to-one polynomial recovery module with epsilon/10 output.", (5, 6)),
+    ("module", "Build an explicit list-to-one polynomial recovery module with max(2d/p, epsilon/10) output.", (5, 6)),
     ("integration", "Assemble the best KTZ modules into one complete candidate and expose its remaining loss.", (7, 8, 9)),
     ("integration", "Assemble the pencil, energy, and algebraic modules into a geometric candidate.", (4, 10, 11)),
     ("integration", "Assemble the energy and decoding modules into a decoding-based candidate.", (5, 11, 12)),
@@ -295,7 +298,7 @@ primary literature. Locate the strongest published or publicly posted theorem ac
 applicable to the uniform affine line-versus-point test on F_147457^2 with total degree 87,
 including Kominers--Thaler--Zheng and any later refinement. Record exact paper versions,
 theorem or lemma numbers, hypotheses, constants, and the exact conversion from the source's
-agreement conclusion to this campaign's epsilon/10 convention. Compare all applicable
+agreement conclusion to this campaign's max(2d/p, epsilon/10) convention. Compare all applicable
 candidates and explain mathematical dominance. Never infer a numerical constant hidden by
 O-notation or an existence statement: if the primary theorem does not expose enough constants
 to calculate a concrete epsilon, record that obstruction and do not invent a leaderboard point."""
@@ -319,7 +322,7 @@ CREATE TABLE IF NOT EXISTS campaign_jobs (
 GENIUS_DIRECTION = """Global synthesis of the strongest fixed-instance soundness theorem.
 Treat the pure scale epsilon=(d/q)^(1/3), with unit leading constant, as a serious conjectural
 target: at p=147457 and d=87 this is approximately 0.0838721841647049. Work backward from the
-campaign conclusion Agr_87(f)>=epsilon/10 and try to remove every constant-factor loss that
+campaign conclusion Agr_87(f)>=max(2d/p,epsilon/10) and try to remove every constant-factor loss that
 inflates the current effective constant from about 8.5 to 1. Do not assume the target is true.
 Either produce a complete proof, identify a compatible new lemma that makes a discontinuous
 advance toward it, or isolate an explicit mathematical obstruction showing which step cannot
@@ -331,7 +334,7 @@ In particular, search for a black-box constant-removal or self-improvement lemma
 from a theorem at threshold C*(d/q)^(1/3), test whether popularity bucketing, local list recovery,
 and Reed--Muller list decoding can recover a bounded global list already at
 epsilon=(d/q)^(1/3), after which incidence agreement or pairwise polynomial intersection bounds
-collapse the list to one polynomial agreeing on at least epsilon/10 of the plane. Track the mass
+collapse the list to one polynomial agreeing on at least max(2d/p,epsilon/10) of the plane. Track the mass
 lost in every bucket and the list size exactly. Also test conditioning on dense incidence cores,
 random restrictions, and iterative decoding as possible ways to amplify conditional acceptance
 by C without changing p, d, dimension, sampling, or the final quantifiers. State explicitly why
@@ -377,6 +380,11 @@ def load_campaign_config(path: Path | str) -> tuple[dict[str, Any], CampaignPath
         raise ValueError("campaign.verifier_reasoning_effort must be xhigh, max, or ultra")
     if int(campaign.get("recovery_divisor", 0)) != 10:
         raise ValueError("campaign.recovery_divisor must be 10")
+    if str(campaign.get("minimum_soundness_numerator", "")) != "957" or \
+            str(campaign.get("minimum_soundness_denominator", "")) != "1474570":
+        raise ValueError("campaign minimum soundness must be 957/1474570 = 1.1d/p")
+    if int(campaign.get("minimum_recovery_agreement_count", 0)) != 25657518:
+        raise ValueError("campaign minimum recovery count must be 2dp = 25657518")
     base = config_path.parent
 
     def resolve(value: str) -> Path:
@@ -703,10 +711,11 @@ cross-branch warnings and useful imports; do not redo a calculation already cert
 {self._corpus_instruction()}
 
 The instance is immutable: m=2, p=147457, and total degree d=87. The verifier samples a uniformly
-random affine line in F_p^2 and then a uniformly random point on it. A number epsilon in (0,1]
-is a verified soundness bound if every line table and point table accepted with probability at
-least epsilon admits a total-degree-at-most-87 bivariate polynomial agreeing with the point
-table on at least epsilon/10 of all p^2 points. Lower absolute agreement-count scores are stronger. Do genuine
+random affine line in F_p^2 and then a uniformly random point on it. A number epsilon is an
+admissible verified soundness bound only if epsilon >= 957/1474570 = 1.1d/p and every line
+table and point table accepted with probability at least epsilon admits a total-degree-at-most-87
+bivariate polynomial agreeing with the point table on at least max(174/147457, epsilon/10) of
+all p^2 points (thus at least 25,657,518 points). Lower absolute agreement-count scores are stronger. Do genuine
 mathematical work: isolate one bottleneck, optimize exact constants, attempt a new lemma or
 counterexample, and write a fully quantified fixed-instance result.
 
@@ -716,7 +725,8 @@ silently change uniform affine-line sampling, replace total degree by individual
 fixed parameters, or return only a large list of candidate global polynomials.
 
 Every numerical loss must appear in the soundness ledger. State p=147457, d=87, acceptance
-epsilon, all auxiliary parameters, and the final epsilon/10 agreement. Use exact rational or
+epsilon, all auxiliary parameters, and the final max(2d/p,epsilon/10) agreement, both as a
+fraction and an absolute count. Use exact rational or
 integer arithmetic whenever possible. Audit division
 by derivatives, discriminants, irreducibility, interpolation multiplicities, and every
 union/Markov/Cauchy--Schwarz loss. Test adversarial tables, inseparability, and concentrated good
@@ -725,7 +735,9 @@ when the proved claimed_soundness is below the current verified record; the init
 comparison threshold is 1. Set dimension=2, field_regime=prime, fixed_prime=147457, and
 fixed_degree=87 in the structured response.
 
-Set leaderboard_submission=true only for a fully proved, numerical, end-to-end bivariate
+The old score-one/constant-polynomial argument is below the admissible epsilon floor and is not a
+leaderboard result. Treat earlier artifacts using only epsilon/10 as superseded, except for
+lemmas that remain valid independently of that recovery contract. Set leaderboard_submission=true only for a fully proved, numerical, end-to-end bivariate
 soundness theorem that strictly improves the record. Put its complete load-bearing logic chain
 in proof_steps, including exact citations and statements for imported lemmas. Two independent
 auditors will verify that chain and its lemmas. For a standalone lemma, obstruction,
@@ -747,7 +759,8 @@ proof. A dedicated Lemma Writer will post-edit and may split a lemma without cha
 line-versus-point concrete campaign. You must inspect the complete accumulated corpus and attempt
 an integrated proof minimizing the absolute agreement-count score ceil(epsilon*p^2) for the fixed instance. Your sole
 research objective is a new verified leaderboard record; do not optimize roadmap
-coverage or generality for its own sake.
+coverage or generality for its own sake. The target accepts only epsilon >= 957/1474570 and
+requires recovery max(174/147457,epsilon/10), never merely epsilon/10.
 
 {self._corpus_instruction()}
 
@@ -764,7 +777,7 @@ conditional theorem and its minimal missing obligations. Red-team small prime ch
 inseparability, adversarial line tables, and conversion from a list to one global polynomial.
 Work only with m=2 over F_147457 at total degree 87; do not spend effort on higher dimension or
 extension fields. Lower epsilon is stronger, and recovered point agreement must be at least
-epsilon/10. Set dimension=2, field_regime=prime, fixed_prime=147457, and fixed_degree=87. Do not average
+max(174/147457,epsilon/10). Set dimension=2, field_regime=prime, fixed_prime=147457, and fixed_degree=87. Do not average
 incompatible lemmas or use finite evidence as proof.
 
 Set leaderboard_submission=true, result_status=proved, and benchmark_improved=true only if every
@@ -791,7 +804,8 @@ those works, and later papers that cite or sharpen the relevant theorem. The tar
 m=2 over the prime field F_147457, total degree d=87, with a uniformly random affine line and
 then a uniformly random point on that line. Under the campaign convention, epsilon is valid
 only if acceptance at least epsilon implies agreement of the point table with one bivariate
-total-degree-at-most-87 polynomial on at least epsilon/10 of all p^2 points.
+total-degree-at-most-87 polynomial on at least max(174/147457,epsilon/10) of all p^2 points;
+epsilon itself must be at least 957/1474570.
 
 For every candidate baseline, give the exact title, authors, version/date, stable URL or
 bibliographic identifier, result number, verbatim mathematical hypotheses in your own notation,
@@ -833,7 +847,7 @@ Use a risk-based audit. Read every proof step, but do not spend the bulk of the 
 routine algebra, elementary counting, or a standard lemma whose exact statement and applicable
 hypotheses are clear. Audit deeply the lemmas on which the final epsilon actually depends,
 especially parameter thresholds, exceptional-set bounds, interpolation feasibility,
-characteristic assumptions, list-to-one-polynomial recovery, and the epsilon/10 conversion. A
+characteristic assumptions, list-to-one-polynomial recovery, and the max(2d/p,epsilon/10) conversion. A
 lemma-level issue blocks acceptance only when it creates a real gap in the submitted theorem or
 its numerical ledger; purely editorial lemma imperfections belong to the Lemma Writer and are
 not a reason to delay a sound leaderboard decision.
@@ -848,14 +862,15 @@ exist elsewhere in the corpus.
 Do not inspect, infer, or coordinate with the other verifier's audit. Your judgment must be
 independent. The instance is exactly m=2, p=147457, total degree d=87, uniform affine-line then
 uniform point sampling. The submitted epsilon is valid only if acceptance at least epsilon forces
-agreement with one total-degree-at-most-87 bivariate polynomial on at least epsilon/10 of p^2
-points. Lower epsilon is stronger.
+agreement with one total-degree-at-most-87 bivariate polynomial on at least
+max(174/147457,epsilon/10) of p^2 points, and epsilon must be at least 957/1474570. Lower epsilon is stronger.
 
 An accept requires complete coverage; a correct exact soundness ledger; valid arithmetic at the
 fixed prime; a proved conversion to the stated
 single-polynomial global conclusion; no required changes; and no fatal obstruction. Use reject
 with unfixable=true only for a concrete counterexample or false theorem. Use revise for repairable
-gaps. Recompute the claimed epsilon and its epsilon/10 conclusion. Reject or request revision if
+gaps. Recompute the claimed epsilon, enforce epsilon >= 957/1474570, and verify its
+max(174/147457,epsilon/10) conclusion and absolute recovery count. Reject or request revision if
 the proof changes p, d, m, sampling, total-degree convention, or the one-polynomial conclusion.
 Set every fixed-parameter verification boolean true only after checking all load-bearing claims.
 Exact deterministic computation is admissible only with reproducible code and a checkable
@@ -903,6 +918,22 @@ NUMBERED NOTE:
                 errors.append("leaderboard_submission requires numeric claimed_soundness")
             elif not 0 < float(soundness) < float(self.cfg.get("initial_soundness", 1.0)):
                 errors.append("claimed soundness must strictly improve the initial threshold")
+            elif Fraction(str(soundness)) < Fraction(957, 1474570):
+                errors.append("claimed soundness must be at least 957/1474570 = 1.1d/p")
+            recovery_fraction = response.get("guaranteed_recovery_fraction")
+            recovery_count = response.get("guaranteed_recovery_agreement_count")
+            if not isinstance(recovery_fraction, (int, float)) or isinstance(recovery_fraction, bool):
+                errors.append("leaderboard_submission requires numeric guaranteed_recovery_fraction")
+            elif Fraction(str(recovery_fraction)) < max(Fraction(174, 147457), Fraction(str(soundness)) / 10):
+                errors.append("guaranteed recovery fraction is below max(2d/p, epsilon/10)")
+            if not isinstance(recovery_count, int) or isinstance(recovery_count, bool):
+                errors.append("leaderboard_submission requires integer guaranteed_recovery_agreement_count")
+            else:
+                required_fraction = max(Fraction(174, 147457), Fraction(str(soundness)) / 10)
+                required_count = (required_fraction * (147457 ** 2))
+                required_count = (required_count.numerator + required_count.denominator - 1) // required_count.denominator
+                if recovery_count < required_count:
+                    errors.append("guaranteed recovery agreement count is below the required floor")
             if any(step.get("status") != "proved" for step in response.get("proof_steps", [])):
                 errors.append("every leaderboard proof step must be proved")
             if any(stage.get("status") != "proved" for stage in response.get("soundness_ledger", [])):
@@ -1039,6 +1070,9 @@ NUMBERED NOTE:
             "verifier_reasoning_effort": str(self.cfg.get("verifier_reasoning_effort", "xhigh")),
             "verification_policy": "one independent high-reasoning audit for leaderboard submissions",
             "recovery_divisor": int(self.cfg.get("recovery_divisor", 10)),
+            "minimum_soundness": "957/1474570",
+            "minimum_recovery_fraction": "174/147457",
+            "minimum_recovery_agreement_count": int(self.cfg.get("minimum_recovery_agreement_count", 25657518)),
             "initial_soundness": float(self.cfg.get("initial_soundness", 1.0)),
             "researcher_count": int(self.cfg["researcher_count"]),
             "literature_agent_count": (
@@ -1132,8 +1166,10 @@ NUMBERED NOTE:
                 "fixed_degree": response.get("fixed_degree", 87),
                 "claimed_soundness": claimed,
                 "agreement_count": agreement_count,
-                "recovery_agreement_count": ((agreement_count + 9) // 10
-                                              if agreement_count is not None else None),
+                "recovery_agreement_count": max(
+                    int(self.cfg.get("minimum_recovery_agreement_count", 25657518)),
+                    ((agreement_count + 9) // 10 if agreement_count is not None else 0),
+                ) if agreement_count is not None else None,
                 "leaderboard_submission": leaderboard_submission,
                 "benchmark_improved": response.get("benchmark_improved", False),
                 "theorem_statement": claim,

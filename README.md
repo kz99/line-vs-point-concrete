@@ -26,14 +26,27 @@ A number \(\varepsilon\in(0,1]\) is a **verified LvP soundness** when there is a
 admits a bivariate polynomial \(Q\in\mathbb F_p[X,Y]\) of total degree at most \(87\) satisfying
 
 \[
-\Pr_{x\in\mathbb F_p^2}[Q(x)=f(x)]\ge\varepsilon/10.
+\Pr_{x\in\mathbb F_p^2}[Q(x)=f(x)]\ge
+\max\!\{2d/p,\varepsilon/10\},\qquad \varepsilon\ge 1.1d/p.
 \]
 
-Lower values of \(\varepsilon\) are stronger. A claimed value is promoted to the public progress graph only after two independently prompted verifier agents accept the exact same SHA-identified theorem and numeric threshold. Disagreement, revision requests, and conditional results remain visible but are not graphed.
+The public leaderboard displays the absolute agreement-count equivalent
+\(A=\lceil\varepsilon p^2\rceil\) (points in \(\mathbb F_p^2\)); lower (A) is stronger, while
+\(\varepsilon=A/p^2\) remains visible for comparison. A claimed value is promoted to the public
+progress graph only after two independently prompted verifier agents accept the exact same
+SHA-identified theorem and numeric threshold. Disagreement, revision requests, and conditional
+results remain visible but are not graphed.
 
 ## Research loop
 
-The ten-agent trial and 300-agent campaign are durable, resumable SQLite queues. The trial also has a dedicated state-of-the-art literature researcher. The ten construction seats are front-loaded with KTZ parameter hackers and high-risk new-architecture searches whose primary objective is a lower concrete leaderboard value. Only an explicit, proved, numerical, end-to-end leaderboard submission receives two independent audits. Those audits verify its complete load-bearing proof chain, including every lemma it uses; standalone proposed lemmas remain unaudited until imported into such a chain. All agents are pinned to `gpt-5.6-sol` at `ultra` reasoning.
+The lab supports durable, resumable SQLite queues. The active leaderboard campaign uses three
+cohorts of ten researchers: exact refinements of the latest record, black-box/list-decoding
+constant removal, and genuinely new bivariate architectures. All cohorts share one corpus,
+lemma store, proof-roadmap state, and message board, and every seat is pinned to `gpt-5.6-sol`
+at `ultra` reasoning. Their sole objective is a strict improvement in the absolute agreement-count
+leaderboard. Only an explicit, proved, numerical, end-to-end leaderboard submission receives two
+independent audit at `xhigh` reasoning. That audit verifies its complete load-bearing proof chain,
+including every lemma it uses; standalone proposed lemmas remain unaudited until imported into such a chain.
 
 ```bash
 python -m pip install -e .

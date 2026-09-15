@@ -36,3 +36,7 @@ campaign:
   pages_poll_seconds: 60
   initial_soundness: 0.359229046020947
   recovery_divisor: 10
+  # A leaderboard theorem is admissible only in this non-vacuous regime.
+  minimum_soundness_numerator: 957
+  minimum_soundness_denominator: 1474570
+  minimum_recovery_agreement_count: 25657518
