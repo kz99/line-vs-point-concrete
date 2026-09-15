@@ -11,6 +11,7 @@ import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from dataclasses import dataclass
 from datetime import datetime, timezone
+from fractions import Fraction
 from pathlib import Path
 from typing import Any
 
@@ -245,6 +246,12 @@ DIRECTIONS = [
     "optimize the final epsilon-to-epsilon/10 recovery step",
 ]
 
+COHORT_PREFIXES = (
+    "COHORT A (10 agents): sharpen the latest verified construction and its exact finite ledger.",
+    "COHORT B (10 agents): pursue black-box/list-decoding and constant-removal improvements over the latest record.",
+    "COHORT C (10 agents): search genuinely new bivariate structures, while targeting a strict leaderboard improvement.",
+)
+
 
 LITERATURE_DIRECTION = """Establish the campaign's rigorous state-of-the-art baseline from
 primary literature. Locate the strongest published or publicly posted theorem actually
@@ -272,6 +279,28 @@ CREATE TABLE IF NOT EXISTS campaign_jobs (
 """
 
 
+GENIUS_DIRECTION = """Global synthesis of the strongest fixed-instance soundness theorem.
+Treat the pure scale epsilon=(d/q)^(1/3), with unit leading constant, as a serious conjectural
+target: at p=147457 and d=87 this is approximately 0.0838721841647049. Work backward from the
+campaign conclusion Agr_87(f)>=epsilon/10 and try to remove every constant-factor loss that
+inflates the current effective constant from about 8.5 to 1. Do not assume the target is true.
+Either produce a complete proof, identify a compatible new lemma that makes a discontinuous
+advance toward it, or isolate an explicit mathematical obstruction showing which step cannot
+reach the pure cubic-root scale. Prioritize structural replacements for popularity pruning,
+two-sided peeling, weighted interpolation cleanup, and component-mass conversion over marginal
+retuning of the existing ledger.
+
+In particular, search for a black-box constant-removal or self-improvement lemma. Starting only
+from a theorem at threshold C*(d/q)^(1/3), test whether popularity bucketing, local list recovery,
+and Reed--Muller list decoding can recover a bounded global list already at
+epsilon=(d/q)^(1/3), after which incidence agreement or pairwise polynomial intersection bounds
+collapse the list to one polynomial agreeing on at least epsilon/10 of the plane. Track the mass
+lost in every bucket and the list size exactly. Also test conditioning on dense incidence cores,
+random restrictions, and iterative decoding as possible ways to amplify conditional acceptance
+by C without changing p, d, dimension, sampling, or the final quantifiers. State explicitly why
+ordinary repetition or rescaling does not suffice if that is the obstruction."""
+
+
 @dataclass
 class CampaignPaths:
     config: Path
@@ -290,8 +319,12 @@ def load_campaign_config(path: Path | str) -> tuple[dict[str, Any], CampaignPath
     if count < 1:
         raise ValueError("campaign.researcher_count must be at least 1")
     effort = str(campaign.get("reasoning_effort", ""))
-    if effort != "ultra":
-        raise ValueError("campaign.reasoning_effort must be ultra")
+    if effort not in {"xhigh", "max", "ultra"}:
+        raise ValueError("campaign.reasoning_effort must be xhigh, max, or ultra")
+    researcher_efforts = campaign.get("researcher_reasoning_efforts", [effort])
+    if not isinstance(researcher_efforts, list) or not researcher_efforts or any(
+            str(item) not in {"xhigh", "max", "ultra"} for item in researcher_efforts):
+        raise ValueError("campaign.researcher_reasoning_efforts must contain xhigh, max, or ultra")
     if int(campaign.get("dimension", 2)) != 2:
         raise ValueError("campaign.dimension must be exactly 2")
     if str(campaign.get("field_regime", "prime")) != "prime":
@@ -300,8 +333,11 @@ def load_campaign_config(path: Path | str) -> tuple[dict[str, Any], CampaignPath
         raise ValueError("campaign.fixed_prime must be 147457")
     if int(campaign.get("fixed_degree", 0)) != 87:
         raise ValueError("campaign.fixed_degree must be 87")
-    if int(campaign.get("verifier_count", 0)) != 2:
-        raise ValueError("campaign.verifier_count must be exactly 2")
+    if int(campaign.get("verifier_count", 0)) != 1:
+        raise ValueError("campaign.verifier_count must be exactly 1")
+    verifier_effort = str(campaign.get("verifier_reasoning_effort", "xhigh"))
+    if verifier_effort not in {"xhigh", "max", "ultra"}:
+        raise ValueError("campaign.verifier_reasoning_effort must be xhigh, max, or ultra")
     if int(campaign.get("recovery_divisor", 0)) != 10:
         raise ValueError("campaign.recovery_divisor must be 10")
     base = config_path.parent
@@ -338,6 +374,20 @@ class ResearchCampaign:
         self.max_workers = int(self.cfg.get("max_workers", 4))
         self.retry_seconds = int(self.cfg.get("retry_seconds", 120))
 
+    def _researcher_effort(self, ordinal: int) -> str:
+        efforts = [str(item) for item in self.cfg.get("researcher_reasoning_efforts", [self.cfg.get("reasoning_effort", "ultra")])]
+        return efforts[(ordinal - 1) % len(efforts)]
+
+    def _provider_for(self, row: dict[str, Any]) -> CommandAgentProvider:
+        effort = str(row.get("reasoning_effort") or self.provider.reasoning_effort or "ultra")
+        if effort == self.provider.reasoning_effort:
+            return self.provider
+        return CommandAgentProvider(
+            self.paths.workspace, self.paths.campaign_dir / "agent_logs",
+            executable=self.provider.executable, model=self.provider.model,
+            reasoning_effort=effort, disable_nested_agents=self.provider.disable_nested_agents,
+            timeout_seconds=self.provider.timeout_seconds)
+
     def connect(self) -> sqlite3.Connection:
         connection = sqlite3.connect(self.db_path, timeout=60)
         connection.row_factory = sqlite3.Row
@@ -355,19 +405,25 @@ class ResearchCampaign:
                     "UPDATE campaign_jobs SET status='queued',error='recovered stale running lease' WHERE status='running'")
             for ordinal in range(1, int(self.cfg["researcher_count"]) + 1):
                 job_id = f"researcher-{ordinal:04d}"
-                direction = DIRECTIONS[(ordinal - 1) % len(DIRECTIONS)]
+                cohort = COHORT_PREFIXES[(ordinal - 1) // 10] if ordinal <= 30 else COHORT_PREFIXES[(ordinal - 1) % 3]
+                direction = f"{cohort} {DIRECTIONS[(ordinal - 1) % len(DIRECTIONS)]}"
                 connection.execute(
                     """INSERT OR IGNORE INTO campaign_jobs
                     (id,role,ordinal,direction,dependency,status,max_attempts,model,reasoning_effort,created_at)
                     VALUES (?,?,?,?,?,'queued',?,?,?,?)""",
                     (job_id, "researcher", ordinal, direction, None,
                      int(self.cfg.get("max_attempts", 8)), self.provider.model,
-                     self.provider.reasoning_effort, utc_timestamp()),
+                     self._researcher_effort(ordinal), utc_timestamp()),
                 )
                 connection.execute(
                     "UPDATE campaign_jobs SET direction=? WHERE id=? AND role='researcher' "
                     "AND status='queued' AND attempts=0",
                     (direction, job_id),
+                )
+                connection.execute(
+                    "UPDATE campaign_jobs SET reasoning_effort=? WHERE id=? AND role='researcher' "
+                    "AND status='queued' AND attempts=0",
+                    (self._researcher_effort(ordinal), job_id),
                 )
             self._insert_literature_agent(connection)
             if bool(self.cfg.get("genius_enabled", True)):
@@ -375,14 +431,14 @@ class ResearchCampaign:
                     """INSERT OR IGNORE INTO campaign_jobs
                     (id,role,ordinal,direction,dependency,status,max_attempts,model,reasoning_effort,created_at)
                     VALUES ('GENIUS','genius',NULL,?,'__swarm_reviews__','queued',?,?,?,?)""",
-                    ("global synthesis of the strongest fixed-instance soundness theorem",
+                    (GENIUS_DIRECTION,
                      int(self.cfg.get("max_attempts", 8)), self.provider.model,
                      self.provider.reasoning_effort, utc_timestamp()),
                 )
                 connection.execute(
                     "UPDATE campaign_jobs SET direction=? WHERE id='GENIUS' AND role='genius' "
                     "AND status='queued' AND attempts=0",
-                    ("global synthesis of the strongest fixed-instance soundness theorem",),
+                    (GENIUS_DIRECTION,),
                 )
         self.export_status()
 
@@ -426,6 +482,8 @@ class ResearchCampaign:
         states = {row["id"]: row["status"] for row in all_jobs}
         ready: list[dict[str, Any]] = []
         for row in rows:
+            if row["role"] == "genius" and not bool(self.cfg.get("genius_enabled", False)):
+                continue
             dependency = row["dependency"]
             if dependency is None:
                 ready.append(row)
@@ -439,8 +497,8 @@ class ResearchCampaign:
                     self._is_leaderboard_submission_id(item["id"])
                 ]
                 verifier_terminal = all(
-                    states.get(f"verifier-{seat}-{source_id}") in {"succeeded", "failed"}
-                    for source_id in successful for seat in ("a", "b"))
+                    states.get(f"verifier-a-{source_id}") in {"succeeded", "failed"}
+                    for source_id in successful)
                 if researcher_terminal and verifier_terminal:
                     ready.append(row)
             elif states.get(dependency) == "succeeded":
@@ -461,16 +519,15 @@ class ResearchCampaign:
         if not bool(self.cfg.get("verifier_enabled", True)):
             return
         with self.lock, self.connect() as connection:
-            for seat in ("a", "b"):
-                verifier_id = f"verifier-{seat}-{source_id}"
-                connection.execute(
-                    """INSERT OR IGNORE INTO campaign_jobs
-                    (id,role,ordinal,direction,dependency,status,max_attempts,model,reasoning_effort,created_at)
-                    VALUES (?, 'verifier', NULL, ?, ?, 'queued', ?, ?, ?, ?)""",
-                    (verifier_id, f"independent verifier {seat.upper()} audit of {source_id}", source_id,
-                     int(self.cfg.get("max_attempts", 8)), self.provider.model,
-                     self.provider.reasoning_effort, utc_timestamp()),
-                )
+            verifier_id = f"verifier-a-{source_id}"
+            connection.execute(
+                """INSERT OR IGNORE INTO campaign_jobs
+                (id,role,ordinal,direction,dependency,status,max_attempts,model,reasoning_effort,created_at)
+                VALUES (?, 'verifier', NULL, ?, ?, 'queued', ?, ?, ?, ?)""",
+                (verifier_id, "independent verifier audit of " + source_id, source_id,
+                 int(self.cfg.get("max_attempts", 8)), self.provider.model,
+                 str(self.cfg.get("verifier_reasoning_effort", "xhigh")), utc_timestamp()),
+            )
 
     def _submission_response(self, source_id: str) -> dict[str, Any] | None:
         path = self.paths.campaign_dir / "submissions" / source_id / "response.json"
@@ -546,7 +603,8 @@ superseded: those files are retained only as provenance and are not part of the 
                 points = []
         if points:
             best = min(float(point["soundness"]) for point in points)
-            record = f"The current doubly verified leaderboard record is epsilon={best:.17g}."
+            record_count = int((Fraction(str(best)) * (147457 ** 2) + 1 - 1).__ceil__())
+            record = f"The current doubly verified leaderboard record is {record_count} agreement points (epsilon={best:.17g})."
         else:
             initial = float(self.cfg.get("initial_soundness", 1.0))
             record = (
@@ -554,7 +612,7 @@ superseded: those files are retained only as provenance and are not part of the 
                 f"the comparison threshold is epsilon={initial:.17g}.")
         return f"""LEADERBOARD OBJECTIVE: {record} Read the authoritative history at
 {history_path}. Every constructive choice must be evaluated by whether it can produce a smaller
-fully proved numerical epsilon for the fixed instance. Do not optimize elegance, generality,
+fully proved absolute agreement-count score ceil(epsilon*p^2) for the fixed instance. Do not optimize elegance, generality,
 roadmap completeness, or exposition at the expense of that objective. Conditional work is
 useful only when it isolates the shortest concrete route to a smaller certifiable epsilon."""
 
@@ -566,7 +624,7 @@ useful only when it isolates the shortest concrete route to a smaller certifiabl
         return f"""You are {row['id']}, one of {self.cfg['researcher_count']} independent
 mathematical research agents improving soundness of the affine line-versus-point low-degree
 test. Your assigned direction is: {row['direction']}. Your mode is {mode}. Your primary objective
-is to lower the concrete leaderboard epsilon; proof roadmaps are shared reference material, not
+is to lower the concrete agreement-count score ceil(epsilon*p^2); proof roadmaps are shared reference material, not
 your principal deliverable.
 
 {self._corpus_instruction()}
@@ -575,7 +633,7 @@ The instance is immutable: m=2, p=147457, and total degree d=87. The verifier sa
 random affine line in F_p^2 and then a uniformly random point on it. A number epsilon in (0,1]
 is a verified soundness bound if every line table and point table accepted with probability at
 least epsilon admits a total-degree-at-most-87 bivariate polynomial agreeing with the point
-table on at least epsilon/10 of all p^2 points. Lower epsilon is stronger. Do genuine
+table on at least epsilon/10 of all p^2 points. Lower absolute agreement-count scores are stronger. Do genuine
 mathematical work: isolate one bottleneck, optimize exact constants, attempt a new lemma or
 counterexample, and write a fully quantified fixed-instance result.
 
@@ -614,7 +672,7 @@ proof. A dedicated Lemma Writer will post-edit and may split a lemma without cha
     def _genius_prompt(self) -> str:
         return f"""You are GENIUS, the global proof-synthesis mathematician for the
 line-versus-point concrete campaign. You must inspect the complete accumulated corpus and attempt
-an integrated proof of the lowest valid soundness epsilon for the fixed instance. Your sole
+an integrated proof minimizing the absolute agreement-count score ceil(epsilon*p^2) for the fixed instance. Your sole
 research objective is a new doubly verifiable leaderboard record; do not optimize roadmap
 coverage or generality for its own sake.
 
@@ -792,16 +850,16 @@ NUMBERED NOTE:
         role, job_id = row["role"], row["id"]
         try:
             if role == "researcher":
-                response, metadata = self.provider.run(
+                response, metadata = self._provider_for(row).run(
                     job_id, self._research_prompt(row), RESEARCH_SCHEMA)
                 schema = "line-point-concrete-submission-v1"
             elif role == "genius":
-                response, metadata = self.provider.run(
+                response, metadata = self._provider_for(row).run(
                     "GENIUS", self._genius_prompt(), GENIUS_SCHEMA)
                 schema = "line-point-concrete-genius-synthesis-v1"
             else:
                 source_id = str(row["dependency"])
-                response, metadata = self.provider.run(
+                response, metadata = self._provider_for(row).run(
                     job_id, self._verifier_prompt(source_id, job_id), AUDIT_SCHEMA)
                 schema = "line-point-concrete-proof-audit-v1"
 
@@ -904,8 +962,9 @@ NUMBERED NOTE:
             "field_regime": str(self.cfg.get("field_regime", "prime")),
             "fixed_prime": int(self.cfg.get("fixed_prime", 147457)),
             "fixed_degree": int(self.cfg.get("fixed_degree", 87)),
-            "verifier_count": 2,
-            "verification_policy": "two independent audits only for leaderboard submissions",
+            "verifier_count": int(self.cfg.get("verifier_count", 1)),
+            "verifier_reasoning_effort": str(self.cfg.get("verifier_reasoning_effort", "xhigh")),
+            "verification_policy": "one independent high-reasoning audit for leaderboard submissions",
             "recovery_divisor": int(self.cfg.get("recovery_divisor", 10)),
             "initial_soundness": float(self.cfg.get("initial_soundness", 1.0)),
             "researcher_count": int(self.cfg["researcher_count"]),
@@ -951,7 +1010,7 @@ NUMBERED NOTE:
             if not leaderboard_submission:
                 continue
             audits = []
-            for seat in ("a", "b"):
+            for seat in ("a",):
                 verifier_id = f"verifier-{seat}-{row['id']}"
                 audit_path = (self.paths.campaign_dir / "reviews" / row["id"] /
                               verifier_id / "audit.json")
@@ -960,6 +1019,10 @@ NUMBERED NOTE:
             claim = response.get("theorem_statement") or response.get("integrated_theorem", "")
             claim_hash = hashlib.sha256(claim.encode()).hexdigest()
             claimed = response.get("claimed_soundness")
+            agreement_count = None
+            if claimed is not None:
+                normalized = Fraction(str(claimed)) * (147457 ** 2)
+                agreement_count = (normalized.numerator + normalized.denominator - 1) // normalized.denominator
             def chain_verified(audit: dict[str, Any]) -> bool:
                 chain = audit.get("proof_chain_audit") or audit.get("line_audit") or []
                 complete = (
@@ -970,7 +1033,7 @@ NUMBERED NOTE:
                 return bool(complete and chain and
                             all(item.get("verdict") == "valid" for item in chain))
             double_verified = (
-                leaderboard_submission and len(audits) == 2 and claimed is not None and
+                leaderboard_submission and len(audits) == 1 and claimed is not None and
                 response.get("result_status") == "proved" and
                 all(audit.get("verdict") == "accept" for audit in audits) and
                 all(audit.get("verified_claim_sha256") == claim_hash for audit in audits) and
@@ -995,6 +1058,9 @@ NUMBERED NOTE:
                 "fixed_prime": response.get("fixed_prime", 147457),
                 "fixed_degree": response.get("fixed_degree", 87),
                 "claimed_soundness": claimed,
+                "agreement_count": agreement_count,
+                "recovery_agreement_count": ((agreement_count + 9) // 10
+                                              if agreement_count is not None else None),
                 "leaderboard_submission": leaderboard_submission,
                 "benchmark_improved": response.get("benchmark_improved", False),
                 "theorem_statement": claim,
@@ -1029,6 +1095,8 @@ NUMBERED NOTE:
                 "job_id": entry["job_id"],
                 "title": entry["title"],
                 "soundness": epsilon,
+                "agreement_count": entry["agreement_count"],
+                "recovery_agreement_count": entry["recovery_agreement_count"],
                 "previous_best": previous,
                 "gain": previous - epsilon,
                 "verified_at": finished_at,
@@ -1048,6 +1116,8 @@ NUMBERED NOTE:
                 "fixed_prime": 147457,
                 "fixed_degree": 87,
                 "lower_is_better": True,
+                "score_metric": "guaranteed agreement-count equivalent ceil(epsilon * p^2)",
+                "score_unit": "points in F_p^2",
                 "verification_threshold": 2,
                 "points": history,
             }, indent=2, sort_keys=True) + "\n")

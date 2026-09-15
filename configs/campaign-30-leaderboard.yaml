@@ -1,16 +1,17 @@
 workspace: ..
 corpus_root: ../research_state
-campaign_dir: ../research_state/campaign-10-ultra
+campaign_dir: ../research_state/campaign-30-leaderboard
 
 campaign:
-  researcher_count: 10
-  literature_agent_enabled: true
+  researcher_count: 30
+  literature_agent_enabled: false
   dimension: 2
   field_regime: prime
   fixed_prime: 147457
   fixed_degree: 87
   verifier_enabled: true
   verifier_count: 1
+  verifier_reasoning_effort: xhigh
   lemma_writer_enabled: true
   roadmap_agents_enabled: true
   genius_enabled: false # manual checkpoint only; enable for an explicit GENIUS run
@@ -31,7 +32,7 @@ campaign:
   roadmap_poll_seconds: 45
   roadmap_timeout_seconds: 5400
   roadmap_max_attempts: 4
-  pages_publisher_enabled: true
+  pages_publisher_enabled: false
   pages_poll_seconds: 60
-  initial_soundness: 1.0
+  initial_soundness: 0.359229046020947
   recovery_divisor: 10
