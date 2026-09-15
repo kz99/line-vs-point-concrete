@@ -5949,15 +5949,15 @@
       "status": "failed"
     },
     {
-      "attempts": 0,
+      "attempts": 1,
       "direction": "FRUGAL FUNNEL / RED-TEAM: Audit both builder routes line by line, reject invalid imports, and specify the smallest repairs or strongest surviving strict improvement.",
-      "error": null,
-      "finished_at": null,
+      "error": "AgentError: researcher-0009 agent failed with exit code 1; see /Users/kaizheng/.codex/worktrees/1f44/SSE-auto/Line-vs-Point-concrete/research_state/campaign-10-frugal/agent_logs/20260915T191434Z-ed4683edb4-adfcce6bc7/stderr.txt",
+      "finished_at": "2026-09-15T19:14:37Z",
       "id": "researcher-0009",
       "max_attempts": 2,
       "ordinal": 9,
       "role": "researcher",
-      "started_at": null,
+      "started_at": "2026-09-15T19:14:34Z",
       "status": "queued"
     },
     {
