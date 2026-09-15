@@ -5961,15 +5961,15 @@
       "status": "failed"
     },
     {
-      "attempts": 0,
+      "attempts": 1,
       "direction": "FRUGAL FUNNEL / INTEGRATOR: Use both builder notes and the red-team report to publish the strongest fully proved strict leaderboard improvement; otherwise publish the exact frontier and next decisive calculation.",
-      "error": null,
-      "finished_at": null,
+      "error": "AgentError: researcher-0010 agent failed with exit code 1; see /Users/kaizheng/.codex/worktrees/1f44/SSE-auto/Line-vs-Point-concrete/research_state/campaign-10-frugal/agent_logs/20260915T191640Z-fe84eb9b0d-5de998b72d/stderr.txt",
+      "finished_at": "2026-09-15T19:16:43Z",
       "id": "researcher-0010",
       "max_attempts": 2,
       "ordinal": 10,
       "role": "researcher",
-      "started_at": null,
+      "started_at": "2026-09-15T19:16:40Z",
       "status": "queued"
     },
     {

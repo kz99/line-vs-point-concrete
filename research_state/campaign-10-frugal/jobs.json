@@ -153,20 +153,20 @@
     "status": "failed"
   },
   {
-    "attempts": 0,
+    "attempts": 1,
     "created_at": "2026-09-15T18:09:47Z",
     "dependency": "[\"researcher-0007\", \"researcher-0008\", \"researcher-0009\"]",
     "direction": "FRUGAL FUNNEL / INTEGRATOR: Use both builder notes and the red-team report to publish the strongest fully proved strict leaderboard improvement; otherwise publish the exact frontier and next decisive calculation.",
-    "error": null,
-    "finished_at": null,
+    "error": "AgentError: researcher-0010 agent failed with exit code 1; see /Users/kaizheng/.codex/worktrees/1f44/SSE-auto/Line-vs-Point-concrete/research_state/campaign-10-frugal/agent_logs/20260915T191640Z-fe84eb9b0d-5de998b72d/stderr.txt",
+    "finished_at": "2026-09-15T19:16:43Z",
     "id": "researcher-0010",
     "max_attempts": 2,
     "model": "gpt-5.6-sol",
     "ordinal": 10,
-    "output_dir": null,
+    "output_dir": "/Users/kaizheng/.codex/worktrees/1f44/SSE-auto/Line-vs-Point-concrete/research_state/campaign-10-frugal/submissions/researcher-0010",
     "reasoning_effort": "ultra",
     "role": "researcher",
-    "started_at": null,
+    "started_at": "2026-09-15T19:16:40Z",
     "status": "queued"
   },
   {
