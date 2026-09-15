@@ -861,6 +861,126 @@
       "output_bound": "Agreement fraction max(174/147457,\u03b5/10)=3380075810946357/10^17; at least 734949044 points.",
       "stage": "final recovery contract",
       "status": "proved"
+    },
+    {
+      "campaign": "campaign-10-frugal",
+      "input_bound": "Accepted-incidence density rho.",
+      "job_id": "researcher-0004",
+      "justification": "Every affine line has p points, so the prescribed experiment is uniform on N incidences.",
+      "loss": "None.",
+      "output_bound": "N=3206262880419842 equiprobable incidences.",
+      "stage": "sampling normalization",
+      "status": "proved"
+    },
+    {
+      "campaign": "campaign-10-frugal",
+      "input_bound": "Accepted pencil degree a at each point.",
+      "job_id": "researcher-0004",
+      "justification": "Exact hypergeometric averaging over three complete directions and a 408-line partial fourth direction; maximizer a=49122.",
+      "loss": "At most \u03ba4(1\u2212rho)N, \u03ba4=57324432897511903358379/387300960692066551488512.",
+      "output_bound": "442779 selected lines.",
+      "stage": "direction selection",
+      "status": "proved"
+    },
+    {
+      "campaign": "campaign-10-frugal",
+      "input_bound": "Uncovered point weights totaling U.",
+      "job_id": "researcher-0004",
+      "justification": "The 3776 largest weights carry at least 3776U/M.",
+      "loss": "Residual factor 1\u22123776/M; \u03ba4 becomes \u03ba4\u2032=1246437422331006215441194309538667/8421304329489870366247361127538688.",
+      "output_bound": "3776 additional covered point labels.",
+      "stage": "label-sensitive coverage",
+      "status": "proved"
+    },
+    {
+      "campaign": "campaign-10-frugal",
+      "input_bound": "6702349500 weighted monomials.",
+      "job_id": "researcher-0004",
+      "justification": "442779\u00b715137 line equations plus 3776 point equations total 6702349499.",
+      "loss": "All but one guaranteed kernel dimension.",
+      "output_bound": "Squarefree weighted-degree-at-most-15136 relation with nonzero Z-derivative.",
+      "stage": "weighted interpolation",
+      "status": "proved"
+    },
+    {
+      "campaign": "campaign-10-frugal",
+      "input_bound": "Covered accepted incidences.",
+      "job_id": "researcher-0004",
+      "justification": "A nonidentity line restriction has degree at most 15136.",
+      "loss": "At most 15136(\u039b\u2212t) incidences.",
+      "output_bound": "Formal identities on t retained lines.",
+      "stage": "identity extension",
+      "status": "proved"
+    },
+    {
+      "campaign": "campaign-10-frugal",
+      "input_bound": "t formal identity lines.",
+      "job_id": "researcher-0004",
+      "justification": "Coefficient-content degree and nominal projective discriminant.",
+      "loss": "At most pz incidences on z\u22642618012 exceptional lines.",
+      "output_bound": "Primitive derivative-nondegenerate identity lines.",
+      "stage": "exceptional-line deletion",
+      "status": "proved"
+    },
+    {
+      "campaign": "campaign-10-frugal",
+      "input_bound": "t\u2212z regular identity lines.",
+      "job_id": "researcher-0004",
+      "justification": "Each nonzero derivative restriction has degree at most 15049.",
+      "loss": "At most 15049(t\u2212z) incidences.",
+      "output_bound": "Simple accepted roots only.",
+      "stage": "derivative cleanup",
+      "status": "proved"
+    },
+    {
+      "campaign": "campaign-10-frugal",
+      "input_bound": "Cleaned graph with no component of density tau.",
+      "job_id": "researcher-0004",
+      "justification": "Two-range exact affine potential and C4 empty-core corner.",
+      "loss": "15136M+4414(t\u2212z)\u221228291.",
+      "output_bound": "Uniform empty-or-small-component peeling certificate.",
+      "stage": "component-aware peeling",
+      "status": "proved"
+    },
+    {
+      "campaign": "campaign-10-frugal",
+      "input_bound": "t\u2264\u039b and z\u22642618012.",
+      "job_id": "researcher-0004",
+      "justification": "Collected t and z coefficients are 4327 and 127994, both positive.",
+      "loss": "423197911537678+329110627826464+335089827928\u221228291.",
+      "output_bound": "C=752643629163779.",
+      "stage": "fixed-loss consolidation",
+      "status": "proved"
+    },
+    {
+      "campaign": "campaign-10-frugal",
+      "input_bound": "epsilon=7249403463/21743566849.",
+      "job_id": "researcher-0004",
+      "justification": "Substitution into the no-large-component inequality gives a strictly positive exact margin.",
+      "loss": "C/N+\u03ba4\u2032(1\u2212epsilon).",
+      "output_bound": "A component of density at least epsilon/10 survives.",
+      "stage": "component survival",
+      "status": "proved"
+    },
+    {
+      "campaign": "campaign-10-frugal",
+      "input_bound": "Connected simple-root component with point degree at least 15137.",
+      "job_id": "researcher-0004",
+      "justification": "Formal simple-root lifting, line-factor forcing, and connected propagation.",
+      "loss": "None.",
+      "output_bound": "One total-degree-at-most-87 polynomial on the entire component.",
+      "stage": "polynomial recovery",
+      "status": "proved"
+    },
+    {
+      "campaign": "campaign-10-frugal",
+      "input_bound": "epsilon and the recovery floor 174/147457.",
+      "job_id": "researcher-0004",
+      "justification": "epsilon/10\u2212174/p=6992828283/217435668490>0.",
+      "loss": "Required factor 1/10 and final ceiling.",
+      "output_bound": "Recovery fraction epsilon/10 and at least 724940347 agreeing points.",
+      "stage": "final recovery contract",
+      "status": "proved"
     }
   ],
   "campaign": "campaign-10-frugal",
@@ -1591,6 +1711,238 @@
         "theorem_sha256": "f5c2cfb8430692de57efac66b335f9cfb7c2b71dfecb57588899c028f53f38a1",
         "theorem_statement": "Let p=147457, d=87, and epsilon=3380075810946357/10^16. Under uniform affine-line sampling followed by a uniform point on the selected line, every degree-at-most-87 line table and every point table with acceptance at least epsilon admit one polynomial in F_p[X,Y] of total degree at most 87 agreeing with the point table on more than epsilon/10 of F_p^2, hence on at least 734949044 points. Since epsilon/10>174/147457, this is the required max(2d/p,epsilon/10) recovery. The absolute agreement-count score is 7349490435.",
         "title": "Label-Sensitive Surplus Interpolation Lowers the Fixed Score by 779"
+      },
+      {
+        "agreement_count": 7249403464,
+        "audits": [],
+        "benchmark_improved": true,
+        "campaign": "campaign-10-frugal",
+        "claim_scope": "bivariate_theorem",
+        "claimed_soundness": 0.33340451975262764,
+        "dimension": 2,
+        "double_verified": false,
+        "field_regime": "prime",
+        "fixed_degree": 87,
+        "fixed_prime": 147457,
+        "global_conclusion": "A strict fixed-instance improvement is proved at epsilon=7249403463/21743566849\u22480.33340451975262764. It lowers the verified agreement-count score from 7349491214 to 7249403463, an improvement of 100087751 points, and guarantees one total-degree-at-most-87 polynomial on at least 724940347 points. It also improves the current unverified component-potential candidate by 52988 score points.",
+        "job_id": "researcher-0004",
+        "leaderboard_submission": true,
+        "limitations": [
+          "The sandbox rejected apply_patch to the explicitly assigned checkpoint outbox because the filesystem was mounted read-only. Consequently the deterministic checker could not be stored or hashed during this seat.",
+          "The bounded-search optimality claim concerns only 15120\u2264D\u226415140, 4380\u2264k\u22644470, selectors comprising the maximum feasible number of complete directions plus one partial direction, residual labeled-point constraints, split a0=1/6800, and slopes on a 10^\u22129 rational grid.",
+          "The theorem improves the incumbent independently of local optimality, but verifier promotion should wait until the exact checker is durably stored and replayed.",
+          "The partial-direction and component-potential modules are new relative to the audited incumbent and deserve focused independent review."
+        ],
+        "note_markdown": "# Abstract\n\nFor `p=147457`, total degree `d=87`, and uniform affine-line-then-point sampling, acceptance at least\n\n\\[\n\\varepsilon=\\frac{7249403463}{21743566849}\n\\]\n\nforces one total-degree-at-most-87 polynomial to agree with the point table on at least `epsilon/10`, hence on at least `724940347` points. The score is `7249403463`, improving the verified incumbent by `100087751`.\n\n# Test and Notation\n\nLet `h=p+1`, `M=p\u00b2=21743566849`, `Lambda=p(p+1)=21743714306`, and `N=Mh=3206262880419842`. The accepted-incidence density equals the test acceptance `rho`.\n\nUse weighted degree `D=15136`, derivative cap `q=15049`, point peel cap `D`, and line peel cap `k=4414`. Select three complete directions and 408 lines of a fourth direction, then add the 3776 heaviest uncovered point labels.\n\n# Prior Results\n\nThe verified incumbent and its accepted audit are `research_state/campaign-30-leaderboard/submissions/researcher-0002/response.json` and `research_state/campaign-30-leaderboard/reviews/researcher-0002/verifier-a-researcher-0002/audit.json`. Component-potential peeling and labeled-point interpolation were independently retuned from the current frugal submissions of researchers 0001 and 0003.\n\n# Theorem\n\nEvery point table and degree-at-most-87 affine-line table over `F_147457` with acceptance at least `7249403463/21743566849` admit one polynomial of total degree at most 87 agreeing on at least\n\n\\[\n\\max\\left\\{\\frac{174}{147457},\\frac{7249403463}{217435668490}\\right\\}\n=\\frac{7249403463}{217435668490}.\n\\]\n\n# Proof or Conditional Proof\n\nAll steps are proved. The partial-fourth-direction miss probability at pencil degree `a` is\n\n\\[\n\\frac{\\binom{h-a}{3}}{\\binom h3}\\left(1-\\frac{408a}{p(h-3)}\\right).\n\\]\n\nStrict log-concavity and the neighboring differences certify its maximum at `a=49122`. Top-weight selection multiplies the resulting coefficient by `1\u22123776/M`.\n\nThere are `6702349500` eligible weighted monomials and only `442779\u00b715137+3776=6702349499` equations. Minimum weighted degree gives a squarefree, Z-dependent relation with nonzero Z-derivative. Identity extension, coefficient-content removal, the nominal discriminant, and derivative root counting give exceptional cap `2618012` and regular-line cap `15049`.\n\nFor component densities `a,l`, centered affine mixing gives\n\n\\[\nI/N\\le a l+\\sqrt{a(1-a)l(1-l)/h}.\n\\]\n\nWriting `delta=D/h`, `theta=k/p`, maximizing over `l`, and squaring against `delta\u2212eta` proves the potential inequality whenever the exact `L_eta` and `R_eta` quantities are nonnegative. With `a0=1/6800`, `eta1=25647317/250000000`, and `eta2=3/50000000`, the endpoint certificates are strictly positive. They give credits `66788391` and `28291`. The C4 empty-core corner gives the larger credit `133070051`; hence every no-large-component peel receives credit `28291`.\n\nCollecting all losses gives `C=752643629163779`. With the augmented selector coefficient, absence of a component of density `epsilon/10` implies\n\n\\[\nrho\\le\\frac{C/N+\\kappa'_4}{1+\\kappa'_4}\n=\\frac{3223268795561994597645042125366123}{9667741751820876581688555437077355}.\n\\]\n\nIts product with `M` has floor `7249403462`, contradicting `rho\u2265epsilon`. A surviving simple-root component has point degree at least `D+1`. KTZ Lemmas 2.5, 2.7, and 6.1 give a single total-degree-at-most-87 polynomial throughout it.\n\n# Soundness Ledger\n\nEvery numerical loss is listed in `soundness_ledger`. The final recovery is `epsilon/10`, not merely the obsolete `epsilon/10`-only contract: exact subtraction shows it exceeds `174/p`.\n\n# Counterexample Attempts\n\nThe lower cap `k=4413` fails the component-potential endpoint exactly. Concentrated accepted directions are already covered by the pointwise selector envelope. Inseparability is excluded by `deg_Z<p`.\n\n# Characteristic Audit\n\nThe fixed prime is Pocklington-certified. All derivative degrees are below `p`; no specialized leading coefficient is inverted; reconstruction divides only by a retained nonzero derivative.\n\n# Limitations\n\nLocal optimality is only for the stated selector/potential neighborhood, not all architectures. The assigned checkpoint outbox was unexpectedly read-only: `apply_patch` rejected both the Markdown checkpoint and deterministic checker. The theorem itself does not depend on the exhaustive-search claim; all load-bearing rational identities are displayed here.\n\n# Team Handoff\n\nBuilder 0007 should import `(D,r,c,k)=(15136,442779,3776,4414)`. Red-team 0009 should audit the selector and potential endpoints. Integrator 0010 should store the exact checker and bind the theorem hash before verification.\n",
+        "note_path": "/Users/kaizheng/.codex/worktrees/1f44/SSE-auto/Line-vs-Point-concrete/research_state/campaign-10-frugal/submissions/researcher-0004/note.md",
+        "parameter_regime": "m=2; p=147457; total degree d=87; epsilon=7249403463/21743566849; D=15136; three complete directions plus 408 fourth-direction lines; 442779 selected lines; 3776 labeled points; q_der=15049; E_D=2618012; point peel cap 15136; line peel cap 4414; a0=1/6800; eta1=25647317/250000000; eta2=3/50000000; no-large-component credit 28291.",
+        "proof_steps": [
+          {
+            "dependencies": [],
+            "id": "[P1]",
+            "proof": "The full factorization p\u22121=2^14\u00b73^2 and the displayed base-10 residues satisfy Pocklington\u2019s criterion. Standard affine-plane enumeration gives M, Lambda, and N; since every line has p points, uniform line-then-point sampling is uniform on incidences.",
+            "statement": "The integer p=147457 is prime, and the affine plane over F_p has 21743566849 points, 21743714306 affine lines, and 3206262880419842 point-line incidences.",
+            "status": "proved"
+          },
+          {
+            "dependencies": [
+              "[P1]"
+            ],
+            "id": "[P2]",
+            "proof": "Choose a uniform three-subset of directions, a uniform fourth direction outside it, and a uniform 408-subset of the p lines in that direction. Conditional on missing all a accepted directions with the first three, the fourth stage misses with probability 1\u2212408a/[p(h\u22123)]. The numerator of aH_a/(h\u2212a) is a product of positive affine factors and is strictly log-concave. Its differences at 49122 are +2728718661718300 and \u22123681683480628414, proving the maximum. Averaging fixes a deterministic selector.",
+            "statement": "For every accepted-incidence graph of density rho, some family consisting of three complete direction classes and 408 lines of a fourth direction leaves uncovered accepted-incidence mass at most (57324432897511903358379/387300960692066551488512)(1\u2212rho)N.",
+            "status": "proved"
+          },
+          {
+            "dependencies": [
+              "[P2]"
+            ],
+            "id": "[P3]",
+            "proof": "Choose the 3776 largest nonnegative uncovered point weights, or all uncovered points if fewer exist. They carry at least 3776/M of the total uncovered weight. Multiplication and reduction give the displayed coefficient.",
+            "statement": "For every uncovered point-weight function of total weight U, 3776 point labels can be added so that the residual weight is at most (1\u22123776/21743566849)U; combined with [P2], the residual coefficient is 1246437422331006215441194309538667/8421304329489870366247361127538688.",
+            "status": "proved"
+          },
+          {
+            "dependencies": [
+              "[P1]",
+              "[P2]",
+              "[P3]"
+            ],
+            "id": "[P4]",
+            "proof": "The weighted monomial count is 6702349500, while line identities and point evaluations impose at most 6702349499 homogeneous equations. Thus a nonzero relation exists. A Z-independent relation would vanish on 442779>D distinct lines and hence be zero. Choose minimum weighted degree. Dividing one copy of any repeated factor preserves every formal line identity and every point zero, contradicting minimality. Finally deg_Z\u2264173<p makes the Z-derivative nonzero.",
+            "statement": "The 442779 selected labeled lines and 3776 selected labeled points admit a nonzero squarefree polynomial A of (1,1,87)-weighted degree at most 15136, with A_Z nonzero, satisfying every selected formal line identity and every selected point evaluation A(x,f(x))=0.",
+            "status": "proved"
+          },
+          {
+            "dependencies": [
+              "[P4]"
+            ],
+            "id": "[P5]",
+            "proof": "Every omitted line has at most D covered accepted roots unless its restricted relation vanishes identically. Write A=HB with coefficient content H and primitive B. The exact maximum of c0+(nu\u22121)(2(D\u2212c0)\u221287nu) over feasible c0,nu is 2618012. On every remaining identity line, B_Z restricts to a nonzero polynomial of degree at most D\u221287=15049.",
+            "statement": "For identity-line count t and exceptional count z\u22642618012, the accepted graph satisfies |E|\u2264U\u2032+15136(\u039b\u2212t)+pz+15049(t\u2212z)+|E(G)|, where G is the simple-root graph on t\u2212z regular identity lines.",
+            "status": "proved"
+          },
+          {
+            "dependencies": [
+              "[P1]"
+            ],
+            "id": "[P6]",
+            "proof": "The affine incidence identity II^T=pI+J and Cauchy\u2013Schwarz give the mixing bound. Maximization over ell gives [(a\u2212theta)+sqrt((a\u2212theta)^2+a(1\u2212a)/h)]/2\u2212delta a. For delta\u2032=delta\u2212eta, nonnegative R_eta and L_eta license squaring and bound this by \u2212eta a. Since Q_eta<0 and 2delta\u2032\u22121<0, the displayed positive endpoint fractions certify the two entire intervals.",
+            "statement": "Let D=15136, k=4414, a0=1/6800, eta1=25647317/250000000, eta2=3/50000000, and tau=7249403463/(10\u00b721743566849). Every point-line incidence subgraph with point density 0<a\u2264tau satisfies I\u2212D|X|\u2212k|S|\u2264\u2212eta1(p+1)|X| for a\u2264a0 and \u2264\u2212eta2(p+1)|X| for a0\u2264a\u2264tau.",
+            "status": "proved"
+          },
+          {
+            "dependencies": [
+              "[P6]"
+            ],
+            "id": "[P7]",
+            "proof": "Peel point vertices of degree at most D and line vertices of degree at most k. Any nonempty residual component contains at least k+1 points. The two ranges of [P6] give integer credits 66788391 and 28291. If the graph empties, C4-free pair counting gives residual edge cap 550557 and credit 133070051; the n<D boundary has margin 21677302688. Taking the minimum gives 28291 in every no-large-component case.",
+            "statement": "If the cleaned graph has no connected component containing at least a tau fraction of all affine points, then |E(G)|\u226415136M+4414(t\u2212z)\u221228291.",
+            "status": "proved"
+          },
+          {
+            "dependencies": [
+              "[P2]",
+              "[P3]",
+              "[P5]",
+              "[P7]"
+            ],
+            "id": "[P8]",
+            "proof": "The coefficients q+k\u2212D=4327 and p\u2212q\u2212k=127994 are positive, so t\u2264\u039b and z\u22642618012 give C=752643629163779. Absence of a large component implies rho\u2264C/N+kappa\u2032(1\u2212rho), hence rho\u2264R. Exact division gives floor(MR)=7249403462, while the direct margin at epsilon is the displayed positive fraction.",
+            "statement": "Acceptance at least 7249403463/21743566849 forces a connected simple-root identity component containing at least a 7249403463/217435668490 fraction of all points.",
+            "status": "proved"
+          },
+          {
+            "dependencies": [
+              "[P4]",
+              "[P5]",
+              "[P8]",
+              "KTZ Lemma 2.5",
+              "KTZ Lemma 2.7",
+              "KTZ Lemma 6.1"
+            ],
+            "id": "[P9]",
+            "proof": "At a component point there are at least D+1 retained formal root lines and B_Z is nonzero. Simple-root lifting constructs a total-degree-at-most-87 polynomial Q matching the seed labels. Then B(X,Y,Q) has total degree at most D and more than D line factors, so it is zero. Unique formal lifting at each simple transition propagates the same Q through the connected component.",
+            "statement": "Every connected component supplied by [P8] is explained on all its point vertices by one polynomial Q in F_147457[X,Y] of total degree at most 87.",
+            "status": "proved"
+          },
+          {
+            "dependencies": [
+              "[P8]",
+              "[P9]"
+            ],
+            "id": "[P10]",
+            "proof": "Exact subtraction gives epsilon\u2265957/(10p) and epsilon/10>174/p. The component therefore supplies the required maximum. Since epsilon\u00b7p\u00b2=7249403463 and epsilon\u00b7p\u00b2/10=724940346.3, the score and recovery count are exact. Subtracting from the incumbent gives 100087751.",
+            "statement": "For epsilon=7249403463/21743566849, every accepted table satisfying Pass(f,P)\u2265epsilon admits one total-degree-at-most-87 polynomial agreeing on at least max(174/147457,epsilon/10)=epsilon/10 of F_147457\u00b2 and on at least 724940347 points.",
+            "status": "proved"
+          }
+        ],
+        "recovery_agreement_count": 724940347,
+        "result_status": "proved",
+        "review_verdict": "awaiting (0/1 accept)",
+        "role": "researcher",
+        "sampling_model": "Choose uniformly among the p(p+1) affine lines of F_147457\u00b2, then uniformly among the p points on that line; equivalently sample uniformly from N=p\u00b2(p+1)=3206262880419842 incidences.",
+        "soundness_ledger": [
+          {
+            "input_bound": "Accepted-incidence density rho.",
+            "justification": "Every affine line has p points, so the prescribed experiment is uniform on N incidences.",
+            "loss": "None.",
+            "output_bound": "N=3206262880419842 equiprobable incidences.",
+            "stage": "sampling normalization",
+            "status": "proved"
+          },
+          {
+            "input_bound": "Accepted pencil degree a at each point.",
+            "justification": "Exact hypergeometric averaging over three complete directions and a 408-line partial fourth direction; maximizer a=49122.",
+            "loss": "At most \u03ba4(1\u2212rho)N, \u03ba4=57324432897511903358379/387300960692066551488512.",
+            "output_bound": "442779 selected lines.",
+            "stage": "direction selection",
+            "status": "proved"
+          },
+          {
+            "input_bound": "Uncovered point weights totaling U.",
+            "justification": "The 3776 largest weights carry at least 3776U/M.",
+            "loss": "Residual factor 1\u22123776/M; \u03ba4 becomes \u03ba4\u2032=1246437422331006215441194309538667/8421304329489870366247361127538688.",
+            "output_bound": "3776 additional covered point labels.",
+            "stage": "label-sensitive coverage",
+            "status": "proved"
+          },
+          {
+            "input_bound": "6702349500 weighted monomials.",
+            "justification": "442779\u00b715137 line equations plus 3776 point equations total 6702349499.",
+            "loss": "All but one guaranteed kernel dimension.",
+            "output_bound": "Squarefree weighted-degree-at-most-15136 relation with nonzero Z-derivative.",
+            "stage": "weighted interpolation",
+            "status": "proved"
+          },
+          {
+            "input_bound": "Covered accepted incidences.",
+            "justification": "A nonidentity line restriction has degree at most 15136.",
+            "loss": "At most 15136(\u039b\u2212t) incidences.",
+            "output_bound": "Formal identities on t retained lines.",
+            "stage": "identity extension",
+            "status": "proved"
+          },
+          {
+            "input_bound": "t formal identity lines.",
+            "justification": "Coefficient-content degree and nominal projective discriminant.",
+            "loss": "At most pz incidences on z\u22642618012 exceptional lines.",
+            "output_bound": "Primitive derivative-nondegenerate identity lines.",
+            "stage": "exceptional-line deletion",
+            "status": "proved"
+          },
+          {
+            "input_bound": "t\u2212z regular identity lines.",
+            "justification": "Each nonzero derivative restriction has degree at most 15049.",
+            "loss": "At most 15049(t\u2212z) incidences.",
+            "output_bound": "Simple accepted roots only.",
+            "stage": "derivative cleanup",
+            "status": "proved"
+          },
+          {
+            "input_bound": "Cleaned graph with no component of density tau.",
+            "justification": "Two-range exact affine potential and C4 empty-core corner.",
+            "loss": "15136M+4414(t\u2212z)\u221228291.",
+            "output_bound": "Uniform empty-or-small-component peeling certificate.",
+            "stage": "component-aware peeling",
+            "status": "proved"
+          },
+          {
+            "input_bound": "t\u2264\u039b and z\u22642618012.",
+            "justification": "Collected t and z coefficients are 4327 and 127994, both positive.",
+            "loss": "423197911537678+329110627826464+335089827928\u221228291.",
+            "output_bound": "C=752643629163779.",
+            "stage": "fixed-loss consolidation",
+            "status": "proved"
+          },
+          {
+            "input_bound": "epsilon=7249403463/21743566849.",
+            "justification": "Substitution into the no-large-component inequality gives a strictly positive exact margin.",
+            "loss": "C/N+\u03ba4\u2032(1\u2212epsilon).",
+            "output_bound": "A component of density at least epsilon/10 survives.",
+            "stage": "component survival",
+            "status": "proved"
+          },
+          {
+            "input_bound": "Connected simple-root component with point degree at least 15137.",
+            "justification": "Formal simple-root lifting, line-factor forcing, and connected propagation.",
+            "loss": "None.",
+            "output_bound": "One total-degree-at-most-87 polynomial on the entire component.",
+            "stage": "polynomial recovery",
+            "status": "proved"
+          },
+          {
+            "input_bound": "epsilon and the recovery floor 174/147457.",
+            "justification": "epsilon/10\u2212174/p=6992828283/217435668490>0.",
+            "loss": "Required factor 1/10 and final ceiling.",
+            "output_bound": "Recovery fraction epsilon/10 and at least 724940347 agreeing points.",
+            "stage": "final recovery contract",
+            "status": "proved"
+          }
+        ],
+        "theorem_sha256": "67bb6bc7683a800c9d6bb7825dfccac7a97369f1a9b805d772296d566bde462c",
+        "theorem_statement": "Let p=147457, d=87, and epsilon=7249403463/21743566849. Under uniform affine-line sampling followed by a uniformly random point on the selected line, every degree-at-most-87 affine-line table and every point table accepted with probability at least epsilon admit one polynomial Q\u2208F_p[X,Y] of total degree at most 87 agreeing with the point table on at least max(174/147457,epsilon/10)=epsilon/10 of F_p\u00b2, hence on at least 724940347 points. Its absolute agreement-count score is ceil(epsilon\u00b7p\u00b2)=7249403463.",
+        "title": "Partial-Fourth-Direction Component-Potential Soundness at Score 7,249,403,463"
       }
     ],
     "rejected": [],
@@ -3365,13 +3717,13 @@
       "attempts": 1,
       "direction": "FRUGAL FUNNEL / SCOUT: Search the exact integer parameter neighborhood around the incumbent interpolation and pruning choices; return a reproducible rational certificate for every feasible improvement.",
       "error": null,
-      "finished_at": null,
+      "finished_at": "2026-09-15T18:48:15Z",
       "id": "researcher-0004",
       "max_attempts": 2,
       "ordinal": 4,
       "role": "researcher",
       "started_at": "2026-09-15T18:32:55Z",
-      "status": "running"
+      "status": "succeeded"
     },
     {
       "attempts": 0,
@@ -3468,6 +3820,18 @@
       "role": "verifier",
       "started_at": "2026-09-15T18:32:55Z",
       "status": "succeeded"
+    },
+    {
+      "attempts": 0,
+      "direction": "independent verifier audit of researcher-0004",
+      "error": null,
+      "finished_at": null,
+      "id": "verifier-a-researcher-0004",
+      "max_attempts": 2,
+      "ordinal": null,
+      "role": "verifier",
+      "started_at": null,
+      "status": "queued"
     }
   ],
   "lemma_book": {
@@ -6241,9 +6605,8 @@
   "status": {
     "campaign_dir": "/Users/kaizheng/.codex/worktrees/1f44/SSE-auto/Line-vs-Point-concrete/research_state/campaign-10-frugal",
     "counts": {
-      "queued": 6,
-      "running": 1,
-      "succeeded": 5
+      "queued": 7,
+      "succeeded": 6
     },
     "dimension": 2,
     "field_regime": "prime",
@@ -6261,9 +6624,9 @@
     "researcher_count": 10,
     "roles": {
       "researcher": 10,
-      "verifier": 2
+      "verifier": 3
     },
-    "updated_at": "2026-09-15T18:39:03Z",
+    "updated_at": "2026-09-15T18:48:15Z",
     "verification_policy": "one independent high-reasoning audit for leaderboard submissions",
     "verifier_count": 1,
     "verifier_reasoning_effort": "xhigh"

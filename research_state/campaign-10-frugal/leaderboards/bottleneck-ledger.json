@@ -304,5 +304,113 @@
     "output_bound": "Agreement fraction max(174/147457,\u03b5/10)=3380075810946357/10^17; at least 734949044 points.",
     "stage": "final recovery contract",
     "status": "proved"
+  },
+  {
+    "input_bound": "Accepted-incidence density rho.",
+    "job_id": "researcher-0004",
+    "justification": "Every affine line has p points, so the prescribed experiment is uniform on N incidences.",
+    "loss": "None.",
+    "output_bound": "N=3206262880419842 equiprobable incidences.",
+    "stage": "sampling normalization",
+    "status": "proved"
+  },
+  {
+    "input_bound": "Accepted pencil degree a at each point.",
+    "job_id": "researcher-0004",
+    "justification": "Exact hypergeometric averaging over three complete directions and a 408-line partial fourth direction; maximizer a=49122.",
+    "loss": "At most \u03ba4(1\u2212rho)N, \u03ba4=57324432897511903358379/387300960692066551488512.",
+    "output_bound": "442779 selected lines.",
+    "stage": "direction selection",
+    "status": "proved"
+  },
+  {
+    "input_bound": "Uncovered point weights totaling U.",
+    "job_id": "researcher-0004",
+    "justification": "The 3776 largest weights carry at least 3776U/M.",
+    "loss": "Residual factor 1\u22123776/M; \u03ba4 becomes \u03ba4\u2032=1246437422331006215441194309538667/8421304329489870366247361127538688.",
+    "output_bound": "3776 additional covered point labels.",
+    "stage": "label-sensitive coverage",
+    "status": "proved"
+  },
+  {
+    "input_bound": "6702349500 weighted monomials.",
+    "job_id": "researcher-0004",
+    "justification": "442779\u00b715137 line equations plus 3776 point equations total 6702349499.",
+    "loss": "All but one guaranteed kernel dimension.",
+    "output_bound": "Squarefree weighted-degree-at-most-15136 relation with nonzero Z-derivative.",
+    "stage": "weighted interpolation",
+    "status": "proved"
+  },
+  {
+    "input_bound": "Covered accepted incidences.",
+    "job_id": "researcher-0004",
+    "justification": "A nonidentity line restriction has degree at most 15136.",
+    "loss": "At most 15136(\u039b\u2212t) incidences.",
+    "output_bound": "Formal identities on t retained lines.",
+    "stage": "identity extension",
+    "status": "proved"
+  },
+  {
+    "input_bound": "t formal identity lines.",
+    "job_id": "researcher-0004",
+    "justification": "Coefficient-content degree and nominal projective discriminant.",
+    "loss": "At most pz incidences on z\u22642618012 exceptional lines.",
+    "output_bound": "Primitive derivative-nondegenerate identity lines.",
+    "stage": "exceptional-line deletion",
+    "status": "proved"
+  },
+  {
+    "input_bound": "t\u2212z regular identity lines.",
+    "job_id": "researcher-0004",
+    "justification": "Each nonzero derivative restriction has degree at most 15049.",
+    "loss": "At most 15049(t\u2212z) incidences.",
+    "output_bound": "Simple accepted roots only.",
+    "stage": "derivative cleanup",
+    "status": "proved"
+  },
+  {
+    "input_bound": "Cleaned graph with no component of density tau.",
+    "job_id": "researcher-0004",
+    "justification": "Two-range exact affine potential and C4 empty-core corner.",
+    "loss": "15136M+4414(t\u2212z)\u221228291.",
+    "output_bound": "Uniform empty-or-small-component peeling certificate.",
+    "stage": "component-aware peeling",
+    "status": "proved"
+  },
+  {
+    "input_bound": "t\u2264\u039b and z\u22642618012.",
+    "job_id": "researcher-0004",
+    "justification": "Collected t and z coefficients are 4327 and 127994, both positive.",
+    "loss": "423197911537678+329110627826464+335089827928\u221228291.",
+    "output_bound": "C=752643629163779.",
+    "stage": "fixed-loss consolidation",
+    "status": "proved"
+  },
+  {
+    "input_bound": "epsilon=7249403463/21743566849.",
+    "job_id": "researcher-0004",
+    "justification": "Substitution into the no-large-component inequality gives a strictly positive exact margin.",
+    "loss": "C/N+\u03ba4\u2032(1\u2212epsilon).",
+    "output_bound": "A component of density at least epsilon/10 survives.",
+    "stage": "component survival",
+    "status": "proved"
+  },
+  {
+    "input_bound": "Connected simple-root component with point degree at least 15137.",
+    "job_id": "researcher-0004",
+    "justification": "Formal simple-root lifting, line-factor forcing, and connected propagation.",
+    "loss": "None.",
+    "output_bound": "One total-degree-at-most-87 polynomial on the entire component.",
+    "stage": "polynomial recovery",
+    "status": "proved"
+  },
+  {
+    "input_bound": "epsilon and the recovery floor 174/147457.",
+    "job_id": "researcher-0004",
+    "justification": "epsilon/10\u2212174/p=6992828283/217435668490>0.",
+    "loss": "Required factor 1/10 and final ceiling.",
+    "output_bound": "Recovery fraction epsilon/10 and at least 724940347 agreeing points.",
+    "stage": "final recovery contract",
+    "status": "proved"
   }
 ]

@@ -1,9 +1,8 @@
 {
   "campaign_dir": "/Users/kaizheng/.codex/worktrees/1f44/SSE-auto/Line-vs-Point-concrete/research_state/campaign-10-frugal",
   "counts": {
-    "queued": 6,
-    "running": 1,
-    "succeeded": 5
+    "queued": 7,
+    "succeeded": 6
   },
   "dimension": 2,
   "field_regime": "prime",
@@ -21,9 +20,9 @@
   "researcher_count": 10,
   "roles": {
     "researcher": 10,
-    "verifier": 2
+    "verifier": 3
   },
-  "updated_at": "2026-09-15T18:39:03Z",
+  "updated_at": "2026-09-15T18:48:15Z",
   "verification_policy": "one independent high-reasoning audit for leaderboard submissions",
   "verifier_count": 1,
   "verifier_reasoning_effort": "xhigh"
