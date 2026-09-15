@@ -77,6 +77,13 @@ button { color: inherit; }
 .chart-foot svg { width: 14px; color: var(--green); }
 
 .leaderboard { margin-top: 28px; }
+.external-submit { display: grid; gap: 22px; }
+.external-submit form { display: grid; gap: 14px; max-width: 620px; }
+.external-submit label { display: grid; gap: 6px; color: var(--muted); font-size: .78rem; }
+.external-submit input { border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; background: #fff; color: var(--ink); font: inherit; }
+.absolute-score { border-left: 3px solid var(--green); padding-left: 16px; }
+.submit-message { color: var(--green); font-weight: 600; }
+.submit-note { color: var(--muted); font-size: .82rem; line-height: 1.55; }
 .leaderboard.secondary { margin-top: 20px; }
 .candidate-card { display: grid; grid-template-columns: 54px minmax(0,1fr); padding: 27px 24px; border-bottom: 1px solid var(--line); }
 .candidate-card:last-child { border-bottom: 0; }
@@ -86,7 +93,7 @@ button { color: inherit; }
 .candidate-title h3 { margin: 5px 0 0; font-family: Georgia, serif; font-size: 1.35rem; font-weight: 500; }
 .epsilon { min-width: 140px; text-align: right; }
 .epsilon small { display: block; color: var(--muted); font-size: .56rem; text-transform: uppercase; }
-.epsilon strong { color: var(--green); font-family: Georgia, serif; font-size: 1.55rem; font-weight: 500; }
+.epsilon strong { color: var(--green); font-family: Georgia, serif; font-size: 1.28rem; font-weight: 500; }
 .review-chip { display: flex; align-items: center; gap: 5px; width: fit-content; margin-top: 11px; padding: 4px 7px; border: 1px solid #e5d2bf; border-radius: 999px; color: #8b5c36; background: #fdf8f3; font-size: .57rem; text-transform: uppercase; }
 .review-chip.accepted { color: var(--green); border-color: #b9ddcb; background: var(--green-pale); }
 .review-chip svg { width: 12px; height: 12px; }

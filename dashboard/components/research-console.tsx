@@ -1,15 +1,15 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
-import { BookOpen, Check, CheckCheck, Copy, ExternalLink, FlaskConical, GitPullRequest, Map, MessageSquare, RefreshCw, Search, ShieldCheck, Users } from 'lucide-react';
+import { type FormEvent, useEffect, useMemo, useState } from 'react';
+import { BookOpen, Check, CheckCheck, Copy, Download, ExternalLink, FlaskConical, GitPullRequest, Map, MessageSquare, RefreshCw, Search, ShieldCheck, Upload, Users } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import rehypeKatex from 'rehype-katex';
 import remarkMath from 'remark-math';
 
 type Audit = { verifier_id: string; verdict: 'accept' | 'revise' | 'reject'; verified_soundness: number | null; summary: string; required_changes: string[] };
 type SoundnessStage = { stage: string; input_bound: string; output_bound: string; loss: string; justification: string; status: string };
-type Candidate = { job_id: string; role: string; title: string; result_status: string; claimed_soundness: number | null; theorem_statement: string; theorem_sha256: string; review_verdict: string; double_verified: boolean; audits: Audit[]; soundness_ledger: SoundnessStage[]; note_markdown: string };
-type HistoryPoint = { job_id: string; title: string; soundness: number; previous_best: number; gain: number; verified_at: string | null; verifier_ids: string[]; theorem_sha256: string };
+type Candidate = { job_id: string; role: string; title: string; result_status: string; claimed_soundness: number | null; agreement_count: number | null; recovery_agreement_count: number | null; theorem_statement: string; theorem_sha256: string; review_verdict: string; double_verified: boolean; audits: Audit[]; soundness_ledger: SoundnessStage[]; note_markdown: string };
+type HistoryPoint = { job_id: string; title: string; soundness: number; agreement_count: number; recovery_agreement_count: number; previous_best: number; gain: number; verified_at: string | null; verifier_ids: string[]; theorem_sha256: string };
 type Lemma = { id: string; source_job_id: string; source_step_id: string; part: number; title: string; statement_markdown: string; proof_markdown: string; status: string; dependencies: string[]; editorial_status: string };
 type RoadmapNode = { id: string; label: string; statement_markdown: string; proof_state: string; dependencies: string[]; resolved_lemma_ids: string[]; notes: string };
 type Roadmap = { roadmap_id: string; title: string; focus: string; target_statement: string; summary: string; round: number; progress: { percent: number; verified: number; provisional: number; open: number; blocked: number; total: number }; critical_path: string[]; nodes: RoadmapNode[] };
@@ -19,18 +19,18 @@ type Job = { id: string; role: string; status: string };
 export type ResearchSnapshot = {
   schema: string;
   campaign: string;
-  status: { model: string; reasoning_effort: string; fixed_prime: number; fixed_degree: number; recovery_divisor: number; researcher_count: number; planned_agent_invocations: number; counts: Record<string, number>; updated_at: string };
+  status: { model: string; reasoning_effort: string; verifier_reasoning_effort?: string; verifier_count?: number; fixed_prime: number; fixed_degree: number; recovery_divisor: number; researcher_count: number; planned_agent_invocations: number; counts: Record<string, number>; updated_at: string };
   candidates: { verified: Candidate[]; promising: Candidate[]; rejected: Candidate[] };
   bottlenecks: SoundnessStage[];
-  soundness_history: { points: HistoryPoint[]; verification_threshold: number; lower_is_better: boolean };
+  soundness_history: { points: HistoryPoint[]; verification_threshold: number; lower_is_better: boolean; score_metric?: string; score_unit?: string };
   lemma_book?: { editorial_rule: string; model: string; reasoning_effort: string; lemmas: Lemma[] };
   proof_roadmaps?: { status: string; round: number; roadmaps: Roadmap[]; active_roadmaps: string[] };
   message_board?: { messages: BoardMessage[] };
   jobs: Job[];
 };
 
-type View = 'record' | 'lemmas' | 'roadmaps' | 'messages' | 'contribute';
-const hashes: Record<View, string> = { record: 'record', lemmas: 'lemma-book', roadmaps: 'proof-roadmaps', messages: 'message-board', contribute: 'contribute' };
+type View = 'record' | 'lemmas' | 'roadmaps' | 'messages' | 'contribute' | 'submit';
+const hashes: Record<View, string> = { record: 'record', lemmas: 'lemma-book', roadmaps: 'proof-roadmaps', messages: 'message-board', contribute: 'contribute', submit: 'submit-contribution' };
 
 function MathText({ children, className = '' }: { children: string; className?: string }) {
   const normalized = children
@@ -48,6 +48,15 @@ function formatEpsilon(value: number | null | undefined) {
   return value < 0.001 ? value.toExponential(4) : value.toFixed(6).replace(/0+$/, '').replace(/\.$/, '');
 }
 
+function formatCount(value: number | null | undefined) {
+  if (value == null) return '—';
+  return new Intl.NumberFormat('en-US', { maximumFractionDigits: 0 }).format(Math.round(value));
+}
+
+function formatAxisCount(value: number) {
+  return new Intl.NumberFormat('en-US', { notation: 'compact', maximumFractionDigits: 0 }).format(Math.round(value));
+}
+
 function formatDate(value: string | null) {
   if (!value) return 'pending';
   const date = new Date(value);
@@ -56,19 +65,19 @@ function formatDate(value: string | null) {
 
 function RecordChart({ points }: { points: HistoryPoint[] }) {
   const width = 940, height = 330, left = 68, right = 24, top = 28, bottom = 48;
-  const reference = 0.0838721841647049;
-  const maximum = points.length ? Math.min(1, Math.max(reference, ...points.map((point) => point.soundness)) * 1.2) : 0.1;
+  const reference = Math.ceil(0.0838721841647049 * 147457 * 147457);
+  const maximum = points.length ? Math.max(1, ...points.map((point) => point.agreement_count)) * 1.12 : 1;
   const x = (index: number) => left + (points.length <= 1 ? (width - left - right) / 2 : index * (width - left - right) / (points.length - 1));
-  const y = (value: number) => top + (value / maximum) * (height - top - bottom);
-  const line = points.map((point, index) => `${index ? 'L' : 'M'} ${x(index)} ${y(point.soundness)}`).join(' ');
+  const y = (value: number) => top + ((maximum - value) / maximum) * (height - top - bottom);
+  const line = points.map((point, index) => `${index ? 'L' : 'M'} ${x(index)} ${y(point.agreement_count)}`).join(' ');
   const ticks = [0, .25, .5, .75, 1].map((fraction) => ({ value: maximum * fraction, y: y(maximum * fraction) }));
   return <div className="chart-wrap">
     <svg className="record-chart" viewBox={`0 0 ${width} ${height}`} aria-label="Doubly verified soundness record, lower is better">
-      {ticks.map((tick) => <g key={tick.value}><line x1={left} x2={width - right} y1={tick.y} y2={tick.y} className="grid-line" /><text x={left - 12} y={tick.y + 4} textAnchor="end">{formatEpsilon(tick.value)}</text></g>)}
+      {ticks.map((tick) => <g key={tick.value}><line x1={left} x2={width - right} y1={tick.y} y2={tick.y} className="grid-line" /><text x={left - 12} y={tick.y + 4} textAnchor="end">{formatAxisCount(tick.value)}</text></g>)}
       <line x1={left} x2={width - right} y1={y(reference)} y2={y(reference)} className="reference-line" />
-      <text x={width - right} y={y(reference) - 8} textAnchor="end" className="reference-label">scale (d/p)^(1/3) ≈ 0.083872 · not a promoted result</text>
+      <text x={width - right} y={y(reference) - 8} textAnchor="end" className="reference-label">cubic-root scale ≈ {formatCount(reference)} points · not promoted</text>
       {points.length > 0 && <path d={line} className="record-line" />}
-      {points.map((point, index) => <g key={`${point.job_id}-${index}`} className="chart-point"><circle cx={x(index)} cy={y(point.soundness)} r="6" /><text x={x(index)} y={height - 16} textAnchor="middle">{index + 1}</text><title>{`${point.title}: ε=${point.soundness}`}</title></g>)}
+      {points.map((point, index) => <g key={`${point.job_id}-${index}`} className="chart-point"><circle cx={x(index)} cy={y(point.agreement_count)} r="6" /><text x={x(index)} y={height - 16} textAnchor="middle">{index + 1}</text><title>{`${point.title}: ${formatCount(point.agreement_count)} agreement points (ε=${point.soundness})`}</title></g>)}
     </svg>
     {!points.length && <div className="chart-empty"><ShieldCheck /><strong>No promoted result yet</strong><span>The chart accepts only exact claims approved independently by two verifiers.</span></div>}
   </div>;
@@ -76,8 +85,8 @@ function RecordChart({ points }: { points: HistoryPoint[] }) {
 
 function CandidateCard({ candidate, rank }: { candidate: Candidate; rank: number }) {
   return <article className="candidate-card"><div className="candidate-rank">#{rank}</div><div className="candidate-copy">
-    <div className="candidate-title"><div><span>{candidate.job_id}</span><h3>{candidate.title}</h3></div><div className="epsilon"><small>soundness ↓</small><strong>{formatEpsilon(candidate.claimed_soundness)}</strong></div></div>
-    <div className={`review-chip ${candidate.double_verified ? 'accepted' : ''}`}><ShieldCheck /> {candidate.double_verified ? '2/2 independent accepts' : candidate.review_verdict}</div>
+    <div className="candidate-title"><div><span>{candidate.job_id}</span><h3>{candidate.title}</h3></div><div className="epsilon"><small>agreement points ↓</small><strong>{formatCount(candidate.agreement_count)}</strong><small>ε = {formatEpsilon(candidate.claimed_soundness)}</small></div></div>
+    <div className={`review-chip ${candidate.double_verified ? 'accepted' : ''}`}><ShieldCheck /> {candidate.double_verified ? '1/1 verifier accept' : candidate.review_verdict}</div>
     <MathText className="theorem">{candidate.theorem_statement || 'No theorem statement.'}</MathText>
     <details><summary>Proof record and audits</summary>
       {candidate.audits.map((audit) => <div className="audit" key={audit.verifier_id}><strong>{audit.verifier_id} · {audit.verdict}</strong><MathText>{audit.summary}</MathText></div>)}
@@ -88,24 +97,25 @@ function CandidateCard({ candidate, rank }: { candidate: Candidate; rank: number
 }
 
 export function ResearchConsole({ initialData }: { initialData: ResearchSnapshot }) {
-  const [data, setData] = useState(initialData), [view, setView] = useState<View>('record'), [query, setQuery] = useState(''), [refreshing, setRefreshing] = useState(false), [copied, setCopied] = useState(false);
+  const [data, setData] = useState(initialData), [view, setView] = useState<View>('record'), [query, setQuery] = useState(''), [refreshing, setRefreshing] = useState(false), [copied, setCopied] = useState(false), [submissionMessage, setSubmissionMessage] = useState('');
   async function refresh() { setRefreshing(true); try { const response = await fetch(`./research-data.json?t=${Date.now()}`, { cache: 'no-store' }); if (response.ok) setData(await response.json() as ResearchSnapshot); } finally { setRefreshing(false); } }
   async function copyContributorPrompt() { const response = await fetch('./contributor-research-prompt.md'); if (!response.ok) return; await navigator.clipboard.writeText(await response.text()); setCopied(true); window.setTimeout(() => setCopied(false), 2200); }
+  function stageExternalSubmission(event: FormEvent<HTMLFormElement>) { event.preventDefault(); const form = new FormData(event.currentTarget), file = form.get('latex') as File | null, agreements = Number(form.get('agreements')); if (!file || !/\.(tex|pdf)$/i.test(file.name)) { setSubmissionMessage('Choose a .tex or .pdf document.'); return; } if (!Number.isSafeInteger(agreements) || agreements <= 0 || agreements > 147457 * 147457) { setSubmissionMessage('Enter a valid absolute agreement count between 1 and p².'); return; } const manifest = { schema: 'line-point-external-submission-v1', title: form.get('title'), author: form.get('author'), filename: file.name, absolute_agreements: agreements, normalized_epsilon: agreements / (147457 * 147457), fixed_prime: 147457, fixed_degree: 87, dimension: 2, received_at: new Date().toISOString() }; const blob = new Blob([JSON.stringify(manifest, null, 2) + '\n'], { type: 'application/json' }), link = document.createElement('a'); link.href = URL.createObjectURL(blob); link.download = 'manifest.json'; link.click(); URL.revokeObjectURL(link.href); setSubmissionMessage('Manifest downloaded. Send it with the LaTeX file to the external intake inbox.'); }
   useEffect(() => { const sync = () => { const found = (Object.entries(hashes) as [View, string][]).find(([, hash]) => `#${hash}` === window.location.hash); setView(found?.[0] ?? 'record'); }; sync(); window.addEventListener('hashchange', sync); return () => window.removeEventListener('hashchange', sync); }, []);
   function choose(next: View) { setView(next); window.history.replaceState(null, '', `#${hashes[next]}`); window.scrollTo({ top: 0, behavior: 'smooth' }); }
 
-  const points = data.soundness_history?.points ?? [], best = points.length ? points[points.length - 1].soundness : null, lemmas = data.lemma_book?.lemmas;
+  const points = data.soundness_history?.points ?? [], best = points.length ? points[points.length - 1] : null, lemmas = data.lemma_book?.lemmas;
   const visibleLemmas = useMemo(() => (lemmas ?? []).filter((lemma) => `${lemma.title} ${lemma.statement_markdown} ${lemma.source_job_id}`.toLowerCase().includes(query.toLowerCase())), [lemmas, query]);
   const pending = [...data.candidates.promising, ...data.candidates.rejected], running = data.jobs.filter((job) => job.status === 'running').length;
 
   return <main><header className="site-header"><button className="wordmark" onClick={() => choose('record')}><span>LP</span><strong>Line–Point Concrete</strong></button><nav>
-    <button className={view === 'record' ? 'active' : ''} onClick={() => choose('record')}>Record</button><button className={view === 'lemmas' ? 'active' : ''} onClick={() => choose('lemmas')}>Lemma Book</button><button className={view === 'roadmaps' ? 'active' : ''} onClick={() => choose('roadmaps')}>Proof Roadmaps</button><button className={view === 'messages' ? 'active' : ''} onClick={() => choose('messages')}>Message Board</button><button className={view === 'contribute' ? 'active' : ''} onClick={() => choose('contribute')}>Contribute</button>
+    <button className={view === 'record' ? 'active' : ''} onClick={() => choose('record')}>Record</button><button className={view === 'lemmas' ? 'active' : ''} onClick={() => choose('lemmas')}>Lemma Book</button><button className={view === 'roadmaps' ? 'active' : ''} onClick={() => choose('roadmaps')}>Proof Roadmaps</button><button className={view === 'messages' ? 'active' : ''} onClick={() => choose('messages')}>Message Board</button><button className={view === 'contribute' ? 'active' : ''} onClick={() => choose('contribute')}>Contribute</button><button className={view === 'submit' ? 'active' : ''} onClick={() => choose('submit')}>Submit a contribution</button>
   </nav><button className="sync" onClick={refresh} disabled={refreshing}><RefreshCw className={refreshing ? 'spin' : ''} /> Sync</button></header>
 
   <div className="parameter-strip"><span><i className={running ? 'live' : ''} />{running ? `${running} agents active` : 'ready to run'}</span><span>prime <strong>147457</strong></span><span>degree <strong>87</strong></span><span>dimension <strong>2</strong></span><span>reasoning <strong>{data.status.reasoning_effort}</strong></span></div>
 
-  {view === 'record' && <div className="page"><section className="hero"><div><p className="kicker">Concrete line-vs-point test</p><h1>How low can verified soundness go?</h1><p className="lede">For every line and point table on <MathText className="inline">{'$\\mathbb F_{147457}^2$'}</MathText>, acceptance at least <MathText className="inline">{'$\\varepsilon$'}</MathText> must force a total-degree-87 polynomial agreeing on at least <MathText className="inline">{'$\\varepsilon/10$'}</MathText> of the points.</p></div><div className="record-number"><small>best doubly verified ε</small><strong>{formatEpsilon(best)}</strong><span>lower is better ↓</span></div></section>
-    <section className="chart-panel"><div className="panel-heading"><div><p className="kicker">Verified progress</p><h2>Soundness record</h2></div><div className="chart-controls"><button className="active">Record</button><button disabled>By agent</button><span>ε</span><span>All time</span></div></div><RecordChart points={points} /><div className="chart-foot"><span><ShieldCheck /> Every plotted point has 2/2 matching independent accepts.</span><span>{points.length} promoted improvement{points.length === 1 ? '' : 's'}</span></div></section>
+  {view === 'record' && <div className="page"><section className="hero"><div><p className="kicker">Concrete line-vs-point test</p><h1>How few agreement points can be certified?</h1><p className="lede">For every line and point table on <MathText className="inline">{'$\\mathbb F_{147457}^2$'}</MathText>, acceptance at least <MathText className="inline">{'$\\varepsilon$'}</MathText> must force a total-degree-87 polynomial agreeing on at least <MathText className="inline">{'$\\varepsilon/10$'}</MathText> of the points.</p></div><div className="record-number"><small>best verified agreement count</small><strong>{formatCount(best?.agreement_count)}</strong><span>ε = {formatEpsilon(best?.soundness)} · lower is better ↓</span></div></section>
+    <section className="chart-panel"><div className="panel-heading"><div><p className="kicker">Verified progress</p><h2>Agreement-count record</h2></div><div className="chart-controls"><button className="active">Record</button><button disabled>By agent</button><span>points</span><span>All time</span></div></div><RecordChart points={points} /><div className="chart-foot"><span><ShieldCheck /> Every plotted point has one independent verifier accept.</span><span>{points.length} promoted improvement{points.length === 1 ? '' : 's'}</span></div></section>
     <section className="leaderboard"><div className="panel-heading"><div><p className="kicker">Proof leaderboard</p><h2>Doubly verified results</h2></div><span>{data.candidates.verified.length} accepted</span></div>{data.candidates.verified.length ? data.candidates.verified.map((candidate, index) => <CandidateCard candidate={candidate} rank={index + 1} key={candidate.job_id} />) : <div className="empty"><FlaskConical /><h3>The record is open.</h3><p>Researchers are configured but have not been started. A candidate appears here only after two exact, independent audits.</p></div>}</section>
     {pending.length > 0 && <section className="leaderboard secondary"><div className="panel-heading"><div><p className="kicker">Review queue</p><h2>Promising and rejected submissions</h2></div></div>{pending.map((candidate, index) => <CandidateCard candidate={candidate} rank={index + 1} key={candidate.job_id} />)}</section>}
   </div>}
@@ -126,5 +136,7 @@ export function ResearchConsole({ initialData }: { initialData: ResearchSnapshot
 
   <section className="proof-contract"><p className="kicker">Non-negotiable proof contract</p><h2>Make the claim easy to falsify—and possible to verify.</h2><div><p><strong>Fixed experiment.</strong> Uniform affine line, then uniform point; one global bivariate polynomial of total degree at most 87.</p><p><strong>Exact accounting.</strong> Record every pruning, rounding, interpolation, exceptional-set, and recovery loss.</p><p><strong>Minimal lemmas.</strong> Put only objects, hypotheses, and conclusions in statements; explanation belongs in proofs.</p><p><strong>Characteristic audit.</strong> Check divisions, derivatives, multiplicities, separability, factorials, and degree cutoffs over <MathText className="inline">{'$\\mathbb F_{147457}$'}</MathText>.</p></div></section></div>}
 
-  <footer><span>Fixed instance: <MathText className="inline">{'$p=147457,\\ d=87,\\ m=2$'}</MathText></span><span><Check /> promotion policy: two independent accepts</span></footer></main>;
+  {view === 'submit' && <div className="page narrow"><section className="section-intro"><Upload /><div><p className="kicker">External intake</p><h1>Submit a contribution</h1><p>No GitHub account is required. Put the absolute agreement count at the top of your LaTeX note, then package it for the shared intake.</p></div></section><section className="contribute-card external-submit"><div className="absolute-score"><p className="kicker">Required first line</p><h2>Absolute agreement count</h2><MathText>{'$$A=\\left\\lceil\\varepsilon p^2\\right\\rceil$$'}</MathText><p>Use the concrete number of agreements (A), not only a decimal. Fixed instance: (p=147457), (d=87), (m=2).</p></div><form onSubmit={stageExternalSubmission}><label>Absolute agreements (A)<input name="agreements" type="number" min="1" max={147457 * 147457} required placeholder="e.g. 7810920777" /></label><label>Submission title<input name="title" required placeholder="A concise theorem title" /></label><label>Author or handle<input name="author" required placeholder="Your name or pseudonym" /></label><label>LaTeX document (.tex or .pdf)<input name="latex" type="file" accept=".tex,.pdf" required /></label><button className="copy-prompt" type="submit"><Download /> Download intake manifest</button></form>{submissionMessage && <p className="submit-message">{submissionMessage}</p>}<p className="submit-note">This GitHub Pages form creates a manifest locally; it cannot persist files itself. Send the manifest and LaTeX file to the external inbox. The repository ingestion script validates them and moves accepted packages into <code>external-submission/</code>. You can run the supplied ChatGPT/Codex contribution prompt directly on your note before sending it.</p></section></div>}
+
+  <footer><span>Fixed instance: <MathText className="inline">{'$p=147457,\\ d=87,\\ m=2$'}</MathText></span><span><Check /> promotion policy: one `xhigh` verifier accept</span></footer></main>;
 }
