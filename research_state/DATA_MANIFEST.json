@@ -17,10 +17,10 @@
       "sha256": "d767faba3729522ea1cbe3e107dc7c14549c0d49e80fc08ed6660c55117020a3"
     },
     {
-      "bytes": 10490,
+      "bytes": 10880,
       "path": "research_state/campaign-10-frugal/jobs.json",
       "role": "campaign_index",
-      "sha256": "9285ee309fc4e708c55c37f594ffb55dc943efda2c40abff01a07f17aa1ac1ee"
+      "sha256": "f557d21d40be8cb1120977451a74cad16ed5fef5c0defc1b3d15369f900a8f69"
     },
     {
       "bytes": 25582,
@@ -113,10 +113,10 @@
       "sha256": "f48dc58f59541536403e81ce62dc24f4c41e1c81484e4de07b2ad7b3ad466091"
     },
     {
-      "bytes": 880,
+      "bytes": 897,
       "path": "research_state/campaign-10-frugal/status.json",
       "role": "campaign_index",
-      "sha256": "f6b01eec0f906feb9daee321541d2b7ede07079ea3103671a9c7855e3e129a06"
+      "sha256": "b64795f7b46a45f5c399e4997c8f0a78a8227bcd329c66b0e1756286eaaf5d03"
     },
     {
       "bytes": 1528,
@@ -487,5 +487,5 @@
   ],
   "hash_algorithm": "sha256",
   "schema": "line-point-concrete-data-manifest-v1",
-  "total_bytes": 1154411
+  "total_bytes": 1154818
 }

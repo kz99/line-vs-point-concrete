@@ -5925,27 +5925,27 @@
       "status": "succeeded"
     },
     {
-      "attempts": 1,
+      "attempts": 2,
       "direction": "FRUGAL FUNNEL / BUILDER: Combine the component, parameter-search, and alternative-incidence outputs into one concise end-to-end candidate or one exact minimal obstruction.",
-      "error": "AgentError: researcher-0007 agent failed with exit code 1; see /Users/kaizheng/.codex/worktrees/1f44/SSE-auto/Line-vs-Point-concrete/research_state/campaign-10-frugal/agent_logs/20260915T185951Z-045b8f5282-84816240aa/stderr.txt",
-      "finished_at": "2026-09-15T19:11:28Z",
+      "error": "AgentError: researcher-0007 agent failed with exit code 1; see /Users/kaizheng/.codex/worktrees/1f44/SSE-auto/Line-vs-Point-concrete/research_state/campaign-10-frugal/agent_logs/20260915T191228Z-7db5674473-fe21283780/stderr.txt",
+      "finished_at": "2026-09-15T19:12:31Z",
       "id": "researcher-0007",
       "max_attempts": 2,
       "ordinal": 7,
       "role": "researcher",
-      "started_at": "2026-09-15T18:59:51Z",
-      "status": "queued"
+      "started_at": "2026-09-15T19:12:28Z",
+      "status": "failed"
     },
     {
-      "attempts": 0,
+      "attempts": 1,
       "direction": "FRUGAL FUNNEL / BUILDER: Combine the algebraic-cleanup, direction-selector, and adversarial outputs into one concise end-to-end candidate or one exact minimal obstruction.",
-      "error": null,
-      "finished_at": null,
+      "error": "AgentError: researcher-0008 agent failed with exit code 1; see /Users/kaizheng/.codex/worktrees/1f44/SSE-auto/Line-vs-Point-concrete/research_state/campaign-10-frugal/agent_logs/20260915T191228Z-290d4ca7c2-f84e40c2e3/stderr.txt",
+      "finished_at": "2026-09-15T19:12:30Z",
       "id": "researcher-0008",
       "max_attempts": 2,
       "ordinal": 8,
       "role": "researcher",
-      "started_at": null,
+      "started_at": "2026-09-15T19:12:28Z",
       "status": "queued"
     },
     {
@@ -8832,7 +8832,8 @@
   "status": {
     "campaign_dir": "/Users/kaizheng/.codex/worktrees/1f44/SSE-auto/Line-vs-Point-concrete/research_state/campaign-10-frugal",
     "counts": {
-      "queued": 4,
+      "failed": 1,
+      "queued": 3,
       "succeeded": 11
     },
     "dimension": 2,
@@ -8853,7 +8854,7 @@
       "researcher": 10,
       "verifier": 5
     },
-    "updated_at": "2026-09-15T19:11:28Z",
+    "updated_at": "2026-09-15T19:12:31Z",
     "verification_policy": "one independent high-reasoning audit for leaderboard submissions",
     "verifier_count": 1,
     "verifier_reasoning_effort": "xhigh"
