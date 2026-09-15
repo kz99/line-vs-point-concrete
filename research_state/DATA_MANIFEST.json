@@ -8,7 +8,7 @@
       "jobs": 11
     }
   },
-  "durable_file_count": 67,
+  "durable_file_count": 69,
   "files": [
     {
       "bytes": 642,
@@ -17,10 +17,10 @@
       "sha256": "d767faba3729522ea1cbe3e107dc7c14549c0d49e80fc08ed6660c55117020a3"
     },
     {
-      "bytes": 8277,
+      "bytes": 8506,
       "path": "research_state/campaign-10-frugal/jobs.json",
       "role": "campaign_index",
-      "sha256": "a8d5b8c5581467ee585875930d9121c934d23802b31d55d799d6cd4af1ce46d3"
+      "sha256": "33a96153fc291107eb7c5365cfa2924f8d0fa776758984d22b4dd808a7398448"
     },
     {
       "bytes": 16966,
@@ -29,10 +29,10 @@
       "sha256": "15ef1e8f3d299b2feec6af744c584deed6509439b0a3e1738bc4043de41979a3"
     },
     {
-      "bytes": 16887,
+      "bytes": 37969,
       "path": "research_state/campaign-10-frugal/leaderboards/promising-results.json",
       "role": "leaderboard",
-      "sha256": "9fba10beccb97ce5137726460d4360ed0e77632d24c5d56b875a1e172d2be35c"
+      "sha256": "8db65603ca7441c65bf91d84a4fe8b8ad2ac1bc12b75d148ffc0225a30506030"
     },
     {
       "bytes": 3,
@@ -77,10 +77,22 @@
       "sha256": "aac5ef0396fedc1434eaac9136e4d5f1a9a79dcb0bf6c719214c26d26e028f38"
     },
     {
-      "bytes": 879,
+      "bytes": 19068,
+      "path": "research_state/campaign-10-frugal/reviews/researcher-0004/verifier-a-researcher-0004/audit.json",
+      "role": "proof_review",
+      "sha256": "31948a3135e9e782bfd5dea34d91f6ed5ef553557afa663f3f9bcfcf59502bd3"
+    },
+    {
+      "bytes": 1428,
+      "path": "research_state/campaign-10-frugal/reviews/researcher-0004/verifier-a-researcher-0004/metadata.json",
+      "role": "proof_review",
+      "sha256": "af65385eabc9246497a31fce87fd5dfa63dea3d34b3a3a5b8330de84f09b0c80"
+    },
+    {
+      "bytes": 897,
       "path": "research_state/campaign-10-frugal/status.json",
       "role": "campaign_index",
-      "sha256": "66573a4ff49768e65379fea92e257a12857f39ff753228238a1003f871841970"
+      "sha256": "af9b40d110b8efb69006192eefe1c53eb70ac4e1f7275f3a88f7c1a6922d4833"
     },
     {
       "bytes": 1528,
@@ -415,5 +427,5 @@
   ],
   "hash_algorithm": "sha256",
   "schema": "line-point-concrete-data-manifest-v1",
-  "total_bytes": 943542
+  "total_bytes": 985367
 }
