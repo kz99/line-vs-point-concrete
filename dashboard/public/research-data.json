@@ -5961,16 +5961,16 @@
       "status": "failed"
     },
     {
-      "attempts": 1,
+      "attempts": 2,
       "direction": "FRUGAL FUNNEL / INTEGRATOR: Use both builder notes and the red-team report to publish the strongest fully proved strict leaderboard improvement; otherwise publish the exact frontier and next decisive calculation.",
-      "error": "AgentError: researcher-0010 agent failed with exit code 1; see /Users/kaizheng/.codex/worktrees/1f44/SSE-auto/Line-vs-Point-concrete/research_state/campaign-10-frugal/agent_logs/20260915T191640Z-fe84eb9b0d-5de998b72d/stderr.txt",
-      "finished_at": "2026-09-15T19:16:43Z",
+      "error": "AgentError: researcher-0010 agent failed with exit code 1; see /Users/kaizheng/.codex/worktrees/1f44/SSE-auto/Line-vs-Point-concrete/research_state/campaign-10-frugal/agent_logs/20260915T191743Z-fe84eb9b0d-1562c8a77b/stderr.txt",
+      "finished_at": "2026-09-15T19:17:45Z",
       "id": "researcher-0010",
       "max_attempts": 2,
       "ordinal": 10,
       "role": "researcher",
-      "started_at": "2026-09-15T19:16:40Z",
-      "status": "queued"
+      "started_at": "2026-09-15T19:17:43Z",
+      "status": "failed"
     },
     {
       "attempts": 1,
@@ -8832,8 +8832,7 @@
   "status": {
     "campaign_dir": "/Users/kaizheng/.codex/worktrees/1f44/SSE-auto/Line-vs-Point-concrete/research_state/campaign-10-frugal",
     "counts": {
-      "failed": 3,
-      "queued": 1,
+      "failed": 4,
       "succeeded": 11
     },
     "dimension": 2,
@@ -8854,7 +8853,7 @@
       "researcher": 10,
       "verifier": 5
     },
-    "updated_at": "2026-09-15T19:15:40Z",
+    "updated_at": "2026-09-15T19:17:45Z",
     "verification_policy": "one independent high-reasoning audit for leaderboard submissions",
     "verifier_count": 1,
     "verifier_reasoning_effort": "xhigh"
