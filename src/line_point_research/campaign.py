@@ -1126,7 +1126,7 @@ NUMBERED NOTE:
                 "SELECT role,COUNT(*) AS count FROM campaign_jobs GROUP BY role")}
             rows = [dict(row) for row in connection.execute(
                 "SELECT * FROM campaign_jobs ORDER BY id")]
-        payload = {
+        payload: dict[str, Any] = {
             "campaign_dir": str(self.paths.campaign_dir),
             "model": self.provider.model,
             "reasoning_effort": self.provider.reasoning_effort,
@@ -1155,9 +1155,19 @@ NUMBERED NOTE:
                   self.cfg.get("lemma_writer_enabled", True) else 0))),
             "counts": counts,
             "roles": roles,
-            "updated_at": utc_timestamp(),
         }
-        (self.paths.campaign_dir / "status.json").write_text(
+        status_path = self.paths.campaign_dir / "status.json"
+        previous: dict[str, Any] = {}
+        if status_path.exists():
+            try:
+                previous = json.loads(status_path.read_text())
+            except (json.JSONDecodeError, OSError):
+                previous = {}
+        previous_semantics = {key: value for key, value in previous.items() if key != "updated_at"}
+        payload["updated_at"] = (
+            previous.get("updated_at", utc_timestamp())
+            if previous_semantics == payload else utc_timestamp())
+        status_path.write_text(
             json.dumps(payload, indent=2, sort_keys=True) + "\n")
         (self.paths.campaign_dir / "jobs.json").write_text(
             json.dumps(rows, indent=2, sort_keys=True) + "\n")

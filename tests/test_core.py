@@ -184,6 +184,8 @@ class CampaignTests(unittest.TestCase):
             (root / "dashboard" / "public" / "research-data.json").write_text("{}")
             campaign = ResearchCampaign(write_config(root, 1))
             campaign.initialize()
+            first_updated_at = campaign.export_status()["updated_at"]
+            self.assertEqual(campaign.export_status()["updated_at"], first_updated_at)
             snapshot = json.loads((root / "dashboard" / "public" / "research-data.json").read_text())
             self.assertEqual(snapshot["soundness_history"]["verification_threshold"], 1)
             self.assertEqual(snapshot["soundness_history"]["points"], [])
