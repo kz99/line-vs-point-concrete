@@ -59,3 +59,7 @@ The public GitHub Pages dashboard mirrors the record/progress/leaderboard organi
 After a run updates the public snapshot, publish the static dashboard with `scripts/publish_pages.sh`.
 
 Read [TARGET.md](TARGET.md) for the exact rules.
+
+External researchers can follow the complete [contribution guide](how_to_contribute/README.md),
+copy the [standalone research prompt](how_to_contribute/RESEARCH_PROMPT.md), and submit a package
+under [`community_submissions/`](community_submissions/README.md) by pull request.

@@ -1,7 +1,5 @@
 # Contributing
 
-Contributions should preserve the separation between conjectures, conditional lemmas, proved theorems, and finite falsification evidence.
-
-Every proposed theorem must include a standard mathematical note, a structured exponent ledger, exact literature dependencies, and an independent audit. Never silently change the sampling distribution, parameter regime, or global-agreement conclusion while comparing exponents.
-
-Run `python -m unittest discover -s tests -v` and `python scripts/build_data_manifest.py` before committing durable research data.
+See [`how_to_contribute/README.md`](how_to_contribute/README.md) for the fixed mathematical target,
+literature pointers, copy-paste research prompt, submission templates, validation commands, pull
+request procedure, and two-independent-auditor promotion policy.

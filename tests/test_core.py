@@ -6,6 +6,7 @@ from pathlib import Path
 
 from line_point_research.agents import CommandAgentProvider
 from line_point_research.campaign import ResearchCampaign
+from line_point_research.community import ingest_community_package, validate_community_package
 from line_point_research.lemma_book import LEMMA_STATEMENT_RULE, canonical_sha256, validate_editorial_response
 from line_point_research.roadmaps import ROADMAP_DEFINITIONS, RoadmapWorkshop
 
@@ -181,6 +182,61 @@ class CampaignTests(unittest.TestCase):
             self.assertEqual(rows["verifier-b-researcher-0001"], "skipped")
             self.assertEqual(rows["verifier-a-researcher-0002"], "queued")
             self.assertEqual(rows["verifier-b-researcher-0002"], "queued")
+
+    def test_community_leaderboard_package_queues_two_audits(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            config = write_config(root, 1)
+            ResearchCampaign(config).initialize()
+            package = root / "alice-explicit-bound"
+            package.mkdir()
+            submission = {
+                "schema": "line-point-community-submission-v1",
+                "slug": "alice-explicit-bound",
+                "contributor": {
+                    "name": "Alice", "github": "alice", "ai_assistance": "none",
+                },
+                "title": "Explicit bound", "dimension": 2, "field_regime": "prime",
+                "fixed_prime": 147457, "fixed_degree": 87, "result_status": "proved",
+                "claim_scope": "bivariate_theorem", "leaderboard_submission": True,
+                "benchmark_improved": True, "claimed_soundness": 0.5,
+                "theorem_statement": "Pass at least 1/2 implies agreement at least 1/20.",
+                "parameter_regime": "m=2,p=147457,d=87",
+                "sampling_model": "uniform affine line then uniform point",
+                "global_conclusion": "one polynomial has agreement at least 1/20",
+                "literature_dependencies": [],
+                "proof_steps": [{
+                    "id": "P1", "statement": "The theorem holds.", "status": "proved",
+                    "proof": "Exact proof.", "dependencies": [],
+                }],
+                "soundness_ledger": [{
+                    "stage": "all", "input_bound": "1/2", "output_bound": "1/20",
+                    "loss": "1/10", "justification": "P1", "status": "proved",
+                }],
+                "counterexample_attempts": [], "characteristic_audit": [],
+                "finite_sanity_checks": [], "obstructions": [], "next_tasks": [],
+            }
+            (package / "submission.json").write_text(json.dumps(submission))
+            headings = (
+                "# Explicit bound\n\n## Abstract\nResult.\n\n"
+                "## Test and Notation\nFixed test.\n\n## Prior Results\nNone.\n\n"
+                "## Main Theorem\nClaim.\n\n## Proof\nProof.\n\n"
+                "## Soundness Ledger\nExact.\n\n## Counterexample Attempts\nDone.\n\n"
+                "## Characteristic Audit\nDone.\n\n## Limitations\nNone.\n\n"
+            )
+            (package / "note.md").write_text(headings + "Detailed proof. " * 100)
+            self.assertTrue(validate_community_package(package)["valid"])
+            result = ingest_community_package(config, package)
+            self.assertTrue(result["verification_queued"])
+            campaign = ResearchCampaign(config)
+            with campaign.connect() as connection:
+                ids = {row[0] for row in connection.execute(
+                    "SELECT id FROM campaign_jobs WHERE role='verifier' AND dependency=?",
+                    ("community-alice-explicit-bound",))}
+            self.assertEqual(ids, {
+                "verifier-a-community-alice-explicit-bound",
+                "verifier-b-community-alice-explicit-bound",
+            })
 
 
 class EditorialAndRoadmapTests(unittest.TestCase):

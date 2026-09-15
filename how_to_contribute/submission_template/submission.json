@@ -1,0 +1,57 @@
+{
+  "schema": "line-point-community-submission-v1",
+  "slug": "github-handle-short-slug",
+  "contributor": {
+    "name": "Your name",
+    "github": "your-github-handle",
+    "ai_assistance": "Describe any models or tools used, or write none."
+  },
+  "title": "A precise descriptive title",
+  "dimension": 2,
+  "field_regime": "prime",
+  "fixed_prime": 147457,
+  "fixed_degree": 87,
+  "result_status": "conditional",
+  "claim_scope": "proof_tool",
+  "leaderboard_submission": false,
+  "benchmark_improved": false,
+  "claimed_soundness": null,
+  "theorem_statement": "State the exact theorem or lemma, with all quantifiers and hypotheses.",
+  "parameter_regime": "m=2; p=147457; total degree d=87",
+  "sampling_model": "Uniform affine line in F_p^2, followed by a uniform point on that line.",
+  "global_conclusion": "State exactly what has and has not been proved.",
+  "literature_dependencies": [
+    {
+      "paper": "Full title and authors",
+      "version": "Version or publication date",
+      "result_id": "Theorem or lemma number",
+      "hypotheses": "Exact hypotheses used",
+      "used_for": "Role in this submission"
+    }
+  ],
+  "proof_steps": [
+    {
+      "id": "P1",
+      "statement": "Minimal quantified statement.",
+      "status": "conditional",
+      "proof": "Complete proof or the precise missing obligation.",
+      "dependencies": []
+    }
+  ],
+  "soundness_ledger": [
+    {
+      "stage": "Named proof stage",
+      "input_bound": "Exact input inequality",
+      "output_bound": "Exact output inequality",
+      "loss": "Exact numerical loss",
+      "justification": "Proof-step or literature reference",
+      "status": "conditional"
+    }
+  ],
+  "counterexample_attempts": [],
+  "characteristic_audit": [],
+  "finite_sanity_checks": [],
+  "obstructions": [],
+  "next_tasks": []
+}
+
