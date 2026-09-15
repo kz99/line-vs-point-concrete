@@ -32,12 +32,10 @@ class PagesPublisher:
         last_path = self.runtime / "last-published-sha256"
         if not self.snapshot.exists():
             raise FileNotFoundError(self.snapshot)
-        if not last_path.exists():
-            last_path.write_text(file_sha256(self.snapshot) + "\n")
         poll_seconds = max(30, int(self.cfg.get("pages_poll_seconds", 60)))
         while True:
             current = file_sha256(self.snapshot)
-            previous = last_path.read_text().strip()
+            previous = last_path.read_text().strip() if last_path.exists() else ""
             if current != previous:
                 completed = subprocess.run(
                     [str(self.publish_script)],
@@ -52,6 +50,7 @@ class PagesPublisher:
                         "published_at": utc_timestamp(),
                     }, indent=2, sort_keys=True) + "\n")
             if ((self.paths.campaign_dir / "COMPLETED").exists() and
+                    last_path.exists() and
                     file_sha256(self.snapshot) == last_path.read_text().strip()):
                 return {"status": "complete", "snapshot_sha256": current}
             time.sleep(poll_seconds)
