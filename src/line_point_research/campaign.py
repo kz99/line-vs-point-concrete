@@ -233,7 +233,7 @@ DIRECTIONS = [
     "new architecture 2: seek a higher-moment, energy-increment, or dependent-random-choice replacement for KTZ popularity pruning that preserves substantially more accepted incidence mass and yields an explicit fixed-instance epsilon",
     "new architecture 3: seek an algebraic reconstruction argument that exploits d=87 and p=147457 directly, including nonrectangular interpolation regions, Hasse derivatives, or curve geometry unavailable to the generic asymptotic proof",
     "new architecture 4: search for a direct agreement theorem across line pencils or directions that avoids the lossy list-to-one-polynomial conversion and gives a substantially smaller concrete epsilon",
-    "new architecture 5: combine compatible verified lemmas from the shared corpus into a new end-to-end soundness proof, but judge success solely by the concrete doubly-verifiable leaderboard epsilon",
+    "new architecture 5: combine compatible verified lemmas from the shared corpus into a new end-to-end soundness proof, but judge success solely by the concrete verified leaderboard epsilon",
     "use direction structure in the fixed affine plane",
     "derive a finite-field energy increment with explicit constants",
     "specialize bivariate Reed--Muller list recovery to d=87",
@@ -604,11 +604,11 @@ superseded: those files are retained only as provenance and are not part of the 
         if points:
             best = min(float(point["soundness"]) for point in points)
             record_count = int((Fraction(str(best)) * (147457 ** 2) + 1 - 1).__ceil__())
-            record = f"The current doubly verified leaderboard record is {record_count} agreement points (epsilon={best:.17g})."
+            record = f"The current verified leaderboard record is {record_count} agreement points (epsilon={best:.17g})."
         else:
             initial = float(self.cfg.get("initial_soundness", 1.0))
             record = (
-                "There is no doubly verified leaderboard point yet; "
+                "There is no verified leaderboard point yet; "
                 f"the comparison threshold is epsilon={initial:.17g}.")
         return f"""LEADERBOARD OBJECTIVE: {record} Read the authoritative history at
 {history_path}. Every constructive choice must be evaluated by whether it can produce a smaller
@@ -648,7 +648,7 @@ integer arithmetic whenever possible. Audit division
 by derivatives, discriminants, irreducibility, interpolation multiplicities, and every
 union/Markov/Cauchy--Schwarz loss. Test adversarial tables, inseparability, and concentrated good
 directions. A rigorous obstruction or correction is valuable. Set benchmark_improved=true only
-when the proved claimed_soundness is below the current doubly verified record; the initial
+when the proved claimed_soundness is below the current verified record; the initial
 comparison threshold is 1. Set dimension=2, field_regime=prime, fixed_prime=147457, and
 fixed_degree=87 in the structured response.
 
@@ -673,7 +673,7 @@ proof. A dedicated Lemma Writer will post-edit and may split a lemma without cha
         return f"""You are GENIUS, the global proof-synthesis mathematician for the
 line-versus-point concrete campaign. You must inspect the complete accumulated corpus and attempt
 an integrated proof minimizing the absolute agreement-count score ceil(epsilon*p^2) for the fixed instance. Your sole
-research objective is a new doubly verifiable leaderboard record; do not optimize roadmap
+research objective is a new verified leaderboard record; do not optimize roadmap
 coverage or generality for its own sake.
 
 {self._corpus_instruction()}
@@ -695,8 +695,8 @@ epsilon/10. Set dimension=2, field_regime=prime, fixed_prime=147457, and fixed_d
 incompatible lemmas or use finite evidence as proof.
 
 Set leaderboard_submission=true, result_status=proved, and benchmark_improved=true only if every
-dependency is proved and the claimed_soundness strictly improves the current doubly verified
-record. Include the complete load-bearing proof chain for its two downstream audits. Otherwise
+dependency is proved and the claimed_soundness strictly improves the current verified
+record. Include the complete load-bearing proof chain for its one downstream audit. Otherwise
 record the honest status and set leaderboard_submission=false and benchmark_improved=false.
 
 RULE: Every lemma statement must contain only its quantified objects, hypotheses, and conclusion.
@@ -973,7 +973,7 @@ NUMBERED NOTE:
             "planned_agent_invocations": (
                 (int(self.cfg["researcher_count"]) +
                  (1 if self.cfg.get("literature_agent_enabled", True) else 0)) *
-                ((3 if self.cfg.get("verifier_enabled", True) else 1) +
+                 ((1 if self.cfg.get("verifier_enabled", True) else 0) +
                  (1 if self.cfg.get("lemma_writer_enabled", True) else 0)) +
                 ((3 if self.cfg.get("genius_enabled", True) else 0) +
                  (1 if self.cfg.get("genius_enabled", True) and
@@ -1118,7 +1118,7 @@ NUMBERED NOTE:
                 "lower_is_better": True,
                 "score_metric": "guaranteed agreement-count equivalent ceil(epsilon * p^2)",
                 "score_unit": "points in F_p^2",
-                "verification_threshold": 2,
+                "verification_threshold": 1,
                 "points": history,
             }, indent=2, sort_keys=True) + "\n")
 

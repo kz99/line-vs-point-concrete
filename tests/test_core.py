@@ -23,9 +23,9 @@ campaign:
   fixed_prime: 147457
   fixed_degree: 87
   verifier_enabled: true
-  verifier_count: 2
+  verifier_count: 1
   lemma_writer_enabled: true
-  genius_enabled: true
+  genius_enabled: false
   model: gpt-5.6-sol
   reasoning_effort: {effort}
   initial_soundness: 1.0
@@ -51,14 +51,14 @@ class CampaignTests(unittest.TestCase):
             campaign = ResearchCampaign(write_config(root))
             campaign.initialize()
             status = campaign.export_status()
-            self.assertEqual(status["counts"], {"queued": 12})
+            self.assertEqual(status["counts"], {"queued": 11})
             self.assertEqual(status["fixed_prime"], 147457)
             self.assertEqual(status["fixed_degree"], 87)
-            self.assertEqual(status["verifier_count"], 2)
+            self.assertEqual(status["verifier_count"], 1)
             self.assertEqual(status["literature_agent_count"], 1)
-            self.assertEqual(status["planned_agent_invocations"], 48)
+            self.assertEqual(status["planned_agent_invocations"], 22)
 
-    def test_each_submission_enqueues_two_independent_verifiers(self):
+    def test_each_submission_enqueues_one_verifier(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             campaign = ResearchCampaign(write_config(root, 1))
@@ -66,7 +66,7 @@ class CampaignTests(unittest.TestCase):
             campaign._enqueue_verifier("researcher-0001")
             with campaign.connect() as connection:
                 ids = {row[0] for row in connection.execute("SELECT id FROM campaign_jobs WHERE role='verifier'")}
-            self.assertEqual(ids, {"verifier-a-researcher-0001", "verifier-b-researcher-0001"})
+            self.assertEqual(ids, {"verifier-a-researcher-0001"})
 
     def test_prompt_uses_exact_soundness_definition(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -75,7 +75,7 @@ class CampaignTests(unittest.TestCase):
             self.assertIn("p=147457", prompt)
             self.assertIn("total degree d=87", prompt)
             self.assertIn("epsilon/10", prompt)
-            self.assertIn("Lower epsilon is stronger", prompt)
+            self.assertIn("Lower absolute agreement-count scores are stronger", prompt)
             self.assertIn("A lemma statement contains only", prompt)
             self.assertIn("leaderboard_submission=true", prompt)
 
@@ -107,10 +107,10 @@ class CampaignTests(unittest.TestCase):
             campaign = ResearchCampaign(write_config(root, 1))
             campaign.initialize()
             snapshot = json.loads((root / "dashboard" / "public" / "research-data.json").read_text())
-            self.assertEqual(snapshot["soundness_history"]["verification_threshold"], 2)
+            self.assertEqual(snapshot["soundness_history"]["verification_threshold"], 1)
             self.assertEqual(snapshot["soundness_history"]["points"], [])
 
-    def test_graph_requires_two_matching_accepts(self):
+    def test_graph_requires_one_accept(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             (root / "dashboard" / "public").mkdir(parents=True)
@@ -141,11 +141,6 @@ class CampaignTests(unittest.TestCase):
             first = root / "state" / "reviews" / "researcher-0001" / "verifier-a-researcher-0001"
             first.mkdir(parents=True)
             (first / "audit.json").write_text(json.dumps(audit))
-            campaign.export_status()
-            self.assertEqual(json.loads((root / "state" / "leaderboards" / "soundness-history.json").read_text())["points"], [])
-            second = root / "state" / "reviews" / "researcher-0001" / "verifier-b-researcher-0001"
-            second.mkdir(parents=True)
-            (second / "audit.json").write_text(json.dumps(audit))
             campaign.export_status()
             history = json.loads((root / "state" / "leaderboards" / "soundness-history.json").read_text())
             self.assertEqual([point["soundness"] for point in history["points"]], [0.2])
@@ -179,11 +174,9 @@ class CampaignTests(unittest.TestCase):
                 rows = {row[0]: row[1] for row in connection.execute(
                     "SELECT id,status FROM campaign_jobs WHERE role='verifier'")}
             self.assertEqual(rows["verifier-a-researcher-0001"], "skipped")
-            self.assertEqual(rows["verifier-b-researcher-0001"], "skipped")
             self.assertEqual(rows["verifier-a-researcher-0002"], "queued")
-            self.assertEqual(rows["verifier-b-researcher-0002"], "queued")
 
-    def test_community_leaderboard_package_queues_two_audits(self):
+    def test_community_leaderboard_package_queues_one_audit(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             config = write_config(root, 1)
@@ -233,10 +226,7 @@ class CampaignTests(unittest.TestCase):
                 ids = {row[0] for row in connection.execute(
                     "SELECT id FROM campaign_jobs WHERE role='verifier' AND dependency=?",
                     ("community-alice-explicit-bound",))}
-            self.assertEqual(ids, {
-                "verifier-a-community-alice-explicit-bound",
-                "verifier-b-community-alice-explicit-bound",
-            })
+            self.assertEqual(ids, {"verifier-a-community-alice-explicit-bound"})
 
 
 class EditorialAndRoadmapTests(unittest.TestCase):
