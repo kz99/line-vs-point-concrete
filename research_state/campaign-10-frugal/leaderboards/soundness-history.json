@@ -2,7 +2,22 @@
   "fixed_degree": 87,
   "fixed_prime": 147457,
   "lower_is_better": true,
-  "points": [],
+  "points": [
+    {
+      "agreement_count": 7349490435,
+      "gain": 3.582668867130323e-08,
+      "job_id": "researcher-0003",
+      "previous_best": 0.33800761692132436,
+      "recovery_agreement_count": 734949044,
+      "soundness": 0.3380075810946357,
+      "theorem_sha256": "f5c2cfb8430692de57efac66b335f9cfb7c2b71dfecb57588899c028f53f38a1",
+      "title": "Label-Sensitive Surplus Interpolation Lowers the Fixed Score by 779",
+      "verified_at": "2026-09-15T18:20:38Z",
+      "verifier_ids": [
+        "verifier-a-researcher-0003"
+      ]
+    }
+  ],
   "score_metric": "guaranteed agreement-count equivalent ceil(epsilon * p^2)",
   "score_unit": "points in F_p^2",
   "verification_threshold": 1

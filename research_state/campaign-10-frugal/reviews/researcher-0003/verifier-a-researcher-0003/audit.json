@@ -1,0 +1,401 @@
+{
+  "benchmark_improved": true,
+  "counterexample_attempts": [
+    "Repeated-factor stress test: if A=F^eG with e>=2, vanishing after line specialization or at an added labeled point implies F^(e-1)G still vanishes. Thus squarefree reduction preserves every augmented constraint.",
+    "Content-factor stress test: an added point zero may arise from C(x)=0 after A=CB, but the added zeros are used only before content removal to establish A-identity lines. Content lines are subsequently charged as exceptional, so no B-point-zero invariant is improperly required.",
+    "The supplied three-pencil and hybrid coefficients give strict-frontier scores 7349510106 and 7349499610 respectively, both worse than 7349490435.",
+    "Inseparability and branch-switching tests do not obstruct reconstruction: deg_Z<=173<p excludes Z^p-type derivative failure, while retained edges satisfy B_Z!=0 and therefore cannot cross branch intersections.",
+    "The score boundary 7349490434/p^2 lies below the strict survival frontier, so incidence-lattice normalization cannot reduce the absolute score below 7349490435."
+  ],
+  "coverage_complete": true,
+  "dimension_verified": true,
+  "fatal_obstruction": null,
+  "field_regime_verified": true,
+  "fixed_degree_verified": true,
+  "fixed_prime_verified": true,
+  "line_audit": [
+    {
+      "claim": "The audited theorem is exactly the required hash-designated claim.",
+      "justification": "SHA-256 of the UTF-8 theorem_statement without a trailing newline is f5c2cfb8430692de57efac66b335f9cfb7c2b71dfecb57588899c028f53f38a1.",
+      "reference": "research_state/campaign-10-frugal/submissions/researcher-0003/response.json theorem_statement",
+      "verdict": "valid"
+    },
+    {
+      "claim": "The affine-plane cardinalities and sampling normalization are correct.",
+      "justification": "M=p^2=21743566849, Lambda=p(p+1)=21743714306, and N=Lambda*p=M(p+1)=3206262880419842. The phrase N=Mp in the structured P1 proof is a harmless typo; the statement, note, sampling model, and ledger all use the correct N.",
+      "reference": "[P1]; numbered note lines 26-37",
+      "verdict": "valid"
+    },
+    {
+      "claim": "The three-direction coverage coefficient is correct.",
+      "justification": "Exact enumeration and the consecutive-ratio argument give the unique maximizer a=49152 and kappa=1610629120/10871857153; averaging yields a deterministic direction triple.",
+      "reference": "[P2]; campaign-30 researcher-0003 [P2]",
+      "verdict": "valid"
+    },
+    {
+      "claim": "The top-9116 weight argument has the required uniform quantifiers.",
+      "justification": "For n>=9116 weights, the largest 9116 sum to at least 9116U/n>=9116U/M; for n<9116 all weights are removed. Hence U'<=(1-9116/M)U.",
+      "reference": "[P3]; numbered note lines 61-66",
+      "verdict": "valid"
+    },
+    {
+      "claim": "The augmented interpolation space is nonzero.",
+      "justification": "There are 6693082347 eligible monomials, at most 6693073230 line equations, and at most 9116 added evaluation equations, leaving dimension at least one.",
+      "reference": "[P4]; numbered note lines 68-70",
+      "verdict": "valid"
+    },
+    {
+      "claim": "Squarefree reduction preserves the augmented labels.",
+      "justification": "Specialized line rings are domains, and point constraints are scalar products. Dividing one copy from F^eG with e>=2 preserves both kinds of zeros. Every nonzero solution remains Z-dependent; deg_Z<=173<p then gives nonzero Z-derivative.",
+      "reference": "[P4]; numbered note lines 68-70",
+      "verdict": "valid"
+    },
+    {
+      "claim": "The augmented covered-set identity extension is correct.",
+      "justification": "At every covered accepted incidence A(x,P_L(x))=A(x,f(x))=0. A nonidentity restriction has degree at most 15129, giving at most 15129 covered roots per omitted line and the stated inequality.",
+      "reference": "[P5]; numbered note lines 72-75",
+      "verdict": "valid"
+    },
+    {
+      "claim": "Primitive-content cleanup remains applicable after augmentation.",
+      "justification": "The added point zeros have already served their role before A=CB. Noncontent A-identity lines remain B-identities, while content lines are included in the existing exceptional-line charge.",
+      "reference": "[P6]; campaign-30 researcher-0003 [P5]",
+      "verdict": "valid"
+    },
+    {
+      "claim": "The exact core-survival arithmetic is correct.",
+      "justification": "Independent rational replay gives kappa'=35020807257170984960/236392952779034320897, C*=769296828797543, frontier R'=61159938999447089357/180942506690803537238, and the displayed strictly positive survival margin.",
+      "reference": "[P7]; numbered note lines 78-106",
+      "verdict": "valid"
+    },
+    {
+      "claim": "The component conversion works at the new tau=epsilon/10.",
+      "justification": "beta-tau>0, c*tau<1/2, F(tau)>0, F'(tau)<0, and F''>0 hold exactly. Convexity therefore excludes every component density at most tau.",
+      "reference": "[P8]; campaign-30 researcher-0003 [P9]",
+      "verdict": "valid"
+    },
+    {
+      "claim": "One total-degree-at-most-87 polynomial governs a component.",
+      "justification": "Simple-root homogeneous recursion constructs Q, D+1 seed lines force B(X,Y,Q)=0 globally, and simple-root uniqueness propagates that same Q through the connected component.",
+      "reference": "[P9]; campaign-30 researcher-0003 [P10]",
+      "verdict": "valid"
+    },
+    {
+      "claim": "The final recovery and leaderboard arithmetic are exact.",
+      "justification": "epsilon/10>174/147457, ceil(epsilon*p^2)=7349490435, and strict agreement beyond epsilon*p^2/10 implies at least 734949044 points. The imported incumbent score is exceeded by 779 points in the lower-is-better direction.",
+      "reference": "[P10]; numbered note lines 110-123",
+      "verdict": "valid"
+    }
+  ],
+  "literature_audit": [
+    {
+      "claim": "No primary-paper theorem is load-bearing.",
+      "justification": "Interpolation, primitive cleanup, discriminant counting, C4 peeling, component conversion, and reconstruction are proved in the available campaign-30 artifact. KTZ lemmas are mentioned only as analogues.",
+      "reference": "numbered note lines 39-47; campaign-30 researcher-0003 [P3]-[P10]",
+      "verdict": "valid"
+    },
+    {
+      "claim": "Pocklington's criterion is applicable.",
+      "justification": "The complete factorization p-1=2^14*3^2 is given, and the exact base-10 congruences and gcd conditions hold for prime divisors 2 and 3.",
+      "reference": "Pocklington criterion used in [P1]; campaign-30 researcher-0003 [P1]",
+      "verdict": "valid"
+    },
+    {
+      "claim": "The imported incumbent artifact is available and hash-matched.",
+      "justification": "Its theorem_statement hashes to 53c9e438528bd0576c18932996e7607f719d4f9e051243f15e86889aae6b4762. Its proof and audit are present locally and were independently rechecked rather than accepted solely on provenance.",
+      "reference": "research_state/campaign-30-leaderboard/submissions/researcher-0003/response.json; corresponding audit.json",
+      "verdict": "valid"
+    }
+  ],
+  "proof_chain_audit": [
+    {
+      "claim": "The fixed field and affine-plane counts are established.",
+      "justification": "The primality certificate and all exact cardinalities check; the isolated N=Mp typo does not enter any calculation.",
+      "reference": "[P1]",
+      "verdict": "valid"
+    },
+    {
+      "claim": "The imported primality criterion has all hypotheses.",
+      "justification": "The fully factored part equals p-1 and the required congruence and coprimality checks hold.",
+      "reference": "Pocklington criterion used in [P1]",
+      "verdict": "valid"
+    },
+    {
+      "claim": "The explicit Pocklington residues are available.",
+      "justification": "The incumbent P1 records and the independent replay confirms the residues 10^(p-1)=1, 10^((p-1)/2)=p-1, and 10^((p-1)/3)=78348 modulo p.",
+      "reference": "research_state/campaign-30-leaderboard/submissions/researcher-0003/response.json [P1]",
+      "verdict": "valid"
+    },
+    {
+      "claim": "A three-direction union with the claimed uncovered-incidence bound exists.",
+      "justification": "The pointwise hypergeometric envelope and averaging preserve all quantifiers.",
+      "reference": "[P2]",
+      "verdict": "valid"
+    },
+    {
+      "claim": "The imported direction lemma supports P2 exactly.",
+      "justification": "It uses the same p, affine plane, three complete directions, sampling density, and coefficient kappa.",
+      "reference": "research_state/campaign-30-leaderboard/submissions/researcher-0003/response.json [P2]",
+      "verdict": "valid"
+    },
+    {
+      "claim": "At most 9116 labeled points reduce uncovered mass by the stated factor.",
+      "justification": "The elementary top-weight bound applies to every uncovered-point weight vector.",
+      "reference": "[P3]",
+      "verdict": "valid"
+    },
+    {
+      "claim": "A nonzero squarefree augmented interpolant exists.",
+      "justification": "Rank-nullity leaves dimension at least one; Z-free solutions are excluded by 442371 distinct line factors; repeated-factor removal preserves line and point constraints.",
+      "reference": "[P4]",
+      "verdict": "valid"
+    },
+    {
+      "claim": "The imported weighted-interpolation facts apply unchanged.",
+      "justification": "The monomial count, D+1 equations per line, Z-degree cap, and domain-specialization argument are exactly those required by the augmented construction.",
+      "reference": "research_state/campaign-30-leaderboard/submissions/researcher-0003/response.json [P3]",
+      "verdict": "valid"
+    },
+    {
+      "claim": "The augmented identity-extension inequality holds.",
+      "justification": "Residual uncovered incidences are charged to U', and every omitted line contributes at most D augmented-covered accepted incidences.",
+      "reference": "[P5]",
+      "verdict": "valid"
+    },
+    {
+      "claim": "The imported identity-extension lemma supports the modified covered set.",
+      "justification": "Its proof uses only A(x,f(x))=0 at covered points and the degree-D restriction bound, both supplied by the augmentation.",
+      "reference": "research_state/campaign-30-leaderboard/submissions/researcher-0003/response.json [P4]",
+      "verdict": "valid"
+    },
+    {
+      "claim": "Complete deletion implies |E|<=U'+769296828797543.",
+      "justification": "All cleanup and peeling hypotheses depend only on squarefree weighted A and its identity lines, not on how those identities were generated.",
+      "reference": "[P6]",
+      "verdict": "valid"
+    },
+    {
+      "claim": "The primitive-content and exceptional-line bound is valid.",
+      "justification": "Primitivity, squarefreeness, deg_Z<p, and the nominal discriminant give at most E_D=2615604 exceptional lines without specialized leading-coefficient division.",
+      "reference": "research_state/campaign-30-leaderboard/submissions/researcher-0003/response.json [P5]",
+      "verdict": "valid"
+    },
+    {
+      "claim": "The residual C4 edge cap is valid.",
+      "justification": "Convex pair counting gives at most 646374 edges on the 5194-by-15129 residual corner.",
+      "reference": "research_state/campaign-30-leaderboard/submissions/researcher-0003/response.json [P6]",
+      "verdict": "valid"
+    },
+    {
+      "claim": "The empty-core peeling credit is valid for every residual line count.",
+      "justification": "The stopping argument covers n>=15129, and the separate trivial bound covers n<15129, yielding credit 156513678.",
+      "reference": "research_state/campaign-30-leaderboard/submissions/researcher-0003/response.json [P7]",
+      "verdict": "valid"
+    },
+    {
+      "claim": "The incumbent fixed charge consolidates without double counting.",
+      "justification": "The exact terms 440005802696216, 328958422858521, and 332759756484 minus 156513678 equal C*=769296828797543.",
+      "reference": "research_state/campaign-30-leaderboard/submissions/researcher-0003/response.json [P8]",
+      "verdict": "valid"
+    },
+    {
+      "claim": "The cited prior audit is available but not used as a substitute for proof.",
+      "justification": "The file accepts the matching incumbent hash; every mathematical module imported from it was separately checked in this audit.",
+      "reference": "research_state/campaign-30-leaderboard/reviews/researcher-0003/verifier-a-researcher-0003/audit.json",
+      "verdict": "valid"
+    },
+    {
+      "claim": "Acceptance at the submitted epsilon forces a nonempty simple-root core.",
+      "justification": "Substitution of U' and exact solution of the deletion inequality give epsilon>R' with positive rational margin.",
+      "reference": "[P7]",
+      "verdict": "valid"
+    },
+    {
+      "claim": "Every core component exceeds epsilon/10 point density.",
+      "justification": "The exact affine-incidence inequality and endpoint certificate exclude all component densities in [0,epsilon/10].",
+      "reference": "[P8]",
+      "verdict": "valid"
+    },
+    {
+      "claim": "The imported component lemma applies at the smaller endpoint.",
+      "justification": "Its minimum-degree parameters are unchanged, and all endpoint side conditions become or remain valid at the submitted tau.",
+      "reference": "research_state/campaign-30-leaderboard/submissions/researcher-0003/response.json [P9]",
+      "verdict": "valid"
+    },
+    {
+      "claim": "Every connected component admits one degree-87 polynomial.",
+      "justification": "Formal implicit recursion, the D+1-line divisibility argument, and simple-root propagation are complete.",
+      "reference": "[P9]",
+      "verdict": "valid"
+    },
+    {
+      "claim": "The imported reconstruction lemma has the required characteristic and degree hypotheses.",
+      "justification": "It divides only by retained nonzero B_Z values and produces one bivariate polynomial of total degree at most 87.",
+      "reference": "research_state/campaign-30-leaderboard/submissions/researcher-0003/response.json [P10]",
+      "verdict": "valid"
+    },
+    {
+      "claim": "The exact theorem contract follows from the component.",
+      "justification": "The maximum recovery fraction equals epsilon/10, the strict component bound gives 734949044 points, and the score is 7349490435.",
+      "reference": "[P10]",
+      "verdict": "valid"
+    }
+  ],
+  "proof_chain_complete": true,
+  "quantifier_audit": [
+    {
+      "claim": "The theorem is universal over all point tables and complete degree-87 affine-line tables.",
+      "justification": "No genericity, randomness, or consistency assumption is imposed on the submitted tables.",
+      "reference": "theorem_statement; [P2]-[P10]",
+      "verdict": "valid"
+    },
+    {
+      "claim": "Direction and point selection are legitimate existential choices for every fixed table.",
+      "justification": "Random directions are used only to prove deterministic existence; S is then chosen deterministically from the uncovered weights.",
+      "reference": "[P2]-[P3]",
+      "verdict": "valid"
+    },
+    {
+      "claim": "The dimension remains exactly m=2.",
+      "justification": "The proof uses p+1 directions, affine-line factorization, C4-free point-line incidence, and the bivariate second-moment identity.",
+      "reference": "[P1], [P6], [P8]",
+      "verdict": "valid"
+    },
+    {
+      "claim": "The field remains exactly F_147457.",
+      "justification": "Primality is certified, all relations and factorizations occur over this field, and no extension field is assumed.",
+      "reference": "[P1]-[P9]",
+      "verdict": "valid"
+    },
+    {
+      "claim": "The sampling convention is unchanged.",
+      "justification": "rho=|E|/N with N=p^2(p+1), exactly uniform affine-line sampling followed by a uniform point on that line.",
+      "reference": "sampling_model; [P1], [P7]",
+      "verdict": "valid"
+    },
+    {
+      "claim": "The degree convention remains total degree at most 87.",
+      "justification": "Line labels have univariate degree at most 87, and reconstruction produces a bivariate polynomial whose homogeneous truncation has total degree at most 87.",
+      "reference": "[P4], [P9]",
+      "verdict": "valid"
+    },
+    {
+      "claim": "The conclusion is about one polynomial rather than a list.",
+      "justification": "A single Q is reconstructed at a seed and propagated unchanged throughout one connected component.",
+      "reference": "[P9]",
+      "verdict": "valid"
+    },
+    {
+      "claim": "Acceptance equality is covered.",
+      "justification": "The empty-core upper bound is strictly below epsilon, so the weak premise rho>=epsilon\u2014including equality\u2014forces survival.",
+      "reference": "[P7]",
+      "verdict": "valid"
+    },
+    {
+      "claim": "The exact max(174/p,epsilon/10) recovery requirement is met.",
+      "justification": "epsilon/10-174/p is the positive exact fraction 481015838854716964149/14745700000000000000000.",
+      "reference": "[P10]",
+      "verdict": "valid"
+    },
+    {
+      "claim": "The admissibility floor is met.",
+      "justification": "epsilon-957/1474570 is positive exactly.",
+      "reference": "[P10]",
+      "verdict": "valid"
+    }
+  ],
+  "recovery_ratio_verified": true,
+  "required_changes": [],
+  "scope_verified": "bivariate_theorem",
+  "soundness_audit": [
+    {
+      "claim": "Sampling denominator",
+      "justification": "Uniform line-then-point sampling gives N=3206262880419842 equiprobable incidences.",
+      "reference": "[P1]; soundness_ledger sampling convention",
+      "verdict": "valid"
+    },
+    {
+      "claim": "Three-direction loss",
+      "justification": "U<=kappa(1-rho)N with kappa=1610629120/10871857153.",
+      "reference": "[P2]; soundness_ledger direction selection",
+      "verdict": "valid"
+    },
+    {
+      "claim": "Label-sensitive gain",
+      "justification": "Removing the selected point weights gives U'<=(1-9116/M)U and hence kappa'=35020807257170984960/236392952779034320897.",
+      "reference": "[P3]; soundness_ledger label-sensitive surplus coverage",
+      "verdict": "valid"
+    },
+    {
+      "claim": "Interpolation feasibility",
+      "justification": "6693082347-6693073230-9116=1, so the augmented homogeneous system has a nonzero solution.",
+      "reference": "[P4]; soundness_ledger weighted interpolation",
+      "verdict": "valid"
+    },
+    {
+      "claim": "Identity-extension loss",
+      "justification": "All accepted edges outside T are covered by U' or the bound 15129(Lambda-|T|).",
+      "reference": "[P5]; soundness_ledger identity extension",
+      "verdict": "valid"
+    },
+    {
+      "claim": "Exceptional-line cleanup",
+      "justification": "At most 2615604 identity lines are exceptional, costing at most p incidences each.",
+      "reference": "[P6]; incumbent [P5]",
+      "verdict": "valid"
+    },
+    {
+      "claim": "Derivative cleanup",
+      "justification": "Every regular derivative restriction is nonzero of degree at most q=15042.",
+      "reference": "[P6]; incumbent [P5]",
+      "verdict": "valid"
+    },
+    {
+      "claim": "C4-sharpened peeling",
+      "justification": "Complete deletion costs at most 15129M+5194(t-e)-156513678 in the cleaned graph.",
+      "reference": "[P6]; incumbent [P6]-[P7]",
+      "verdict": "valid"
+    },
+    {
+      "claim": "Fixed-loss subtotal",
+      "justification": "Exact consolidation gives C*=769296828797543 without duplicate charges.",
+      "reference": "[P6]; incumbent [P8]",
+      "verdict": "valid"
+    },
+    {
+      "claim": "Core-survival threshold",
+      "justification": "R'=61159938999447089357/180942506690803537238 and floor(MR')=7349490434. The submitted epsilon lies strictly above R'.",
+      "reference": "[P7]",
+      "verdict": "valid"
+    },
+    {
+      "claim": "Component conversion",
+      "justification": "The exact endpoint value is positive and the derivative/convexity side conditions exclude component density at most epsilon/10.",
+      "reference": "[P8]",
+      "verdict": "valid"
+    },
+    {
+      "claim": "Single-polynomial reconstruction",
+      "justification": "Reconstruction incurs zero agreement loss and produces one total-degree-at-most-87 polynomial.",
+      "reference": "[P9]",
+      "verdict": "valid"
+    },
+    {
+      "claim": "Recovery count",
+      "justification": "Strictly more than epsilon*M/10 points means at least ceil(epsilon*M/10)=734949044 points because epsilon*M/10 is nonintegral.",
+      "reference": "[P10]",
+      "verdict": "valid"
+    },
+    {
+      "claim": "Leaderboard score",
+      "justification": "ceil(epsilon*M)=7349490435, which is 779 below the imported incumbent 7349491214.",
+      "reference": "[P10]; campaign-30 soundness-history.json",
+      "verdict": "valid"
+    }
+  ],
+  "summary": "Accept the exact hash-designated theorem at epsilon=3380075810946357/10^16. The full fixed-parameter ledger, augmented interpolation, squarefree/content transition, core survival, component bound, and one-polynomial reconstruction all verify. The guaranteed recovery is more than epsilon/10=max(174/147457,epsilon/10), hence at least 734949044 points. Its score 7349490435 improves the imported incumbent by 779. The requested checkpoint write was attempted, but the enforced read-only sandbox rejected apply_patch even for the assigned outbox; this does not affect the mathematical verdict.",
+  "unfixable": false,
+  "verdict": "accept",
+  "verified_claim_sha256": "f5c2cfb8430692de57efac66b335f9cfb7c2b71dfecb57588899c028f53f38a1",
+  "verified_soundness": 0.3380075810946357
+}
