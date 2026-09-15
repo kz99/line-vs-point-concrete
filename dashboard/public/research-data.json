@@ -5949,16 +5949,16 @@
       "status": "failed"
     },
     {
-      "attempts": 1,
+      "attempts": 2,
       "direction": "FRUGAL FUNNEL / RED-TEAM: Audit both builder routes line by line, reject invalid imports, and specify the smallest repairs or strongest surviving strict improvement.",
-      "error": "AgentError: researcher-0009 agent failed with exit code 1; see /Users/kaizheng/.codex/worktrees/1f44/SSE-auto/Line-vs-Point-concrete/research_state/campaign-10-frugal/agent_logs/20260915T191434Z-ed4683edb4-adfcce6bc7/stderr.txt",
-      "finished_at": "2026-09-15T19:14:37Z",
+      "error": "AgentError: researcher-0009 agent failed with exit code 1; see /Users/kaizheng/.codex/worktrees/1f44/SSE-auto/Line-vs-Point-concrete/research_state/campaign-10-frugal/agent_logs/20260915T191537Z-ed4683edb4-c16f0544e2/stderr.txt",
+      "finished_at": "2026-09-15T19:15:40Z",
       "id": "researcher-0009",
       "max_attempts": 2,
       "ordinal": 9,
       "role": "researcher",
-      "started_at": "2026-09-15T19:14:34Z",
-      "status": "queued"
+      "started_at": "2026-09-15T19:15:37Z",
+      "status": "failed"
     },
     {
       "attempts": 0,
@@ -8832,8 +8832,8 @@
   "status": {
     "campaign_dir": "/Users/kaizheng/.codex/worktrees/1f44/SSE-auto/Line-vs-Point-concrete/research_state/campaign-10-frugal",
     "counts": {
-      "failed": 2,
-      "queued": 2,
+      "failed": 3,
+      "queued": 1,
       "succeeded": 11
     },
     "dimension": 2,
@@ -8854,7 +8854,7 @@
       "researcher": 10,
       "verifier": 5
     },
-    "updated_at": "2026-09-15T19:13:34Z",
+    "updated_at": "2026-09-15T19:15:40Z",
     "verification_policy": "one independent high-reasoning audit for leaderboard submissions",
     "verifier_count": 1,
     "verifier_reasoning_effort": "xhigh"
