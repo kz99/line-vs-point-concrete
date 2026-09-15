@@ -119,12 +119,12 @@
     "status": "failed"
   },
   {
-    "attempts": 1,
+    "attempts": 2,
     "created_at": "2026-09-15T18:09:47Z",
     "dependency": "[\"researcher-0002\", \"researcher-0003\", \"researcher-0005\"]",
     "direction": "FRUGAL FUNNEL / BUILDER: Combine the algebraic-cleanup, direction-selector, and adversarial outputs into one concise end-to-end candidate or one exact minimal obstruction.",
-    "error": "AgentError: researcher-0008 agent failed with exit code 1; see /Users/kaizheng/.codex/worktrees/1f44/SSE-auto/Line-vs-Point-concrete/research_state/campaign-10-frugal/agent_logs/20260915T191228Z-290d4ca7c2-f84e40c2e3/stderr.txt",
-    "finished_at": "2026-09-15T19:12:30Z",
+    "error": "AgentError: researcher-0008 agent failed with exit code 1; see /Users/kaizheng/.codex/worktrees/1f44/SSE-auto/Line-vs-Point-concrete/research_state/campaign-10-frugal/agent_logs/20260915T191331Z-290d4ca7c2-9db5609f68/stderr.txt",
+    "finished_at": "2026-09-15T19:13:34Z",
     "id": "researcher-0008",
     "max_attempts": 2,
     "model": "gpt-5.6-sol",
@@ -132,8 +132,8 @@
     "output_dir": "/Users/kaizheng/.codex/worktrees/1f44/SSE-auto/Line-vs-Point-concrete/research_state/campaign-10-frugal/submissions/researcher-0008",
     "reasoning_effort": "max",
     "role": "researcher",
-    "started_at": "2026-09-15T19:12:28Z",
-    "status": "queued"
+    "started_at": "2026-09-15T19:13:31Z",
+    "status": "failed"
   },
   {
     "attempts": 0,

@@ -5937,16 +5937,16 @@
       "status": "failed"
     },
     {
-      "attempts": 1,
+      "attempts": 2,
       "direction": "FRUGAL FUNNEL / BUILDER: Combine the algebraic-cleanup, direction-selector, and adversarial outputs into one concise end-to-end candidate or one exact minimal obstruction.",
-      "error": "AgentError: researcher-0008 agent failed with exit code 1; see /Users/kaizheng/.codex/worktrees/1f44/SSE-auto/Line-vs-Point-concrete/research_state/campaign-10-frugal/agent_logs/20260915T191228Z-290d4ca7c2-f84e40c2e3/stderr.txt",
-      "finished_at": "2026-09-15T19:12:30Z",
+      "error": "AgentError: researcher-0008 agent failed with exit code 1; see /Users/kaizheng/.codex/worktrees/1f44/SSE-auto/Line-vs-Point-concrete/research_state/campaign-10-frugal/agent_logs/20260915T191331Z-290d4ca7c2-9db5609f68/stderr.txt",
+      "finished_at": "2026-09-15T19:13:34Z",
       "id": "researcher-0008",
       "max_attempts": 2,
       "ordinal": 8,
       "role": "researcher",
-      "started_at": "2026-09-15T19:12:28Z",
-      "status": "queued"
+      "started_at": "2026-09-15T19:13:31Z",
+      "status": "failed"
     },
     {
       "attempts": 0,
@@ -8832,8 +8832,8 @@
   "status": {
     "campaign_dir": "/Users/kaizheng/.codex/worktrees/1f44/SSE-auto/Line-vs-Point-concrete/research_state/campaign-10-frugal",
     "counts": {
-      "failed": 1,
-      "queued": 3,
+      "failed": 2,
+      "queued": 2,
       "succeeded": 11
     },
     "dimension": 2,
@@ -8854,7 +8854,7 @@
       "researcher": 10,
       "verifier": 5
     },
-    "updated_at": "2026-09-15T19:12:31Z",
+    "updated_at": "2026-09-15T19:13:34Z",
     "verification_policy": "one independent high-reasoning audit for leaderboard submissions",
     "verifier_count": 1,
     "verifier_reasoning_effort": "xhigh"
