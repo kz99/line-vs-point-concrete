@@ -1,20 +1,27 @@
 # External submissions
 
-This folder contains contribution packages received without requiring a GitHub account. Each
-package has a `manifest.json` and a LaTeX (`.tex`) or PDF document. The manifest must put the
-absolute agreement count first:
+This folder contains contribution packages returned without requiring a GitHub account. The
+observatory creates a single `.lvp-submission.json` handoff bundle containing both metadata and a
+Markdown, TeX, or PDF document. GitHub Pages does not upload the bundle: the contributor returns
+it to the person who assigned the research.
+
+A **leaderboard** manifest must give the absolute soundness score:
 
 ```json
-{"absolute_agreements": 7810920777, "fixed_prime": 147457, "fixed_degree": 87, "dimension": 2}
+{"contribution_type": "leaderboard", "absolute_agreements": 7349491213, "fixed_prime": 147457, "fixed_degree": 87, "dimension": 2}
 ```
 
-Place incoming packages under `external-submissions/inbox/<slug>/`, then run:
+A **research** contribution, including a standalone lemma or partial proof, uses
+`"contribution_type": "research"` and `"absolute_agreements": null`.
+
+Place a returned `.lvp-submission.json` bundle directly in `external-submissions/inbox/`, or place
+a legacy expanded package under `external-submissions/inbox/<slug>/`, then run:
 
 ```bash
 python scripts/ingest_external_submissions.py
 ```
 
-Validated packages are transferred into `external-submission/<slug>/` and remain available for
-the normal submission and verifier workflow. The uploader should run the repository's ChatGPT or
-Codex contribution prompt on the note before sending it, and the first non-comment line of a TeX
-note should state `Absolute agreements: A = ...`.
+Validated bundles are unpacked and transferred into `external-submission/<slug>/`. Research
+contributions enter the shared corpus without an audit. Leaderboard submissions enter the single
+`xhigh` verifier workflow after their full community package is ingested. The first content line
+of a leaderboard Markdown or TeX note must state `Absolute soundness score: A = ...`.

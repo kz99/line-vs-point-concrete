@@ -1,5 +1,7 @@
 import json
 import hashlib
+import base64
+import importlib.util
 import tempfile
 import unittest
 from pathlib import Path
@@ -11,6 +13,15 @@ from line_point_research.lemma_book import LEMMA_STATEMENT_RULE, canonical_sha25
 from line_point_research.roadmaps import ROADMAP_DEFINITIONS, RoadmapWorkshop
 from line_point_research.publisher import RepositoryPublisher
 from line_point_research.snapshot import update_dashboard_sections
+
+
+INGEST_SPEC = importlib.util.spec_from_file_location(
+    "ingest_external_submissions",
+    Path(__file__).resolve().parents[1] / "scripts" / "ingest_external_submissions.py",
+)
+assert INGEST_SPEC and INGEST_SPEC.loader
+ingest_external = importlib.util.module_from_spec(INGEST_SPEC)
+INGEST_SPEC.loader.exec_module(ingest_external)
 
 
 def write_config(root: Path, researchers: int = 10, effort: str = "ultra") -> Path:
@@ -381,6 +392,68 @@ class EditorialAndRoadmapTests(unittest.TestCase):
         }})
         self.assertEqual(progress["percent"], 100)
         self.assertEqual(nodes[0]["proof_state"], "verified")
+
+
+class ExternalContributionTests(unittest.TestCase):
+    def test_research_bundle_needs_no_agreement_score(self):
+        note = b"# Standalone lemma\n\nA proved incidence statement.\n"
+        bundle = {
+            "schema": "line-point-handoff-bundle-v1",
+            "manifest": {
+                "schema": "line-point-external-submission-v2",
+                "contribution_type": "research",
+                "title": "Standalone lemma",
+                "author": "anonymous",
+                "filename": "note.md",
+                "absolute_agreements": None,
+                "fixed_prime": 147457,
+                "fixed_degree": 87,
+                "dimension": 2,
+            },
+            "document": {
+                "filename": "note.md",
+                "media_type": "text/markdown",
+                "content_base64": base64.b64encode(note).decode(),
+            },
+        }
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            inbox, destination = root / "inbox", root / "destination"
+            inbox.mkdir()
+            destination.mkdir()
+            path = inbox / "standalone-lemma.lvp-submission.json"
+            path.write_text(json.dumps(bundle))
+            previous_destination = ingest_external.DESTINATION
+            try:
+                ingest_external.DESTINATION = destination
+                valid, result = ingest_external.transfer_bundle(path)
+            finally:
+                ingest_external.DESTINATION = previous_destination
+            self.assertTrue(valid, result)
+            self.assertEqual((destination / "standalone-lemma" / "note.md").read_bytes(), note)
+            manifest = json.loads((destination / "standalone-lemma" / "manifest.json").read_text())
+            self.assertEqual(manifest["contribution_type"], "research")
+            self.assertIsNone(manifest["absolute_agreements"])
+
+    def test_leaderboard_bundle_requires_score(self):
+        valid, reason = ingest_external.validate_manifest({
+            "contribution_type": "leaderboard",
+            "absolute_agreements": None,
+            "fixed_prime": 147457,
+            "fixed_degree": 87,
+            "dimension": 2,
+        })
+        self.assertFalse(valid)
+        self.assertIn("needs absolute_agreements", reason)
+
+    def test_contributor_prompt_bootstraps_and_uses_one_verifier(self):
+        prompt = (Path(__file__).resolve().parents[1] / "how_to_contribute" / "RESEARCH_PROMPT.md").read_text()
+        self.assertIn("git clone https://github.com/kz99/line-vs-point-concrete.git", prompt)
+        self.assertIn("validation is **deferred**", prompt)
+        self.assertIn("valid research contribution even when", prompt)
+        self.assertIn("One independent `xhigh` verifier", prompt)
+        self.assertNotIn("Two independent AI auditors", prompt)
+        self.assertNotIn("external intake inbox", prompt)
 
 
 if __name__ == "__main__":

@@ -16,7 +16,7 @@
 * { box-sizing: border-box; }
 html { background: var(--paper); scroll-behavior: smooth; }
 body { margin: 0; color: var(--ink); background: var(--paper); font-family: var(--font-geist-sans), Arial, sans-serif; }
-button, input { font: inherit; }
+button, input, select { font: inherit; }
 button { color: inherit; }
 .math-text p { margin: 0; }
 .math-text .katex-display { overflow-x: auto; overflow-y: hidden; padding: .25rem 0; }
@@ -80,7 +80,7 @@ button { color: inherit; }
 .external-submit { display: grid; gap: 22px; }
 .external-submit form { display: grid; gap: 14px; max-width: 620px; }
 .external-submit label { display: grid; gap: 6px; color: var(--muted); font-size: .78rem; }
-.external-submit input { border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; background: #fff; color: var(--ink); font: inherit; }
+.external-submit input, .external-submit select { border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; background: #fff; color: var(--ink); font: inherit; }
 .absolute-score { border-left: 3px solid var(--green); padding-left: 16px; }
 .submit-message { color: var(--green); font-weight: 600; }
 .submit-note { color: var(--muted); font-size: .82rem; line-height: 1.55; }

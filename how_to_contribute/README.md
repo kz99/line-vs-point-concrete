@@ -31,19 +31,22 @@ and
 \max_{\deg Q\le 87}\Pr_{x\in\mathbb F_p^2}[Q(x)=f(x)],
 \]
 
-where \(Q\) has total degree at most \(87\). The campaign seeks explicit values
-\(\varepsilon\in(0,1]\) for which
+where \(Q\) has total degree at most \(87\). The campaign seeks fixed values
+\(\varepsilon\in(0,1]\) satisfying
 
 \[
+\varepsilon\ge\frac{1.1d}{p}=\frac{957}{1474570},
+\qquad
 \operatorname{Pass}(f,P)\ge\varepsilon
 \quad\Longrightarrow\quad
-\varepsilon\ge\frac{1.1d}{p}=\frac{957}{1474570}
-\quad\text{and}\quad
 \operatorname{Agr}_{87}(f)\ge\max\!\left\{\frac{2d}{p},\frac{\varepsilon}{10}\right\}
 \]
 
-for every pair \((f,P)\). In particular every leaderboard submission must state at its top its
-concrete recovery count, which is at least \(2dp=25{,}657{,}518\) points. The public leaderboard records decreasing values of \(\varepsilon\).
+for every pair \((f,P)\). The leaderboard score is
+\(A=\lceil\varepsilon p^2\rceil\), and lower scores are stronger. Every leaderboard submission
+must state \(A\) at the top. The current verified record is **7,349,491,214**, so a new
+leaderboard submission must prove a score at most **7,349,491,213**. A standalone research
+contribution does not need a score.
 Do not change the prime, degree, dimension, sampling distribution, total-degree convention, or
 single-polynomial conclusion.
 
@@ -89,16 +92,32 @@ current record. Set `leaderboard_submission` and `benchmark_improved` to `true`,
 `claim_scope` to `bivariate_theorem`, and give the complete load-bearing proof chain. Every proof
 step and every soundness-ledger stage must be marked `proved`.
 
-After ingestion, the lab launches exactly two independent AI audits. Each auditor checks the same
-theorem hash and numerical value, traverses the complete logic chain, and verifies every lemma or
-literature result actually used. A graph point appears only after two complete matching accepts.
+After ingestion, the lab launches one independent `xhigh` AI audit. The auditor checks the theorem
+hash and numerical value, traverses the complete logic chain, and verifies every lemma or
+literature result actually used. A graph point appears only after a complete accept.
 
 ### Research contribution
 
 Use this for a lemma, proof tool, obstruction, counterexample, or conditional architecture. Set
 `leaderboard_submission` and `benchmark_improved` to `false`. The artifact is stored and its
 lemmas may appear in the Lemma Book, but it is not audited yet. If a later leaderboard submission
-uses it, both auditors verify the imported statement as part of that submission's logic chain.
+uses it, the verifier audits the imported statement as part of that submission's logic chain.
+
+## Start from an empty workspace
+
+The public repository contains the template and validator. A contributor or AI agent may bootstrap
+with:
+
+```bash
+git clone https://github.com/kz99/line-vs-point-concrete.git
+cd line-vs-point-concrete
+python -m pip install -e .
+```
+
+If cloning or installation is unavailable, continue the research and return `submission.json`
+and `note.md` to the person who assigned the task. Validation is then deferred to the project
+operator; the mathematical work is not blocked. The [copy-paste prompt](RESEARCH_PROMPT.md)
+contains the complete fallback contract.
 
 ## Prepare a pull request
 
@@ -115,6 +134,8 @@ uses it, both auditors verify the imported statement as part of that submission'
    ```bash
    python -m pip install -e .
    line-point-concrete community-validate community_submissions/<your-slug>
+   # or without installing the console script:
+   PYTHONPATH=src python -m line_point_research community-validate community_submissions/<your-slug>
    python -m unittest discover -s tests -v
    ```
 
@@ -128,13 +149,25 @@ request is merged and synced to the research host, the operator runs
 
 ```bash
 line-point-concrete community-ingest \
-  configs/campaign-10-ultra.yaml \
+  configs/campaign-10-frugal.yaml \
   community_submissions/<your-slug>
 ```
 
-This registers the immutable submission. A valid leaderboard submission then enters the two-agent
-audit queue automatically. Verification results are published under `research_state/` and on the
-public observatory.
+This registers the immutable submission. A valid leaderboard submission then enters the one-agent
+`xhigh` audit queue automatically. Verification results are published under `research_state/` and
+on the public observatory.
+
+## Contribute without GitHub
+
+The observatory's **Submit a contribution** tab creates a single portable handoff bundle from a
+Markdown, TeX, or PDF note. Choose **research contribution** for a standalone lemma or partial
+result; no agreement score is required. Choose **leaderboard submission** only for an end-to-end
+improvement and provide the absolute score.
+
+GitHub Pages is a static host, so the page packages the file locally and does not pretend to upload
+it. Return the downloaded bundle to the person who asked for the research. The project operator
+places it in `external-submissions/inbox/` and runs `python scripts/ingest_external_submissions.py`.
+The script validates and transfers it into the durable `external-submission/` corpus.
 
 ## Mathematical writing rules
 
