@@ -10,7 +10,7 @@ campaign:
   fixed_prime: 147457
   fixed_degree: 87
   verifier_enabled: true
-  verifier_count: 2
+  verifier_count: 1
   lemma_writer_enabled: true
   roadmap_agents_enabled: true
   genius_enabled: true
