@@ -102,7 +102,7 @@
     "status": "succeeded"
   },
   {
-    "attempts": 0,
+    "attempts": 1,
     "created_at": "2026-09-15T18:09:47Z",
     "dependency": "[\"researcher-0001\", \"researcher-0004\", \"researcher-0006\"]",
     "direction": "FRUGAL FUNNEL / BUILDER: Combine the component, parameter-search, and alternative-incidence outputs into one concise end-to-end candidate or one exact minimal obstruction.",
@@ -115,8 +115,8 @@
     "output_dir": null,
     "reasoning_effort": "max",
     "role": "researcher",
-    "started_at": null,
-    "status": "queued"
+    "started_at": "2026-09-15T18:59:51Z",
+    "status": "running"
   },
   {
     "attempts": 0,
@@ -221,7 +221,7 @@
     "status": "succeeded"
   },
   {
-    "attempts": 0,
+    "attempts": 1,
     "created_at": "2026-09-15T18:59:51Z",
     "dependency": "researcher-0005",
     "direction": "independent verifier audit of researcher-0005",
@@ -234,24 +234,24 @@
     "output_dir": null,
     "reasoning_effort": "xhigh",
     "role": "verifier",
-    "started_at": null,
-    "status": "queued"
+    "started_at": "2026-09-15T18:59:51Z",
+    "status": "running"
   },
   {
-    "attempts": 0,
+    "attempts": 1,
     "created_at": "2026-09-15T18:59:06Z",
     "dependency": "researcher-0006",
     "direction": "independent verifier audit of researcher-0006",
     "error": null,
-    "finished_at": null,
+    "finished_at": "2026-09-15T19:10:51Z",
     "id": "verifier-a-researcher-0006",
     "max_attempts": 2,
     "model": "gpt-5.6-sol",
     "ordinal": null,
-    "output_dir": null,
+    "output_dir": "/Users/kaizheng/.codex/worktrees/1f44/SSE-auto/Line-vs-Point-concrete/research_state/campaign-10-frugal/reviews/researcher-0006/verifier-a-researcher-0006",
     "reasoning_effort": "xhigh",
     "role": "verifier",
-    "started_at": null,
-    "status": "queued"
+    "started_at": "2026-09-15T18:59:51Z",
+    "status": "succeeded"
   }
 ]

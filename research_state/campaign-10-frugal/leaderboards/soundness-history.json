@@ -16,6 +16,20 @@
       "verifier_ids": [
         "verifier-a-researcher-0003"
       ]
+    },
+    {
+      "agreement_count": 7249403428,
+      "gain": 0.004603062951679615,
+      "job_id": "researcher-0006",
+      "previous_best": 0.3380075810946357,
+      "recovery_agreement_count": 724940343,
+      "soundness": 0.3334045181429561,
+      "theorem_sha256": "bc3529530bd055576d8feeedbb215d5bd0d37bd0820ebe75e4aed2853653aa3a",
+      "title": "Spectral Component Floor Lowers the Fixed Score to 7,249,403,428",
+      "verified_at": "2026-09-15T18:59:06Z",
+      "verifier_ids": [
+        "verifier-a-researcher-0006"
+      ]
     }
   ],
   "score_metric": "guaranteed agreement-count equivalent ceil(epsilon * p^2)",

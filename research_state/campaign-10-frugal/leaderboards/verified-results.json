@@ -1,5 +1,377 @@
 [
   {
+    "agreement_count": 7249403428,
+    "audits": [
+      {
+        "benchmark_improved": true,
+        "counterexample_attempts": [
+          "Exhaustive exact scan of the selector polynomial over all accepted pencil degrees found the unique maximum at a=49122; the neighboring integer differences are +2728718661718300 and -3681683480628414.",
+          "At the next proposed spectral floor, F(622400212/p\u00b2)=-347790265432/3578280126216242515417889<0. This limits the scalar certificate but does not contradict the submitted floor.",
+          "The apparent threshold mismatch was tested: 7249403428/(10p\u00b2) exceeds epsilon/10 by 7011776711/2174356684900000000000000000, so the contrapositive actually yields a slightly larger component than required.",
+          "The empty-core corner was replayed: 550558 edges force 9739512 line pairs, exceeding binom(4414,2)=9739491; hence its 133070051 credit exceeds the required 5933551.",
+          "Branch switching for Z\u00b2-X\u00b2 can occur only through deleted derivative-zero incidences; simple-root uniqueness prevents switching in the retained component.",
+          "The inseparable example Z^p-X is excluded because deg_Z of the interpolant is at most 173<p and its weighted degree would exceed 15136."
+        ],
+        "coverage_complete": true,
+        "dimension_verified": true,
+        "fatal_obstruction": null,
+        "field_regime_verified": true,
+        "fixed_degree_verified": true,
+        "fixed_prime_verified": true,
+        "line_audit": [
+          {
+            "claim": "Lines 0005\u20130014: spectral floor, epsilon, score, recovery count, and leaderboard gain.",
+            "justification": "Exact recomputation gives floor 622400212, credit 5933551, ceil(epsilon p\u00b2)=7249403428, ceil(epsilon p\u00b2/10)=724940343, and gain 7349490435-7249403428=100087007.",
+            "reference": "NUMBERED NOTE 0005\u20130014",
+            "verdict": "valid"
+          },
+          {
+            "claim": "Lines 0018\u20130038: affine-plane counts, parameters, and selector coefficient.",
+            "justification": "p\u00b2=21743566849, p(p+1)=21743714306, N=p\u00b2(p+1)=3206262880419842, D=15136, k=4414, q=15049, and the displayed kappa'_4 all recompute exactly.",
+            "reference": "NUMBERED NOTE 0018\u20130038",
+            "verdict": "valid"
+          },
+          {
+            "claim": "Lines 0041\u20130045: authoritative history and availability of imported modules.",
+            "justification": "The cited history records score 7349490435. Researcher-0004 [P2]\u2013[P5], [P7], and its reconstruction module are present, and its audit marks their load-bearing mathematical claims valid.",
+            "reference": "NUMBERED NOTE 0041\u20130045; soundness-history.json; researcher-0004 response and audit",
+            "verdict": "valid"
+          },
+          {
+            "claim": "Lines 0047\u20130064: exact fixed-instance theorem.",
+            "justification": "The statement preserves m=2, p=147457, total degree 87, arbitrary point and line tables, uniform line-then-point sampling, and the required one-polynomial maximum agreement conclusion.",
+            "reference": "NUMBERED NOTE 0047\u20130064",
+            "verdict": "valid"
+          },
+          {
+            "claim": "Lines 0068\u20130118: centered incidence inequality and spectral component floor.",
+            "justification": "The affine incidence second moment yields P1. The two b-density cases yield P2's scalar inequality, and every endpoint, derivative, and convexity fraction was reproduced exactly.",
+            "reference": "NUMBERED NOTE 0068\u20130118; P1\u2013P2",
+            "verdict": "valid"
+          },
+          {
+            "claim": "Lines 0120\u20130159: optimized potential and integer credit.",
+            "justification": "Continuous maximization over line density gives the stated square-root expression. The exact Q<0, L(tau)>0, R(tau)>0 guards prove the inequality on the entire interval, and the integer deficit is 5933551.",
+            "reference": "NUMBERED NOTE 0120\u20130159; P3",
+            "verdict": "valid"
+          },
+          {
+            "claim": "Lines 0161\u20130167: peeling dichotomy.",
+            "justification": "A nonempty residual core receives P3's credit, while the imported C4-free empty-core argument receives the larger 133070051 credit. Summing deletion charges gives the stated bound.",
+            "reference": "NUMBERED NOTE 0161\u20130167; P4",
+            "verdict": "valid"
+          },
+          {
+            "claim": "Lines 0169\u20130201: fixed charge, frontier, and survival margin.",
+            "justification": "The four fixed terms sum to 752643623258519. The displayed frontier is exact, floor(p\u00b2R')=7249403427, and the survival margin equals the submitted positive rational.",
+            "reference": "NUMBERED NOTE 0169\u20130201; P5\u2013P6",
+            "verdict": "valid"
+          },
+          {
+            "claim": "Lines 0203\u20130225: reconstruction and recovery contract.",
+            "justification": "The KTZ hypotheses hold at every seed and transition. Exact subtraction verifies both benchmark thresholds, score 7249403428, and recovery count 724940343.",
+            "reference": "NUMBERED NOTE 0203\u20130225; P7\u2013P8",
+            "verdict": "valid"
+          },
+          {
+            "claim": "Lines 0227\u20130247: soundness ledger, counterexample discussion, and characteristic audit.",
+            "justification": "Every ledger entry was independently reconciled with the proof. All relevant degrees are below p, and no unlicensed leading-coefficient or derivative division occurs.",
+            "reference": "NUMBERED NOTE 0227\u20130247",
+            "verdict": "valid"
+          }
+        ],
+        "literature_audit": [
+          {
+            "claim": "KTZ Lemma 2.5 supplies line-factor forcing for a total-degree-at-most-D bivariate polynomial.",
+            "justification": "The primary source states that formal vanishing on more than D distinct affine lines forces the polynomial to be zero. Here deg B(X,Y,Q)\u2264D and the seed supplies D+1 distinct lines.",
+            "reference": "[Kominers\u2013Thaler\u2013Zheng, ECCC TR26-147 rev. 1, Lemma 2.5](https://eccc.weizmann.ac.il/report/2026/147/revision/1/download/)",
+            "verdict": "valid"
+          },
+          {
+            "claim": "KTZ Lemma 2.7 supplies unique truncated lifting at a simple root.",
+            "justification": "The source requires B(b,alpha)=0 and B_Z(b,alpha)\u22600 and returns the unique total-degree-k lift. Translation applies it at every component point; no characteristic restriction beyond a nonzero derivative is imposed.",
+            "reference": "[Kominers\u2013Thaler\u2013Zheng, ECCC TR26-147 rev. 1, Lemma 2.7](https://eccc.weizmann.ac.il/report/2026/147/revision/1/download/)",
+            "verdict": "valid"
+          },
+          {
+            "claim": "KTZ Lemma 6.1 produces one total-degree-at-most-87 polynomial from the seed pencil.",
+            "justification": "The source requires weighted degree at most D, a common simple value, and more than D degree-at-most-d root lines. The retained point degree is D+1=15137, and all other hypotheses are supplied by interpolation and cleanup.",
+            "reference": "[Kominers\u2013Thaler\u2013Zheng, ECCC TR26-147 rev. 1, Lemma 6.1](https://eccc.weizmann.ac.il/report/2026/147/revision/1/download/)",
+            "verdict": "valid"
+          }
+        ],
+        "proof_chain_audit": [
+          {
+            "claim": "p=147457 is prime and the affine counts and sampling normalization are correct.",
+            "justification": "p-1=2^14\u00b73\u00b2; the Pocklington residues are 1, -1, and 78348 with required gcds one. The point, line, and incidence counts then follow.",
+            "reference": "researcher-0004 [P1]",
+            "verdict": "valid"
+          },
+          {
+            "claim": "The centered affine incidence inequality holds.",
+            "justification": "The incidence matrix satisfies AA^T=pI+J on points. Centering both indicators and applying Cauchy\u2013Schwarz gives the exact 1/sqrt(p+1) error term.",
+            "reference": "P1",
+            "verdict": "valid"
+          },
+          {
+            "claim": "The partial-fourth-direction selector has the stated coefficient.",
+            "justification": "The exact pointwise miss polynomial is strictly log-concave and uniquely maximized at accepted pencil degree 49122; exhaustive integer evaluation reproduces the coefficient.",
+            "reference": "researcher-0004 [P2]",
+            "verdict": "valid"
+          },
+          {
+            "claim": "Adding 3776 labeled points produces kappa'_4.",
+            "justification": "The 3776 largest nonnegative uncovered point weights carry at least 3776/p\u00b2 of the total; exact multiplication reproduces the submitted rational.",
+            "reference": "researcher-0004 [P3]",
+            "verdict": "valid"
+          },
+          {
+            "claim": "Weighted interpolation has a nonzero squarefree Z-dependent solution.",
+            "justification": "There are 6702349500 weighted monomials and 6702349499 constraints. Minimum weighted-degree repeated-factor removal preserves every line identity and selected point zero; deg_Z\u2264173<p makes Z-dependence differentiable.",
+            "reference": "researcher-0004 [P4]",
+            "verdict": "valid"
+          },
+          {
+            "claim": "Identity extension and primitive derivative cleanup have the stated losses.",
+            "justification": "Nonidentity restrictions have degree at most 15136. Exact maximization of the content-plus-discriminant expression gives 2618012 at (content degree,deg_Z)=(0,173), and regular derivative restrictions have degree at most 15049.",
+            "reference": "researcher-0004 [P5]",
+            "verdict": "valid"
+          },
+          {
+            "claim": "Every nonempty (15137,4415)-minimum-degree residual component has at least 622400212 points.",
+            "justification": "Both minimum-degree inequalities and centered mixing give beta\u2264a+gamma sqrt((1-a)(1-ca)). At a*=622400211/p\u00b2, F>0, F'<0, beta>a*, ca*<1/2, and F''>0, excluding all a\u2264a*.",
+            "reference": "P2",
+            "verdict": "valid"
+          },
+          {
+            "claim": "The improved component potential inequality holds through the recovery range.",
+            "justification": "After normalization, maximizing over line density gives ((a-theta)+sqrt((a-theta)^2+a(1-a)/h))/2. The submitted Q, L(tau), and R(tau) fractions are exact and have the required signs.",
+            "reference": "P3",
+            "verdict": "valid"
+          },
+          {
+            "claim": "The empty-core C4 argument provides credit 133070051.",
+            "justification": "The exact corner bound is 550557 edges. Its slack is 2\u00b715136\u00b74414-550557=133070051, larger than the new nonempty-core credit.",
+            "reference": "researcher-0004 [P7]",
+            "verdict": "valid"
+          },
+          {
+            "claim": "The uniform peeling bound has credit 5933551.",
+            "justification": "Every nonempty residual component has at least 622400212 points and hence integer potential deficit at least ceil(eta\u00b7147458\u00b7622400212)=5933551; the empty-core alternative is stronger.",
+            "reference": "P4",
+            "verdict": "valid"
+          },
+          {
+            "claim": "The imported selector/interpolation/cleanup interface yields the displayed accepted-edge inequality.",
+            "justification": "The stages preserve the same graph, line-count t, exceptional count z, and exact losses used in the consolidation. Their hypotheses do not depend on the older epsilon.",
+            "reference": "P5",
+            "verdict": "valid"
+          },
+          {
+            "claim": "The consolidated ledger forces a large simple-root component.",
+            "justification": "The t and z coefficients are 4327 and 127994, both positive. The fixed charge is exact and epsilon strictly exceeds the resulting no-large-component frontier.",
+            "reference": "P6",
+            "verdict": "valid"
+          },
+          {
+            "claim": "Formal vanishing on more than D lines forces the substituted relation to vanish globally.",
+            "justification": "B(X,Y,Q) has total degree at most D under (1,1,87)-weighted substitution and vanishes formally on D+1 seed lines.",
+            "reference": "KTZ revision-1 Lemma 2.5",
+            "verdict": "valid"
+          },
+          {
+            "claim": "Simple roots have unique degree-87 truncated lifts.",
+            "justification": "Every retained transition has B_Z(x,f(x))\u22600; translating the point permits direct application of the formal recursion.",
+            "reference": "KTZ revision-1 Lemma 2.7",
+            "verdict": "valid"
+          },
+          {
+            "claim": "The seed pencil produces one total-degree-at-most-87 polynomial.",
+            "justification": "A seed has 15137>D incident identity lines sharing the simple value f(x), exactly satisfying the weighted-degree and line-root hypotheses.",
+            "reference": "KTZ revision-1 Lemma 6.1",
+            "verdict": "valid"
+          },
+          {
+            "claim": "The same polynomial propagates through the entire component.",
+            "justification": "At each adjacent retained line, Q restricted to the line and the submitted line polynomial are degree-at-most-87 roots with the same simple initial value, hence coincide. Connectivity never changes Q.",
+            "reference": "P7",
+            "verdict": "valid"
+          },
+          {
+            "claim": "The imported researcher-0004 reconstruction module is consistent with the submitted P7.",
+            "justification": "It uses the same KTZ seed construction, line-factor forcing, and simple-root path propagation with no parameter change or agreement loss.",
+            "reference": "researcher-0004 [P9]",
+            "verdict": "valid"
+          },
+          {
+            "claim": "The component meets the exact benchmark contract.",
+            "justification": "It has density at least epsilon/10, this exceeds 174/p, epsilon exceeds 957/(10p), and the integer agreement count is at least 724940343.",
+            "reference": "P8",
+            "verdict": "valid"
+          }
+        ],
+        "proof_chain_complete": true,
+        "quantifier_audit": [
+          {
+            "claim": "The audited theorem is exactly the mandated SHA-bound claim.",
+            "justification": "SHA-256 of the UTF-8 theorem_statement without a trailing newline is bc3529530bd055576d8feeedbb215d5bd0d37bd0820ebe75e4aed2853653aa3a.",
+            "reference": "researcher-0006 response.json theorem_statement",
+            "verdict": "valid"
+          },
+          {
+            "claim": "The theorem quantifies over every point table and every degree-at-most-87 affine-line table.",
+            "justification": "All selectors, labels, interpolants, components, and the final Q are existential choices made after an arbitrary accepted pair of tables is fixed.",
+            "reference": "theorem_statement; P1\u2013P8",
+            "verdict": "valid"
+          },
+          {
+            "claim": "Acceptance at least epsilon, not merely equality at epsilon, is covered.",
+            "justification": "The no-large-component upper bound is C'/N+kappa'_4(1-rho); after rearrangement its contradiction strengthens monotonically with rho.",
+            "reference": "P5\u2013P6",
+            "verdict": "valid"
+          },
+          {
+            "claim": "The sampling convention is uniform affine line followed by a uniform point.",
+            "justification": "Every one of p(p+1) affine lines contains p points, so every incidence has probability 1/N, exactly as normalized in the proof.",
+            "reference": "sampling_model; researcher-0004 [P1]",
+            "verdict": "valid"
+          },
+          {
+            "claim": "The no-large-component threshold is sufficient for the requested epsilon/10 recovery.",
+            "justification": "The proof forces density at least 7249403428/(10p\u00b2), which is strictly greater than epsilon/10.",
+            "reference": "P3\u2013P6",
+            "verdict": "valid"
+          },
+          {
+            "claim": "The conclusion concerns one polynomial rather than a list.",
+            "justification": "One seed polynomial Q is fixed by Lemma 6.1 and the same Q propagates through every alternating path by simple-root uniqueness.",
+            "reference": "P7",
+            "verdict": "valid"
+          },
+          {
+            "claim": "No fixed parameter or degree convention changes.",
+            "justification": "Every stage remains in dimension two over F_147457, uses line degree at most 87, and returns total degree\u2014not individual degree\u2014at most 87.",
+            "reference": "theorem_statement; P1\u2013P8",
+            "verdict": "valid"
+          },
+          {
+            "claim": "The benchmark threshold and maximum-recovery conversion hold.",
+            "justification": "epsilon-957/(10p)=490671300318058776377/1474570000000000000000>0 and epsilon/10-174/p=474228300318058776377/14745700000000000000000>0.",
+            "reference": "P8",
+            "verdict": "valid"
+          }
+        ],
+        "recovery_ratio_verified": true,
+        "required_changes": [],
+        "scope_verified": "bivariate_theorem",
+        "soundness_audit": [
+          {
+            "claim": "Sampling normalization gives |E|=rho N with N=3206262880419842.",
+            "justification": "Uniform line-then-point sampling is uniform over p\u00b2(p+1) incidences.",
+            "reference": "soundness_ledger: sampling normalization",
+            "verdict": "valid"
+          },
+          {
+            "claim": "Direction selection loses at most kappa_4(1-rho)N.",
+            "justification": "Exact selector maximization gives the unique envelope maximum at pencil degree 49122.",
+            "reference": "soundness_ledger: direction selection",
+            "verdict": "valid"
+          },
+          {
+            "claim": "Label-sensitive coverage gives residual coefficient kappa'_4.",
+            "justification": "Multiplying by 1-3776/p\u00b2 yields 1246437422331006215441194309538667/8421304329489870366247361127538688 exactly.",
+            "reference": "soundness_ledger: label-sensitive coverage",
+            "verdict": "valid"
+          },
+          {
+            "claim": "Interpolation has one surplus dimension.",
+            "justification": "6702349500-(442779\u00b715137+3776)=1.",
+            "reference": "soundness_ledger: interpolation",
+            "verdict": "valid"
+          },
+          {
+            "claim": "Identity extension loses at most 15136(Lambda-t).",
+            "justification": "Each omitted nonidentity restriction is nonzero of degree at most 15136.",
+            "reference": "soundness_ledger: identity extension",
+            "verdict": "valid"
+          },
+          {
+            "claim": "Exceptional-line cleanup loses pz with z\u22642618012.",
+            "justification": "Coefficient content plus the nominal projective discriminant gives the exact cap without division by a specialized leading coefficient.",
+            "reference": "soundness_ledger: exceptional-line cleanup",
+            "verdict": "valid"
+          },
+          {
+            "claim": "Derivative cleanup loses at most 15049(t-z).",
+            "justification": "Every retained derivative restriction is a nonzero univariate polynomial of degree at most D-87=15049.",
+            "reference": "soundness_ledger: derivative cleanup",
+            "verdict": "valid"
+          },
+          {
+            "claim": "The spectral component floor is 622400212 points.",
+            "justification": "The exact scalar inequality excludes every smaller integer point set; all squaring guards hold.",
+            "reference": "soundness_ledger: spectral component floor",
+            "verdict": "valid"
+          },
+          {
+            "claim": "Component-aware peeling costs at most 15136M+4414(t-z)-5933551.",
+            "justification": "The nonempty-core potential credit is 5933551 and the empty-core credit is larger.",
+            "reference": "soundness_ledger: component-aware peeling",
+            "verdict": "valid"
+          },
+          {
+            "claim": "The fixed consolidation equals 752643623258519.",
+            "justification": "423197911537678+329110627826464+335089827928-5933551=752643623258519.",
+            "reference": "soundness_ledger: fixed consolidation",
+            "verdict": "valid"
+          },
+          {
+            "claim": "The submitted epsilon strictly exceeds the no-large-component frontier.",
+            "justification": "The frontier is 3223268780051728141186708743365483/9667741751820876581688555437077355 with floor(p\u00b2R)=7249403427; the submitted survival margin is the stated positive rational.",
+            "reference": "soundness_ledger: component survival",
+            "verdict": "valid"
+          },
+          {
+            "claim": "Reconstruction incurs no agreement loss.",
+            "justification": "One total-degree-at-most-87 polynomial agrees at every point vertex of the selected connected component.",
+            "reference": "soundness_ledger: reconstruction",
+            "verdict": "valid"
+          },
+          {
+            "claim": "The final score and recovery count are exact.",
+            "justification": "ceil(epsilon p\u00b2)=7249403428 and ceil(epsilon p\u00b2/10)=724940343; epsilon/10 is the larger term in the required maximum.",
+            "reference": "soundness_ledger: recovery contract",
+            "verdict": "valid"
+          }
+        ],
+        "summary": "Accept the exact SHA-bound theorem at epsilon=3334045181429561/10^16\u22480.3334045181429561. It proves one total-degree-at-most-87 polynomial with agreement at least max(174/147457,epsilon/10)=epsilon/10, hence at least 724940343 points. The score is 7249403428, improving the authoritative 7349490435 record by 100087007. The complete ledger, fixed-field arithmetic, spectral floor, potential splice, reconstruction hypotheses, and quantifiers all verify. The requested live checkpoint write was attempted but blocked by the managed read-only sandbox; this is an environment issue, not a theorem obstruction.",
+        "unfixable": false,
+        "verdict": "accept",
+        "verified_claim_sha256": "bc3529530bd055576d8feeedbb215d5bd0d37bd0820ebe75e4aed2853653aa3a",
+        "verified_soundness": 0.3334045181429561,
+        "verifier_id": "verifier-a-researcher-0006"
+      }
+    ],
+    "benchmark_improved": true,
+    "claim_scope": "bivariate_theorem",
+    "claimed_soundness": 0.3334045181429561,
+    "dimension": 2,
+    "double_verified": true,
+    "field_regime": "prime",
+    "fixed_degree": 87,
+    "fixed_prime": 147457,
+    "job_id": "researcher-0006",
+    "leaderboard_submission": true,
+    "note_path": "/Users/kaizheng/.codex/worktrees/1f44/SSE-auto/Line-vs-Point-concrete/research_state/campaign-10-frugal/submissions/researcher-0006/note.md",
+    "recovery_agreement_count": 724940343,
+    "result_status": "proved",
+    "review_verdict": "accept",
+    "role": "researcher",
+    "theorem_sha256": "bc3529530bd055576d8feeedbb215d5bd0d37bd0820ebe75e4aed2853653aa3a",
+    "theorem_statement": "Let p=147457, d=87, and epsilon=3334045181429561/10^16. For every point table f:F_p\u00b2\u2192F_p and every assignment of a univariate degree-at-most-87 polynomial to every affine line, if the uniform affine-line-then-point test accepts with probability at least epsilon, then there exists Q\u2208F_p[X,Y] of total degree at most 87 such that Pr_x[Q(x)=f(x)]\u2265max{174/147457,epsilon/10}=epsilon/10. Consequently Q agrees with f on at least 724940343 points and ceil(epsilon\u00b7p\u00b2)=7249403428.",
+    "title": "Spectral Component Floor Lowers the Fixed Score to 7,249,403,428"
+  },
+  {
     "agreement_count": 7349490435,
     "audits": [
       {
