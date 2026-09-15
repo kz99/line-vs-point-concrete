@@ -79,6 +79,7 @@ class RepositoryPublisher:
             campaign / "status.json",
             campaign / "jobs.json",
             campaign / "COMPLETED",
+            self.paths.workspace / "research_state" / "DATA_MANIFEST.json",
             self.paths.workspace / "dashboard" / "public" / "research-data.json",
         ]
         return [path for path in candidates if path.exists()]
@@ -109,6 +110,14 @@ class RepositoryPublisher:
             if paths:
                 subprocess.run(
                     ["git", "add", "--", *paths], cwd=self.paths.workspace, check=True)
+            subprocess.run([
+                sys.executable,
+                str(self.paths.workspace / "scripts" / "build_data_manifest.py"),
+                "--index",
+            ], cwd=self.paths.workspace, check=True)
+            subprocess.run([
+                "git", "add", "--", "research_state/DATA_MANIFEST.json",
+            ], cwd=self.paths.workspace, check=True)
             changed = subprocess.run(
                 ["git", "diff", "--cached", "--quiet"], cwd=self.paths.workspace,
                 check=False).returncode != 0

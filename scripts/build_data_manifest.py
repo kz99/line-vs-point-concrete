@@ -5,7 +5,10 @@ from __future__ import annotations
 
 import hashlib
 import json
+import argparse
 import sqlite3
+import subprocess
+import tempfile
 from pathlib import Path
 
 
@@ -23,6 +26,10 @@ def sha256(path: Path) -> str:
         for block in iter(lambda: handle.read(1024 * 1024), b""):
             digest.update(block)
     return digest.hexdigest()
+
+
+def sha256_bytes(data: bytes) -> str:
+    return hashlib.sha256(data).hexdigest()
 
 
 def file_role(path: Path) -> str:
@@ -66,25 +73,81 @@ def database_summary(path: Path) -> dict:
         connection.close()
 
 
+def database_summary_bytes(data: bytes) -> dict:
+    with tempfile.NamedTemporaryFile(suffix=".sqlite3") as handle:
+        handle.write(data)
+        handle.flush()
+        return database_summary(Path(handle.name))
+
+
+def included(relative: Path) -> bool:
+    return not (
+        relative == OUTPUT.relative_to(ROOT)
+        or relative.name in EXCLUDED_NAMES
+        or relative.name.endswith(EXCLUDED_SUFFIXES)
+        or EXCLUDED_PARTS.intersection(relative.parts)
+    )
+
+
+def index_files() -> list[tuple[Path, bytes]]:
+    names = subprocess.run(
+        ["git", "ls-files", "--cached", "--", "research_state"],
+        cwd=ROOT,
+        check=True,
+        capture_output=True,
+        text=True,
+    ).stdout.splitlines()
+    files = []
+    for name in names:
+        relative = Path(name)
+        if not included(relative):
+            continue
+        content = subprocess.run(
+            ["git", "show", f":{relative.as_posix()}"],
+            cwd=ROOT,
+            check=True,
+            capture_output=True,
+        ).stdout
+        files.append((relative, content))
+    return files
+
+
 def main() -> None:
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--index",
+        action="store_true",
+        help="hash the staged Git index, including newly staged artifacts",
+    )
+    args = parser.parse_args()
     DATA_ROOT.mkdir(parents=True, exist_ok=True)
     files = []
-    for path in sorted(DATA_ROOT.rglob("*")):
-        if (not path.is_file() or path == OUTPUT or path.name in EXCLUDED_NAMES or
-                path.name.endswith(EXCLUDED_SUFFIXES) or
-                EXCLUDED_PARTS.intersection(path.parts)):
-            continue
-        relative = path.relative_to(ROOT).as_posix()
-        files.append({
-            "path": relative,
-            "role": file_role(path.relative_to(DATA_ROOT)),
-            "bytes": path.stat().st_size,
-            "sha256": sha256(path),
-        })
-    databases = {
-        path.parent.name: database_summary(path)
-        for path in sorted(DATA_ROOT.glob("*/campaign.sqlite3"))
-    }
+    databases = {}
+    if args.index:
+        for relative, content in index_files():
+            files.append({
+                "path": relative.as_posix(),
+                "role": file_role(relative.relative_to("research_state")),
+                "bytes": len(content),
+                "sha256": sha256_bytes(content),
+            })
+            if relative.name == "campaign.sqlite3":
+                databases[relative.parent.name] = database_summary_bytes(content)
+    else:
+        for path in sorted(DATA_ROOT.rglob("*")):
+            relative_path = path.relative_to(ROOT)
+            if not path.is_file() or not included(relative_path):
+                continue
+            files.append({
+                "path": relative_path.as_posix(),
+                "role": file_role(path.relative_to(DATA_ROOT)),
+                "bytes": path.stat().st_size,
+                "sha256": sha256(path),
+            })
+        databases = {
+            path.parent.name: database_summary(path)
+            for path in sorted(DATA_ROOT.glob("*/campaign.sqlite3"))
+        }
     payload = {
         "schema": "line-point-concrete-data-manifest-v1",
         "hash_algorithm": "sha256",

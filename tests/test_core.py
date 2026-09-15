@@ -2,6 +2,8 @@ import json
 import hashlib
 import base64
 import importlib.util
+import subprocess
+import sys
 import tempfile
 import unittest
 from pathlib import Path
@@ -22,6 +24,14 @@ INGEST_SPEC = importlib.util.spec_from_file_location(
 assert INGEST_SPEC and INGEST_SPEC.loader
 ingest_external = importlib.util.module_from_spec(INGEST_SPEC)
 INGEST_SPEC.loader.exec_module(ingest_external)
+
+MANIFEST_SPEC = importlib.util.spec_from_file_location(
+    "build_data_manifest",
+    Path(__file__).resolve().parents[1] / "scripts" / "build_data_manifest.py",
+)
+assert MANIFEST_SPEC and MANIFEST_SPEC.loader
+ingest_manifest = importlib.util.module_from_spec(MANIFEST_SPEC)
+MANIFEST_SPEC.loader.exec_module(ingest_manifest)
 
 
 def write_config(root: Path, researchers: int = 10, effort: str = "ultra") -> Path:
@@ -241,6 +251,37 @@ class CampaignTests(unittest.TestCase):
             paths = RepositoryPublisher(config).artifact_paths()
             self.assertIn((root / "state" / "live_notes").resolve(), paths)
             self.assertNotIn((root / "state" / "campaign.sqlite3").resolve(), paths)
+
+    def test_index_manifest_ignores_untracked_runtime_files(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            (root / "research_state" / "campaign" / "submissions").mkdir(parents=True)
+            tracked = root / "research_state" / "campaign" / "submissions" / "note.md"
+            tracked.write_text("durable\n")
+            untracked = root / "research_state" / "campaign" / "agent_logs" / "trace.txt"
+            untracked.parent.mkdir(parents=True)
+            untracked.write_text("runtime\n")
+            subprocess.run(["git", "init", "-q"], cwd=root, check=True)
+            subprocess.run(["git", "add", str(tracked.relative_to(root))], cwd=root, check=True)
+            previous_root, previous_data_root, previous_output = (
+                ingest_manifest.ROOT, ingest_manifest.DATA_ROOT, ingest_manifest.OUTPUT,
+            )
+            previous_argv = sys.argv
+            try:
+                ingest_manifest.ROOT = root
+                ingest_manifest.DATA_ROOT = root / "research_state"
+                ingest_manifest.OUTPUT = root / "research_state" / "DATA_MANIFEST.json"
+                sys.argv = ["build_data_manifest.py", "--index"]
+                ingest_manifest.main()
+            finally:
+                ingest_manifest.ROOT, ingest_manifest.DATA_ROOT, ingest_manifest.OUTPUT = (
+                    previous_root, previous_data_root, previous_output,
+                )
+                sys.argv = previous_argv
+            manifest = json.loads((root / "research_state" / "DATA_MANIFEST.json").read_text())
+            self.assertEqual([item["path"] for item in manifest["files"]], [
+                "research_state/campaign/submissions/note.md",
+            ])
 
     def test_graph_requires_one_accept(self):
         with tempfile.TemporaryDirectory() as directory:

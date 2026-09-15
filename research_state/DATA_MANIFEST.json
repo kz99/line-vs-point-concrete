@@ -8,13 +8,133 @@
       "jobs": 11
     }
   },
-  "durable_file_count": 11,
+  "durable_file_count": 64,
   "files": [
     {
       "bytes": 642,
       "path": "research_state/README.md",
       "role": "documentation",
       "sha256": "d767faba3729522ea1cbe3e107dc7c14549c0d49e80fc08ed6660c55117020a3"
+    },
+    {
+      "bytes": 7671,
+      "path": "research_state/campaign-10-frugal/jobs.json",
+      "role": "campaign_index",
+      "sha256": "d299854a940ef1812c72290b8fd1bd8f312e1b3abf4d4187325e7304760db804"
+    },
+    {
+      "bytes": 12273,
+      "path": "research_state/campaign-10-frugal/leaderboards/bottleneck-ledger.json",
+      "role": "leaderboard",
+      "sha256": "75ad1462ed7696fa16fbf9cfb8a3fc2eaa47f9bd746e7d06d89cd61380f2d2eb"
+    },
+    {
+      "bytes": 15462,
+      "path": "research_state/campaign-10-frugal/leaderboards/promising-results.json",
+      "role": "leaderboard",
+      "sha256": "c23bed7e74124df879653c50ead2022a5dfb17b04f0bfc6e80c0bb9bb2699010"
+    },
+    {
+      "bytes": 3,
+      "path": "research_state/campaign-10-frugal/leaderboards/rejected-results.json",
+      "role": "leaderboard",
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+    },
+    {
+      "bytes": 782,
+      "path": "research_state/campaign-10-frugal/leaderboards/soundness-history.json",
+      "role": "leaderboard",
+      "sha256": "a306c505bc2f4f77a66d7e9694a3d08e64533f8d75d8983eabe8e6011e83c35b"
+    },
+    {
+      "bytes": 25567,
+      "path": "research_state/campaign-10-frugal/leaderboards/verified-results.json",
+      "role": "leaderboard",
+      "sha256": "57653ae88acc5ea94ed4e6ddb0d4742c3dd131487a59c5e09a9081cec922dd09"
+    },
+    {
+      "bytes": 12292,
+      "path": "research_state/campaign-10-frugal/reviews/researcher-0001/verifier-a-researcher-0001/audit.json",
+      "role": "proof_review",
+      "sha256": "dcc6a9999c7a89a0d06c782833ca91bdf14767144d02d74975640545d3fc97dc"
+    },
+    {
+      "bytes": 1428,
+      "path": "research_state/campaign-10-frugal/reviews/researcher-0001/verifier-a-researcher-0001/metadata.json",
+      "role": "proof_review",
+      "sha256": "32194417337365cb6724c54a9d43379f15abd7faf52e331111d1390922cdb6a1"
+    },
+    {
+      "bytes": 21708,
+      "path": "research_state/campaign-10-frugal/reviews/researcher-0003/verifier-a-researcher-0003/audit.json",
+      "role": "proof_review",
+      "sha256": "0dca07bffadd03764f0ba2629398ea0f2bd91e88aecd7d38736f9a028f983d0a"
+    },
+    {
+      "bytes": 1428,
+      "path": "research_state/campaign-10-frugal/reviews/researcher-0003/verifier-a-researcher-0003/metadata.json",
+      "role": "proof_review",
+      "sha256": "aac5ef0396fedc1434eaac9136e4d5f1a9a79dcb0bf6c719214c26d26e028f38"
+    },
+    {
+      "bytes": 897,
+      "path": "research_state/campaign-10-frugal/status.json",
+      "role": "campaign_index",
+      "sha256": "2165f3179f682025f15855358325e536752a43f2fc13e6f8c1e78c651d865244"
+    },
+    {
+      "bytes": 1528,
+      "path": "research_state/campaign-10-frugal/submissions/researcher-0001/manifest.json",
+      "role": "proof_submission",
+      "sha256": "7d5e1a1c68e665ab6445de2a9093bd86a99c2e3ab31b8f217ae9ae1643a037d3"
+    },
+    {
+      "bytes": 10345,
+      "path": "research_state/campaign-10-frugal/submissions/researcher-0001/note.md",
+      "role": "proof_submission",
+      "sha256": "cd36dbb99647c3e7895ea1f6ac43d9ba45cc4e4ee62cbb8c782ad67355cd64bf"
+    },
+    {
+      "bytes": 26757,
+      "path": "research_state/campaign-10-frugal/submissions/researcher-0001/response.json",
+      "role": "proof_submission",
+      "sha256": "35ffec2868f3235f55c68488b53be2119cbedebe689f7d3748ec886135d2d800"
+    },
+    {
+      "bytes": 1528,
+      "path": "research_state/campaign-10-frugal/submissions/researcher-0002/manifest.json",
+      "role": "proof_submission",
+      "sha256": "a14364aac927115304e4635923747caff7b73f1d0e0b440abddbd8d8b7c73e4b"
+    },
+    {
+      "bytes": 10976,
+      "path": "research_state/campaign-10-frugal/submissions/researcher-0002/note.md",
+      "role": "proof_submission",
+      "sha256": "e8d8709d66b1c2893bde3f3cd7a67388f41135577c17f692c56c090773168f29"
+    },
+    {
+      "bytes": 24482,
+      "path": "research_state/campaign-10-frugal/submissions/researcher-0002/response.json",
+      "role": "proof_submission",
+      "sha256": "e5ab957dfd556d1ed6df53b975718b607f2ef890b951ec64c0e06ddfb9f76cc2"
+    },
+    {
+      "bytes": 1528,
+      "path": "research_state/campaign-10-frugal/submissions/researcher-0003/manifest.json",
+      "role": "proof_submission",
+      "sha256": "e8319e71bef258dcd42203f88e7455fa94ab75832f95cb7ef1ae409661d94be5"
+    },
+    {
+      "bytes": 7429,
+      "path": "research_state/campaign-10-frugal/submissions/researcher-0003/note.md",
+      "role": "proof_submission",
+      "sha256": "71bd675c777a681590aa2326ffd39fb63bd25fcede5628813753873e6df0e811"
+    },
+    {
+      "bytes": 23824,
+      "path": "research_state/campaign-10-frugal/submissions/researcher-0003/response.json",
+      "role": "proof_submission",
+      "sha256": "b10634f66e4dfaedd99c6549fd8fcd059bcb298b5bda6d7459a747e147d12593"
     },
     {
       "bytes": 20480,
@@ -75,9 +195,207 @@
       "path": "research_state/campaign-10-ultra/status.json",
       "role": "campaign_index",
       "sha256": "ff370aaac8bab2d7991b5a2ddac01ff3093c90deb4cb6c022f4979b0d0799ce7"
+    },
+    {
+      "bytes": 21481,
+      "path": "research_state/campaign-30-leaderboard/jobs.json",
+      "role": "campaign_index",
+      "sha256": "46f80d2768de25ecb91db68ad755ec65a43b62e1f07eee843a9f08fb825314cd"
+    },
+    {
+      "bytes": 20543,
+      "path": "research_state/campaign-30-leaderboard/leaderboards/bottleneck-ledger.json",
+      "role": "leaderboard",
+      "sha256": "39b8117461d2b05fd61c92cb4bebc4bd27813d761e49840673f4750fee05f0db"
+    },
+    {
+      "bytes": 3,
+      "path": "research_state/campaign-30-leaderboard/leaderboards/promising-results.json",
+      "role": "leaderboard",
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+    },
+    {
+      "bytes": 3,
+      "path": "research_state/campaign-30-leaderboard/leaderboards/rejected-results.json",
+      "role": "leaderboard",
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+    },
+    {
+      "bytes": 777,
+      "path": "research_state/campaign-30-leaderboard/leaderboards/soundness-history.json",
+      "role": "leaderboard",
+      "sha256": "0e0f1e22814e2c4e29891149152ef4d6bf4c338242fd1035aabeaa99a72c2385"
+    },
+    {
+      "bytes": 40123,
+      "path": "research_state/campaign-30-leaderboard/leaderboards/verified-results.json",
+      "role": "leaderboard",
+      "sha256": "058b4ac1ce52ee412c344d7cf38228307289752f95d9302f14f3c39508331d0f"
+    },
+    {
+      "bytes": 94517,
+      "path": "research_state/campaign-30-leaderboard/lemma_book/lemma-book.json",
+      "role": "lemma_book",
+      "sha256": "0ec7baa2e452aa55a66cd61e4f24922bab1bf9b9b07eaf28cf8996b742cee9f4"
+    },
+    {
+      "bytes": 15879,
+      "path": "research_state/campaign-30-leaderboard/reviews/researcher-0002/verifier-a-researcher-0002/audit.json",
+      "role": "proof_review",
+      "sha256": "c4b8259f429592b33d7bb17c8a79f7ccccfca6f7e015a7c7352f8af9329dfbaa"
+    },
+    {
+      "bytes": 1112,
+      "path": "research_state/campaign-30-leaderboard/reviews/researcher-0002/verifier-a-researcher-0002/metadata.json",
+      "role": "proof_review",
+      "sha256": "a2b275648573a867b46f96250caf9bffb1783e0a99a8fa90e68645f31c45c55e"
+    },
+    {
+      "bytes": 17756,
+      "path": "research_state/campaign-30-leaderboard/reviews/researcher-0003/verifier-a-researcher-0003/audit.json",
+      "role": "proof_review",
+      "sha256": "f976e7435bc2486c69e3cb80ffa0ee32bc29005581cf0e8f45b252fbdf945521"
+    },
+    {
+      "bytes": 1112,
+      "path": "research_state/campaign-30-leaderboard/reviews/researcher-0003/verifier-a-researcher-0003/metadata.json",
+      "role": "proof_review",
+      "sha256": "c90efc5c111af33e6be3f294bac3a32de4686fc43a4cbaacb1e2ed43ecb7bf0b"
+    },
+    {
+      "bytes": 39445,
+      "path": "research_state/campaign-30-leaderboard/roadmaps/message-board.json",
+      "role": "proof_roadmap",
+      "sha256": "8a849c8109aa632c0e8031e249a6f0bc10fe1a38c6a810c1c527543484f29619"
+    },
+    {
+      "bytes": 76436,
+      "path": "research_state/campaign-30-leaderboard/roadmaps/proof-roadmaps.json",
+      "role": "proof_roadmap",
+      "sha256": "95e3a05eb5fd1232d5b7216723aadd7d35761f8991817a3f3ac16344061b9cab"
+    },
+    {
+      "bytes": 903,
+      "path": "research_state/campaign-30-leaderboard/status.json",
+      "role": "campaign_index",
+      "sha256": "87bd908892bf6225e4b92431883fad9938eb147c2a4b5a7424d0cbaa029d7061"
+    },
+    {
+      "bytes": 1543,
+      "path": "research_state/campaign-30-leaderboard/submissions/researcher-0001/manifest.json",
+      "role": "proof_submission",
+      "sha256": "7247000ade8fe6c227b5c9e85a40c95ce200b83eddc0bae3d6a636ddc229ef13"
+    },
+    {
+      "bytes": 17909,
+      "path": "research_state/campaign-30-leaderboard/submissions/researcher-0001/note.md",
+      "role": "proof_submission",
+      "sha256": "34df946fd889df3e8a720e2018d933c52f1884da89a48d6b3425b150743a1444"
+    },
+    {
+      "bytes": 39565,
+      "path": "research_state/campaign-30-leaderboard/submissions/researcher-0001/response.json",
+      "role": "proof_submission",
+      "sha256": "21576946ed351679e2b36effc0c3f3945725071629f89c597f976cf656173488"
+    },
+    {
+      "bytes": 1539,
+      "path": "research_state/campaign-30-leaderboard/submissions/researcher-0002/manifest.json",
+      "role": "proof_submission",
+      "sha256": "47e116c39b74cf74edc89aeafcf9c8ae2fed69f4b1eae0028e391cbc6123ee31"
+    },
+    {
+      "bytes": 21052,
+      "path": "research_state/campaign-30-leaderboard/submissions/researcher-0002/note.md",
+      "role": "proof_submission",
+      "sha256": "6f2fca6feae171c28165070d917b418edd6e7db159eb863b51f0c310ecd783b1"
+    },
+    {
+      "bytes": 42475,
+      "path": "research_state/campaign-30-leaderboard/submissions/researcher-0002/response.json",
+      "role": "proof_submission",
+      "sha256": "87cfc896cc0488501db00a068ac8cc465da55ce03820e17ded0a0cb451dab833"
+    },
+    {
+      "bytes": 1543,
+      "path": "research_state/campaign-30-leaderboard/submissions/researcher-0003/manifest.json",
+      "role": "proof_submission",
+      "sha256": "742d48b9537b7848756c09af8b5a3e2afcbd8534e0351724a38ad1f4579a31cc"
+    },
+    {
+      "bytes": 21517,
+      "path": "research_state/campaign-30-leaderboard/submissions/researcher-0003/note.md",
+      "role": "proof_submission",
+      "sha256": "d6476a30bc9c46a458e8c5e30a78aa21d41b2471afcd6693c087fc5cace0eaa6"
+    },
+    {
+      "bytes": 40015,
+      "path": "research_state/campaign-30-leaderboard/submissions/researcher-0003/response.json",
+      "role": "proof_submission",
+      "sha256": "2fcbba4c12b4be40f005f715517e333dc4ca37a04fda7925f139e96f87ed4053"
+    },
+    {
+      "bytes": 1543,
+      "path": "research_state/campaign-30-leaderboard/submissions/researcher-0004/manifest.json",
+      "role": "proof_submission",
+      "sha256": "e876055a78832b27743f097c4e9386e26102290ac84a72afddd826d3f6c36d0c"
+    },
+    {
+      "bytes": 17403,
+      "path": "research_state/campaign-30-leaderboard/submissions/researcher-0004/note.md",
+      "role": "proof_submission",
+      "sha256": "78c28973fbb988c8ca85d8ed7a65fce160448aadaec5f31fef8deb1ebb3a51b0"
+    },
+    {
+      "bytes": 34210,
+      "path": "research_state/campaign-30-leaderboard/submissions/researcher-0004/response.json",
+      "role": "proof_submission",
+      "sha256": "e524c3064d3d5e295b7dc0a86b018dbd5e9c53a95f5abfb41342c24b2cce6bf1"
+    },
+    {
+      "bytes": 1539,
+      "path": "research_state/campaign-30-leaderboard/submissions/researcher-0005/manifest.json",
+      "role": "proof_submission",
+      "sha256": "3785ce7b1142b0634495e1890fc71585bf71df63050cedca64562e0e90c09018"
+    },
+    {
+      "bytes": 20063,
+      "path": "research_state/campaign-30-leaderboard/submissions/researcher-0005/note.md",
+      "role": "proof_submission",
+      "sha256": "8aefe663b290b47cad6dbabbde058515e40adda00985a44e500edac25087f56b"
+    },
+    {
+      "bytes": 39265,
+      "path": "research_state/campaign-30-leaderboard/submissions/researcher-0005/response.json",
+      "role": "proof_submission",
+      "sha256": "d2238aa0abac4cb4b8e9e9ec7fae547bd3415cadf65edb1af3ef71d61af1bd60"
+    },
+    {
+      "bytes": 3230,
+      "path": "research_state/campaign-30-leaderboard/submissions/team-synthesis-0001/certificate.py",
+      "role": "proof_submission",
+      "sha256": "c92b2181b89a38f564fbac81ce0145b01e1a1015e4110603ababd5b203fa747f"
+    },
+    {
+      "bytes": 1548,
+      "path": "research_state/campaign-30-leaderboard/submissions/team-synthesis-0001/manifest.json",
+      "role": "proof_submission",
+      "sha256": "056ab811e02def8e64feea357d9cbeda73b5013f5ba917e193f0bfa2658aa6d5"
+    },
+    {
+      "bytes": 17712,
+      "path": "research_state/campaign-30-leaderboard/submissions/team-synthesis-0001/note.md",
+      "role": "proof_submission",
+      "sha256": "2902abb9047ad071c7991c95b57e71e027f6447d8bc0647606ae82133b30b99a"
+    },
+    {
+      "bytes": 13136,
+      "path": "research_state/campaign-30-leaderboard/submissions/team-synthesis-0001/response.json",
+      "role": "proof_submission",
+      "sha256": "c9ad03ae0f65aac0725559fe7034258236dbec0997098d251b2b172ae7b1e838"
     }
   ],
   "hash_algorithm": "sha256",
   "schema": "line-point-concrete-data-manifest-v1",
-  "total_bytes": 29741
+  "total_bytes": 904546
 }
